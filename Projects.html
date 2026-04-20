@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Projects & Chemistry Lab Dash</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Syncopate:wght@600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --secondary: #00ffcc; 
+            --bg-dark: #040812; 
+            --text-muted: #cbd5e1;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --glow-1: rgba(0, 255, 204, 0.4);
+            --glow-2: rgba(99, 102, 241, 0.4);
+            --glow-3: rgba(236, 72, 153, 0.4);
+            --game-hue: 0deg; 
+        }
+
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            user-select: none; 
+        }
+
+        body { 
+            font-family: 'Space Grotesk', sans-serif; 
+            background-color: var(--bg-dark); 
+            color: #fff; 
+            overflow: hidden !important; 
+            cursor: auto; 
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { 
+            width: 10px; 
+        }
+
+        ::-webkit-scrollbar-track { 
+            background: #040812; 
+            border-left: 1px solid rgba(255, 255, 255, 0.05); 
+        }
+
+        ::-webkit-scrollbar-thumb { 
+            background: rgba(0, 255, 204, 0.3); 
+            border-radius: 10px; 
+            border: 2px solid #040812; 
+        }
+
+        ::-webkit-scrollbar-thumb:hover { 
+            background: var(--secondary); 
+        }
+
+        .projects-wrapper { 
+            position: relative; 
+            padding: 100px 5% 60px 5%; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;  
+            overflow: hidden; 
+        }
+
+        /* Background Animations & Custom Image */
+        .bg-elements { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            z-index: 0; 
+            pointer-events: none; 
+            overflow: hidden; 
+        }
+        
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('Backgrounds/background2.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.05; 
+            z-index: 0;
+        }
+
+        .blob { 
+            position: absolute; 
+            border-radius: 50%; 
+            filter: blur(100px); 
+            opacity: 0.6; 
+            animation: float 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); 
+            z-index: 0; 
+        }
+
+        .blob-1 { 
+            width: 400px; 
+            height: 400px; 
+            background: var(--glow-1); 
+            top: -10%; 
+            left: -10%; 
+        }
+
+        .blob-2 { 
+            width: 500px; 
+            height: 500px; 
+            background: var(--glow-2); 
+            bottom: -20%; 
+            right: -10%; 
+            animation-delay: -5s; 
+        }
+
+        .blob-3 { 
+            width: 350px; 
+            height: 350px; 
+            background: var(--glow-3); 
+            top: 40%; 
+            left: 30%; 
+            animation-delay: -10s; 
+        }
+
+        @keyframes float { 
+            0% { transform: translate(0, 0) scale(1); } 
+            33% { transform: translate(50px, -50px) scale(1.1); } 
+            66% { transform: translate(-30px, 30px) scale(0.9); } 
+            100% { transform: translate(40px, 60px) scale(1.05); } 
+        }
+
+        .content-container { 
+            position: relative; 
+            z-index: 2; 
+            width: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+        
+        .section-title { 
+            font-family: 'Syncopate', sans-serif; 
+            font-size: clamp(2rem, 3.5vw, 2.8rem); 
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            margin-bottom: 10px; 
+            text-align: center; 
+            text-shadow: 0 0 20px rgba(0, 255, 204, 0.2); 
+        }
+
+        .section-title span { 
+            color: var(--secondary); 
+        }
+
+        .subtitle { 
+            font-size: 0.9rem; 
+            color: var(--secondary); 
+            margin-bottom: 50px; 
+            letter-spacing: 4px; 
+            font-weight: 600; 
+            text-align: center; 
+        }
+
+        .projects-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 35px; 
+            width: 100%; 
+            max-width: 1100px; 
+        }
+
+        .project-card { 
+            background: var(--card-bg); 
+            border: 1px solid var(--card-border); 
+            border-radius: 16px; 
+            padding: 30px; 
+            /* මෙතන transition එක cubic-bezier දාලා තවත් smooth කරලා තියෙන්නේ */
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); 
+            position: relative; 
+            overflow: hidden; 
+            display: flex; 
+            flex-direction: column; 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+        }
+
+        .project-card::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 3px; 
+            background: var(--secondary); 
+            transform: scaleX(0); 
+            transform-origin: left; 
+            transition: transform 0.4s ease; 
+            z-index: 10; 
+        }
+
+        .project-card::after { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: -100%; 
+            width: 50%; 
+            height: 100%; 
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent); 
+            transform: skewX(-25deg); 
+            transition: 0.6s; 
+        }
+
+        .project-card:hover::after { 
+            left: 150%; 
+        }
+
+        .project-card:hover { 
+            transform: translateY(-8px); 
+            background: rgba(255, 255, 255, 0.08); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6); 
+            border-color: rgba(0, 255, 204, 0.3); 
+        }
+
+        .project-card:hover::before { 
+            transform: scaleX(1); 
+        }
+
+        /* ක්ලික් කරද්දි smooth විදියට එබෙන්න */
+        .project-card:active {
+            transform: translateY(-2px) scale(0.96);
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.2);
+            border-color: var(--secondary);
+            transition: all 0.1s ease; /* ක්ලික් කරද්දි ඉක්මනට එබිලා අතාරිද්දි smooth උඩට එන්න */
+        }
+        
+        .project-image { 
+            width: 100%; 
+            aspect-ratio: 5 / 3; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            margin-bottom: 20px; 
+            background: rgba(0,0,0,0.3); 
+            border: 1px solid rgba(255,255,255,0.05); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+
+        .project-image img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.5s ease; 
+        }
+
+        .project-card:hover .project-image img { 
+            transform: scale(1.05); 
+        }
+
+        .project-title { 
+            font-family: 'Syncopate', sans-serif; 
+            font-size: 1.1rem; 
+            color: #fff; 
+            margin-bottom: 15px; 
+            letter-spacing: 1px; 
+            line-height: 1.4; 
+        }
+
+        .project-desc { 
+            color: var(--text-muted); 
+            font-size: 0.95rem; 
+            line-height: 1.6; 
+            margin-bottom: 25px; 
+            flex-grow: 1; 
+        }
+
+        .tech-stack { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 10px; 
+            margin-bottom: 20px; 
+        }
+
+        .tech-tag { 
+            font-size: 0.75rem; 
+            font-weight: 500; 
+            padding: 6px 12px; 
+            background: rgba(0, 255, 204, 0.08); 
+            color: var(--secondary); 
+            border: 1px solid rgba(0, 255, 204, 0.2); 
+            border-radius: 20px; 
+            letter-spacing: 1px; 
+            backdrop-filter: blur(5px); 
+        }
+
+        /* ==========================================
+           --- CHEMISTRY LAB DASH GAME CSS ---
+           ========================================== */
+        .game-section { 
+            margin-top: 100px; 
+            width: 100%; 
+            max-width: 800px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            position: relative; 
+        }
+
+        .game-header { 
+            text-align: center; 
+            margin-bottom: 20px; 
+        }
+
+        .game-header h3 { 
+            font-family: 'Syncopate', sans-serif; 
+            color: #fff; 
+            letter-spacing: 2px; 
+            font-size: 1.2rem; 
+            margin-bottom: 5px; 
+        }
+
+        .game-header p { 
+            color: var(--secondary); 
+            font-size: 0.85rem; 
+            letter-spacing: 1px; 
+        }
+
+        #game-container {
+            width: 100%; 
+            height: 200px; 
+            background: var(--card-bg); 
+            border: 1px solid var(--card-border);
+            border-radius: 16px; 
+            position: relative; 
+            overflow: hidden; 
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: filter 0.5s ease, background 2s ease;
+            filter: hue-rotate(var(--game-hue));
+            cursor: pointer; 
+            outline: none;
+            touch-action: none; /* Prevents scroll on swipe */
+            -webkit-tap-highlight-color: transparent; /* Removes mobile tap highlight */
+        }
+
+        .paused * { 
+            animation-play-state: paused !important; 
+        }
+
+        .game-ui-top { 
+            position: absolute; 
+            top: 15px; 
+            right: 20px; 
+            display: flex; 
+            gap: 15px; 
+            z-index: 40; 
+            font-size: 1.2rem; 
+        }
+
+        .ui-icon { 
+            cursor: pointer; 
+            opacity: 0.7; 
+            transition: opacity 0.2s, transform 0.2s; 
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .ui-icon:hover { 
+            opacity: 1; 
+            transform: scale(1.1); 
+        }
+
+        #night-overlay { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(5, 5, 25, 0.8); 
+            opacity: 0; 
+            transition: opacity 3s ease; 
+            z-index: 1; 
+            pointer-events: none; 
+        }
+
+        .is-night #night-overlay { 
+            opacity: 1; 
+        }
+
+        .shake { 
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; 
+        }
+
+        @keyframes shake { 
+            10%, 90% { transform: translate3d(-2px, 0, 0); } 
+            20%, 80% { transform: translate3d(4px, 0, 0); } 
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); } 
+            40%, 60% { transform: translate3d(6px, 0, 0); } 
+        }
+
+        .overdrive { 
+            border-color: #00ffcc !important; 
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.4) !important; 
+        }
+
+        .level-up { 
+            animation: levelPulse 0.5s ease; 
+        }
+
+        @keyframes levelPulse { 
+            0% { background: rgba(255, 255, 255, 0.3); } 
+            100% { background: var(--card-bg); } 
+        }
+
+        #sky-items { 
+            position: absolute; 
+            top: 20px; 
+            left: 100%; 
+            width: 200%; 
+            font-size: 30px; 
+            letter-spacing: 50px; 
+            white-space: nowrap; 
+            z-index: 2; 
+            opacity: 0.5; 
+            transition: opacity 1s; 
+        }
+
+        @keyframes cloudMove { 
+            0% { left: 100%; } 
+            100% { left: -100%; } 
+        }
+
+        #ground { 
+            position: absolute; 
+            bottom: 30px; 
+            left: 0; 
+            width: 200%; 
+            height: 3px; 
+            background: linear-gradient(90deg, rgba(255,255,255,0.2) 0%, rgba(0,255,204,0.8) 50%, rgba(255,255,255,0.2) 100%); 
+            z-index: 5; 
+        }
+
+        @keyframes groundMove { 
+            0% { transform: translateX(0); } 
+            100% { transform: translateX(-50%); } 
+        }
+
+        #game-message { 
+            position: absolute; 
+            top: 45%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            font-family: 'Syncopate', sans-serif; 
+            text-align: center; 
+            z-index: 20; 
+            width: 100%; 
+            pointer-events: none;
+        }
+
+        #game-message h2 { 
+            color: var(--secondary); 
+            font-size: 1.5rem; 
+            margin-bottom: 5px; 
+            letter-spacing: 2px; 
+            text-shadow: 0 0 10px rgba(0,0,0,0.5); 
+        }
+
+        #game-message p { 
+            color: #fff; 
+            font-size: 0.9rem; 
+            letter-spacing: 1px; 
+            text-shadow: 0 0 10px rgba(0,0,0,0.5); 
+        }
+
+        #dino { 
+            width: 40px; 
+            height: 40px; 
+            position: absolute; 
+            top: 130px; 
+            left: 50px; 
+            font-size: 40px; 
+            line-height: 40px; 
+            z-index: 10; 
+            transform-origin: bottom center; 
+            transition: filter 0.3s; 
+        }
+
+        .walking { 
+            animation: walkAnim 0.3s infinite alternate; 
+        }
+
+        @keyframes walkAnim { 
+            0% { transform: translateY(0); } 
+            100% { transform: translateY(-3px); } 
+        }
+        
+        .duck { 
+            transform: scaleY(0.6) translateY(20px) !important; 
+        }
+        
+        .jump { 
+            animation: jumpAnim 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+
+        @keyframes jumpAnim { 
+            0% { top: 130px; } 
+            40% { top: 20px; } 
+            50% { top: 20px; } 
+            60% { top: 20px; } 
+            100% { top: 130px; } 
+        }
+
+        .invincible { 
+            animation: rainbowGlow 0.5s infinite alternate !important; 
+            filter: drop-shadow(0 0 15px #00ffcc) !important; 
+        }
+
+        @keyframes rainbowGlow { 
+            0% { filter: drop-shadow(0 0 10px #ff0055); } 
+            33% { filter: drop-shadow(0 0 10px #00ffcc); } 
+            66% { filter: drop-shadow(0 0 10px #ffff00); } 
+            100% { filter: drop-shadow(0 0 10px #ff00ff); } 
+        }
+
+        .game-item { 
+            position: absolute; 
+            left: 100%; 
+            z-index: 8; 
+            display: none; 
+        }
+        
+        #obstacle { 
+            position: absolute; 
+            left: 100%; 
+            display: block; 
+            top: 130px; 
+            font-size: 35px; 
+            line-height: 40px; 
+            z-index: 10; 
+            transition: opacity 0.2s; 
+        }
+
+        @keyframes obsMove { 
+            0% { left: 100%; } 
+            100% { left: -50px; } 
+        }
+        
+        #coin { 
+            top: 70px; 
+            font-size: 25px; 
+            text-shadow: 0 0 15px var(--secondary); 
+        }
+
+        #shield-item { 
+            top: 50px; 
+            font-size: 25px; 
+            text-shadow: 0 0 15px #00ffff; 
+        }
+
+        #star-item { 
+            top: 40px; 
+            font-size: 25px; 
+            text-shadow: 0 0 15px #ff00ff; 
+        }
+
+        @keyframes itemMove { 
+            0% { left: 100%; } 
+            100% { left: -50px; } 
+        }
+
+        .particle { 
+            position: absolute; 
+            z-index: 30; 
+            animation: particleAnim 0.6s cubic-bezier(0, .9, .9, 1) forwards; 
+            font-size: 15px; 
+            pointer-events: none; 
+        }
+
+        @keyframes particleAnim { 
+            0% { transform: translate(0,0) scale(1) rotate(0deg); opacity: 1; } 
+            100% { transform: translate(var(--dx), var(--dy)) scale(0) rotate(180deg); opacity: 0; } 
+        }
+        
+        .floating-text { 
+            position: absolute; 
+            z-index: 30; 
+            color: var(--secondary); 
+            font-weight: bold; 
+            font-family: 'Syncopate', sans-serif; 
+            font-size: 1.2rem; 
+            text-shadow: 0 0 10px rgba(0,255,204,0.8); 
+            animation: floatUp 0.8s ease-out forwards; 
+            pointer-events: none; 
+        }
+
+        @keyframes floatUp { 
+            0% { transform: translateY(0) scale(1); opacity: 1; } 
+            100% { transform: translateY(-40px) scale(1.5); opacity: 0; } 
+        }
+
+        .score-panel { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 30px; 
+            margin-top: 15px; 
+            font-family: 'Syncopate', sans-serif; 
+            font-size: 1.1rem; 
+            color: #fff; 
+            letter-spacing: 2px; 
+        }
+
+        .score-box span { 
+            color: var(--secondary); 
+            transition: all 0.2s; 
+        }
+
+        .score-flash span { 
+            color: #fff; 
+            text-shadow: 0 0 10px #fff; 
+            transform: scale(1.3); 
+            display: inline-block;
+        }
+
+        .hi-score-box span { 
+            color: #ec4899; 
+        }
+
+        .controls-hint { 
+            margin-top: 10px; 
+            font-size: 0.75rem; 
+            color: var(--text-muted); 
+            opacity: 0.7; 
+            text-align: center; 
+        }
+
+        .mobile-controls { 
+            display: none; 
+            gap: 20px; 
+            margin-top: 15px; 
+            width: 100%; 
+            justify-content: center; 
+        }
+
+        .control-btn { 
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid rgba(255, 255, 255, 0.2); 
+            color: #fff; 
+            font-family: 'Space Grotesk', sans-serif; 
+            font-weight: 600; 
+            padding: 15px 30px; 
+            border-radius: 12px; 
+            font-size: 1rem; 
+            letter-spacing: 1px; 
+            backdrop-filter: blur(10px); 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            user-select: none; 
+            touch-action: manipulation; 
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .control-btn:active { 
+            background: rgba(0, 255, 204, 0.2); 
+            border-color: var(--secondary); 
+            transform: scale(0.95); 
+        }
+
+        @media (max-width: 768px) { 
+            .mobile-controls { display: flex; } 
+            .controls-hint { display: none; } 
+        }
+
+        /* Fire Bubbles Animation */
+        .fire-bubble { 
+            position: absolute; 
+            bottom: -50px; 
+            border-radius: 50%; 
+            pointer-events: none; 
+            z-index: 1; 
+            mix-blend-mode: screen; 
+            opacity: 0; 
+            animation: floatUpAdvanced var(--duration) ease-in-out infinite; 
+            animation-delay: var(--delay); 
+            filter: blur(var(--blur)); 
+        }
+
+        @keyframes floatUpAdvanced { 
+            0% { transform: translate(0, 0) scale(0.3); opacity: 0; } 
+            15% { opacity: var(--max-opacity); } 
+            35% { transform: translate(var(--sway-1), -30vh) scale(1.1); opacity: calc(var(--max-opacity) * 0.8); } 
+            65% { transform: translate(var(--sway-2), -65vh) scale(0.8); opacity: var(--max-opacity); } 
+            85% { opacity: calc(var(--max-opacity) * 0.9); } 
+            100% { transform: translate(var(--sway-3), -120vh) scale(1.5); opacity: 0; } 
+        }
+    </style>
+</head>
+<body>
+    <div class="projects-wrapper">
+        <div class="bg-elements">
+            <div class="bg-image"></div> 
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+        
+        <div class="content-container">
+            <h2 class="section-title">MY <span>PROJECTS</span></h2>
+            <div class="subtitle">Recent Works & Case Studies</div>
+            
+            <div class="projects-grid">
+                <a href="Project1.html" target="_blank" class="project-card" style="text-decoration: none; color: inherit; cursor: pointer;">
+                    <div class="project-image">
+                        <img src="Projects/Project1.png" alt="Project 1 Image">
+                    </div>
+                    <div>
+                        <div class="project-title">Safe Heaven Pet Care</div>
+                        <p class="project-desc">A comprehensive digital platform offering online veterinary consultations, e-commerce functionality for pet supplies, and seamless medical center booking integrations.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">HTML/CSS</span>
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">MySQL</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="Project2.html" target="_blank" class="project-card" style="text-decoration: none; color: inherit; cursor: pointer;">
+                    <div class="project-image">
+                        <img src="Projects/Project2.png" alt="Project 2 Image">
+                    </div>
+                    <div>
+                        <div class="project-title">GreenChain Carbon Tracker</div>
+                        <p class="project-desc">A system developed to monitor and analyze carbon waste footprints, utilizing advanced data structures like Singly Linked Lists for efficient environmental data management.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">C Programming</span>
+                            <span class="tech-tag">DSA</span>
+                            <span class="tech-tag">Algorithms</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="ModernPixels.html" target="_blank" class="project-card" style="text-decoration: none; color: inherit; cursor: pointer;">
+                    <div class="project-image">
+                        <img src="Projects/Project3.png" alt="Project 3 Image">
+                    </div>
+                    <div>
+                        <div class="project-title">Modern Pixels Branding</div>
+                        <p class="project-desc">Professional brand identity and graphic design portfolio, including high-end promotional banners for athletes and minimalist UI/UX concepts.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Photoshop</span>
+                            <span class="tech-tag">Illustrator</span>
+                            <span class="tech-tag">UI/UX</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="game-section">
+                <div class="game-header">
+                    <h3>Lab Dash! 🧪</h3>
+                    <p>Escape the reactions & collect atoms</p>
+                </div>
+                <div id="game-container" tabindex="0">
+                    <div id="night-overlay"></div>
+                    <div id="sky-items">🫧&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🫧&nbsp;&nbsp;&nbsp;🫧&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🫧</div>
+                    <div id="ground"></div>
+                    
+                    <div class="game-ui-top">
+                        <div class="ui-icon" id="btn-mute" title="Mute/Unmute">🔊</div>
+                        <div class="ui-icon" id="btn-pause" title="Pause/Play">⏸️</div>
+                    </div>
+                    
+                    <div id="game-message">
+                        <h2 id="msg-title">READY TO EXPERIMENT?</h2>
+                        <p id="msg-sub">Press SPACE or TAP here to start</p>
+                    </div>
+                    
+                    <div id="dino">👨‍🔬</div>
+                    <div class="game-item" id="coin">⚛️</div>
+                    <div class="game-item" id="shield-item">🥽</div>
+                    <div class="game-item" id="star-item">⚡</div>
+                    
+                    <div id="obstacle">🔥</div>
+                </div>
+                
+                <div class="score-panel">
+                    <div class="hi-score-box">HI-SCORE: <span id="highScoreSpan">00000</span></div>
+                    <div class="score-box" id="scoreBox">ATOMS: <span id="scoreSpan">00000</span></div>
+                </div>
+                
+                <div class="controls-hint">⌨️ SPACE = Jump | ⬇️ ARROW DOWN = Duck | ⚛️ = +50 Pts | 🥽 = Goggles (Shield) | ⚡ = Catalyst (Invincible)</div>
+                
+                <div class="mobile-controls">
+                    <div class="control-btn" id="btnDuck">⬇️ DUCK</div>
+                    <div class="control-btn" id="btnJump">⬆️ JUMP</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dino = document.getElementById("dino");
+        const obstacle = document.getElementById("obstacle");
+        const coin = document.getElementById("coin");
+        const shieldItem = document.getElementById("shield-item");
+        const starItem = document.getElementById("star-item");
+        const ground = document.getElementById("ground");
+        const skyItems = document.getElementById("sky-items");
+        const scoreSpan = document.getElementById("scoreSpan");
+        const highScoreSpan = document.getElementById("highScoreSpan");
+        const gameMessage = document.getElementById("game-message");
+        const msgTitle = document.getElementById("msg-title");
+        const msgSub = document.getElementById("msg-sub");
+        const gameContainer = document.getElementById("game-container");
+        const scoreBox = document.getElementById("scoreBox");
+        
+        const btnMute = document.getElementById("btn-mute");
+        const btnPause = document.getElementById("btn-pause");
+        const btnJump = document.getElementById("btnJump");
+        const btnDuck = document.getElementById("btnDuck");
+        
+        let score = 0;
+        let gameStarted = false;
+        let isGameOver = false;
+        let isPaused = false;
+        let isMuted = false;
+        let baseSpeed = 1.8; 
+        let currentSpeed = baseSpeed;
+        let milestone = 100; 
+        
+        let hasShield = false;
+        let isInvincible = false;
+        let starTimeout;
+        let isNight = false;
+        
+        // --- Safely Initialize Audio ---
+        let audioCtx = null;
+        
+        function initAudio() {
+            try {
+                if (!audioCtx) { 
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    if (AudioContext) audioCtx = new AudioContext(); 
+                }
+                if (audioCtx && audioCtx.state === 'suspended') { 
+                    audioCtx.resume(); 
+                }
+            } catch (err) {
+                console.warn("Audio initialized safely.");
+            }
+        }
+        
+        function playSound(type) {
+            if (isMuted) return;
+            try {
+                if (!audioCtx) return;
+                const osc = audioCtx.createOscillator(); 
+                const gain = audioCtx.createGain();
+                osc.connect(gain); 
+                gain.connect(audioCtx.destination);
+
+                if (type === 'jump') { 
+                    osc.type = 'square'; 
+                    osc.frequency.setValueAtTime(400, audioCtx.currentTime); 
+                    osc.frequency.exponentialRampToValueAtTime(600, audioCtx.currentTime + 0.1); 
+                    gain.gain.setValueAtTime(0.05, audioCtx.currentTime); 
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1); 
+                    osc.start(); 
+                    osc.stop(audioCtx.currentTime + 0.1); 
+                } else if (type === 'die') { 
+                    osc.type = 'sawtooth'; 
+                    osc.frequency.setValueAtTime(200, audioCtx.currentTime); 
+                    osc.frequency.exponentialRampToValueAtTime(50, audioCtx.currentTime + 0.3); 
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime); 
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.3); 
+                    osc.start(); 
+                    osc.stop(audioCtx.currentTime + 0.3); 
+                } else if (type === 'level') { 
+                    osc.type = 'sine'; 
+                    osc.frequency.setValueAtTime(600, audioCtx.currentTime); 
+                    osc.frequency.setValueAtTime(800, audioCtx.currentTime + 0.1); 
+                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime); 
+                    gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.2); 
+                    osc.start(); 
+                    osc.stop(audioCtx.currentTime + 0.2); 
+                } else if (type === 'coin') { 
+                    osc.type = 'sine'; 
+                    osc.frequency.setValueAtTime(1200, audioCtx.currentTime); 
+                    osc.frequency.setValueAtTime(1600, audioCtx.currentTime + 0.05); 
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime); 
+                    gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.1); 
+                    osc.start(); 
+                    osc.stop(audioCtx.currentTime + 0.1); 
+                } else if (type === 'powerup') { 
+                    osc.type = 'sine'; 
+                    osc.frequency.setValueAtTime(400, audioCtx.currentTime); 
+                    osc.frequency.linearRampToValueAtTime(1200, audioCtx.currentTime + 0.3); 
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime); 
+                    gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.3); 
+                    osc.start(); 
+                    osc.stop(audioCtx.currentTime + 0.3); 
+                } else if (type === 'break') { 
+                    osc.type = 'sawtooth'; 
+                    osc.frequency.setValueAtTime(100, audioCtx.currentTime); 
+                    osc.frequency.exponentialRampToValueAtTime(20, audioCtx.currentTime + 0.2); 
+                    gain.gain.setValueAtTime(0.2, audioCtx.currentTime); 
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2); 
+                    osc.start(); 
+                    osc.stop(audioCtx.currentTime + 0.2); 
+                }
+            } catch(e) {}
+        }
+
+        let highScore = localStorage.getItem("chemDashHighScore") || 0;
+        highScoreSpan.innerHTML = padZero(highScore);
+        
+        function padZero(num) { 
+            return Math.floor(num).toString().padStart(5, '0'); 
+        }
+
+        function spawnParticles(x, y, emoji, count = 5) {
+            for(let i = 0; i < count; i++) {
+                let p = document.createElement("div"); 
+                p.innerHTML = emoji; 
+                p.className = "particle"; 
+                p.style.left = x + "px"; 
+                p.style.top = y + "px"; 
+                p.style.setProperty('--dx', (Math.random() * 60 - 30) + "px"); 
+                p.style.setProperty('--dy', (Math.random() * -60 - 20) + "px"); 
+                gameContainer.appendChild(p); 
+                setTimeout(() => { 
+                    if(p.parentNode) p.remove(); 
+                }, 600);
+            }
+        }
+
+        function showFloatingText(x, y, text) {
+            let t = document.createElement("div"); 
+            t.innerHTML = text; 
+            t.className = "floating-text"; 
+            t.style.left = x + "px"; 
+            t.style.top = (y - 20) + "px"; 
+            gameContainer.appendChild(t); 
+            setTimeout(() => { 
+                if(t.parentNode) t.remove(); 
+            }, 800);
+        }
+
+        function toggleMute() { 
+            isMuted = !isMuted; 
+            btnMute.innerHTML = isMuted ? "🔇" : "🔊"; 
+        }
+        btnMute.addEventListener("click", toggleMute);
+
+        function togglePause() {
+            if(!gameStarted || isGameOver) return;
+            isPaused = !isPaused; 
+            btnPause.innerHTML = isPaused ? "▶️" : "⏸️";
+            if(isPaused) {
+                gameContainer.classList.add("paused"); 
+            } else {
+                gameContainer.classList.remove("paused");
+            }
+        }
+        btnPause.addEventListener("click", togglePause);
+
+        gameContainer.addEventListener("mousedown", (e) => {
+            if(e.target.classList.contains("ui-icon")) return; 
+            e.preventDefault(); 
+            gameContainer.focus();
+            if (!gameStarted && !isPaused) {
+                startGame(); 
+            } else if (!isGameOver && !isPaused) {
+                jump(); 
+            }
+        });
+
+        gameContainer.addEventListener("touchstart", (e) => {
+            if(e.target.classList.contains("ui-icon")) return;
+            e.preventDefault();  
+            if (!gameStarted && !isPaused) {
+                startGame(); 
+            } else if (!isGameOver && !isPaused) {
+                jump(); 
+            }
+        });
+
+        function startGame() {
+            initAudio();
+            gameStarted = true; 
+            isGameOver = false; 
+            isPaused = false;
+            score = 0; 
+            milestone = 100; 
+            currentSpeed = baseSpeed;
+            hasShield = false; 
+            isInvincible = false; 
+            isNight = false;
+            clearTimeout(starTimeout);
+            scoreSpan.innerHTML = "00000";
+            document.documentElement.style.setProperty('--game-hue', `0deg`);
+            
+            gameMessage.style.display = "none";
+            gameContainer.classList.remove("shake", "overdrive", "paused", "is-night");
+            dino.classList.add("walking"); 
+            dino.classList.remove("invincible"); 
+            dino.style.filter = "none";
+            
+            skyItems.innerHTML = "🫧&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🫧&nbsp;&nbsp;&nbsp;🫧&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🫧";
+            
+            obstacle.style.opacity = "1"; 
+            obstacle.innerHTML = "🔥"; 
+            obstacle.style.top = "130px";
+            
+            coin.style.display = "none"; 
+            shieldItem.style.display = "none"; 
+            starItem.style.display = "none";
+            
+            [obstacle, ground, skyItems, coin, shieldItem, starItem].forEach(el => { 
+                el.style.animation = "none"; 
+                el.style.left = ""; 
+                el.style.transform = ""; 
+                el.offsetHeight; 
+            });
+            
+            skyItems.style.animation = `cloudMove 20s infinite linear`;
+            obstacle.style.animation = `obsMove ${currentSpeed}s infinite linear`;
+            ground.style.animation = `groundMove ${currentSpeed}s infinite linear`;
+            
+            jump(); 
+        }
+
+        obstacle.addEventListener('animationiteration', () => {
+            if (gameStarted && !isGameOver && !isPaused) {
+                obstacle.style.opacity = "1";
+                if (Math.random() > 0.6) { 
+                    obstacle.innerHTML = "🛢️"; 
+                    obstacle.style.top = "90px"; 
+                } else { 
+                    obstacle.innerHTML = "🔥"; 
+                    obstacle.style.top = "130px"; 
+                }
+
+                if (Math.random() > 0.6 && coin.style.display === "none") {
+                    coin.style.display = "block"; 
+                    coin.style.top = Math.random() > 0.5 ? "40px" : "100px"; 
+                    coin.style.animation = `itemMove ${currentSpeed * 1.2}s linear`;
+                } else if (Math.random() > 0.85 && shieldItem.style.display === "none" && !hasShield && !isInvincible) {
+                    shieldItem.style.display = "block"; 
+                    shieldItem.style.animation = `itemMove ${currentSpeed * 1.3}s linear`;
+                } else if (Math.random() > 0.92 && starItem.style.display === "none" && !isInvincible) {
+                    starItem.style.display = "block"; 
+                    starItem.style.animation = `itemMove ${currentSpeed * 1.1}s linear`;
+                }
+
+                if (currentSpeed > 0.7) { 
+                    currentSpeed -= 0.03; 
+                    obstacle.style.animationDuration = `${currentSpeed}s`; 
+                    ground.style.animationDuration = `${currentSpeed}s`; 
+                }
+            }
+        });
+
+        coin.addEventListener('animationend', () => { 
+            coin.style.display = "none"; 
+            coin.style.animation = "none"; 
+        });
+        
+        shieldItem.addEventListener('animationend', () => { 
+            shieldItem.style.display = "none"; 
+            shieldItem.style.animation = "none"; 
+        });
+        
+        starItem.addEventListener('animationend', () => { 
+            starItem.style.display = "none"; 
+            starItem.style.animation = "none"; 
+        });
+
+        function triggerGameOver() {
+            isGameOver = true; 
+            gameStarted = false; 
+            playSound('die');
+            gameContainer.classList.add("shake"); 
+            dino.classList.remove("walking");
+
+            [obstacle, ground, skyItems, coin, shieldItem, starItem].forEach(el => { 
+                let currentPos = window.getComputedStyle(el).getPropertyValue("left"); 
+                let currentTrans = window.getComputedStyle(el).getPropertyValue("transform"); 
+                el.style.animation = "none"; 
+                if(el.id === "ground") {
+                    el.style.transform = currentTrans; 
+                } else {
+                    el.style.left = currentPos; 
+                }
+            });
+
+            let finalScore = Math.floor(score / 10); 
+            let isNewHighScore = false;
+            if (finalScore > highScore) { 
+                highScore = finalScore; 
+                localStorage.setItem("chemDashHighScore", highScore); 
+                highScoreSpan.innerHTML = padZero(highScore); 
+                isNewHighScore = true; 
+            }
+
+            msgTitle.innerHTML = "EXPERIMENT FAILED"; 
+            msgTitle.style.color = "#ec4899"; 
+            if (isNewHighScore) { 
+                msgSub.innerHTML = `🎉 New High Score: ${finalScore} 🎉`; 
+                msgSub.style.color = "var(--secondary)"; 
+            } else { 
+                msgSub.innerHTML = `Atoms Collected: ${finalScore}`; 
+                msgSub.style.color = "#fff"; 
+            }
+            gameMessage.style.display = "block"; 
+            dino.classList.remove("duck");
+        }
+
+        function jump() {
+            if (!dino.classList.contains("jump") && !dino.classList.contains("duck")) {
+                dino.classList.add("jump"); 
+                dino.classList.remove("walking");
+                setTimeout(() => { 
+                    dino.classList.remove("jump"); 
+                    if(gameStarted && !isGameOver) dino.classList.add("walking"); 
+                }, 500);
+                playSound('jump'); 
+            }
+        }
+
+        function duckDown() { 
+            if (gameStarted && !isGameOver && !dino.classList.contains("jump")) { 
+                dino.classList.add("duck"); 
+                dino.classList.remove("walking"); 
+            } 
+        }
+
+        function duckUp() { 
+            dino.classList.remove("duck"); 
+            if(gameStarted && !isGameOver) dino.classList.add("walking"); 
+        }
+
+        // --- Master Keyboard Listener ---
+        window.addEventListener("keydown", (e) => {
+            const key = e.code || e.key;
+            if(key === "Space" || key === " " || key === "ArrowUp" || key === "ArrowDown") {
+                e.preventDefault(); 
+            }
+            if (key === "Space" || key === " " || key === "ArrowUp") { 
+                if (!gameStarted && !isPaused) startGame(); 
+                else if (!isGameOver && !isPaused) jump(); 
+                initAudio(); 
+            }
+            if (key === "ArrowDown" && !isPaused) duckDown();
+            if (key === "KeyP" || key === "p" || key === "Escape") togglePause();
+        });
+        
+        window.addEventListener("keyup", (e) => { 
+            const key = e.code || e.key;
+            if (key === "ArrowDown") duckUp(); 
+        });
+        
+        // Touch Controls
+        btnJump.addEventListener("touchstart", (e) => { 
+            e.preventDefault(); 
+            initAudio(); 
+            if (!gameStarted && !isPaused) startGame(); 
+            else if(!isPaused) jump(); 
+        });
+
+        btnDuck.addEventListener("touchstart", (e) => { 
+            e.preventDefault(); 
+            if(!isPaused) duckDown(); 
+        });
+
+        btnDuck.addEventListener("touchend", (e) => { 
+            e.preventDefault(); 
+            duckUp(); 
+        });
+
+        btnDuck.addEventListener("touchcancel", (e) => { 
+            e.preventDefault(); 
+            duckUp(); 
+        }); // Finger slides off
+
+        // Main Game Loop
+        let checkAlive = setInterval(function () {
+            if (!gameStarted || isGameOver || isPaused) return; 
+
+            let dinoRect = dino.getBoundingClientRect();
+            let obsRect = obstacle.getBoundingClientRect();
+            
+            let padX = 12; 
+            let padY = dino.classList.contains("duck") ? 0 : 12; 
+            
+            score += 1;
+            let displayScore = Math.floor(score / 10);
+            scoreSpan.innerHTML = padZero(displayScore);
+
+            if (displayScore > 0 && displayScore % 500 === 0 && !isNight) { 
+                isNight = true; 
+                gameContainer.classList.add("is-night"); 
+                skyItems.innerHTML = "✨&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧬&nbsp;&nbsp;&nbsp;✨&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;✨"; 
+            } else if (displayScore > 0 && displayScore % 1000 === 0 && isNight) { 
+                isNight = false; 
+                gameContainer.classList.remove("is-night"); 
+                skyItems.innerHTML = "🫧&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🫧&nbsp;&nbsp;&nbsp;🫧&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🫧"; 
+            }
+
+            if (displayScore >= milestone) { 
+                playSound('level'); 
+                milestone += 100; 
+                scoreBox.classList.add('score-flash'); 
+                setTimeout(() => scoreBox.classList.remove('score-flash'), 500); 
+            }
+            
+            if (displayScore > 250 && !isNight) {
+                gameContainer.classList.add("overdrive"); 
+            } else {
+                gameContainer.classList.remove("overdrive");
+            }
+
+            // Collisions
+            if (obstacle.style.opacity !== "0" && dinoRect.right - padX > obsRect.left && dinoRect.left + padX < obsRect.right && dinoRect.bottom - padY > obsRect.top && dinoRect.top + padY < obsRect.bottom) {
+                if (isInvincible) { 
+                    playSound('break'); 
+                    spawnParticles(obsRect.left, obsRect.top, "💨", 8); 
+                    obstacle.style.opacity = "0"; 
+                } else if (hasShield) { 
+                    hasShield = false; 
+                    dino.style.filter = "none"; 
+                    playSound('break'); 
+                    spawnParticles(obsRect.left, obsRect.top, "🥽", 5); 
+                    obstacle.style.opacity = "0"; 
+                } else { 
+                    triggerGameOver(); 
+                }
+            }
+
+            if (coin.style.display === "block") {
+                let coinRect = coin.getBoundingClientRect();
+                if (dinoRect.right > coinRect.left && dinoRect.left < coinRect.right && dinoRect.bottom > coinRect.top && dinoRect.top < coinRect.bottom) {
+                    playSound('coin'); 
+                    score += 500; 
+                    coin.style.display = "none"; 
+                    spawnParticles(coinRect.left, coinRect.top, "⚛️", 4); 
+                    showFloatingText(coinRect.left, coinRect.top, "+50"); 
+                    scoreBox.classList.add('score-flash'); 
+                    setTimeout(() => scoreBox.classList.remove('score-flash'), 300);
+                }
+            }
+
+            if (shieldItem.style.display === "block") {
+                let shieldRect = shieldItem.getBoundingClientRect();
+                if (dinoRect.right > shieldRect.left && dinoRect.left < shieldRect.right && dinoRect.bottom > shieldRect.top && dinoRect.top < shieldRect.bottom) {
+                    playSound('powerup'); 
+                    hasShield = true; 
+                    dino.style.filter = "drop-shadow(0 0 10px #00ffff)"; 
+                    shieldItem.style.display = "none"; 
+                    spawnParticles(shieldRect.left, shieldRect.top, "🔵", 5);
+                }
+            }
+            
+            if (starItem.style.display === "block") {
+                let starRect = starItem.getBoundingClientRect();
+                if (dinoRect.right > starRect.left && dinoRect.left < starRect.right && dinoRect.bottom > starRect.top && dinoRect.top < starRect.bottom) {
+                    playSound('powerup'); 
+                    isInvincible = true; 
+                    starItem.style.display = "none"; 
+                    dino.classList.add("invincible"); 
+                    spawnParticles(starRect.left, starRect.top, "⚡", 8);
+                    clearTimeout(starTimeout);
+                    starTimeout = setTimeout(() => { 
+                        isInvincible = false; 
+                        dino.classList.remove("invincible"); 
+                        if(hasShield) dino.style.filter = "drop-shadow(0 0 10px #00ffff)"; 
+                    }, 5000);
+                }
+            }
+        }, 10);
+
+        // --- Advanced Fire Bubbles Generator Script ---
+        const bgContainer = document.querySelector('.bg-elements');
+        const bubbleColors = ['#00ffcc', '#00ffff', '#cc00ff', '#ff0066', '#ff9900'];
+
+        function createAdvancedFireBubbles() {
+            for (let i = 0; i < 50; i++) {
+                let bubble = document.createElement('div');
+                bubble.classList.add('fire-bubble');
+                
+                let size = Math.random() * 3 + 1; 
+                let left = Math.random() * 100; 
+                let color = bubbleColors[Math.floor(Math.random() * bubbleColors.length)];
+                
+                let duration = Math.random() * 20 + 20; 
+                let delay = Math.random() * -15; 
+                let blur = Math.random() * 3 + 'px'; 
+                let maxOpacity = Math.random() * 0.6 + 0.4; 
+                
+                let sway1 = (Math.random() * 80 - 40) + 'px';
+                let sway2 = (Math.random() * 120 - 60) + 'px';
+                let sway3 = (Math.random() * 160 - 80) + 'px';
+
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                bubble.style.left = left + '%';
+                bubble.style.background = color;
+                bubble.style.boxShadow = `0 0 ${size}px ${color}, 0 0 ${size * 2.5}px ${color}, inset 0 0 ${size/2}px rgba(255,255,255,0.6)`;
+                
+                bubble.style.setProperty('--duration', duration + 's');
+                bubble.style.setProperty('--delay', delay + 's');
+                bubble.style.setProperty('--blur', blur);
+                bubble.style.setProperty('--max-opacity', maxOpacity);
+                bubble.style.setProperty('--sway-1', sway1);
+                bubble.style.setProperty('--sway-2', sway2);
+                bubble.style.setProperty('--sway-3', sway3);
+                
+                bgContainer.appendChild(bubble);
+            }
+        }
+        
+        createAdvancedFireBubbles();
+    </script>
+
+    <script>
+        // තමන්ගේ height එක මැනලා main page එකට යවනවා
+        function sendHeightToParent() {
+            const bodyHeight = document.documentElement.scrollHeight;
+            window.parent.postMessage({
+                type: 'resize',
+                height: bodyHeight,
+                url: window.location.href
+            }, '*');
+        }
+
+        // Page එක load වෙද්දි සහ ඇතුලේ මොනවා හරි වෙනස් වෙද්දි height එක update කරනවා
+        window.addEventListener('load', sendHeightToParent);
+        new ResizeObserver(sendHeightToParent).observe(document.body);
+    </script>
+</body>
+</html>

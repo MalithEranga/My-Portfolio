@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Pixels | Advanced Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Syncopate:wght@600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #02040a; 
+            --accent: #00ffcc;
+            --accent-glow: rgba(0, 255, 204, 0.6);
+            --accent-alt: #8a2be2; 
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --container-bg: rgba(2, 4, 10, 0.9);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* Normal cursor restored */
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+            scroll-behavior: smooth;
+        }
+
+        /* Ambient Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -3;
+            background-image: url('Backgrounds/background3.png'); 
+            background-size: cover;
+            background-position: center;
+            background-color: rgba(2, 4, 10, 0.85); 
+            background-blend-mode: overlay;
+        }
+
+        /* Floating Tool Logos */
+        .floating-logos {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -2;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+        .floating-logos img {
+            position: absolute;
+            max-width: 60px;
+            filter: grayscale(100%) invert(100%);
+            animation: floatLogos 15s infinite alternate ease-in-out;
+        }
+        @keyframes floatLogos {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(50px, 50px) rotate(15deg); }
+        }
+        .logo-1 { top: 10%; left: 10%; animation-delay: -2s; }
+        .logo-2 { top: 20%; right: 15%; animation-delay: -5s; max-width: 70px !important; }
+        .logo-3 { bottom: 15%; left: 20%; animation-delay: -8s; }
+        .logo-4 { bottom: 10%; right: 10%; animation-delay: -1s; max-width: 80px !important; }
+
+        /* Ambient Glows */
+        .ambient-glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(150px);
+            z-index: -2;
+            opacity: 0.2;
+            animation: floatGlow 15s infinite alternate ease-in-out;
+        }
+        .glow-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(0, 255, 204, 0.1); }
+        .glow-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: rgba(138, 43, 226, 0.05); animation-delay: -5s; }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 30px) scale(1.05); }
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--primary); }
+        ::-webkit-scrollbar-thumb { background: rgba(0, 255, 204, 0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 120px 5% 50px 5%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Section */
+        .brand-header {
+            text-align: center;
+            margin-bottom: 120px;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInDown 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-container { margin-bottom: 25px; position: relative; }
+
+        .brand-logo {
+            max-width: 380px;
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 204, 0.05));
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .brand-logo:hover {
+            transform: scale(1.05) translateY(-3px);
+            filter: drop-shadow(0 15px 30px rgba(0, 255, 204, 0.2));
+        }
+
+        .founder-name {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-top: 10px;
+            background: linear-gradient(90deg, #cbd5e1, #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Section Heading */
+        .section-heading {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 2.2rem;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(0, 255, 204, 0.7);
+            background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            margin-bottom: 40px;
+            letter-spacing: 4px;
+            display: block;
+            position: relative;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .section-heading.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            border-radius: 2px;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+            transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        /* Story Text Section */
+        .story-text-container {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid var(--glass-border);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 60px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            margin-bottom: 100px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3), inset 0 0 15px rgba(255,255,255,0.01);
+            opacity: 0;
+            transform: translateY(40px) scale(0.99);
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .story-text-container.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .story-text {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: var(--text-muted);
+            font-weight: 300;
+            max-width: 900px;
+        }
+
+        .story-text strong {
+            color: #fff;
+            font-weight: 500;
+            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+            position: relative;
+        }
+
+        /* ==========================================
+           --- ADVANCED MASONRY GRID & CARDS ---
+           ========================================== */
+        .masonry-grid {
+            column-count: 3;
+            column-gap: 30px;
+            margin-top: 40px;
+            margin-bottom: 100px;
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .masonry-grid.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 1024px) { .masonry-grid { column-count: 2; } }
+        @media (max-width: 640px) { .masonry-grid { column-count: 1; } }
+
+        /* ADVANCED CARD CONTAINER */
+        .glass-image-card {
+            break-inside: avoid;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 12px;
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(12px); /* True glassmorphism */
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            cursor: pointer;
+        }
+
+        /* Glowing Border on Hover */
+        .glass-image-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 16px;
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, transparent, var(--accent), transparent) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Shine Sweep Effect */
+        .glass-image-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            transition: all 0.75s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Premium Look Changes */
+        .glass-image-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6), 0 0 40px rgba(0, 255, 204, 0.15);
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-image-card:hover::before { opacity: 1; }
+        .glass-image-card:hover::after { left: 150%; }
+
+        .img-wrapper {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            display: block;
+            background: rgba(0, 0, 0, 0.4);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        /* View Button Overlay inside the image */
+        .img-wrapper::before {
+           
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: var(--accent);
+            color: var(--primary);
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            padding: 12px 24px;
+            border-radius: 30px;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            z-index: 3;
+            pointer-events: none;
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.3);
+        }
+
+        .glass-image-card:hover .img-wrapper::before {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Image settings - Removed Black & White */
+        .img-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.6s ease;
+            filter: brightness(0.95); /* Full color, just slightly dimmed by default */
+        }
+
+        .glass-image-card:hover .img-wrapper img {
+            transform: scale(1.08); /* Smoother, deeper zoom */
+            filter: brightness(1.1); /* Brighten up on hover */
+        }
+
+        /* ==========================================
+           --- LIGHTBOX (IMAGE VIEWER) ---
+           ========================================== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(2, 4, 10, 0.98);
+            backdrop-filter: blur(15px);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .lightbox.active { display: flex; opacity: 1; }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(0, 255, 204, 0.25);
+            transform: scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            object-fit: contain;
+        }
+
+        .lightbox.active .lightbox-content { transform: scale(1); }
+
+        .close-lightbox {
+            position: absolute;
+            top: 30px; right: 40px;
+            color: #fff;
+            font-size: 45px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 300;
+            transition: all 0.3s;
+            z-index: 10001;
+            cursor: pointer;
+        }
+
+        .close-lightbox:hover { color: var(--accent); transform: rotate(90deg); }
+
+        /* Advanced Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px 45px;
+            background: rgba(255, 255, 255, 0.02);
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+        }
+
+        .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 204, 0.3), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .back-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.15), inset 0 0 15px rgba(0, 255, 204, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .back-btn:hover::before { left: 100%; }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .story-text-container { padding: 40px 25px; border-radius: 12px; }
+            .section-heading { font-size: 1.6rem; }
+            .brand-logo { max-width: 280px; }
+            .floating-logos { opacity: 0.1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <div class="floating-logos">
+        <img src="Modern Pixels/MODERNPIXELS.png" alt="Photoshop" class="logo-1">
+        <img src="Modern Pixels/MODERNPIXELS.png" alt="Illustrator" class="logo-2">
+        <img src="Modern Pixels/MODERNPIXELS.png" alt="InDesign" class="logo-3">
+        <img src="Modern Pixels/MODERNPIXELS.png" alt="Figma" class="logo-4">
+    </div>
+
+    <div class="container">
+        
+        <header class="brand-header">
+            <div class="logo-container">
+                <img src="Modern Pixels/MODERNPIXELS.png" alt="Modern Pixels Logo" class="brand-logo">
+            </div>
+            <div class="founder-name">Modern Pixels by Malith Eranga</div>
+        </header>
+
+        <h2 class="section-heading reveal-on-scroll">Our Evolution</h2>
+        <section class="story-text-container reveal-on-scroll">
+            <p class="story-text">
+                Every great design journey has an origin. What initially began as <strong>Black & White Creation</strong> has evolved into something far more dynamic. We stepped out of the monochrome and embraced the vibrant future of digital aesthetics to become <strong>Modern Pixels</strong>. Today, our focus is on precision, high-end visual experiences, and bringing a minimalist yet striking vision to every project we touch.
+            </p>
+        </section>
+
+        <h2 class="section-heading reveal-on-scroll">Tuition Post Design</h2>
+        <div class="masonry-grid reveal-on-scroll">
+            <div class="glass-image-card">
+                <div class="img-wrapper"><img src="Modern Pixels/196 Dilanka copy.png" alt="Tuition Post 1"></div>
+            </div>
+            <div class="glass-image-card">
+                <div class="img-wrapper"><img src="Modern Pixels/176 Akila Post.png" alt="Tuition Post 2"></div>
+            </div>
+            <div class="glass-image-card">
+                <div class="img-wrapper"><img src="Modern Pixels/195 Akila copy.png" alt="Tuition Post 3"></div>
+            </div>
+             <div class="glass-image-card">
+                <div class="img-wrapper"><img src="Modern Pixels/196 Dilanka copy.png" alt="Tuition Post 1"></div>
+            </div>
+            <div class="glass-image-card">
+                <div class="img-wrapper"><img src="Modern Pixels/176 Akila Post.png" alt="Tuition Post 2"></div>
+            </div>
+            <div class="glass-image-card">
+                <div class="img-wrapper"><img src="Modern Pixels/195 Akila copy.png" alt="Tuition Post 3"></div>
+            </div>
+        </div>
+
+        <h2 class="section-heading reveal-on-scroll">Tuition Tute Cover</h2>
+        <div class="masonry-grid reveal-on-scroll">
+            <div class="glass-image-card">
+                <div class="img-wrapper"><img src="Modern Pixels/046 DHANANJAYA TUTE COVER.jpg" alt="Tute Cover 1"></div>
+            </div>
+            <div class="glass-image-card">
+                <div class="img-wrapper"><img src="Modern Pixels/047 DHANANJAYA TUTE COVER.jpg" alt="Tute Cover 2"></div>
+            </div>
+            <div class="glass-image-card">
+                <div class="img-wrapper"><img src="Modern Pixels/048 DHANANJAYA TUTE COVER.jpg" alt="Tute Cover 3"></div>
+            </div>
+        </div>
+
+        <h2 class="section-heading reveal-on-scroll">Brand Post Design</h2>
+        <div class="masonry-grid reveal-on-scroll">
+            <div class="glass-image-card">
+                <div class="img-wrapper"><img src="Images/BrandPost1.jpg" alt="Brand Post 1"></div>
+            </div>
+            <div class="glass-image-card">
+                <div class="img-wrapper"><img src="Images/BrandPost2.jpg" alt="Brand Post 2"></div>
+            </div>
+            <div class="glass-image-card">
+                <div class="img-wrapper"><img src="Images/BrandPost3.jpg" alt="Brand Post 3"></div>
+            </div>
+        </div>
+
+        <h2 class="section-heading reveal-on-scroll">Volunteer Posts</h2>
+        <div class="masonry-grid reveal-on-scroll">
+            <div class="glass-image-card">
+                <div class="img-wrapper"><img src="Images/Volunteer1.jpg" alt="Volunteer Post 1"></div>
+            </div>
+            <div class="glass-image-card">
+                <div class="img-wrapper"><img src="Images/Volunteer2.jpg" alt="Volunteer Post 2"></div>
+            </div>
+            <div class="glass-image-card">
+                <div class="img-wrapper"><img src="Images/Volunteer3.jpg" alt="Volunteer Post 3"></div>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding-bottom: 50px; opacity: 0; transform: translateY(20px);" class="reveal-on-scroll">
+            <a href="index.html" class="back-btn">← BACK TO PORTFOLIO</a>
+        </div>
+
+    </div>
+
+    <div id="lightbox" class="lightbox">
+        <span class="close-lightbox">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+
+    <script>
+        // 1. Enhanced Scroll Reveal (subtler)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach((section) => {
+            observer.observe(section);
+        });
+
+        // 2. Lightbox Logic
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.querySelector('.close-lightbox');
+        const imageCards = document.querySelectorAll('.glass-image-card');
+
+        imageCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                if(img) { 
+                    lightbox.classList.add('active');
+                    lightboxImg.src = img.src;
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling when open
+                }
+            });
+        });
+
+        const closeLightboxBox = () => {
+            lightbox.classList.remove('active');
+            setTimeout(() => { lightboxImg.src = ''; }, 400); // Clear image after animation
+            document.body.style.overflow = 'auto';
+        };
+
+        closeBtn.addEventListener('click', closeLightboxBox);
+        lightbox.addEventListener('click', (e) => {
+            if(e.target !== lightboxImg) closeLightboxBox();
+        });
+        
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightboxBox();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qualifications & Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Syncopate:wght@600&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables */
+        :root {
+            --secondary: #ffcc00; 
+            --bg-dark: #040812; 
+            --text-muted: #cbd5e1;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --glow-1: rgba(59, 130, 246, 0.3);
+            --glow-2: rgba(255, 204, 0, 0.15);
+        }
+
+        /* General Reset */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
+
+        body { 
+            font-family: 'Space Grotesk', sans-serif; 
+            background-color: var(--bg-dark); 
+            color: #fff; 
+            overflow-x: hidden !important; 
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar { 
+            width: 8px; 
+        }
+
+        ::-webkit-scrollbar-track { 
+            background: #040812; 
+        }
+
+        ::-webkit-scrollbar-thumb { 
+            background: rgba(255, 204, 0, 0.4); 
+            border-radius: 10px; 
+        }
+
+        ::-webkit-scrollbar-thumb:hover { 
+            background: var(--secondary); 
+        }
+
+        /* Main Wrapper */
+        .wrapper { 
+            position: relative; 
+            padding: 80px 5% 60px 5%; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            overflow: hidden; 
+            min-height: 100vh; 
+        }
+
+        /* Background Effects */
+        .bg-grid { 
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), 
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px); 
+            background-size: 50px 50px; 
+            z-index: 1; 
+            top: 0; 
+            left: 0;
+        }
+
+        .blob { 
+            position: absolute; 
+            border-radius: 50%; 
+            filter: blur(120px); 
+            opacity: 0.6; 
+            animation: float 15s infinite alternate; 
+            z-index: 0; 
+        }
+
+        .blob-1 { 
+            width: 500px; 
+            height: 500px; 
+            background: var(--glow-1); 
+            top: 5%; 
+            left: -10%; 
+        }
+
+        .blob-2 { 
+            width: 450px; 
+            height: 450px; 
+            background: var(--glow-2); 
+            bottom: 10%; 
+            right: -5%; 
+        }
+
+        @keyframes float { 
+            0% { transform: translate(0, 0); } 
+            100% { transform: translate(40px, 60px); } 
+        }
+
+        /* Content Area */
+        .content-container { 
+            position: relative; 
+            z-index: 2; 
+            width: 100%; 
+            max-width: 1100px; 
+        }
+        
+        /* Typography */
+        .section-header { 
+            margin: 60px 0 40px; 
+            text-align: center; 
+        }
+
+        .section-title { 
+            font-family: 'Syncopate', sans-serif; 
+            font-size: clamp(1.5rem, 2.5vw, 2rem); 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+        }
+
+        .section-title span { 
+            color: var(--secondary); 
+        }
+
+        .subtitle { 
+            font-size: 0.85rem; 
+            color: var(--text-muted); 
+            letter-spacing: 3px; 
+            font-weight: 400; 
+            margin-top: 10px; 
+            text-transform: uppercase;
+        }
+
+        /* Glass Cards for General Layout */
+        .glass-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 20px; 
+            margin-bottom: 40px; 
+        }
+
+        .glass-card { 
+            padding: 30px; 
+            background: var(--card-bg); 
+            border: 1px solid var(--card-border); 
+            border-radius: 16px; 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px); 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            position: relative; 
+            overflow: hidden; 
+        }
+
+        .glass-card::before { 
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            left: -100%; 
+            width: 50%; 
+            height: 100%; 
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent); 
+            transform: skewX(-25deg); 
+            transition: 0.5s; 
+        }
+
+        .glass-card:hover::before { 
+            left: 125%; 
+        }
+
+        .glass-card:hover { 
+            transform: translateY(-8px); 
+            border-color: rgba(255, 204, 0, 0.4); 
+            box-shadow: 
+                0 15px 35px rgba(0,0,0,0.6), 
+                inset 0 0 20px rgba(255, 204, 0, 0.05); 
+        }
+
+        .glass-card h3 { 
+            font-family: 'Syncopate', sans-serif; 
+            font-size: 1.1rem; 
+            margin-bottom: 15px; 
+            color: #fff; 
+            letter-spacing: 1px; 
+        }
+
+        .glass-card p { 
+            color: var(--text-muted); 
+            font-size: 0.95rem; 
+            line-height: 1.6; 
+        }
+
+        .highlight { 
+            color: var(--secondary); 
+            font-weight: 500; 
+        }
+        
+        /* Timeline for Experience */
+        .timeline { 
+            position: relative; 
+            width: 100%; 
+            margin: 0 auto; 
+        }
+
+        .timeline::after { 
+            content: ''; 
+            position: absolute; 
+            width: 2px; 
+            background: rgba(255, 255, 255, 0.1); 
+            top: 0; 
+            bottom: 0; 
+            left: 50%; 
+            margin-left: -1px; 
+        }
+
+        .container { 
+            padding: 10px 40px; 
+            position: relative; 
+            background-color: inherit; 
+            width: 50%; 
+        }
+
+        .left { 
+            left: 0; 
+        } 
+
+        .right { 
+            left: 50%; 
+        }
+
+        .container::after { 
+            content: ''; 
+            position: absolute; 
+            width: 14px; 
+            height: 14px; 
+            right: -7px; 
+            background-color: var(--bg-dark); 
+            border: 2px solid var(--secondary); 
+            top: 15px; 
+            border-radius: 50%; 
+            z-index: 1; 
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.6); 
+        }
+
+        .right::after { 
+            left: -7px; 
+        }
+
+        .date { 
+            color: var(--secondary); 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            letter-spacing: 1px; 
+            margin-bottom: 10px; 
+            display: block; 
+        }
+
+        @media screen and (max-width: 768px) {
+            .timeline::after { 
+                left: 31px; 
+            }
+            .container { 
+                width: 100%; 
+                padding-left: 70px; 
+                padding-right: 25px; 
+            }
+            .container::after { 
+                left: 24px; 
+            }
+            .right { 
+                left: 0; 
+            }
+        }
+
+        /* Certificate Gallery */
+        .cert-gallery { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 20px; 
+            align-items: start;
+        }
+
+        .cert-container { 
+            background: var(--card-bg); 
+            border: 1px solid var(--card-border); 
+            border-radius: 12px; 
+            padding: 10px; 
+            backdrop-filter: blur(15px); 
+            cursor: pointer; 
+            transition: 0.3s ease; 
+            height: fit-content; 
+            display: flex;
+            justify-content: center;
+        }
+
+        .cert-container:hover { 
+            border-color: var(--secondary); 
+            transform: scale(1.02); 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .cert-container img { 
+            width: 100%; 
+            height: auto; 
+            border-radius: 8px; 
+            display: block; 
+            object-fit: cover;
+        }
+
+        /* Premium Lightbox Modal */
+        .modal { 
+            display: none; 
+            position: absolute; 
+            z-index: 999; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            background-color: rgba(0,0,0,0); 
+            backdrop-filter: blur(0px); 
+            cursor: pointer;
+            transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+        }
+
+        .modal.show {
+            background-color: rgba(4, 8, 18, 0.85); 
+            backdrop-filter: blur(12px); 
+        }
+
+        .modal-content { 
+            position: absolute; 
+            width: auto; 
+            height: auto;
+            max-width: 90vw; 
+            max-height: 500px; 
+            border-radius: 12px; 
+            border: 1px solid rgba(255, 204, 0, 0.2); 
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 40px rgba(255,204,0,0.1); 
+            opacity: 0; 
+            transform: translate(-50%, calc(-50% + 40px)) scale(0.85); 
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+
+        /* Desktop safe size for Modal */
+        @media screen and (min-width: 768px) {
+            .modal-content {
+                max-width: 80vw;
+                max-height: 650px; 
+            }
+        }
+
+        .modal.show .modal-content {
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(1); 
+        }
+        
+        .close { 
+            display: none; 
+        } 
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="bg-grid"></div>
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        
+        <div class="content-container">
+            
+            <div class="section-header">
+                <h2 class="section-title">Education <span>Qualifications</span></h2>
+                <div class="subtitle">Academic Background</div>
+            </div>
+
+            <div class="glass-grid">
+                <div class="glass-card" style="grid-column: 1 / -1;">
+                    <h3>BSc (Hons) Chemical Technology</h3>
+                    <p>Sabaragamuwa University of Sri Lanka (SUSL).<br>
+                    <span class="highlight">Department of Physical Sciences and Technology.</span></p>
+                    <p style="margin-top: 10px; font-size: 0.85rem;">Focusing on organic/physical chemistry, analytical methodologies, and process optimization.</p>
+                </div>
+                
+                <div class="glass-card">
+                    <h3>G.C.E. Advanced Level</h3>
+                    <p class="highlight" style="margin-bottom: 10px;">Results: BCC</p>
+                </div>
+
+                <div class="glass-card">
+                    <h3>G.C.E. Ordinary Level</h3>
+                    <p class="highlight" style="margin-bottom: 10px;">Results: 6A's & 3B's</p>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h2 class="section-title">Professional <span>Qualifications</span></h2>
+                <div class="subtitle">Courses & Certifications</div>
+            </div>
+
+            <div class="glass-grid">
+                <div class="glass-card">
+                    <h3>Computer Literacy Course</h3>
+                    <p>Successfully completed the comprehensive computer literacy program conducted by the Open University of Sri Lanka.</p>
+                </div>
+
+                <div class="glass-card">
+                    <h3>English Language Program</h3>
+                    <p>Successfully completed the English Language course conducted by the Open University of Sri Lanka, enhancing professional communication skills.</p>
+                </div>
+
+                <div class="glass-card">
+                    <h3>English Language Course</h3>
+                    <p>Successfully completed the English Language Course conducted by Bright English College, focusing on practical language proficiency.</p>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h2 class="section-title">Work <span>Experience</span></h2>
+                <div class="subtitle">Professional & Volunteer Path</div>
+            </div>
+
+            <div class="timeline">
+                <div class="container left">
+                    <div class="glass-card">
+                        <span class="date">2021 - Present</span>
+                        <h3>Freelance Graphic & Web Designer</h3>
+                        <p>Founder of Modern Pixels. Specialized in high-end UI/UX, particle backgrounds, glassmorphism, and corporate branding.</p>
+                    </div>
+                </div>
+                <div class="container right">
+                    <div class="glass-card">
+                        <span class="date">Ongoing</span>
+                        <h3>Volunteering & Leadership</h3>
+                        <p>Active member and volunteer at IEEE Student Branch and the Rotaract Club, organizing technical sessions and community development projects.</p>
+                    </div>
+                </div>
+                <div class="container left">
+                    <div class="glass-card">
+                        <span class="date">2021 - 2022</span>
+                        <h3>Graphic Designer</h3>
+                        <p>Max Graphic Studio. Developed professional commercial designs, promotional materials, and built foundational experience in the digital design industry.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h2 class="section-title">Verified <span>Certificates</span></h2>
+                <div class="subtitle">Achievements Gallery</div>
+            </div>
+
+            <div class="cert-gallery">
+                <div class="cert-container" onclick="openModal(this, event)">
+                    <img src="Certificate/IEEE1.png" alt="Certificate 1">
+                </div>
+                <div class="cert-container" onclick="openModal(this, event)">
+                    <img src="https://via.placeholder.com/600x800/0a0f1c/ffcc00?text=Portrait+Cert" alt="Certificate 2">
+                </div>
+                <div class="cert-container" onclick="openModal(this, event)">
+                    <img src="https://via.placeholder.com/800x400/0a0f1c/ffcc00?text=Landscape+Cert" alt="Certificate 3">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImg">
+    </div>
+
+    <script>
+        var modal = document.getElementById("imageModal");
+        var modalImg = document.getElementById("modalImg");
+
+        function openModal(element, event) {
+            var docHeight = document.documentElement.scrollHeight;
+            modal.style.height = docHeight + "px";
+            
+            modalImg.src = element.querySelector("img").src;
+            
+            var yPos = event.pageY;
+            
+            var safeHeight = window.innerWidth > 768 ? 325 : 250;
+            
+            if (yPos < safeHeight + 20) {
+                yPos = safeHeight + 20; 
+            } else if (yPos > docHeight - safeHeight - 20) {
+                yPos = docHeight - safeHeight - 20; 
+            }
+
+            modalImg.style.top = yPos + "px";
+            modalImg.style.left = "50%";
+            
+            modal.style.display = "block";
+            
+            setTimeout(function() {
+                modal.classList.add("show");
+            }, 10);
+            
+            event.stopPropagation();
+        }
+
+        function closeModal() {
+            modal.classList.remove("show");
+            setTimeout(function() {
+                modal.style.display = "none";
+            }, 400); 
+        }
+
+        modal.onclick = function() {
+            closeModal();
+        }
+    </script>
+
+    <script>
+        function sendHeightToParent() {
+            const bodyHeight = document.documentElement.scrollHeight;
+            window.parent.postMessage({
+                type: 'resize',
+                height: bodyHeight,
+                url: window.location.href
+            }, '*');
+        }
+
+        window.addEventListener('load', sendHeightToParent);
+        new ResizeObserver(sendHeightToParent).observe(document.body);
+    </script>
+</body>
+</html>
