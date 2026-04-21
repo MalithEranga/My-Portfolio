@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1200">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Malith Eranga</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Syncopate:wght@600&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #3b82f6; 
             --primary-glow: rgba(59, 130, 246, 0);
-            --secondary: #ffcc00; /* Golden Yellow */
+            --secondary: #ffcc00; 
             --bg-overlay: rgba(4, 8, 18, 0); 
             --text-main: #f8fafc;
             --text-muted: #cbd5e1;
@@ -17,19 +17,16 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* --- Page Fade-In Animation --- */
         @keyframes fadeInPage {
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
 
-        /* --- Panel Slide-Up Animation --- */
         @keyframes slideUp {
             0% { opacity: 0; transform: translateY(40px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- Nav Bar Slide-Down Animation --- */
         @keyframes navSlideDown {
             0% { opacity: 0; transform: translateY(-20px); }
             100% { opacity: 1; transform: translateY(0); }
@@ -47,12 +44,10 @@
             font-family: 'Space Grotesk', sans-serif;
             color: var(--text-main);
             overflow-x: hidden;
-            
             opacity: 0;
             animation: fadeInPage 2s ease-in-out forwards;
         }
 
-        /* --- Hero Section --- */
         .hero-section {
             position: relative;
             width: 100%;
@@ -64,7 +59,6 @@
             overflow: hidden;
         }
 
-        /* --- Top Left Navigation Bar --- */
         .top-nav {
             position: fixed;
             top: 25px;
@@ -78,7 +72,6 @@
             border-radius: 8px; 
             padding: 8px 20px; 
             box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            
             opacity: 0;
             animation: navSlideDown 1s cubic-bezier(0.25, 1, 0.5, 1) 0.5s forwards;
         }
@@ -121,7 +114,6 @@
             width: 100%;
         }
 
-        /* --- Scrollbar --- */
         ::-webkit-scrollbar { width: 12px; }
 
         ::-webkit-scrollbar-track {
@@ -141,7 +133,6 @@
             border: 1px solid rgba(6, 182, 212, 0.5);
         }
 
-        /* --- Sakura Canvas --- */
         #sakuraCanvas {
             position: absolute; 
             top: 0; left: 0;
@@ -150,7 +141,6 @@
             pointer-events: none; 
         }
 
-        /* --- UI Layout --- */
         .container {
             max-width: 900px; 
             margin-left: 5%;  
@@ -164,26 +154,21 @@
             z-index: 10; 
         }
 
-        /* --- Advanced Glass Panel --- */
         .glass-panel {
             pointer-events: auto;
             flex: 1.2;
             background: linear-gradient(135deg, rgba(25, 30, 45, 0.6) 0%, rgba(13, 19, 35, 0.3) 100%);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-top: 1px solid rgba(255, 255, 255, 0.15); 
             border-left: 4px solid var(--secondary);
-            
             padding: 50px;
             border-radius: 15px;
-            
             box-shadow: 
                 0 30px 60px rgba(0, 0, 0, 0.6), 
                 inset 0 1px 2px rgba(255, 255, 255, 0.2),
                 inset 0 -1px 2px rgba(0, 0, 0, 0.4);
-            
             opacity: 0; 
             animation: slideUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.8s forwards;
             position: relative; 
@@ -251,7 +236,6 @@
 
         .highlight-text { color: #fff; font-weight: 500; border-bottom: 1px solid var(--secondary); }
 
-        /* --- Resume Button Styling --- */
         .btn-wrapper {
             margin-top: 25px;
             margin-bottom: 35px;
@@ -306,7 +290,6 @@
             overflow: hidden;
         }
 
-        /* --- Music Control Button --- */
         .music-btn {
             position: fixed;
             bottom: 30px;
@@ -338,8 +321,46 @@
             background: rgba(13, 19, 35, 0.8);
         }
 
-        /* MEDIA QUERIES ඉවත් කර ඇත (Desktop View එක Force කිරීමට) */
+        /* --- MOBILE RESPONSIVE FIXES (මෙහි වෙනස්කම් කර ඇත) --- */
+        @media (max-width: 768px) {
+            .hero-section {
+                /* දකුණු පැත්ත පේන්න set කිරීම සහ height එක ෆෝන් එකට ගැලපෙන විදියට හැදීම */
+                background-position: right center; 
+                min-height: 100svh; 
+            }
 
+            /* ෆෝන් එකේදි Glass panel එක මැදට ගැනීම */
+            .container {
+                margin-left: 0;
+                padding: 120px 20px 60px 20px;
+                justify-content: center;
+            }
+
+            .glass-panel {
+                padding: 30px 25px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            /* Navigation Bar එක ෆෝන් එකට ගැලපෙන විදියට හැදීම */
+            .top-nav {
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
+                max-width: 400px;
+                overflow-x: auto;
+                padding: 12px;
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: 2.5px solid var(--secondary); /* යටින් line එක එන්න */
+            }
+
+            .top-nav ul {
+                justify-content: flex-start;
+                padding-bottom: 5px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -385,9 +406,9 @@
     </nav>
 
     <iframe id="Projects" src="Projects.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
-<iframe id="education" src="Education.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
-<iframe id="more" src="Skills.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
-<iframe id="contact" src="Contact.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
+    <iframe id="education" src="Education.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
+    <iframe id="more" src="Skills.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
+    <iframe id="contact" src="Contact.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
 
     <audio id="bgMusic" loop>
         <source src="Main.mp3" type="audio/mpeg">
@@ -524,7 +545,6 @@
             const iframes = document.querySelectorAll('.Projects-iframe');
             iframes.forEach(iframe => {
                 if (event.data.url.includes(iframe.getAttribute('src'))) {
-                    // හරියටම එවන height එක විතරක් set කරනවා
                     iframe.style.height = event.data.height + 'px'; 
                 }
             });
