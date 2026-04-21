@@ -7,10 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #ffea00;
-            --primary-glow: rgba(255, 234, 0, 0.25);
+            --primary: #00ffcc;
+            --primary-glow: #00ffcc;
             --glitch-red: #ff003c;
-            --glitch-blue: #ffea00;
+            --glitch-blue: #00ffcc;
             --bg-dark: #020614; 
             --bg-lighter: #0f0f13;
         }
@@ -109,7 +109,7 @@
             letter-spacing: clamp(5px, 1.5vw, 12px);
             margin: 0;
             color: #ffffff;
-            text-shadow: 0 0 15px var(--primary-glow);
+           
         }
 
         .subtitle {
@@ -125,7 +125,7 @@
             animation: fadeUp 1s 1.5s forwards cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .highlight { color: var(--primary); font-weight: 600; text-shadow: 0 0 5px rgba(255, 234, 0, 0.2); }
+        .highlight { color: var(--primary); font-weight: 600; text-shadow: 0 0 5px rgba(0, 255, 204, 0.2); }
 
         .glitch-name::before, .glitch-name::after {
             content: attr(data-text);
@@ -157,8 +157,8 @@
             font-size: 0.95rem;
             font-weight: 600;
             color: var(--primary);
-            background: rgba(255, 234, 0, 0.05);
-            border: 1px solid rgba(255, 234, 0, 0.4);
+            background: rgba(0, 255, 204, 0.05);
+            border: 1px solid hsla(147, 87%, 21%, 0.4);
             cursor: pointer;
             position: relative;
             z-index: 10;
@@ -189,51 +189,12 @@
             color: var(--bg-dark); 
             background: var(--primary); 
             border-color: var(--primary);
-            box-shadow: 0 0 30px rgba(255, 234, 0, 0.5);
+            box-shadow: 0 0 30px #00ffcc;
             letter-spacing: 8px; 
             transform: scale(1.05); 
         }
 
         #enter-btn:hover::before, #enter-btn:active::before { left: 200%; }
-
-        /* --- Music Toggle Button CSS --- */
-        #music-toggle {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: rgba(255, 234, 0, 0.05);
-            border: 1px solid rgba(255, 234, 0, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 100;
-            color: var(--primary);
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 1s 2.5s forwards cubic-bezier(0.16, 1, 0.3, 1);
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        #music-toggle:hover, #music-toggle:active {
-            background: rgba(255, 234, 0, 0.15);
-            box-shadow: 0 0 15px rgba(255, 234, 0, 0.3);
-            transform: scale(1.1) translateY(0);
-        }
-
-        #music-toggle svg { width: 20px; height: 20px; fill: currentColor; transition: transform 0.2s ease; }
-
-        #music-toggle.muted {
-            opacity: 0.6;
-            border-color: rgba(255, 255, 255, 0.2);
-            color: rgba(255, 255, 255, 0.5);
-        }
-        #music-toggle.muted:hover, #music-toggle.muted:active { opacity: 1; transform: scale(1.1); }
 
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
@@ -304,10 +265,6 @@
 </head>
 <body>
 
-    <audio id="waterAudio" loop>
-        <source src="water-stream.mp3" type="audio/mpeg">
-    </audio>
-
     <div id="waterfall-overlay">
         <div class="water-fill"></div>
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
@@ -325,22 +282,13 @@
 
     <div id="loader">
         <svg id="benzene-svg" viewBox="0 0 100 100">
-            <polygon class="bg-hex" points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" fill="none" stroke="rgba(255, 234, 0, 0.1)" stroke-width="2"/>
-            <circle class="bg-circle" cx="50" cy="50" r="22" fill="none" stroke="rgba(255, 234, 0, 0.1)" stroke-width="2"/>
+            <polygon class="bg-hex" points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" fill="none" stroke="rgba(0, 255, 204, 0.1)" stroke-width="2"/>
+            <circle class="bg-circle" cx="50" cy="50" r="22" fill="none" stroke="rgba(0, 255, 204, 0.1)" stroke-width="2"/>
             
             <polygon id="progress-hex" points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" fill="none" stroke="var(--primary)" stroke-width="3" pathLength="100"/>
             <circle id="progress-circle" cx="50" cy="50" r="22" fill="none" stroke="var(--primary)" stroke-width="3" pathLength="100"/>
         </svg>
         <div class="loading-text">LOADING <span id="percent">0</span>%</div>
-    </div>
-
-    <div id="music-toggle" title="Toggle Sound">
-        <svg id="icon-sound-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-        </svg>
-        <svg id="icon-sound-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display: none;">
-            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
-        </svg>
     </div>
 
     <div id="main-scene">
@@ -361,48 +309,6 @@
         const progressHex = document.getElementById('progress-hex');
         const progressCircle = document.getElementById('progress-circle');
         
-        // --- Audio Setup ---
-        const waterAudio = document.getElementById('waterAudio');
-        const musicToggle = document.getElementById('music-toggle');
-        const iconSoundOn = document.getElementById('icon-sound-on');
-        const iconSoundOff = document.getElementById('icon-sound-off');
-        
-        waterAudio.volume = 0.4;
-        let audioPlayed = false;
-
-        function forceAudioPlay() {
-            if (!audioPlayed) {
-                waterAudio.play().then(() => {
-                    audioPlayed = true;
-                    const events = ['click', 'mousemove', 'scroll', 'keydown', 'touchstart'];
-                    events.forEach(evt => window.removeEventListener(evt, forceAudioPlay));
-                }).catch(err => {
-                    console.log("Waiting for user interaction to play audio.");
-                });
-            }
-        }
-
-        const triggerEvents = ['click', 'mousemove', 'scroll', 'keydown', 'touchstart'];
-        triggerEvents.forEach(evt => window.addEventListener(evt, forceAudioPlay, {passive: true}));
-
-        // --- Music Toggle Logic ---
-        musicToggle.addEventListener('click', (e) => {
-            e.stopPropagation(); 
-            if (waterAudio.muted || waterAudio.paused) {
-                waterAudio.muted = false;
-                if(waterAudio.paused) waterAudio.play();
-                audioPlayed = true;
-                iconSoundOn.style.display = 'block';
-                iconSoundOff.style.display = 'none';
-                musicToggle.classList.remove('muted');
-            } else {
-                waterAudio.muted = true;
-                iconSoundOn.style.display = 'none';
-                iconSoundOff.style.display = 'block';
-                musicToggle.classList.add('muted');
-            }
-        });
-
         let loadingInterval = setInterval(() => {
             let increment = Math.random() > 0.5 ? Math.floor(Math.random() * 10) + 2 : 1;
             loadProgress += increment;
@@ -418,7 +324,6 @@
                         mainScene.classList.add('active');
                         initParticles(); 
                         initFish(); 
-                        forceAudioPlay();
                     }, 800);
                 }, 500);
             }
@@ -457,7 +362,7 @@
             mouse.y = e.touches[0].clientY;
             
             // Fish color toggle on touch (avoiding buttons)
-            if(e.target.id === 'enter-btn' || e.target.closest('#music-toggle')) return;
+            if(e.target.id === 'enter-btn') return;
             currentColorIndex = (currentColorIndex + 1) % fishColors.length;
         }, {passive: true});
         window.addEventListener('touchend', () => {
@@ -487,8 +392,8 @@
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.rotation);
                 ctx.shadowBlur = 4;
-                ctx.shadowColor = `rgba(255, 234, 0, ${this.opacity * 0.8})`;
-                ctx.strokeStyle = `rgba(255, 234, 0, ${this.opacity})`; 
+                ctx.shadowColor = `rgba(0, 255, 204, ${this.opacity * 0.8})`;
+                ctx.strokeStyle = `rgba(0, 255, 204, ${this.opacity})`; 
                 ctx.lineWidth = 0.5; 
                 ctx.beginPath();
                 for (let i = 0; i < 6; i++) {
@@ -548,7 +453,7 @@
         let currentB = fishColors[0].b;
 
         window.addEventListener('mousedown', (e) => {
-            if(e.target.id === 'enter-btn' || e.target.closest('#music-toggle')) return;
+            if(e.target.id === 'enter-btn') return;
             currentColorIndex = (currentColorIndex + 1) % fishColors.length;
         });
 
@@ -755,7 +660,7 @@
                     if (distance < 180) {
                         ctx.beginPath();
                         let opacity = Math.pow(1 - distance/180, 2); 
-                        ctx.strokeStyle = `rgba(255, 234, 0, ${opacity * 0.25})`;
+                        ctx.strokeStyle = `rgba(0, 255, 204, ${opacity * 0.25})`;
                         ctx.lineWidth = 0.4; ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
                         ctx.lineTo(particlesArray[j].x, particlesArray[j].y); ctx.stroke();
                     }
@@ -777,17 +682,6 @@
         enterBtn.addEventListener('click', () => {
             waterfallOverlay.classList.add('active'); 
             
-            musicToggle.style.opacity = '0'; 
-            
-            let fadeOut = setInterval(() => {
-                if(waterAudio.volume > 0.05) {
-                    waterAudio.volume -= 0.05;
-                } else {
-                    waterAudio.pause();
-                    clearInterval(fadeOut);
-                }
-            }, 100);
-
             setTimeout(() => { 
                 window.location.href = 'main.html'; 
             }, 1600);
