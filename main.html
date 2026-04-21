@@ -2,578 +2,803 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1200">
-    <title>Malith Eranga</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Syncopate:wght@600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Malith Eranga | Modern Pixels</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #3b82f6; 
-            --primary-glow: rgba(59, 130, 246, 0);
-            --secondary: #ffcc00; /* Golden Yellow */
-            --bg-overlay: rgba(4, 8, 18, 0); 
-            --text-main: #f8fafc;
-            --text-muted: #cbd5e1;
+            --primary: #ffea00;
+            --primary-glow: rgba(255, 234, 0, 0.25);
+            --glitch-red: #ff003c;
+            --glitch-blue: #ffea00;
+            --bg-dark: #020614; 
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; }
 
-        /* --- Page Fade-In Animation --- */
-        @keyframes fadeInPage {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        /* --- Panel Slide-Up Animation --- */
-        @keyframes slideUp {
-            0% { opacity: 0; transform: translateY(40px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- Nav Bar Slide-Down Animation --- */
-        @keyframes navSlideDown {
-            0% { opacity: 0; transform: translateY(-20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        html {
-            background-color: #000000;
-            width: 100%; min-height: 100vh;
-            scroll-behavior: smooth;
+        body, html {
             margin: 0; padding: 0;
             width: 100%; height: 100%;
+            background-color: var(--bg-dark);
             
-            /* Add your image */
-            background-image: url('your_image.jpg'); /* Replace with your image link */
+            /* Background Image eka methanata danna */
+            background-image: url('YOUR_IMAGE_LINK_HERE.jpg'); 
             
-            /* Do not repeat the image */
+            /* Image eka cut wenne nathuwa screen ekata fit wenna */
+            background-size: cover; 
+            background-position: center center; 
             background-repeat: no-repeat;
-            
-            /* To make the *entire* image visible including the right side */
-            background-size: contain; 
-            
-            /* To control image positioning/height and center it */
-            background-position: center center;
             
             overflow: hidden;
             font-family: 'Space Grotesk', sans-serif;
             color: white;
-            touch-action: none;
-            
-            /* Setting a dark fallback color ensures readability while loading */
-            background-color: #020614;
+            touch-action: none; 
         }
 
-        body {
-            width: 100%; min-height: 100vh;
-            background-color: #000000; 
-            font-family: 'Space Grotesk', sans-serif;
-            color: var(--text-main);
-            overflow-x: hidden;
-            
-            opacity: 0;
-            animation: fadeInPage 2s ease-in-out forwards;
-            margin: 0; padding: 0;
-            width: 100%; height: 100%;
-            
-            /* Add your image */
-            background-image: url('your_image.jpg'); /* Replace with your image link */
-            
-            /* Do not repeat the image */
-            background-repeat: no-repeat;
-            
-            /* To make the *entire* image visible including the right side */
-            background-size: contain; 
-            
-            /* To control image positioning/height and center it */
-            background-position: center center;
-            
-            overflow: hidden;
-            font-family: 'Space Grotesk', sans-serif;
-            color: white;
-            touch-action: none;
-            
-            /* Setting a dark fallback color ensures readability while loading */
-            background-color: #020614;
-        }
-
-        /* --- Hero Section --- */
-        .hero-section {
-            position: relative;
-            width: 100%;
-            min-height: 100vh;
-            background: linear-gradient(var(--bg-overlay), var(--bg-overlay)), url('Backgrounds/background1.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            overflow: hidden;
-        }
-
-        /* --- Top Left Navigation Bar --- */
-        .top-nav {
+        #loader {
             position: fixed;
-            top: 25px;
-            left: 30px;
-            z-index: 100;
-            background: rgba(13, 19, 35, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-left: 2.5px solid var(--secondary);
-            border-radius: 8px; 
-            padding: 8px 20px; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            
-            opacity: 0;
-            animation: navSlideDown 1s cubic-bezier(0.25, 1, 0.5, 1) 0.5s forwards;
-        }
-
-        .top-nav ul {
-            list-style: none;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-dark); /* Loader eka weddi dark color eka thiyenawa */
             display: flex;
-            gap: 15px; 
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            z-index: 50;
+            transition: opacity 0.8s cubic-bezier(0.8, 0, 0.2, 1);
         }
 
-        .top-nav li a {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-size: 0.75rem; 
-            font-weight: 500;
+        #benzene-svg {
+            width: 180px;
+            height: 180px;
+            margin-bottom: 40px;
+            filter: drop-shadow(0 0 15px var(--primary-glow));
+            animation: slow-spin 8s linear infinite;
+        }
+
+        @keyframes slow-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        #progress-hex, #progress-circle {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            transition: stroke-dashoffset 0.1s ease-out;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .loading-text {
+            font-size: 1rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px; 
-            transition: all 0.3s ease;
+            letter-spacing: 10px;
+            color: var(--primary);
+            font-weight: 600;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        #main-scene {
             position: relative;
-            padding-bottom: 4px;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.5s ease-out;
         }
 
-        .top-nav li a:hover, .top-nav li a.active {
-            color: #fff;
-        }
+        #main-scene.active { opacity: 1; transform: scale(1); }
 
-        .top-nav li a::after {
-            content: '';
+        canvas {
             position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--secondary);
-            transition: width 0.3s ease;
-        }
-
-        .top-nav li a:hover::after, .top-nav li a.active::after {
-            width: 100%;
-        }
-
-        /* --- Scrollbar --- */
-        ::-webkit-scrollbar { width: 12px; }
-
-        ::-webkit-scrollbar-track {
-            background: #02040a;
-            border-left: 1px solid rgba(59, 130, 246, 0.1);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background-color: rgba(15,20,35,0.8);
-            border-radius: 12px;
-            border: 1px solid #334155;
-            transition: all 0.4s ease;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background-color: rgba(59, 130, 246, 0.3); 
-            border: 1px solid rgba(6, 182, 212, 0.5);
-        }
-
-        /* --- Sakura Canvas --- */
-        #sakuraCanvas {
-            position: absolute; 
             top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: 1; 
-            pointer-events: none; 
+            z-index: 1;
         }
 
-        /* --- UI Layout --- */
-        .container {
-            max-width: 900px; 
-            margin-left: 5%;  
-            padding: 100px 20px 60px 20px; 
-            display: flex;
-            align-items: center;
-            justify-content: flex-start; 
-            min-height: 100vh;
-            gap: 40px;
-            position: relative; 
-            z-index: 10; 
-        }
-
-        /* --- Advanced Glass Panel --- */
-        .glass-panel {
-            pointer-events: auto;
-            flex: 1.2;
-            background: linear-gradient(135deg, rgba(25, 30, 45, 0.6) 0%, rgba(13, 19, 35, 0.3) 100%);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-top: 1px solid rgba(255, 255, 255, 0.15); 
-            border-left: 4px solid var(--secondary);
-            
-            padding: 50px;
-            border-radius: 15px;
-            
-            box-shadow: 
-                0 30px 60px rgba(0, 0, 0, 0.6), 
-                inset 0 1px 2px rgba(255, 255, 255, 0.2),
-                inset 0 -1px 2px rgba(0, 0, 0, 0.4);
-            
-            opacity: 0; 
-            animation: slideUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.8s forwards;
-            position: relative; 
-            overflow: hidden; 
-            transition: box-shadow 0.4s ease, border-color 0.4s ease;
-        }
-
-        .glass-panel:hover {
-            box-shadow: 
-                0 35px 70px rgba(0, 0, 0, 0.7), 
-                0 0 25px rgba(255, 204, 0, 0.05),
-                inset 0 1px 2px rgba(255, 255, 255, 0.25),
-                inset 0 -1px 2px rgba(0, 0, 0, 0.4);
-            border-top: 1px solid rgba(255, 255, 255, 0.25);
-        }
-
-        .glass-panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(
-                to right,
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0.04) 50%,
-                rgba(255, 255, 255, 0) 100%
-            );
-            transform: skewX(-25deg);
-            animation: glassShine 7s infinite linear;
+        .text-wrapper {
+            position: relative;
+            z-index: 10;
+            text-align: center;
             pointer-events: none;
+            padding: 0 15px; 
         }
 
-        @keyframes glassShine {
-            0% { left: -100%; }
-            20% { left: 200%; }
-            100% { left: 200%; }
-        }
-
-        .section-title {
-            font-family: 'Syncopate', sans-serif;
-            font-size: clamp(2rem, 3.5vw, 2.8rem);
+        .glitch-name {
+            font-family: 'Agency FB', 'Syncopate', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 8.5rem);
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
+            position: relative;
+            letter-spacing: clamp(5px, 1.5vw, 12px);
+            margin: 0;
+            color: #ffffff;
+            text-shadow: 0 0 15px var(--primary-glow);
         }
-
-        .section-title span { color: var(--secondary); }
 
         .subtitle {
-            font-size: 0.9rem;
-            color: var(--secondary);
-            margin-bottom: 25px;
-            letter-spacing: 4px;
-            font-weight: 600;
-        }
-
-        .description {
-            color: var(--text-muted);
-            line-height: 1.8;
-            margin-bottom: 20px;
-            font-weight: 300;
-        }
-
-        .highlight-text { color: #fff; font-weight: 500; border-bottom: 1px solid var(--secondary); }
-
-        /* --- Resume Button Styling --- */
-        .btn-wrapper {
-            margin-top: 25px;
-            margin-bottom: 35px;
-        }
-
-        .resume-btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: rgba(255, 204, 0, 0.1);
-            color: var(--secondary);
-            border: 1px solid var(--secondary);
-            border-radius: 6px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+            letter-spacing: 8px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin-top: 20px;
+            color: #a0aec0;
+            font-weight: 300;
+            opacity: 0;
+            line-height: 1.5;
+            transform: translateY(15px);
+            animation: fadeUp 1s 1.5s forwards cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .highlight { color: var(--primary); font-weight: 600; text-shadow: 0 0 5px rgba(255, 234, 0, 0.2); }
+
+        .glitch-name::before, .glitch-name::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.8;
+            mix-blend-mode: screen;
+        }
+
+        .glitch-name::before {
+            color: var(--glitch-red);
+            z-index: -1;
+            transform: translateX(-3px);
+            animation: glitch-anim-1 3s infinite linear alternate-reverse;
+        }
+
+        .glitch-name::after {
+            color: var(--glitch-blue);
+            z-index: -2;
+            transform: translateX(3px);
+            animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+        }
+
+        #enter-btn {
+            margin-top: 70px;
+            padding: 18px 54px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary);
+            background: rgba(255, 234, 0, 0.05);
+            border: 1px solid rgba(255, 234, 0, 0.4);
+            cursor: pointer;
             position: relative;
-            overflow: hidden;
+            z-index: 10;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s 2.5s forwards;
+            backdrop-filter: blur(8px);
+            clip-path: polygon(15px 0%, 100% 0%, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0% 100%, 0% 15px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            -webkit-tap-highlight-color: transparent; 
         }
 
-        .resume-btn:hover {
-            background: var(--secondary);
-            color: #000;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 204, 0, 0.3);
+        #enter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; 
+            width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            transform: skewX(-25deg);
+            transition: all 0.6s ease;
+            z-index: -1;
         }
 
-        .skills-container { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 10px; }
-
-        .skill-tag {
-            padding: 6px 15px;
-            background: rgba(255, 204, 0, 0.1);
-            border: 1px solid var(--secondary);
-            font-size: 0.8rem;
-            border-radius: 4px;
-            transition: 0.3s;
-            cursor: pointer; 
+        #enter-btn:hover, #enter-btn:active {
+            color: var(--bg-dark); 
+            background: var(--primary); 
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(255, 234, 0, 0.5);
+            letter-spacing: 8px; 
+            transform: scale(1.05); 
         }
 
-        .skill-tag:hover { background: var(--secondary); color: #000; transform: translateY(-3px); }
+        #enter-btn:hover::before, #enter-btn:active::before { left: 200%; }
 
-        .Projects-iframe {
-            width: 100%;
-            border: none;
-            position: relative;
-            z-index: 20; 
-            display: block;
-            overflow: hidden;
-        }
-
-        /* --- Music Control Button --- */
-        .music-btn {
+        #music-toggle {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            z-index: 100;
-            background: rgba(13, 19, 35, 0.5);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            width: 38px; 
-            height: 38px; 
+            background: rgba(255, 234, 0, 0.05);
+            border: 1px solid rgba(255, 234, 0, 0.3);
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             cursor: pointer;
-            color: var(--secondary);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 100;
+            color: var(--primary);
+            backdrop-filter: blur(5px);
             transition: all 0.3s ease;
-            outline: none;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s 2.5s forwards cubic-bezier(0.16, 1, 0.3, 1);
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .music-btn svg { width: 18px; height: 18px; }
-
-        .music-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
-            border-color: var(--secondary);
-            background: rgba(13, 19, 35, 0.8);
+        #music-toggle:hover, #music-toggle:active {
+            background: rgba(255, 234, 0, 0.15);
+            box-shadow: 0 0 15px rgba(255, 234, 0, 0.3);
+            transform: scale(1.1) translateY(0);
         }
 
-        /* MEDIA QUERIES ඉවත් කර ඇත (Desktop View එක Force කිරීමට) */
+        #music-toggle svg { width: 20px; height: 20px; fill: currentColor; transition: transform 0.2s ease; }
 
+        #music-toggle.muted {
+            opacity: 0.6;
+            border-color: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.5);
+        }
+        #music-toggle.muted:hover, #music-toggle.muted:active { opacity: 1; transform: scale(1.1); }
+
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+        @keyframes glitch-anim-1 {
+            0%, 10%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+            2% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+            4% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+            6% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+            8% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0%, 15%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+            3% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
+            6% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 2px); }
+            9% { clip-path: inset(30% 0 20% 0); transform: translate(2px, 1px); }
+            12% { clip-path: inset(70% 0 10% 0); transform: translate(-1px, -2px); }
+        }
+
+        #waterfall-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 130vh;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            pointer-events: none;
+            transform: translateY(-100%);
+            transition: transform 1.8s cubic-bezier(0.45, 0.05, 0.22, 0.95); 
+        }
+
+        #waterfall-overlay.active {
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .water-fill {
+            flex: 1;
+            background: #000000;
+        }
+
+        .waves {
+            position: relative;
+            width: 100%;
+            height: 15vh;
+            min-height: 120px;
+            max-height: 200px;
+            transform: rotate(180deg);
+            margin-bottom: -2px;
+        }
+
+        .parallax > use {
+            animation: move-forever 2s cubic-bezier(.55,.5,.45,.5) infinite;
+        }
+        .parallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 4s; }
+        .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 6s; }
+        .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 8s; }
+        .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 12s; }
+
+        @keyframes move-forever {
+            0% { transform: translate3d(-90px,0,0); }
+            100% { transform: translate3d(85px,0,0); }
+        }
+
+        @media (max-width: 768px) {
+            .glitch-name {
+                font-size: clamp(2rem, 10vw, 4rem); 
+                letter-spacing: clamp(2px, 1.5vw, 6px);
+            }
+            .subtitle {
+                font-size: 0.8rem;
+                letter-spacing: 4px;
+                margin-top: 15px;
+            }
+            #enter-btn {
+                margin-top: 50px;
+                padding: 15px 35px;
+                font-size: 0.85rem;
+                letter-spacing: 3px;
+            }
+            #benzene-svg {
+                width: 120px;
+                height: 120px;
+            }
+            .loading-text {
+                font-size: 0.85rem;
+            }
+            #music-toggle {
+                bottom: 20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="hero-section">
-        <canvas id="sakuraCanvas"></canvas>
-        
-        <div class="container" id="aboutme">
-            <div class="glass-panel">
-                <h2 class="section-title"> Malith <span> Eranga </span></h2>
-                <div class="subtitle">Chemical Technology Undergraduate | BSc (Hons) | Sabaragamuwa University of Sri Lanka</div>
-                
-                <p class="description">
-                     I am currently an undergraduate pursuing a <span class="highlight-text"> BSc (Hons) in Chemical Technology at the Sabaragamuwa University of Sri Lanka.</span> My academic journey focuses on chemical processes, analytical methodologies, and process optimization, supported by active involvement in university leadership organizations.
-                </p>
-                <p class="description">
-                    In parallel to my scientific pursuits, I am an established freelance graphic and web designer with over six years of professional experience. Operating through my brand, Modern Pixels, I specialize in crafting high-end digital aesthetics and intuitive user interfaces. This unique multidisciplinary background allows me to bridge the gap between methodical, analytical data and highly creative, impactful visual communication. I am actively seeking opportunities to leverage both my technical problem-solving capabilities and digital design expertise in real-world applications.
-                </p>
-
-                <div class="btn-wrapper">
-                    <a href="MALITH ERANGA CV.pdf" target="_blank" class="resume-btn">My Resume</a>
-                </div>
-
-                <div class="skills-container">
-                    <span class="skill-tag">Chemical Tech</span>
-                    <span class="skill-tag">Graphic Design</span>
-                    <span class="skill-tag">Web Development</span>
-                    <span class="skill-tag">UI/UX Design</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <nav class="top-nav">
-        <ul>
-            <li><a href="Portfolio1.html" class="active">Home</a></li>
-            <li><a href="#aboutme">About Me</a></li>
-            <li><a href="#Projects">Projects</a></li>
-            <li><a href="#education">Qualifications and Experience</a></li>
-            <li><a href="#more">Skills</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-
-    <iframe id="Projects" src="Projects.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
-<iframe id="education" src="Education.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
-<iframe id="more" src="Skills.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
-<iframe id="contact" src="Contact.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
-
-    <audio id="bgMusic" loop>
-        <source src="Main.mp3" type="audio/mpeg">
+    <audio id="waterAudio" loop>
+        <source src="water-stream.mp3" type="audio/mpeg">
     </audio>
 
-    <button id="musicToggle" class="music-btn" title="Play/Pause Music">
-        <svg id="musicIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <line x1="23" y1="1" x2="1" y2="23"></line>
+    <div id="waterfall-overlay">
+        <div class="water-fill"></div>
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+            </defs>
+            <g class="parallax">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0, 150, 255, 0.2)" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(4, 15, 30, 0.6)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(2, 6, 20, 0.9)" />
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="#000000" />
+            </g>
         </svg>
-    </button>
+    </div>
+
+    <div id="loader">
+        <svg id="benzene-svg" viewBox="0 0 100 100">
+            <polygon class="bg-hex" points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" fill="none" stroke="rgba(255, 234, 0, 0.1)" stroke-width="2"/>
+            <circle class="bg-circle" cx="50" cy="50" r="22" fill="none" stroke="rgba(255, 234, 0, 0.1)" stroke-width="2"/>
+            
+            <polygon id="progress-hex" points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" fill="none" stroke="var(--primary)" stroke-width="3" pathLength="100"/>
+            <circle id="progress-circle" cx="50" cy="50" r="22" fill="none" stroke="var(--primary)" stroke-width="3" pathLength="100"/>
+        </svg>
+        <div class="loading-text">LOADING <span id="percent">0</span>%</div>
+    </div>
+
+    <div id="music-toggle" title="Toggle Sound">
+        <svg id="icon-sound-on" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+        <svg id="icon-sound-off" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display: none;">
+            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+        </svg>
+    </div>
+
+    <div id="main-scene">
+        <canvas id="particleCanvas"></canvas>
+        <div class="text-wrapper">
+            <h1 class="glitch-name" data-text="MALITH ERANGA">MALITH ERANGA</h1>
+            <div class="subtitle">Chemical Technology Undergraduate | BSc (Hons) <br> <span class="highlight">Sabaragamuwa University of Sri Lanka</span></div>
+        </div>
+        <button id="enter-btn">View My Portfolio</button>
+    </div>
 
     <script>
-        const canvas = document.getElementById('sakuraCanvas');
-        const ctx = canvas.getContext('2d');
-        const heroSection = document.querySelector('.hero-section');
-        let petals = [];
+        let loadProgress = 0;
+        const progressText = document.getElementById('percent');
+        const loader = document.getElementById('loader');
+        const mainScene = document.getElementById('main-scene');
+        const progressHex = document.getElementById('progress-hex');
+        const progressCircle = document.getElementById('progress-circle');
+        
+        const waterAudio = document.getElementById('waterAudio');
+        const musicToggle = document.getElementById('music-toggle');
+        const iconSoundOn = document.getElementById('icon-sound-on');
+        const iconSoundOff = document.getElementById('icon-sound-off');
+        
+        waterAudio.volume = 0.4;
+        let audioPlayed = false;
 
-        function resize() {
-            canvas.width = heroSection.offsetWidth;
-            canvas.height = heroSection.offsetHeight;
+        function forceAudioPlay() {
+            if (!audioPlayed) {
+                waterAudio.play().then(() => {
+                    audioPlayed = true;
+                    const events = ['click', 'mousemove', 'scroll', 'keydown', 'touchstart'];
+                    events.forEach(evt => window.removeEventListener(evt, forceAudioPlay));
+                }).catch(err => {
+                    console.log("Waiting for user interaction to play audio.");
+                });
+            }
         }
 
-        class Petal {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height - canvas.height;
-                this.size = Math.random() * 5 + 3;
-                this.speed = Math.random() * 0.1 + 0.2;
-                this.angle = Math.random() * Math.PI * 2;
-                this.spin = Math.random() * 0.01;
-                this.wind = (Math.random() - 0.5) * 0.5;
+        const triggerEvents = ['click', 'mousemove', 'scroll', 'keydown', 'touchstart'];
+        triggerEvents.forEach(evt => window.addEventListener(evt, forceAudioPlay, {passive: true}));
+
+        musicToggle.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            if (waterAudio.muted || waterAudio.paused) {
+                waterAudio.muted = false;
+                if(waterAudio.paused) waterAudio.play();
+                audioPlayed = true;
+                iconSoundOn.style.display = 'block';
+                iconSoundOff.style.display = 'none';
+                musicToggle.classList.remove('muted');
+            } else {
+                waterAudio.muted = true;
+                iconSoundOn.style.display = 'none';
+                iconSoundOff.style.display = 'block';
+                musicToggle.classList.add('muted');
             }
-            update() {
-                this.y += this.speed;
-                this.x += this.wind;
-                this.angle += this.spin;
-                if (this.y > canvas.height) {
-                    this.y = -10;
-                    this.x = Math.random() * canvas.width;
-                }
+        });
+
+        let loadingInterval = setInterval(() => {
+            let increment = Math.random() > 0.5 ? Math.floor(Math.random() * 10) + 2 : 1;
+            loadProgress += increment;
+            
+            if(loadProgress >= 100) {
+                loadProgress = 100;
+                clearInterval(loadingInterval);
+                
+                setTimeout(() => {
+                    loader.style.opacity = '0';
+                    setTimeout(() => {
+                        loader.style.display = 'none';
+                        mainScene.classList.add('active');
+                        initParticles(); 
+                        initFish(); 
+                        forceAudioPlay();
+                    }, 800);
+                }, 500);
+            }
+            
+            progressText.innerText = loadProgress.toString().padStart(2, '0');
+            progressHex.style.strokeDashoffset = 100 - loadProgress;
+            progressCircle.style.strokeDashoffset = 100 - loadProgress;
+
+        }, 60);
+
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let mouse = { x: null, y: null, radius: 250 };
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+
+        window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
+        window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
+        window.addEventListener('touchmove', (e) => {
+            mouse.x = e.touches[0].clientX;
+            mouse.y = e.touches[0].clientY;
+        }, {passive: true});
+        window.addEventListener('touchstart', (e) => {
+            mouse.x = e.touches[0].clientX;
+            mouse.y = e.touches[0].clientY;
+            
+            if(e.target.id === 'enter-btn' || e.target.closest('#music-toggle')) return;
+            currentColorIndex = (currentColorIndex + 1) % fishColors.length;
+        }, {passive: true});
+        window.addEventListener('touchend', () => {
+            mouse.x = null; mouse.y = null;
+        });
+        window.addEventListener('resize', () => { resizeCanvas(); initParticles(); initFish(); });
+
+        let particlesArray = [];
+        class Particle {
+            constructor(x, y) {
+                this.x = x; this.y = y;
+                this.z_index = Math.random(); 
+                this.size = (Math.random() * 8 + 4) * (this.z_index + 0.5); 
+                this.baseX = this.x; this.baseY = this.y;
+                this.density = (Math.random() * 30) + 10;
+                this.speedX = (Math.random() - 0.5) * 0.8;
+                this.speedY = (Math.random() - 0.5) * 0.8;
+                this.rotation = Math.random() * Math.PI * 2;
+                this.baseRotationSpeed = (Math.random() - 0.5) * 0.015;
+                this.rotationSpeed = this.baseRotationSpeed;
+                this.opacity = this.z_index * 0.7 + 0.1; 
             }
             draw() {
                 ctx.save();
                 ctx.translate(this.x, this.y);
-                ctx.rotate(this.angle);
+                ctx.rotate(this.rotation);
+                ctx.shadowBlur = 4;
+                ctx.shadowColor = `rgba(255, 234, 0, ${this.opacity * 0.8})`;
+                ctx.strokeStyle = `rgba(255, 234, 0, ${this.opacity})`; 
+                ctx.lineWidth = 0.5; 
                 ctx.beginPath();
-                ctx.ellipse(0, 0, this.size, this.size / 1.8, 0, 0, Math.PI * 2);
-                ctx.fillStyle = "#ffcc00"; 
-                ctx.fill();
+                for (let i = 0; i < 6; i++) {
+                    let angle = (i * Math.PI) / 3;
+                    let px = this.size * Math.cos(angle);
+                    let py = this.size * Math.sin(angle);
+                    if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+                }
+                ctx.closePath(); ctx.stroke();
+                ctx.beginPath(); ctx.arc(0, 0, this.size * 0.55, 0, Math.PI * 2); ctx.stroke();
                 ctx.restore();
+            }
+            update() {
+                this.x += this.speedX; this.y += this.speedY;
+                this.rotation += this.rotationSpeed;
+                if (this.x < -50) this.x = canvas.width + 50;
+                if (this.x > canvas.width + 50) this.x = -50;
+                if (this.y < -50) this.y = canvas.height + 50;
+                if (this.y > canvas.height + 50) this.y = -50;
+                
+                if (mouse.x != null) {
+                    let dx = mouse.x - this.x; let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < mouse.radius) {
+                        let force = (mouse.radius - distance) / mouse.radius;
+                        this.x -= (dx / distance) * force * this.density * 0.5;
+                        this.y -= (dy / distance) * force * this.density * 0.5;
+                        this.rotationSpeed += (this.rotationSpeed > 0 ? 0.005 : -0.005) * force;
+                    } else { this.rotationSpeed = this.rotationSpeed * 0.95 + this.baseRotationSpeed * 0.05; }
+                }
             }
         }
 
-        function initPetals() {
-            petals = [];
-            for (let i = 0; i < 60; i++) petals.push(new Petal());
+        function initParticles() {
+            particlesArray = [];
+            let numberOfParticles = Math.min((canvas.width * canvas.height) / 18000, 50); 
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
+            }
+        }
+
+        const fishColors = [
+            { r: 0, g: 200, b: 255 },
+            { r: 0, g: 255, b: 100 },
+            { r: 255, g: 0, b: 200 },
+            { r: 255, g: 150, b: 0 } 
+        ];
+        
+        let currentColorIndex = 0;
+        let currentR = fishColors[0].r;
+        let currentG = fishColors[0].g;
+        let currentB = fishColors[0].b;
+
+        window.addEventListener('mousedown', (e) => {
+            if(e.target.id === 'enter-btn' || e.target.closest('#music-toggle')) return;
+            currentColorIndex = (currentColorIndex + 1) % fishColors.length;
+        });
+
+        function getBrighter(c, amount) { return Math.min(255, Math.round(c + amount)); }
+        function getDarker(c, factor) { return Math.round(c * factor); }
+
+        const numNodes = 25;
+        const segmentLength = 10;
+        const fishNodes = [];
+        const fishThickness = [8, 16, 24, 29, 31, 30, 27, 23, 19, 16, 13, 11, 9, 8, 7, 6, 5, 4, 3, 2, 2, 1, 1, 1, 1];
+        let headTarget = { x: window.innerWidth/2, y: window.innerHeight/2 };
+
+        function initFish() {
+            fishNodes.length = 0;
+            for(let i=0; i<numNodes; i++) {
+                fishNodes.push({ x: canvas.width/2, y: canvas.height/2, angle: 0 });
+            }
+        }
+
+        function drawPolyFin(baseIndex, length, baseAngleOffset, spread, pointsCount, sway) {
+            let baseNode = fishNodes[baseIndex];
+            let baseNext = fishNodes[Math.min(baseIndex + 2, numNodes - 1)]; 
+            
+            let tipAngle = baseNode.angle + baseAngleOffset + sway;
+            
+            let tips = [];
+            for(let i=0; i<pointsCount; i++) {
+                let pSpread = -spread + (spread * 2 * (i/(pointsCount-1 || 1)));
+                let r = length * (0.6 + (i%2)*0.4);
+                tips.push({
+                    x: baseNode.x + Math.cos(tipAngle + pSpread) * r,
+                    y: baseNode.y + Math.sin(tipAngle + pSpread) * r
+                });
+            }
+
+            ctx.strokeStyle = `rgba(${Math.round(currentR)}, ${Math.round(currentG)}, ${Math.round(currentB)}, 0.5)`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            
+            tips.forEach((tip, i) => {
+                ctx.moveTo(baseNode.x, baseNode.y);
+                ctx.lineTo(tip.x, tip.y);
+                ctx.moveTo(baseNext.x, baseNext.y);
+                ctx.lineTo(tip.x, tip.y);
+                if (i > 0) {
+                    ctx.moveTo(tips[i-1].x, tips[i-1].y);
+                    ctx.lineTo(tip.x, tip.y);
+                }
+            });
+            ctx.stroke();
+
+            ctx.fillStyle = `rgba(${getBrighter(currentR, 100)}, ${getBrighter(currentG, 55)}, ${getBrighter(currentB, 55)}, 0.9)`;
+            tips.forEach(tip => {
+                ctx.beginPath(); ctx.arc(tip.x, tip.y, 1.5, 0, Math.PI*2); ctx.fill();
+            });
+        }
+
+        function updateAndDrawFish() {
+            let targetColor = fishColors[currentColorIndex];
+            currentR += (targetColor.r - currentR) * 0.05;
+            currentG += (targetColor.g - currentG) * 0.05;
+            currentB += (targetColor.b - currentB) * 0.05;
+
+            let targetX = mouse.x || canvas.width/2;
+            let targetY = mouse.y || canvas.height/2;
+            headTarget.x += (targetX - headTarget.x) * 0.05; 
+            headTarget.y += (targetY - headTarget.y) * 0.05;
+
+            let wiggle = Math.sin(Date.now() * 0.005) * 2; 
+            fishNodes[0].x = headTarget.x;
+            fishNodes[0].y = headTarget.y + wiggle;
+
+            for(let i = 1; i < numNodes; i++) {
+                let dx = fishNodes[i-1].x - fishNodes[i].x;
+                let dy = fishNodes[i-1].y - fishNodes[i].y;
+                let angle = Math.atan2(dy, dx);
+                fishNodes[i].angle = angle;
+                fishNodes[i].x = fishNodes[i-1].x - Math.cos(angle) * segmentLength;
+                fishNodes[i].y = fishNodes[i-1].y - Math.sin(angle) * segmentLength;
+            }
+
+            ctx.save();
+            let t = Date.now() * 0.003;
+            
+            drawPolyFin(4, 55, -Math.PI/2, 0.4, 6, Math.sin(t)*0.2);
+            drawPolyFin(7, 65, Math.PI/2, 0.3, 5, -Math.sin(t)*0.2);
+            drawPolyFin(3, 40, -1.2, 0.2, 3, Math.sin(t)*0.3);
+            drawPolyFin(3, 40, 1.2, 0.2, 3, -Math.sin(t)*0.3);
+            drawPolyFin(numNodes-3, 90, Math.PI - 0.35, 0.3, 5, Math.sin(t*1.2)*0.4);
+            drawPolyFin(numNodes-3, 90, Math.PI + 0.35, 0.3, 5, Math.sin(t*1.2)*0.4);
+            drawPolyFin(numNodes-2, 110, Math.PI, 0.4, 6, Math.sin(t*1.2)*0.5);
+
+            let vertices = [];
+            for(let i=0; i<numNodes; i++) {
+                let r = fishThickness[i];
+                let angle = fishNodes[i].angle;
+                let spine = {x: fishNodes[i].x, y: fishNodes[i].y};
+                let top = {
+                    x: fishNodes[i].x + Math.cos(angle - Math.PI/2) * r,
+                    y: fishNodes[i].y + Math.sin(angle - Math.PI/2) * r
+                };
+                let bottom = {
+                    x: fishNodes[i].x + Math.cos(angle + Math.PI/2) * r,
+                    y: fishNodes[i].y + Math.sin(angle + Math.PI/2) * r
+                };
+                vertices.push({spine, top, bottom});
+            }
+
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = `rgba(${Math.round(currentR)}, ${Math.round(currentG)}, ${Math.round(currentB)}, 0.9)`;
+            
+            ctx.fillStyle = `rgba(${getDarker(currentR, 0.2)}, ${getDarker(currentG, 0.25)}, ${getDarker(currentB, 0.4)}, 0.15)`;
+            ctx.beginPath();
+            for(let i=0; i<numNodes; i++) {
+                if(i===0) ctx.moveTo(vertices[i].top.x, vertices[i].top.y);
+                else ctx.lineTo(vertices[i].top.x, vertices[i].top.y);
+            }
+            for(let i=numNodes-1; i>=0; i--) {
+                ctx.lineTo(vertices[i].bottom.x, vertices[i].bottom.y);
+            }
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.strokeStyle = `rgba(${Math.round(currentR)}, ${Math.round(currentG)}, ${Math.round(currentB)}, 0.6)`;
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            for(let i=1; i<numNodes; i++) {
+                let v1 = vertices[i-1];
+                let v2 = vertices[i];
+                
+                ctx.moveTo(v1.top.x, v1.top.y); ctx.lineTo(v2.top.x, v2.top.y);
+                ctx.moveTo(v1.bottom.x, v1.bottom.y); ctx.lineTo(v2.bottom.x, v2.bottom.y);
+                ctx.moveTo(v1.spine.x, v1.spine.y); ctx.lineTo(v2.spine.x, v2.spine.y);
+                
+                ctx.moveTo(v1.spine.x, v1.spine.y); ctx.lineTo(v2.top.x, v2.top.y);
+                ctx.moveTo(v1.spine.x, v1.spine.y); ctx.lineTo(v2.bottom.x, v2.bottom.y);
+                
+                if (i % 2 === 0) {
+                    ctx.moveTo(v1.top.x, v1.top.y); ctx.lineTo(v2.spine.x, v2.spine.y);
+                    ctx.moveTo(v1.bottom.x, v1.bottom.y); ctx.lineTo(v2.spine.x, v2.spine.y);
+                }
+            }
+            ctx.stroke();
+
+            ctx.fillStyle = `rgba(${getBrighter(currentR, 150)}, ${getBrighter(currentG, 55)}, ${getBrighter(currentB, 0)}, 1)`;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = `rgba(${Math.round(currentR)}, ${Math.round(currentG)}, ${Math.round(currentB)}, 1)`;
+            vertices.forEach((v, i) => {
+                if (i % 2 === 0 || i === 0 || i === numNodes - 1) {
+                    ctx.beginPath(); ctx.arc(v.spine.x, v.spine.y, 2, 0, Math.PI*2); ctx.fill();
+                    ctx.beginPath(); ctx.arc(v.top.x, v.top.y, 1.5, 0, Math.PI*2); ctx.fill();
+                    ctx.beginPath(); ctx.arc(v.bottom.x, v.bottom.y, 1.5, 0, Math.PI*2); ctx.fill();
+                }
+            });
+
+            let eye1X = vertices[1].spine.x + Math.cos(fishNodes[1].angle - 1.0) * 10;
+            let eye1Y = vertices[1].spine.y + Math.sin(fishNodes[1].angle - 1.0) * 10;
+            let eye2X = vertices[1].spine.x + Math.cos(fishNodes[1].angle + 1.0) * 10;
+            let eye2Y = vertices[1].spine.y + Math.sin(fishNodes[1].angle + 1.0) * 10;
+
+            ctx.fillStyle = '#fff';
+            ctx.beginPath(); ctx.arc(eye1X, eye1Y, 3, 0, Math.PI*2); ctx.fill();
+            ctx.beginPath(); ctx.arc(eye2X, eye2Y, 3, 0, Math.PI*2); ctx.fill();
+            
+            ctx.strokeStyle = `rgba(${getBrighter(currentR, 150)}, ${getBrighter(currentG, 150)}, ${getBrighter(currentB, 150)}, 0.8)`;
+            ctx.beginPath();
+            ctx.moveTo(eye1X, eye1Y); ctx.lineTo(vertices[1].spine.x, vertices[1].spine.y);
+            ctx.moveTo(eye2X, eye2Y); ctx.lineTo(vertices[1].spine.x, vertices[1].spine.y);
+            ctx.stroke();
+
+            ctx.restore();
         }
 
         function animate() {
+            // Previous frame eka clear karanawa image eka penna
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            petals.forEach(p => { p.update(); p.draw(); });
+            
+            // Image eka udin text eka clear wenna thiyena dark fade overlay eka
+            ctx.fillStyle = 'rgba(2, 6, 20, 0.5)'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            let time = Date.now() * 0.0003;
+            let lightGradient = ctx.createRadialGradient(canvas.width/2 + Math.sin(time*1.5)*200, 0, 0, canvas.width/2, 0, canvas.height);
+            lightGradient.addColorStop(0, 'rgba(40, 120, 180, 0.08)');
+            lightGradient.addColorStop(1, 'transparent');
+            ctx.fillStyle = lightGradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                for (let j = i; j < particlesArray.length; j++) {
+                    let dx = particlesArray[i].x - particlesArray[j].x;
+                    let dy = particlesArray[i].y - particlesArray[j].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 180) {
+                        ctx.beginPath();
+                        let opacity = Math.pow(1 - distance/180, 2); 
+                        ctx.strokeStyle = `rgba(255, 234, 0, ${opacity * 0.25})`;
+                        ctx.lineWidth = 0.4; ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y); ctx.stroke();
+                    }
+                }
+            }
+
+            if(mainScene.classList.contains('active')) {
+                updateAndDrawFish();
+            }
+
             requestAnimationFrame(animate);
         }
+        
+        animate(); 
 
-        window.addEventListener('resize', resize);
-        resize();
-        initPetals();
-        animate();
+        const enterBtn = document.getElementById('enter-btn');
+        const waterfallOverlay = document.getElementById('waterfall-overlay');
 
-        // --- Navigation Auto Active State on Scroll ---
-        const navLinks = document.querySelectorAll('.top-nav ul li a');
-
-        window.addEventListener('scroll', () => {
-            let current = '';
-            const sections = document.querySelectorAll('#aboutme, #Projects, #education, #more, #contact');
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= sectionTop - 250) {
-                    current = section.getAttribute('id');
+        enterBtn.addEventListener('click', () => {
+            waterfallOverlay.classList.add('active'); 
+            
+            musicToggle.style.opacity = '0'; 
+            
+            let fadeOut = setInterval(() => {
+                if(waterAudio.volume > 0.05) {
+                    waterAudio.volume -= 0.05;
+                } else {
+                    waterAudio.pause();
+                    clearInterval(fadeOut);
                 }
-            });
+            }, 100);
 
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').includes(current) && current !== '') {
-                    link.classList.add('active');
-                }
-            });
+            setTimeout(() => { 
+                window.location.href = 'main.html'; 
+            }, 1600);
         });
-
-        // --- Background Music Controller ---
-        const bgMusic = document.getElementById('bgMusic');
-        const musicToggle = document.getElementById('musicToggle');
-        const musicIcon = document.getElementById('musicIcon');
-
-        const volumeOffIcon = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="1" x2="1" y2="23"></line>`;
-        const volumeOnIcon = `<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>`;
-
-        bgMusic.volume = 0.5; 
-
-        const playMusic = () => {
-            bgMusic.play().then(() => {
-                musicIcon.innerHTML = volumeOnIcon;
-                musicToggle.style.boxShadow = "0 0 20px rgba(255, 204, 0, 0.4)"; 
-            }).catch((error) => {
-                console.log("Autoplay blocked. Waiting for user interaction.");
-            });
-        };
-
-        window.addEventListener('DOMContentLoaded', playMusic);
-
-        document.body.addEventListener('click', () => {
-            if (bgMusic.paused) {
-                playMusic();
-            }
-        }, { once: true }); 
-
-        musicToggle.addEventListener('click', (e) => {
-            e.stopPropagation(); 
-            if (bgMusic.paused) {
-                playMusic();
-            } else {
-                bgMusic.pause();
-                musicIcon.innerHTML = volumeOffIcon;
-                musicToggle.style.boxShadow = "0 4px 15px rgba(0,0,0,0.3)";
-            }
-        });
-
-       window.addEventListener('message', function(event) {
-        if (event.data && event.data.type === 'resize') {
-            const iframes = document.querySelectorAll('.Projects-iframe');
-            iframes.forEach(iframe => {
-                if (event.data.url.includes(iframe.getAttribute('src'))) {
-                    // හරියටම එවන height එක විතරක් set කරනවා
-                    iframe.style.height = event.data.height + 'px'; 
-                }
-            });
-        }
-    });
     </script>
 </body>
 </html>
