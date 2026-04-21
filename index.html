@@ -97,7 +97,7 @@
             z-index: 10;
             text-align: center;
             pointer-events: none;
-            padding: 0 15px; /* Added for mobile safety */
+            padding: 0 15px; 
         }
 
         .glitch-name {
@@ -170,7 +170,6 @@
             backdrop-filter: blur(8px);
             clip-path: polygon(15px 0%, 100% 0%, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0% 100%, 0% 15px);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            /* Make tap target more reliable on mobile */
             -webkit-tap-highlight-color: transparent; 
         }
 
@@ -299,41 +298,6 @@
         @keyframes move-forever {
             0% { transform: translate3d(-90px,0,0); }
             100% { transform: translate3d(85px,0,0); }
-        }
-
-        /* ==========================================
-           --- MOBILE OPTIMIZATIONS (MEDIA QUERIES) ---
-           ========================================== */
-        @media (max-width: 768px) {
-            .glitch-name {
-                font-size: clamp(2rem, 10vw, 4rem); 
-                letter-spacing: clamp(2px, 1.5vw, 6px);
-            }
-            .subtitle {
-                font-size: 0.8rem;
-                letter-spacing: 4px;
-                margin-top: 15px;
-            }
-            #enter-btn {
-                margin-top: 50px;
-                padding: 15px 35px;
-                font-size: 0.85rem;
-                letter-spacing: 3px;
-            }
-            #benzene-svg {
-                width: 120px;
-                height: 120px;
-            }
-            .loading-text {
-                font-size: 0.85rem;
-            }
-            /* Move button slightly to avoid OS gesture areas on mobile */
-            #music-toggle {
-                bottom: 20px;
-                right: 20px;
-                width: 40px;
-                height: 40px;
-            }
         }
     </style>
 </head>
@@ -482,11 +446,12 @@
         window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
         window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
         
-        // Mobile Touch Events (ADDED FOR MOBILE OPTIMIZATION)
+        // Mobile Touch Events
         window.addEventListener('touchmove', (e) => {
             mouse.x = e.touches[0].clientX;
             mouse.y = e.touches[0].clientY;
         }, {passive: true});
+        
         window.addEventListener('touchstart', (e) => {
             mouse.x = e.touches[0].clientX;
             mouse.y = e.touches[0].clientY;
@@ -495,9 +460,6 @@
             if(e.target.id === 'enter-btn' || e.target.closest('#music-toggle')) return;
             currentColorIndex = (currentColorIndex + 1) % fishColors.length;
         }, {passive: true});
-        window.addEventListener('touchend', () => {
-            mouse.x = null; mouse.y = null;
-        });
 
         window.addEventListener('resize', () => { resizeCanvas(); initParticles(); initFish(); });
 
@@ -560,8 +522,7 @@
 
         function initParticles() {
             particlesArray = [];
-            // Dynamically scale particles based on screen size (good for mobile performance)
-            let numberOfParticles = Math.min((canvas.width * canvas.height) / 18000, 50); 
+            let numberOfParticles = 50; // Forced to 50 for desktop-level density on all screens
             for (let i = 0; i < numberOfParticles; i++) {
                 particlesArray.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
             }
