@@ -176,7 +176,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.15); 
             border-left: 4px solid var(--secondary);
             
-            padding: 50px;
+            padding: 50px; /* Original padding */
             border-radius: 15px;
             
             box-shadow: 
@@ -336,6 +336,14 @@
             box-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
             border-color: var(--secondary);
             background: rgba(13, 19, 35, 0.8);
+        }
+
+        /* Mobile specific adjustments while forcing desktop view */
+        @media screen and (max-width: 768px) {
+            .glass-panel {
+                /* Reduce only internal right padding from 50px to 25px in mobile view */
+                padding-right: 25px; 
+            }
         }
 
         /* MEDIA QUERIES ඉවත් කර ඇත (Desktop View එක Force කිරීමට) */
