@@ -29,6 +29,9 @@
 
         .wrapper { position: relative; padding: 80px 5% 60px 5%; display: flex; flex-direction: column; align-items: center; min-height: 100vh; justify-content: center; }
 
+        /* Binary Canvas Background */
+        #binaryCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.8; }
+
         .bg-grid { position: absolute; width: 100%; height: 100%; background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px); background-size: 40px 40px; z-index: 1; top: 0; left: 0;}
         .bg-grid::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, transparent 0%, var(--bg-dark) 100%); }
         
@@ -38,34 +41,24 @@
 
         @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.2); } }
 
-        .content-container { position: relative; z-index: 2; width: 100%; max-width: 650px; display: flex; flex-direction: column; gap: 30px; }
+        /* Container width increased */
+        .content-container { position: relative; z-index: 2; width: 100%; max-width: 1000px; }
 
-        .section-header { text-align: center; }
+        .section-header { margin-bottom: 50px; text-align: center; }
         .section-title { font-family: 'Syncopate', sans-serif; font-size: clamp(1.8rem, 3vw, 2.5rem); text-transform: uppercase; letter-spacing: 3px; text-shadow: 0 0 20px var(--glow-cyan);}
         .section-title span { color: var(--primary); }
         .subtitle { font-size: 0.9rem; color: var(--secondary); letter-spacing: 4px; font-weight: 500; margin-top: 15px; text-transform: uppercase;}
 
-        .glass-panel { padding: 40px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 0 30px rgba(0, 243, 255, 0.05); position: relative; overflow: hidden; display: flex; flex-direction: column;}
+        .glass-panel { padding: 45px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); box-shadow: 0 20px 40px rgba(0,0,0,0.8), inset 0 0 30px rgba(0, 243, 255, 0.05); position: relative; overflow: hidden; display: flex; flex-direction: column;}
         .glass-panel::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent, rgba(0, 243, 255, 0.03), transparent); transform: rotate(45deg); pointer-events: none;}
 
-        .panel-title { font-family: 'Syncopate', sans-serif; font-size: 1.2rem; margin-bottom: 30px; color: #fff; letter-spacing: 1px; text-align: center;}
-        .panel-title span { color: var(--primary); }
-
-        /* Form Styles */
-        .contact-form { display: flex; flex-direction: column; gap: 20px; z-index: 2;}
-        .form-group { display: flex; flex-direction: column; gap: 8px; }
-        .form-group label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
-        .form-input { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; color: #fff; font-family: 'Space Grotesk', sans-serif; outline: none; transition: all 0.3s ease; }
-        .form-input:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 243, 255, 0.15); background: rgba(0,0,0,0.6); }
-        textarea.form-input { resize: vertical; min-height: 120px; }
-        
-        .submit-btn { background: rgba(0, 243, 255, 0.05); border: 1px solid var(--primary); color: #fff; padding: 15px; border-radius: 12px; font-family: 'Syncopate', sans-serif; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 10px; }
-        .submit-btn i { font-size: 1.2rem; transition: 0.3s;}
-        .submit-btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 25px rgba(0, 243, 255, 0.4); }
-        .submit-btn:hover i { transform: translateX(5px); color: #000; }
-
         /* Social Icons */
-        .social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 20px; }
+        .social-container { width: 100%; }
+        .social-container h3 { font-family: 'Syncopate', sans-serif; font-size: 1.2rem; margin-bottom: 30px; color: #fff; letter-spacing: 1px; text-align: center;}
+        
+        /* Forces 7 items into a single row on desktop */
+        .social-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 20px; }
+        
         .social-card { display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); padding: 25px 10px; border-radius: 14px; text-decoration: none; color: var(--text-muted); transition: all 0.4s ease; cursor: pointer;}
         .social-card i { font-size: 2.2rem; margin-bottom: 15px; transition: 0.3s; }
         .social-card span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;}
@@ -84,6 +77,10 @@
         .toast.show { transform: translateX(0); }
         .toast i { color: var(--primary); font-size: 1.2rem; }
 
+        /* Responsive Fix for Mobile */
+        @media screen and (max-width: 900px) {
+            .social-grid { grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); }
+        }
         @media screen and (max-width: 600px) {
             .direct-grid { grid-template-columns: 1fr; }
             .glass-panel { padding: 30px 20px; }
@@ -97,6 +94,8 @@
     </div>
 
     <div class="wrapper">
+        <canvas id="binaryCanvas"></canvas>
+        
         <div class="bg-grid"></div>
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
@@ -104,73 +103,46 @@
         <div class="content-container">
             
             <div class="section-header">
-                <h2 class="section-title">Establish <span>Link</span></h2>
-                <div class="subtitle">Digital Communication Network</div>
+                <h2 class="section-title">Contact <span>Malith Eranga</span></h2>
+               
             </div>
 
-            <div class="glass-panel">
-                <h3 class="panel-title">Send a <span>Message</span></h3>
-                
-                <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+            <div class="social-container">
+                <div class="glass-panel">
                     
-                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-                    <input type="hidden" name="subject" value="New Message from Modern Pixels Website">
                     
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" class="form-input" placeholder="Enter your name" required>
+                    <div class="social-grid">
+                        <a href="https://www.linkedin.com/in/malitheranga" target="_blank" class="social-card">
+                            <i class="fab fa-linkedin-in"></i><span>LinkedIn</span>
+                        </a>
+                        <a href="https://github.com/malitheranga" target="_blank" class="social-card">
+                            <i class="fab fa-github"></i><span>GitHub</span>
+                        </a>
+                        <a href="https://www.facebook.com/share/qeesxzKKnckcyghV/?mibextid=qi2Omg" target="_blank" class="social-card">
+                            <i class="fab fa-facebook-f"></i><span>Facebook</span>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCV5gI6ueRV103C2-9dEWr1Q" target="_blank" class="social-card">
+                            <i class="fab fa-youtube"></i><span>YouTube</span>
+                        </a>
+                        <a href="https://www.tiktok.com/@modern_pixels?_r=1&_t=ZS-95Z6NnOftt2" target="_blank" class="social-card">
+                            <i class="fab fa-tiktok"></i><span>TikTok</span>
+                        </a>
+                        <a href="https://wa.me/94786026856" target="_blank" class="social-card">
+                            <i class="fab fa-whatsapp"></i><span>WhatsApp</span>
+                        </a>
+                        <a href="https://t.me/ModernPixels" target="_blank" class="social-card">
+                            <i class="fab fa-telegram-plane"></i><span>Telegram</span>
+                        </a>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Your Email</label>
-                        <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email address" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" class="form-input" placeholder="Type your message here..." required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">
-                        Send <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
 
-            <div class="glass-panel">
-                <h3 class="panel-title">Digital <span>Nodes</span></h3>
-                
-                <div class="social-grid">
-                    <a href="https://www.linkedin.com/in/malitheranga" target="_blank" class="social-card">
-                        <i class="fab fa-linkedin-in"></i><span>LinkedIn</span>
-                    </a>
-                    <a href="https://github.com/malitheranga" target="_blank" class="social-card">
-                        <i class="fab fa-github"></i><span>GitHub</span>
-                    </a>
-                    <a href="https://www.facebook.com/share/qeesxzKKnckcyghV/?mibextid=qi2Omg" target="_blank" class="social-card">
-                        <i class="fab fa-facebook-f"></i><span>Facebook</span>
-                    </a>
-                    <a href="https://www.youtube.com/channel/UCV5gI6ueRV103C2-9dEWr1Q" target="_blank" class="social-card">
-                        <i class="fab fa-youtube"></i><span>YouTube</span>
-                    </a>
-                    <a href="https://www.tiktok.com/@modern_pixels?_r=1&_t=ZS-95Z6NnOftt2" target="_blank" class="social-card">
-                        <i class="fab fa-tiktok"></i><span>TikTok</span>
-                    </a>
-                    <a href="https://wa.me/94786026856" target="_blank" class="social-card">
-                        <i class="fab fa-whatsapp"></i><span>WhatsApp</span>
-                    </a>
-                    <a href="https://t.me/ModernPixels" target="_blank" class="social-card">
-                        <i class="fab fa-telegram-plane"></i><span>Telegram</span>
-                    </a>
-                </div>
-
-                <div class="direct-grid">
-                    <div class="social-card direct-card" id="email-btn" title="Click to copy email">
-                        <i class="fas fa-envelope"></i><span>Copy Email</span>
+                    <div class="direct-grid">
+                        <div class="social-card direct-card" id="email-btn" title="Click to copy email">
+                            <i class="fas fa-envelope"></i><span>Copy Email</span>
+                        </div>
+                        <a href="tel:+94786026856" class="social-card direct-card" title="Call Now">
+                            <i class="fas fa-phone-alt"></i><span>Voice Call</span>
+                        </a>
                     </div>
-                    <a href="tel:+94786026856" class="social-card direct-card" title="Call Now">
-                        <i class="fas fa-phone-alt"></i><span>Voice Call</span>
-                    </a>
                 </div>
             </div>
 
@@ -178,6 +150,45 @@
     </div>
 
     <script>
+        // Binary Rain Effect
+        const canvas = document.getElementById('binaryCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const characters = '01';
+        const fontSize = 14;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = Array(columns).fill(1);
+
+        function drawMatrix() {
+            // Background color with opacity to create trail effect
+            ctx.fillStyle = 'rgba(3, 5, 10, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Text color (Cyan with low opacity for 'lawata' look)
+            ctx.fillStyle = 'rgba(0, 243, 255, 0.25)'; 
+            ctx.font = fontSize + 'px monospace';
+            
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                
+                // Reset drop to top randomly
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        // Speed of the rain
+        setInterval(drawMatrix, 50);
+
         // Email Copy Functionality
         const emailBtn = document.getElementById('email-btn');
         const toast = document.getElementById('copy-toast');

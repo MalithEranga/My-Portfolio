@@ -109,7 +109,7 @@
     }
 
     /* =========================================
-       CUTE CHUTI CYBER-PET (RIGHT-BOTTOM)
+       CUTE CHUTI CYBER-PET "TORA"
        ========================================= */
     #chuti-bot {
         position: fixed;
@@ -118,8 +118,65 @@
         width: 70px;
         height: 90px;
         z-index: 1000;
-        pointer-events: none;
+        pointer-events: auto; /* Click karanna puluwan wenda auto kala */
+        cursor: pointer;      /* Hover weddi athaka icon eka enna */
         filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.6));
+    }
+
+    /* TORA Text Bubble (Message eka) */
+    .tora-bubble {
+        position: absolute;
+        top: -45px;
+        left: 50%;
+        transform: translateX(-50%) translateY(10px) scale(0.8);
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid #22c55e;
+        padding: 6px 12px;
+        border-radius: 8px;
+        color: #fff;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5), 0 0 15px rgba(34, 197, 94, 0.4);
+        z-index: 30;
+    }
+
+    /* Message bubble eke yatin thiyena podi katuwa */
+    .tora-bubble::after {
+        content: '';
+        position: absolute;
+        bottom: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 6px 6px 0;
+        border-style: solid;
+        border-color: #22c55e transparent transparent transparent;
+    }
+
+    .tora-bubble.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+
+    /* TORA Holographic Name Tag */
+    .chuti-name {
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: 'Syncopate', sans-serif;
+        font-size: 9px;
+        font-weight: 700;
+        color: var(--secondary);
+        letter-spacing: 2px;
+        text-shadow: 0 0 5px var(--secondary);
+        opacity: 0.9;
+        z-index: 20;
+        transition: color 0.4s ease, text-shadow 0.4s ease;
     }
 
     .chuti-shadow {
@@ -133,6 +190,7 @@
         border-radius: 50%;
         filter: blur(4px);
         animation: chutiShadowPulse 3s ease-in-out infinite;
+        transition: background 0.4s ease;
     }
 
     .chuti-wrapper {
@@ -142,7 +200,12 @@
         animation: chutiFloat 3s ease-in-out infinite;
     }
 
-    /* --- Body (Podi Aga) --- */
+    /* Base Transitions */
+    .chuti-body, .chuti-head, .chuti-arm, .chuti-leg, .chuti-ear, .chuti-core, .chuti-eye {
+        transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    }
+
+    /* --- Body --- */
     .chuti-body {
         position: absolute;
         top: 45px;
@@ -160,7 +223,6 @@
         z-index: 5;
     }
 
-    /* Cute Core Heart */
     .chuti-core {
         width: 10px;
         height: 10px;
@@ -170,7 +232,7 @@
         animation: heartBeat 1.5s infinite;
     }
 
-    /* --- Head (Loku Oluwa) --- */
+    /* --- Head --- */
     .chuti-head {
         position: absolute;
         top: 5px;
@@ -190,7 +252,6 @@
         transform-origin: center bottom;
     }
 
-    /* Black Visor Screen */
     .chuti-visor {
         width: 80%;
         height: 22px;
@@ -210,7 +271,6 @@
         will-change: transform;
     }
 
-    /* Big Cute Eyes */
     .chuti-eye {
         width: 8px;
         height: 12px;
@@ -220,7 +280,6 @@
         animation: cuteBlink 4s infinite;
     }
 
-    /* Cute glowing cheeks */
     .chuti-cheek {
         position: absolute;
         bottom: 2px;
@@ -233,7 +292,6 @@
     .chuti-cheek.left { left: 4px; }
     .chuti-cheek.right { right: 4px; }
 
-    /* Ear Antennas */
     .chuti-ear {
         position: absolute;
         top: 15px;
@@ -246,7 +304,7 @@
     .chuti-ear.left { left: -6px; border-radius: 5px 0 0 5px; border-right: none; }
     .chuti-ear.right { right: -6px; border-radius: 0 5px 5px 0; border-left: none; }
 
-    /* --- Arms (Chuti Ath) --- */
+    /* --- Limbs --- */
     .chuti-arm {
         position: absolute;
         top: 50px;
@@ -261,7 +319,6 @@
     .chuti-arm.left { left: 8px; transform-origin: top center; }
     .chuti-arm.right { right: 8px; transform-origin: top center; animation-delay: 1.5s; }
 
-    /* --- Legs (Chuti Kakul) --- */
     .chuti-leg {
         position: absolute;
         bottom: 0px;
@@ -275,6 +332,19 @@
     }
     .chuti-leg.left { left: 20px; transform-origin: top center; }
     .chuti-leg.right { right: 20px; transform-origin: top center; animation-delay: 1.5s; }
+
+    /* =========================================
+       TORA ACTIVE STATE (GREEN ON HOVER/PROXIMITY)
+       ========================================= */
+    #chuti-bot.tora-active .chuti-name { color: #22c55e; text-shadow: 0 0 10px #22c55e; opacity: 0; } /* Hide name when bubble is active or proximity triggered */
+    #chuti-bot.tora-active .chuti-head { background: linear-gradient(145deg, #bbf7d0, #4ade80); border-color: #16a34a; }
+    #chuti-bot.tora-active .chuti-body { background: linear-gradient(135deg, #15803d, #14532d); border-color: #22c55e; }
+    #chuti-bot.tora-active .chuti-arm, 
+    #chuti-bot.tora-active .chuti-leg, 
+    #chuti-bot.tora-active .chuti-ear { background: #14532d; border-color: #22c55e; }
+    #chuti-bot.tora-active .chuti-eye { background: #22c55e; box-shadow: 0 0 10px #22c55e, 0 0 20px #fff; }
+    #chuti-bot.tora-active .chuti-core { background: #22c55e; box-shadow: 0 0 15px #22c55e, inset 0 0 5px #fff; }
+    #chuti-bot.tora-active .chuti-shadow { background: rgba(34, 197, 94, 0.3); }
 
     /* --- Animations --- */
     @keyframes chutiFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
@@ -304,6 +374,10 @@
 </nav>
 
 <div id="chuti-bot">
+    
+    <div class="tora-bubble" id="tora-bubble">Hi... I am TORA 👋</div>
+
+    <div class="chuti-name" id="tora-name"></div>
     <div class="chuti-shadow"></div>
     <div class="chuti-wrapper">
         
@@ -408,70 +482,142 @@
     });
 
     // =========================================
-    // CUTE MOUSE TRACKING LOGIC (WITH IFRAME SUPPORT)
+    // CLICK INTERACTION LOGIC (FIXED)
+    // =========================================
+    const chutiBot = document.getElementById('chuti-bot');
+    const toraBubble = document.getElementById('tora-bubble');
+    let toraClickCount = 0;
+
+    function slowScrollTo(elementId, duration) {
+        const target = document.getElementById(elementId);
+        if (!target) return;
+
+        // JS animation eka weda karaddi CSS smooth scroll eka temporary disable karanawa (Clash wena eka nawaththanna)
+        document.documentElement.style.scrollBehavior = 'auto';
+
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        let startTime = null;
+
+        function animation(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
+            
+            window.scrollTo(0, run);
+            
+            if (timeElapsed < duration) {
+                requestAnimationFrame(animation);
+            } else {
+                // Scroll wela iwara unama apahu CSS smooth scroll eka active karanawa
+                document.documentElement.style.scrollBehavior = 'smooth';
+            }
+        }
+
+        // Easing math formula 
+        function easeInOutQuad(t, b, c, d) {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t + b;
+            t--;
+            return -c / 2 * (t * (t - 2) - 1) + b;
+        }
+
+        requestAnimationFrame(animation);
+    }
+
+    chutiBot.addEventListener('click', () => {
+        if (toraClickCount === 0) {
+            // 1st Click: Bubble eka penwanawa
+            toraBubble.classList.add('show');
+            toraClickCount++;
+        } else if (toraClickCount === 1) {
+            // 2nd Click: Bubble eka hide wela thappara 2n pahaḷata yanawa
+            toraBubble.classList.remove('show'); 
+            slowScrollTo('contact', 2000); 
+            toraClickCount++;
+        } else if (toraClickCount === 2) {
+            // 3rd Click: Apahu uda (#aboutme) ekata thappara 2n yanawa
+            slowScrollTo('aboutme', 2000); 
+            toraClickCount = 0; // Click cycle eka reset karanawa
+        }
+    });
+
+    // =========================================
+    // CUTE MOUSE TRACKING & PROXIMITY LOGIC
     // =========================================
     const chutiHead = document.getElementById('chuti-head');
     const chutiEyes = document.getElementById('chuti-eyes');
 
     let currentX = 0, currentY = 0;
     let targetX = 0, targetY = 0;
+    
+    let rawMouseX = window.innerWidth / 2;
+    let rawMouseY = window.innerHeight / 2;
 
-    // Helper function to update target coordinates
     function updateTargetPosition(clientX, clientY) {
+        rawMouseX = clientX;
+        rawMouseY = clientY;
         targetX = ((clientX / window.innerWidth) - 0.5) * 2;
         targetY = ((clientY / window.innerHeight) - 0.5) * 2;
     }
 
-    // 1. Track mouse on the main page
+    // Main page tracking
     document.addEventListener('mousemove', (e) => {
         updateTargetPosition(e.clientX, e.clientY);
     });
 
-    // 2. Track mouse inside Iframes
+    // Iframe tracking
     const allIframes = document.querySelectorAll('.Projects-iframe');
     allIframes.forEach(iframe => {
         iframe.addEventListener('load', () => {
             try {
                 const iframeDoc = iframe.contentWindow.document;
                 iframeDoc.addEventListener('mousemove', (e) => {
-                    // Calculate iframe's position on the main screen
                     const rect = iframe.getBoundingClientRect();
-                    // Add iframe's internal mouse position to iframe's screen offset
                     const adjustedX = e.clientX + rect.left;
                     const adjustedY = e.clientY + rect.top;
-                    
                     updateTargetPosition(adjustedX, adjustedY);
                 });
             } catch (err) {
-                console.warn("Iframe tracking requires a local server. If running directly from a file:// URL, this won't work due to browser security.", err);
+                console.warn("Iframe tracking active.");
             }
         });
     });
 
     // Animation Loop
     function animateChuti() {
-        if (chutiHead && chutiEyes) {
-            // Smooth lerp for cute, slightly delayed movement
+        if (chutiHead && chutiEyes && chutiBot) {
+            
+            // --- TORA Proximity Effect (Color Change) ---
+            const rect = chutiBot.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const dist = Math.hypot(rawMouseX - centerX, rawMouseY - centerY);
+            
+            // Mouse eka 150px range ekata awama TORA kola paata wela active wenawa
+            if (dist < 150) {
+                chutiBot.classList.add('tora-active');
+            } else {
+                chutiBot.classList.remove('tora-active');
+            }
+
+            // --- Head & Eye Parallax Movement ---
             currentX += (targetX - currentX) * 0.1;
             currentY += (targetY - currentY) * 0.1;
             
-            // Big head moves and tilts slightly
-            const headTilt = currentX * 15; // Rotate up to 15deg
+            const headTilt = currentX * 15; 
             const headShiftX = currentX * 8; 
             const headShiftY = currentY * 5; 
-            
             chutiHead.style.transform = `translate(${headShiftX}px, ${headShiftY}px) rotate(${headTilt}deg)`;
 
-            // Eyes follow cursor inside the visor
             const eyeShiftX = currentX * 10;
             const eyeShiftY = currentY * 4;
-
             chutiEyes.style.transform = `translate(${eyeShiftX}px, ${eyeShiftY}px)`;
         }
         requestAnimationFrame(animateChuti);
     }
     
-    // Start tracking loop
     animateChuti();
 </script>
 </body>
