@@ -9,12 +9,12 @@
 :root {
 --primary: #3b82f6;
 --secondary: #00ffcc; 
---alert: #ff3366; /* New alert color */
 --bg-overlay: rgba(4, 8, 18, 0);
 --text-main: #f8fafc;
 --text-muted: #cbd5e1;
---quantum-dark: rgba(10, 15, 30, 0.7);
---quantum-border: rgba(0, 255, 204, 0.3);
+--bot-main: #1e293b;
+--bot-light: #334155;
+--bot-glow: rgba(0, 255, 204, 0.8);
 }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -109,194 +109,181 @@
     }
 
     /* =========================================
-       ULTRA-PREMIUM QUANTUM AI ENTITY 
+       CUTE CHUTI CYBER-PET (RIGHT-BOTTOM)
        ========================================= */
-    #quantum-ai {
+    #chuti-bot {
         position: fixed;
-        bottom: 35px;
-        right: 60px;
-        width: 140px;
-        height: 180px;
+        bottom: 30px;
+        right: 40px;
+        width: 70px;
+        height: 90px;
         z-index: 1000;
         pointer-events: none;
-        perspective: 800px; /* 3D depth */
+        filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.6));
     }
 
-    /* Holographic Base Pad */
-    .holo-pad {
+    .chuti-shadow {
         position: absolute;
         bottom: -15px;
         left: 50%;
-        transform: translateX(-50%) rotateX(70deg);
-        width: 100px;
-        height: 100px;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 8px;
+        background: rgba(0, 255, 204, 0.2);
         border-radius: 50%;
-        border: 2px dashed rgba(0, 255, 204, 0.4);
-        box-shadow: 0 0 20px rgba(0, 255, 204, 0.2), inset 0 0 30px rgba(59, 130, 246, 0.3);
-        animation: spinPad 10s linear infinite;
-    }
-    .holo-pad::after {
-        content: ''; position: absolute; top: 20%; left: 20%; width: 60%; height: 60%;
-        border-radius: 50%; border: 1px solid var(--primary); animation: spinPad reverse 5s linear infinite;
+        filter: blur(4px);
+        animation: chutiShadowPulse 3s ease-in-out infinite;
     }
 
-    /* Body Container - Handles breathing */
-    .ai-body-wrapper {
+    .chuti-wrapper {
         position: relative;
         width: 100%;
         height: 100%;
-        transform-style: preserve-3d;
-        animation: quantumFloat 4s ease-in-out infinite;
-        will-change: transform;
+        animation: chutiFloat 3s ease-in-out infinite;
     }
 
-    /* Magnetic Energy Rings */
-    .magnetic-ring {
+    /* --- Body (Podi Aga) --- */
+    .chuti-body {
         position: absolute;
-        top: 60px;
+        top: 45px;
         left: 50%;
-        width: 120px;
-        height: 120px;
-        margin-left: -60px;
-        border-radius: 50%;
-        border: 1px solid transparent;
-        border-top: 2px solid var(--secondary);
-        border-bottom: 2px solid var(--primary);
-        transform-style: preserve-3d;
-        opacity: 0.6;
-        box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
-    }
-    .magnetic-ring.r1 { animation: spinRing1 6s linear infinite; }
-    .magnetic-ring.r2 { width: 90px; height: 90px; top: 75px; margin-left: -45px; animation: spinRing2 4s linear infinite; border-top-color: var(--primary); border-bottom-color: var(--secondary); }
-
-    /* Quantum Core Orb */
-    .ai-core {
-        position: absolute;
-        top: 90px;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 30px;
-        height: 30px;
-        background: radial-gradient(circle, #fff 10%, var(--secondary) 40%, var(--primary) 80%);
-        border-radius: 50%;
-        box-shadow: 0 0 25px var(--secondary), 0 0 50px var(--primary);
-        animation: corePulse 2s ease-in-out infinite alternate;
+        margin-left: -18px;
+        width: 36px;
+        height: 32px;
+        background: linear-gradient(135deg, var(--bot-light), var(--bot-main));
+        border-radius: 15px 15px 10px 10px;
+        border: 2px solid #475569;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
         z-index: 5;
     }
 
-    /* Geometric Armor Shards (Floating around core) */
-    .armor-shard {
+    /* Cute Core Heart */
+    .chuti-core {
+        width: 10px;
+        height: 10px;
+        background: var(--primary);
+        border-radius: 50%;
+        box-shadow: 0 0 10px var(--primary), inset 0 0 4px #fff;
+        animation: heartBeat 1.5s infinite;
+    }
+
+    /* --- Head (Loku Oluwa) --- */
+    .chuti-head {
         position: absolute;
-        background: var(--quantum-dark);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        border: 1px solid var(--quantum-border);
-        box-shadow: inset 0 0 15px rgba(255,255,255,0.05);
-        z-index: 4;
-        transition: all 0.3s ease;
-    }
-
-    .shard-chest {
-        top: 65px; left: 50%; margin-left: -25px;
-        width: 50px; height: 55px;
-        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    }
-
-    .shard-shoulder {
-        top: 75px; width: 20px; height: 35px;
-    }
-    .shard-shoulder.left { left: 15px; clip-path: polygon(0 0, 100% 20%, 80% 100%, 20% 80%); transform: rotate(15deg); }
-    .shard-shoulder.right { right: 15px; clip-path: polygon(100% 0, 0 20%, 20% 100%, 80% 80%); transform: rotate(-15deg); }
-
-    .shard-leg {
-        bottom: 25px; width: 35px; height: 25px;
-    }
-    .shard-leg.left { left: 25px; clip-path: polygon(20% 0, 100% 20%, 80% 100%, 0 80%); transform: rotate(20deg); }
-    .shard-leg.right { right: 25px; clip-path: polygon(0 20%, 80% 0, 100% 80%, 20% 100%); transform: rotate(-20deg); }
-
-    /* High-Tech Head */
-    .ai-head-wrapper {
-        position: absolute;
-        top: 10px;
+        top: 5px;
         left: 50%;
-        margin-left: -35px;
-        width: 70px;
-        height: 50px;
+        margin-left: -28px;
+        width: 56px;
+        height: 42px;
+        background: linear-gradient(145deg, #cbd5e1, #94a3b8);
+        border-radius: 25px 25px 18px 18px;
+        border: 2px solid #64748b;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.4), inset 0 2px 5px #fff;
         z-index: 10;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         will-change: transform;
-        transform-style: preserve-3d;
+        transform-origin: center bottom;
     }
 
-    .ai-head-shape {
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.95));
-        border: 1px solid var(--primary);
-        border-top: 2px solid var(--secondary);
-        clip-path: polygon(20% 0%, 80% 0%, 100% 40%, 80% 100%, 20% 100%, 0% 40%);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.8);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        overflow: hidden;
-        transition: border-color 0.4s ease;
-    }
-
-    /* Visor & Glowing Eyes */
-    .ai-visor {
+    /* Black Visor Screen */
+    .chuti-visor {
         width: 80%;
-        height: 18px;
-        background: #000;
-        border-radius: 4px;
-        box-shadow: inset 0 0 10px rgba(0,255,204,0.3);
-        position: relative;
-        overflow: hidden;
+        height: 22px;
+        background: #020617;
+        border-radius: 10px;
+        border: 2px solid #1e293b;
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        position: relative;
     }
 
-    .ai-visor-grid {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        background-image: linear-gradient(rgba(0, 255, 204, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 204, 0.1) 1px, transparent 1px);
-        background-size: 4px 4px; z-index: 1;
+    .chuti-eyes-container {
+        display: flex;
+        gap: 12px;
+        will-change: transform;
     }
 
-    .ai-eyes-container {
-        display: flex; gap: 8px; z-index: 2; will-change: transform;
-    }
-
-    .ai-eye {
-        width: 12px; height: 4px;
+    /* Big Cute Eyes */
+    .chuti-eye {
+        width: 8px;
+        height: 12px;
         background: var(--secondary);
+        border-radius: 10px;
+        box-shadow: 0 0 8px var(--secondary), 0 0 15px #fff;
+        animation: cuteBlink 4s infinite;
+    }
+
+    /* Cute glowing cheeks */
+    .chuti-cheek {
+        position: absolute;
+        bottom: 2px;
+        width: 6px;
+        height: 3px;
+        background: rgba(255, 51, 102, 0.6);
         border-radius: 5px;
-        box-shadow: 0 0 10px var(--secondary), 0 0 20px #fff;
-        transition: background 0.4s ease, box-shadow 0.4s ease, height 0.1s ease;
+        filter: blur(1px);
     }
+    .chuti-cheek.left { left: 4px; }
+    .chuti-cheek.right { right: 4px; }
 
-    /* Scanning Laser Line */
-    .laser-scan {
-        position: absolute; left: 0; width: 100%; height: 1px;
-        background: var(--secondary); box-shadow: 0 0 8px var(--secondary);
-        z-index: 3; animation: scanVisor 2.5s infinite linear; opacity: 0.7;
+    /* Ear Antennas */
+    .chuti-ear {
+        position: absolute;
+        top: 15px;
+        width: 6px;
+        height: 12px;
+        background: var(--bot-main);
+        border-radius: 3px;
+        border: 1px solid #475569;
     }
+    .chuti-ear.left { left: -6px; border-radius: 5px 0 0 5px; border-right: none; }
+    .chuti-ear.right { right: -6px; border-radius: 0 5px 5px 0; border-left: none; }
 
-    /* --- ALERT STATE CLASSES (Triggered via JS) --- */
-    #quantum-ai.alert-mode .ai-eye { background: var(--alert); box-shadow: 0 0 15px var(--alert), 0 0 25px #fff; }
-    #quantum-ai.alert-mode .ai-head-shape { border-color: var(--alert); }
-    #quantum-ai.alert-mode .laser-scan { background: var(--alert); box-shadow: 0 0 8px var(--alert); }
-    #quantum-ai.alert-mode .ai-core { background: radial-gradient(circle, #fff 10%, var(--alert) 40%, #800020 80%); box-shadow: 0 0 30px var(--alert); animation: corePulseFast 0.5s infinite alternate; }
+    /* --- Arms (Chuti Ath) --- */
+    .chuti-arm {
+        position: absolute;
+        top: 50px;
+        width: 10px;
+        height: 22px;
+        background: linear-gradient(to bottom, var(--bot-light), var(--bot-main));
+        border-radius: 5px;
+        border: 1px solid #475569;
+        z-index: 6;
+        animation: armSwing 3s ease-in-out infinite;
+    }
+    .chuti-arm.left { left: 8px; transform-origin: top center; }
+    .chuti-arm.right { right: 8px; transform-origin: top center; animation-delay: 1.5s; }
+
+    /* --- Legs (Chuti Kakul) --- */
+    .chuti-leg {
+        position: absolute;
+        bottom: 0px;
+        width: 12px;
+        height: 18px;
+        background: var(--bot-main);
+        border-radius: 4px 4px 8px 8px;
+        border: 1px solid #475569;
+        z-index: 4;
+        animation: legDangle 3s ease-in-out infinite;
+    }
+    .chuti-leg.left { left: 20px; transform-origin: top center; }
+    .chuti-leg.right { right: 20px; transform-origin: top center; animation-delay: 1.5s; }
 
     /* --- Animations --- */
-    @keyframes quantumFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-    @keyframes spinPad { 100% { transform: translateX(-50%) rotateX(70deg) rotateZ(360deg); } }
-    @keyframes spinRing1 { 0% { transform: rotateX(65deg) rotateY(15deg) rotateZ(0deg); } 100% { transform: rotateX(65deg) rotateY(15deg) rotateZ(360deg); } }
-    @keyframes spinRing2 { 0% { transform: rotateX(75deg) rotateY(-15deg) rotateZ(360deg); } 100% { transform: rotateX(75deg) rotateY(-15deg) rotateZ(0deg); } }
-    @keyframes corePulse { 0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.8; } 100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; } }
-    @keyframes corePulseFast { 0% { transform: translate(-50%, -50%) scale(0.9); } 100% { transform: translate(-50%, -50%) scale(1.2); } }
-    @keyframes scanVisor { 0% { top: -2px; } 50% { top: 20px; } 100% { top: -2px; } }
+    @keyframes chutiFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes chutiShadowPulse { 0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.8; } 50% { transform: translateX(-50%) scale(0.7); opacity: 0.3; } }
+    @keyframes cuteBlink { 0%, 90%, 94%, 100% { transform: scaleY(1); } 92%, 96% { transform: scaleY(0.1); } }
+    @keyframes heartBeat { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 15px var(--primary); } }
+    @keyframes armSwing { 0%, 100% { transform: rotate(10deg); } 50% { transform: rotate(-10deg); } }
+    @keyframes legDangle { 0%, 100% { transform: rotate(5deg); } 50% { transform: rotate(-5deg); } }
+
 </style>
 </head>
 <body>
@@ -316,33 +303,32 @@
     </ul>
 </nav>
 
-<div id="quantum-ai">
-    <div class="holo-pad"></div>
-    
-    <div class="ai-body-wrapper" id="ai-body">
-        <div class="magnetic-ring r1"></div>
-        <div class="magnetic-ring r2"></div>
+<div id="chuti-bot">
+    <div class="chuti-shadow"></div>
+    <div class="chuti-wrapper">
         
-        <div class="ai-core"></div>
+        <div class="chuti-arm left"></div>
+        <div class="chuti-arm right"></div>
+        <div class="chuti-leg left"></div>
+        <div class="chuti-leg right"></div>
         
-        <div class="armor-shard shard-shoulder left"></div>
-        <div class="armor-shard shard-shoulder right"></div>
-        <div class="armor-shard shard-chest"></div>
-        <div class="armor-shard shard-leg left"></div>
-        <div class="armor-shard shard-leg right"></div>
+        <div class="chuti-body">
+            <div class="chuti-core"></div>
+        </div>
         
-        <div class="ai-head-wrapper" id="ai-head">
-            <div class="ai-head-shape">
-                <div class="ai-visor">
-                    <div class="ai-visor-grid"></div>
-                    <div class="laser-scan"></div>
-                    <div class="ai-eyes-container" id="ai-eyes">
-                        <div class="ai-eye"></div>
-                        <div class="ai-eye"></div>
-                    </div>
+        <div class="chuti-head" id="chuti-head">
+            <div class="chuti-ear left"></div>
+            <div class="chuti-ear right"></div>
+            <div class="chuti-visor">
+                <div class="chuti-eyes-container" id="chuti-eyes">
+                    <div class="chuti-eye"></div>
+                    <div class="chuti-eye"></div>
                 </div>
+                <div class="chuti-cheek left"></div>
+                <div class="chuti-cheek right"></div>
             </div>
         </div>
+
     </div>
 </div>
 
@@ -352,7 +338,7 @@
 <iframe id="contact" src="Contact.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
 
 <script>
-    // --- Stars Effect ---
+    // --- Background Stars Logic ---
     const canvas = document.getElementById('starsCanvas');
     const ctx = canvas.getContext('2d');
     const heroSection = document.querySelector('.hero-section');
@@ -395,7 +381,7 @@
 
     window.addEventListener('resize', resize); resize(); initStars(); animateStars();
 
-    // --- Navigation Logic ---
+    // --- Navigation Scroll Logic ---
     const navLinks = document.querySelectorAll('.top-nav ul li a');
     window.addEventListener('scroll', () => {
         let current = '';
@@ -410,88 +396,83 @@
         });
     });
 
-   window.addEventListener('message', function(event) {
-    if (event.data && event.data.type === 'resize') {
-        const iframes = document.querySelectorAll('.Projects-iframe');
-        iframes.forEach(iframe => {
-            if (event.data.url.includes(iframe.getAttribute('src'))) {
-                iframe.style.height = event.data.height + 'px'; 
-            }
-        });
-    }
-   });
+    window.addEventListener('message', function(event) {
+        if (event.data && event.data.type === 'resize') {
+            const iframes = document.querySelectorAll('.Projects-iframe');
+            iframes.forEach(iframe => {
+                if (event.data.url.includes(iframe.getAttribute('src'))) {
+                    iframe.style.height = event.data.height + 'px'; 
+                }
+            });
+        }
+    });
 
     // =========================================
-    // ADVANCED 3D PHYSICS & PROXIMITY TRACKING
+    // CUTE MOUSE TRACKING LOGIC (WITH IFRAME SUPPORT)
     // =========================================
-    const quantumAi = document.getElementById('quantum-ai');
-    const aiBody = document.getElementById('ai-body');
-    const aiHead = document.getElementById('ai-head');
-    const aiEyes = document.getElementById('ai-eyes');
+    const chutiHead = document.getElementById('chuti-head');
+    const chutiEyes = document.getElementById('chuti-eyes');
 
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    
-    // Smooth variables
     let currentX = 0, currentY = 0;
     let targetX = 0, targetY = 0;
 
+    // Helper function to update target coordinates
+    function updateTargetPosition(clientX, clientY) {
+        targetX = ((clientX / window.innerWidth) - 0.5) * 2;
+        targetY = ((clientY / window.innerHeight) - 0.5) * 2;
+    }
+
+    // 1. Track mouse on the main page
     document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        targetX = ((mouseX / window.innerWidth) - 0.5) * 2;
-        targetY = ((mouseY / window.innerHeight) - 0.5) * 2;
+        updateTargetPosition(e.clientX, e.clientY);
     });
 
-    function animateAI() {
-        if (quantumAi && aiHead && aiEyes) {
-            // Smooth Spring Interpolation
-            currentX += (targetX - currentX) * 0.06;
-            currentY += (targetY - currentY) * 0.06;
-            
-            // --- 1. Proximity Alert System ---
-            const rect = quantumAi.getBoundingClientRect();
-            const aiCenterX = rect.left + rect.width / 2;
-            const aiCenterY = rect.top + rect.height / 2;
-            
-            // Calculate real distance to mouse
-            const dist = Math.hypot(mouseX - aiCenterX, mouseY - aiCenterY);
-            
-            // If mouse is within 250px, activate defense/alert mode
-            if (dist < 250) {
-                quantumAi.classList.add('alert-mode');
-            } else {
-                quantumAi.classList.remove('alert-mode');
+    // 2. Track mouse inside Iframes
+    const allIframes = document.querySelectorAll('.Projects-iframe');
+    allIframes.forEach(iframe => {
+        iframe.addEventListener('load', () => {
+            try {
+                const iframeDoc = iframe.contentWindow.document;
+                iframeDoc.addEventListener('mousemove', (e) => {
+                    // Calculate iframe's position on the main screen
+                    const rect = iframe.getBoundingClientRect();
+                    // Add iframe's internal mouse position to iframe's screen offset
+                    const adjustedX = e.clientX + rect.left;
+                    const adjustedY = e.clientY + rect.top;
+                    
+                    updateTargetPosition(adjustedX, adjustedY);
+                });
+            } catch (err) {
+                console.warn("Iframe tracking requires a local server. If running directly from a file:// URL, this won't work due to browser security.", err);
             }
+        });
+    });
 
-            // --- 2. 3D Body Parallax (Subtle) ---
-            aiBody.style.transform = `
-                rotateY(${currentX * 10}deg) 
-                rotateX(${currentY * -10}deg)
-            `;
-
-            // --- 3. Advanced Head Tracking ---
-            const headTranslateX = currentX * 12; 
-            const headTranslateY = currentY * 8; 
-            const headRotateZ = currentX * 15;
+    // Animation Loop
+    function animateChuti() {
+        if (chutiHead && chutiEyes) {
+            // Smooth lerp for cute, slightly delayed movement
+            currentX += (targetX - currentX) * 0.1;
+            currentY += (targetY - currentY) * 0.1;
             
-            aiHead.style.transform = `
-                translate3d(${headTranslateX}px, ${headTranslateY}px, 20px) 
-                rotateY(${currentX * 25}deg) 
-                rotateX(${currentY * -15}deg)
-                rotateZ(${headRotateZ}deg)
-            `;
+            // Big head moves and tilts slightly
+            const headTilt = currentX * 15; // Rotate up to 15deg
+            const headShiftX = currentX * 8; 
+            const headShiftY = currentY * 5; 
+            
+            chutiHead.style.transform = `translate(${headShiftX}px, ${headShiftY}px) rotate(${headTilt}deg)`;
 
-            // --- 4. Visor Eyes Movement ---
-            const eyeX = currentX * 10;
-            const eyeY = currentY * 4;
-            aiEyes.style.transform = `translate(${eyeX}px, ${eyeY}px)`;
+            // Eyes follow cursor inside the visor
+            const eyeShiftX = currentX * 10;
+            const eyeShiftY = currentY * 4;
+
+            chutiEyes.style.transform = `translate(${eyeShiftX}px, ${eyeShiftY}px)`;
         }
-        requestAnimationFrame(animateAI);
+        requestAnimationFrame(animateChuti);
     }
     
-    // Start AI Loop
-    animateAI();
+    // Start tracking loop
+    animateChuti();
 </script>
 </body>
 </html>
