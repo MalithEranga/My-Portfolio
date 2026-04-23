@@ -14,7 +14,7 @@
 --text-muted: #cbd5e1;
 --bot-main: #1e293b;
 --bot-light: #334155;
---bot-glow: rgba(0, 255, 204, 0.8);
+--bot-glow: #00ffcccc;
 }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -118,48 +118,9 @@
         width: 70px;
         height: 90px;
         z-index: 1000;
-        pointer-events: auto; /* Click karanna puluwan wenda auto kala */
-        cursor: pointer;      /* Hover weddi athaka icon eka enna */
+        pointer-events: auto; 
+        cursor: pointer;      
         filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.6));
-    }
-
-    /* TORA Text Bubble (Message eka) */
-    .tora-bubble {
-        position: absolute;
-        top: -45px;
-        left: 50%;
-        transform: translateX(-50%) translateY(10px) scale(0.8);
-        background: rgba(15, 23, 42, 0.95);
-        border: 1px solid #22c55e;
-        padding: 6px 12px;
-        border-radius: 8px;
-        color: #fff;
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 12px;
-        font-weight: 500;
-        white-space: nowrap;
-        opacity: 0;
-        pointer-events: none;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.5), 0 0 15px rgba(34, 197, 94, 0.4);
-        z-index: 30;
-    }
-
-    /* Message bubble eke yatin thiyena podi katuwa */
-    .tora-bubble::after {
-        content: '';
-        position: absolute;
-        bottom: -6px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-width: 6px 6px 0;
-        border-style: solid;
-        border-color: #22c55e transparent transparent transparent;
-    }
-
-    .tora-bubble.show {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0) scale(1);
     }
 
     /* TORA Holographic Name Tag */
@@ -336,7 +297,7 @@
     /* =========================================
        TORA ACTIVE STATE (GREEN ON HOVER/PROXIMITY)
        ========================================= */
-    #chuti-bot.tora-active .chuti-name { color: #22c55e; text-shadow: 0 0 10px #22c55e; opacity: 0; } /* Hide name when bubble is active or proximity triggered */
+    #chuti-bot.tora-active .chuti-name { color: #00ffcccc; text-shadow: 0 0 10px #22c55e; opacity: 0; } 
     #chuti-bot.tora-active .chuti-head { background: linear-gradient(145deg, #bbf7d0, #4ade80); border-color: #16a34a; }
     #chuti-bot.tora-active .chuti-body { background: linear-gradient(135deg, #15803d, #14532d); border-color: #22c55e; }
     #chuti-bot.tora-active .chuti-arm, 
@@ -353,6 +314,172 @@
     @keyframes heartBeat { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 15px var(--primary); } }
     @keyframes armSwing { 0%, 100% { transform: rotate(10deg); } 50% { transform: rotate(-10deg); } }
     @keyframes legDangle { 0%, 100% { transform: rotate(5deg); } 50% { transform: rotate(-5deg); } }
+
+    /* =========================================
+       TORA CHAT PANEL CSS
+       ========================================= */
+    .tora-chat-panel {
+        position: absolute;
+        bottom: 110px; 
+        right: 0;
+        width: 260px;
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid #22c55e;
+        border-radius: 12px;
+        padding: 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.7), 0 0 15px rgba(34, 197, 94, 0.3);
+        color: #fff;
+        font-family: 'Space Grotesk', sans-serif;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(20px) scale(0.9);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 2000;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .tora-chat-panel.show {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0) scale(1);
+    }
+
+    .tora-message {
+        background: rgba(3, 7, 18, 0.6);
+        padding: 12px;
+        border-radius: 8px;
+        border-left: 3px solid #22c55e;
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .tora-options {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        max-height: 200px;
+        overflow-y: auto;
+        padding-right: 5px;
+    }
+
+    /* Scrollbar for options */
+    .tora-options::-webkit-scrollbar { width: 4px; }
+    .tora-options::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .tora-options::-webkit-scrollbar-thumb { background: #22c55e; border-radius: 4px; }
+
+    .tora-options button {
+        width: 100%;
+        background: rgba(34, 197, 94, 0.1);
+        border: 1px solid rgba(34, 197, 94, 0.4);
+        color: #bbf7d0;
+        padding: 8px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 12px;
+        text-align: left;
+        transition: all 0.3s ease;
+    }
+
+    .tora-options button:hover {
+        background: #22c55e;
+        color: #020617;
+        transform: translateX(5px);
+        font-weight: 600;
+    }
+
+    .close-chat {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        background: none;
+        border: none;
+        color: #ef4444;
+        cursor: pointer;
+        font-size: 14px;
+        transition: transform 0.3s ease;
+    }
+    
+    .close-chat:hover {
+        transform: scale(1.2);
+    }
+
+    .back-btn {
+        background: transparent;
+        border: 1px solid #64748b;
+        color: #cbd5e1;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 11px;
+        margin-top: 10px;
+        width: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+        background: #64748b;
+        color: #fff;
+    }
+
+    /* =========================================
+       MY RESUME BUTTON
+       ========================================= */
+    .resume-btn {
+        position: fixed; 
+        top: 30px;       /* Uda paththen pallen (Top) */
+        right: 40px;     /* Dakunu paththen athulata (Right) */
+        
+        z-index: 1000;
+        padding: 12px 24px;
+        background: rgba(15, 23, 42, 0.4);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(0, 255, 204, 0.5);
+        border-radius: 10px; /* <--- Corner eka hodata raum kara (kalin 30px) */
+        color: var(--text-main);
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 255, 204, 0.2);
+    }
+
+    /* Hover effect eka */
+    .resume-btn:hover {
+        background: rgba(0, 255, 204, 0.15);
+        border-color: var(--secondary);
+        box-shadow: 0 5px 20px rgba(0, 255, 204, 0.4);
+        transform: translateY(-3px) scale(1.05);
+        color: #fff;
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Shining line animation effect */
+    .resume-btn::after {
+        content: '';
+        position: absolute;
+        top: 0; 
+        left: -100%;
+        width: 50%; 
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(0, 255, 204, 0.4), transparent);
+        transition: all 0.5s ease;
+    }
+
+    .resume-btn:hover::after {
+        left: 150%;
+        transition: all 0.7s ease;
+    }
 
 </style>
 </head>
@@ -375,7 +502,19 @@
 
 <div id="chuti-bot">
     
-    <div class="tora-bubble" id="tora-bubble">Hi... I am TORA 👋</div>
+    <div class="tora-chat-panel" id="tora-chat-panel">
+        <button class="close-chat" onclick="closeChat(event)">✖</button>
+        <div class="tora-message" id="tora-message">Hi! I'm TORA 🤖<br>Ask me anything about Malith!</div>
+        <div class="tora-options" id="tora-options">
+            <button onclick="askQuestion(1)">Who is Malith?</button>
+            <button onclick="askQuestion(2)">What is his Degree?</button>
+            <button onclick="askQuestion(3)">Web Dev Skills?</button>
+            <button onclick="askQuestion(4)">Design Skills?</button>
+            <button onclick="askQuestion(5)">Top Projects?</button>
+            <button onclick="askQuestion(6)">His Laptop Setup?</button>
+            <button onclick="askQuestion(7)">How to Contact?</button>
+        </div>
+    </div>
 
     <div class="chuti-name" id="tora-name"></div>
     <div class="chuti-shadow"></div>
@@ -404,7 +543,13 @@
         </div>
 
     </div>
+
+    
 </div>
+
+<a href="MALITH ERANGA CV.pdf" target="_blank" class="resume-btn" id="resumeBtn">
+    MY RESUME
+</a>
 
 <iframe id="Projects" src="Projects.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
 <iframe id="education" src="Education.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
@@ -482,66 +627,96 @@
     });
 
     // =========================================
-    // CLICK INTERACTION LOGIC (FIXED)
-    // =========================================
-    const chutiBot = document.getElementById('chuti-bot');
-    const toraBubble = document.getElementById('tora-bubble');
-    let toraClickCount = 0;
+    // SCROLL ANIMATION LOGIC
+    // =========================================
+    function slowScrollTo(elementId, duration) {
+        const target = document.getElementById(elementId);
+        if (!target) return;
 
-    function slowScrollTo(elementId, duration) {
-        const target = document.getElementById(elementId);
-        if (!target) return;
+        document.documentElement.style.scrollBehavior = 'auto';
 
-        // JS animation eka weda karaddi CSS smooth scroll eka temporary disable karanawa (Clash wena eka nawaththanna)
-        document.documentElement.style.scrollBehavior = 'auto';
+        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        let startTime = null;
 
-        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-        const startPosition = window.pageYOffset;
-        const distance = targetPosition - startPosition;
-        let startTime = null;
+        function animation(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
+            
+            window.scrollTo(0, run);
+            
+            if (timeElapsed < duration) {
+                requestAnimationFrame(animation);
+            } else {
+                document.documentElement.style.scrollBehavior = 'smooth';
+            }
+        }
 
-        function animation(currentTime) {
-            if (startTime === null) startTime = currentTime;
-            const timeElapsed = currentTime - startTime;
-            const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
-            
-            window.scrollTo(0, run);
-            
-            if (timeElapsed < duration) {
-                requestAnimationFrame(animation);
-            } else {
-                // Scroll wela iwara unama apahu CSS smooth scroll eka active karanawa
-                document.documentElement.style.scrollBehavior = 'smooth';
-            }
-        }
+        function easeInOutQuad(t, b, c, d) {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t + b;
+            t--;
+            return -c / 2 * (t * (t - 2) - 1) + b;
+        }
 
-        // Easing math formula 
-        function easeInOutQuad(t, b, c, d) {
-            t /= d / 2;
-            if (t < 1) return c / 2 * t * t + b;
-            t--;
-            return -c / 2 * (t * (t - 2) - 1) + b;
-        }
+        requestAnimationFrame(animation);
+    }
 
-        requestAnimationFrame(animation);
-    }
+    // =========================================
+    // TORA CHATBOT LOGIC (SHORT ANSWERS)
+    // =========================================
+    const chutiBot = document.getElementById('chuti-bot');
+    const chatPanel = document.getElementById('tora-chat-panel');
+    const toraMessage = document.getElementById('tora-message');
+    const toraOptions = document.getElementById('tora-options');
 
-    chutiBot.addEventListener('click', () => {
-        if (toraClickCount === 0) {
-            // 1st Click: Bubble eka penwanawa
-            toraBubble.classList.add('show');
-            toraClickCount++;
-        } else if (toraClickCount === 1) {
-            // 2nd Click: Bubble eka hide wela thappara 2n pahaḷata yanawa
-            toraBubble.classList.remove('show'); 
-            slowScrollTo('contact', 2000); 
-            toraClickCount++;
-        } else if (toraClickCount === 2) {
-            // 3rd Click: Apahu uda (#aboutme) ekata thappara 2n yanawa
-            slowScrollTo('aboutme', 2000); 
-            toraClickCount = 0; // Click cycle eka reset karanawa
-        }
-    });
+    chutiBot.addEventListener('click', (e) => {
+        if(e.target.closest('.tora-chat-panel')) return; 
+        chatPanel.classList.add('show');
+        resetChat(); 
+    });
+
+    function closeChat(e) {
+        e.stopPropagation(); 
+        chatPanel.classList.remove('show');
+    }
+
+    function askQuestion(id) {
+        toraOptions.style.display = 'none'; 
+        
+        switch(id) {
+            case 1:
+                toraMessage.innerHTML = "Undergrad at SUSL, Freelance Designer & Founder of Modern Pixels! 🎓";
+                break;
+            case 2:
+                toraMessage.innerHTML = "He is pursuing BSc (Hons) in Chemical Technology at SUSL. 🧪";
+                break;
+            case 3:
+                toraMessage.innerHTML = "Expert in HTML, CSS, JS, PHP, MySQL, and C programming! 👨‍💻";
+                break;
+            case 4:
+                toraMessage.innerHTML = "5+ yrs experience. Pro in Adobe Photoshop & Illustrator. 🎨";
+                break;
+            case 5:
+                toraMessage.innerHTML = "Top ones are 'SafeHeaven' (Pet Care) & 'GreenChain' (Carbon Tracker). 🚀";
+                break;
+            case 6:
+                toraMessage.innerHTML = "He codes & designs on an ASUS TUF F15 with an RTX 3050. 💻⚡";
+                break;
+            case 7:
+                toraMessage.innerHTML = "Click below to jump straight to his Contact Info! 👇<br><br><button class='back-btn' style='background:#22c55e; color:#000; border:none;' onclick='slowScrollTo(\"contact\", 1500)'>Go to Contact</button>";
+                break;
+        }
+        
+        toraMessage.innerHTML += "<button class='back-btn' onclick='resetChat()'>⬅ Back</button>";
+    }
+
+    function resetChat() {
+        toraMessage.innerHTML = "Hi! I'm TORA 🤖<br>Ask me anything about Malith!";
+        toraOptions.style.display = 'flex';
+    }
 
     // =========================================
     // CUTE MOUSE TRACKING & PROXIMITY LOGIC
@@ -562,12 +737,10 @@
         targetY = ((clientY / window.innerHeight) - 0.5) * 2;
     }
 
-    // Main page tracking
     document.addEventListener('mousemove', (e) => {
         updateTargetPosition(e.clientX, e.clientY);
     });
 
-    // Iframe tracking
     const allIframes = document.querySelectorAll('.Projects-iframe');
     allIframes.forEach(iframe => {
         iframe.addEventListener('load', () => {
@@ -585,24 +758,19 @@
         });
     });
 
-    // Animation Loop
     function animateChuti() {
         if (chutiHead && chutiEyes && chutiBot) {
-            
-            // --- TORA Proximity Effect (Color Change) ---
             const rect = chutiBot.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
             const dist = Math.hypot(rawMouseX - centerX, rawMouseY - centerY);
             
-            // Mouse eka 150px range ekata awama TORA kola paata wela active wenawa
             if (dist < 150) {
                 chutiBot.classList.add('tora-active');
             } else {
                 chutiBot.classList.remove('tora-active');
             }
 
-            // --- Head & Eye Parallax Movement ---
             currentX += (targetX - currentX) * 0.1;
             currentY += (targetY - currentY) * 0.1;
             
