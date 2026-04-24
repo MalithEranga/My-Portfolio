@@ -264,20 +264,22 @@
         }
 
         /* Certificate Gallery */
+       
         .cert-gallery { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
             gap: 24px; 
+            align-items: start; /* Me line eka add karanna - container eka wena ewa ekka diga wenawa wenuwata, image eke size ekatama nawathinawa */
         }
 
-        .cert-container { 
-            background: var(--card-bg); 
-            border: 1px solid var(--card-border); 
-            border-radius: 16px; 
-            padding: 12px; 
-            cursor: pointer; 
-            transition: all 0.4s ease; 
-            position: relative;
+        /* ... .cert-container classes ehemmama thiyaganna ... */
+
+        .cert-container img { 
+            width: 100%; 
+            height: auto; /* Me line eka add karanna */
+            border-radius: 10px; 
+            display: block; 
+            /* object-fit: cover; <- Me line eka ain karanna (remove) */
         }
 
         /* Hover Overlay for Certificates */
