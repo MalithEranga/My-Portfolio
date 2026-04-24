@@ -45,7 +45,6 @@
         animation: fadeInPage 2s ease-in-out forwards;
     }
 
-    /* --- Hero Section --- */
     .hero-section {
         position: relative;
         width: 100%;
@@ -57,7 +56,6 @@
         overflow: hidden;
     }
 
-    /* --- High-End Centered Navigation --- */
     .top-nav {
         position: fixed;
         top: 30px;
@@ -89,7 +87,6 @@
     }
     .top-nav li a:hover::after, .top-nav li a.active::after { transform: translateX(-50%) scale(1); }
 
-    /* --- Scrollbar --- */
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #030712; }
     ::-webkit-scrollbar-thumb {
@@ -97,7 +94,6 @@
     }
     ::-webkit-scrollbar-thumb:hover { background-color: var(--secondary); }
 
-    /* --- Stars Canvas --- */
     #starsCanvas {
         position: absolute; top: 0; left: 0; width: 100%; height: 100%;
         z-index: 1; pointer-events: none; mix-blend-mode: screen;
@@ -109,7 +105,7 @@
     }
 
     /* =========================================
-       CUTE CHUTI CYBER-PET "TORA"
+       TORA ROBOT
        ========================================= */
     #chuti-bot {
         position: fixed;
@@ -123,7 +119,6 @@
         filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.6));
     }
 
-    /* TORA Holographic Name Tag */
     .chuti-name {
         position: absolute;
         top: -20px;
@@ -161,12 +156,10 @@
         animation: chutiFloat 3s ease-in-out infinite;
     }
 
-    /* Base Transitions */
     .chuti-body, .chuti-head, .chuti-arm, .chuti-leg, .chuti-ear, .chuti-core, .chuti-eye {
         transition: background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
     }
 
-    /* --- Body --- */
     .chuti-body {
         position: absolute;
         top: 45px;
@@ -193,7 +186,6 @@
         animation: heartBeat 1.5s infinite;
     }
 
-    /* --- Head --- */
     .chuti-head {
         position: absolute;
         top: 5px;
@@ -265,7 +257,6 @@
     .chuti-ear.left { left: -6px; border-radius: 5px 0 0 5px; border-right: none; }
     .chuti-ear.right { right: -6px; border-radius: 0 5px 5px 0; border-left: none; }
 
-    /* --- Limbs --- */
     .chuti-arm {
         position: absolute;
         top: 50px;
@@ -294,9 +285,6 @@
     .chuti-leg.left { left: 20px; transform-origin: top center; }
     .chuti-leg.right { right: 20px; transform-origin: top center; animation-delay: 1.5s; }
 
-    /* =========================================
-       TORA ACTIVE STATE (GREEN ON HOVER/PROXIMITY)
-       ========================================= */
     #chuti-bot.tora-active .chuti-name { color: #00ffcccc; text-shadow: 0 0 10px #22c55e; opacity: 0; } 
     #chuti-bot.tora-active .chuti-head { background: linear-gradient(145deg, #bbf7d0, #4ade80); border-color: #16a34a; }
     #chuti-bot.tora-active .chuti-body { background: linear-gradient(135deg, #15803d, #14532d); border-color: #22c55e; }
@@ -307,7 +295,6 @@
     #chuti-bot.tora-active .chuti-core { background: #22c55e; box-shadow: 0 0 15px #22c55e, inset 0 0 5px #fff; }
     #chuti-bot.tora-active .chuti-shadow { background: rgba(34, 197, 94, 0.3); }
 
-    /* --- Animations --- */
     @keyframes chutiFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
     @keyframes chutiShadowPulse { 0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.8; } 50% { transform: translateX(-50%) scale(0.7); opacity: 0.3; } }
     @keyframes cuteBlink { 0%, 90%, 94%, 100% { transform: scaleY(1); } 92%, 96% { transform: scaleY(0.1); } }
@@ -316,28 +303,27 @@
     @keyframes legDangle { 0%, 100% { transform: rotate(5deg); } 50% { transform: rotate(-5deg); } }
 
     /* =========================================
-       TORA CHAT PANEL CSS
+       TORA FULL AI CHAT PANEL
        ========================================= */
     .tora-chat-panel {
-        position: absolute;
-        bottom: 110px; 
-        right: 0;
-        width: 260px;
-        background: rgba(15, 23, 42, 0.95);
+        position: fixed;
+        bottom: 130px;
+        right: 30px;
+        width: 320px;
+        height: 460px;
+        background: rgba(2, 6, 23, 0.97);
         border: 1px solid #22c55e;
-        border-radius: 12px;
-        padding: 15px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.7), 0 0 15px rgba(34, 197, 94, 0.3);
-        color: #fff;
+        border-radius: 18px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px rgba(34, 197, 94, 0.2);
         font-family: 'Space Grotesk', sans-serif;
         opacity: 0;
         pointer-events: none;
-        transform: translateY(20px) scale(0.9);
+        transform: translateY(20px) scale(0.92);
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         z-index: 2000;
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        overflow: hidden;
     }
 
     .tora-chat-panel.show {
@@ -346,99 +332,214 @@
         transform: translateY(0) scale(1);
     }
 
-    .tora-message {
-        background: rgba(3, 7, 18, 0.6);
-        padding: 12px;
-        border-radius: 8px;
-        border-left: 3px solid #22c55e;
-        font-size: 13px;
-        line-height: 1.4;
+    /* Chat Header */
+    .tora-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 16px;
+        background: rgba(34, 197, 94, 0.08);
+        border-bottom: 1px solid rgba(34, 197, 94, 0.25);
+        flex-shrink: 0;
     }
 
-    .tora-options {
+    .tora-avatar {
+        width: 34px; height: 34px;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 16px;
+        box-shadow: 0 0 12px rgba(34,197,94,0.5);
+        flex-shrink: 0;
+    }
+
+    .tora-header-info { flex: 1; }
+    .tora-header-name {
+        font-size: 13px; font-weight: 700;
+        color: #fff; letter-spacing: 0.04em;
+    }
+    .tora-header-status {
+        font-size: 10px; color: #22c55e; margin-top: 1px;
+    }
+
+    .tora-close-btn {
+        background: none; border: none;
+        color: #64748b; cursor: pointer;
+        font-size: 18px; padding: 2px 6px;
+        border-radius: 6px;
+        transition: all 0.2s;
+        line-height: 1;
+    }
+    .tora-close-btn:hover { color: #ef4444; background: rgba(239,68,68,0.1); }
+
+    /* Messages area */
+    .tora-messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 14px 12px;
         display: flex;
         flex-direction: column;
-        gap: 6px;
-        max-height: 200px;
-        overflow-y: auto;
-        padding-right: 5px;
+        gap: 10px;
+        scroll-behavior: smooth;
     }
 
-    /* Scrollbar for options */
-    .tora-options::-webkit-scrollbar { width: 4px; }
-    .tora-options::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
-    .tora-options::-webkit-scrollbar-thumb { background: #22c55e; border-radius: 4px; }
+    .tora-messages::-webkit-scrollbar { width: 3px; }
+    .tora-messages::-webkit-scrollbar-track { background: transparent; }
+    .tora-messages::-webkit-scrollbar-thumb { background: #22c55e55; border-radius: 99px; }
 
-    .tora-options button {
-        width: 100%;
-        background: rgba(34, 197, 94, 0.1);
-        border: 1px solid rgba(34, 197, 94, 0.4);
-        color: #bbf7d0;
-        padding: 8px 10px;
-        border-radius: 6px;
-        cursor: pointer;
-        font-family: 'Space Grotesk', sans-serif;
-        font-size: 12px;
-        text-align: left;
-        transition: all 0.3s ease;
+    /* Message bubbles */
+    .t-msg {
+        display: flex;
+        gap: 8px;
+        align-items: flex-end;
+        animation: msgPop 0.3s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    @keyframes msgPop {
+        from { opacity: 0; transform: translateY(8px); }
+        to   { opacity: 1; transform: translateY(0); }
     }
 
-    .tora-options button:hover {
-        background: #22c55e;
-        color: #020617;
-        transform: translateX(5px);
+    .t-msg.user { flex-direction: row-reverse; }
+
+    .t-msg-icon {
+        width: 26px; height: 26px; border-radius: 8px;
+        flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 13px;
+    }
+    .t-msg-icon.bot { background: linear-gradient(135deg,#22c55e,#16a34a); }
+    .t-msg-icon.user { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); }
+
+    .t-bubble {
+        max-width: 80%;
+        padding: 9px 13px;
+        border-radius: 12px;
+        font-size: 12.5px;
+        line-height: 1.55;
+        word-break: break-word;
+    }
+
+    .t-msg.bot .t-bubble {
+        background: rgba(30, 41, 59, 0.8);
+        border: 1px solid rgba(34,197,94,0.2);
+        color: #e2e8f0;
+        border-bottom-left-radius: 3px;
+    }
+    .t-msg.user .t-bubble {
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        color: #022c14;
         font-weight: 600;
+        border-bottom-right-radius: 3px;
     }
 
-    .close-chat {
-        position: absolute;
-        top: 8px;
-        right: 12px;
-        background: none;
-        border: none;
-        color: #ef4444;
-        cursor: pointer;
-        font-size: 14px;
-        transition: transform 0.3s ease;
+    /* Typing dots */
+    .typing-dots {
+        background: rgba(30, 41, 59, 0.8);
+        border: 1px solid rgba(34,197,94,0.2);
+        border-radius: 12px;
+        border-bottom-left-radius: 3px;
+        padding: 10px 14px;
+        display: flex; gap: 4px; align-items: center;
     }
-    
-    .close-chat:hover {
-        transform: scale(1.2);
+    .typing-dots span {
+        width: 5px; height: 5px;
+        background: #22c55e; border-radius: 50%;
+        animation: dotBounce 1.1s infinite;
+    }
+    .typing-dots span:nth-child(2) { animation-delay: 0.18s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.36s; }
+    @keyframes dotBounce {
+        0%,60%,100% { transform: translateY(0); opacity:0.4; }
+        30% { transform: translateY(-5px); opacity:1; }
     }
 
-    .back-btn {
+    /* Input area */
+    .tora-input-area {
+        padding: 10px 12px 14px;
+        border-top: 1px solid rgba(34,197,94,0.18);
+        background: rgba(2,6,23,0.5);
+        flex-shrink: 0;
+    }
+
+    .tora-input-row {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid rgba(34,197,94,0.3);
+        border-radius: 12px;
+        padding: 8px 10px 8px 14px;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .tora-input-row:focus-within {
+        border-color: #22c55e;
+        box-shadow: 0 0 0 3px rgba(34,197,94,0.12);
+    }
+
+    #tora-input {
+        flex: 1;
         background: transparent;
-        border: 1px solid #64748b;
-        color: #cbd5e1;
-        padding: 5px 10px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 11px;
-        margin-top: 10px;
-        width: 100%;
-        transition: all 0.3s ease;
+        border: none; outline: none;
+        color: #e2e8f0;
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 12.5px;
+        resize: none;
+        line-height: 1.5;
+        max-height: 80px;
+        overflow-y: auto;
     }
+    #tora-input::placeholder { color: #475569; }
 
-    .back-btn:hover {
-        background: #64748b;
-        color: #fff;
+    .tora-send-btn {
+        width: 32px; height: 32px;
+        border-radius: 9px;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        border: none; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+        transition: transform 0.15s, box-shadow 0.15s, opacity 0.2s;
+        box-shadow: 0 0 12px rgba(34,197,94,0.4);
     }
+    .tora-send-btn:hover:not(:disabled) { transform: scale(1.08); }
+    .tora-send-btn:active:not(:disabled) { transform: scale(0.95); }
+    .tora-send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .tora-send-btn svg { width: 14px; height: 14px; fill: #022c14; }
+
+    /* Suggestion chips */
+    .tora-chips {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        padding: 0 12px 8px;
+    }
+    .t-chip {
+        font-size: 11px;
+        padding: 5px 10px;
+        border-radius: 99px;
+        background: rgba(34,197,94,0.08);
+        border: 1px solid rgba(34,197,94,0.3);
+        color: #86efac;
+        cursor: pointer;
+        transition: all 0.2s;
+        white-space: nowrap;
+        font-family: 'Space Grotesk', sans-serif;
+    }
+    .t-chip:hover { background: rgba(34,197,94,0.2); color: #fff; border-color: #22c55e; }
 
     /* =========================================
-       MY RESUME BUTTON
+       RESUME BUTTON
        ========================================= */
     .resume-btn {
         position: fixed; 
-        top: 30px;       /* Uda paththen pallen (Top) */
-        right: 40px;     /* Dakunu paththen athulata (Right) */
-        
+        top: 30px;
+        right: 40px;
         z-index: 1000;
         padding: 12px 24px;
         background: rgba(15, 23, 42, 0.4);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         border: 1px solid rgba(0, 255, 204, 0.5);
-        border-radius: 10px; /* <--- Corner eka hodata raum kara (kalin 30px) */
+        border-radius: 10px;
         color: var(--text-main);
         font-family: 'Space Grotesk', sans-serif;
         font-size: 12px;
@@ -453,8 +554,6 @@
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 255, 204, 0.2);
     }
-
-    /* Hover effect eka */
     .resume-btn:hover {
         background: rgba(0, 255, 204, 0.15);
         border-color: var(--secondary);
@@ -463,24 +562,15 @@
         color: #fff;
         text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
     }
-
-    /* Shining line animation effect */
     .resume-btn::after {
         content: '';
         position: absolute;
-        top: 0; 
-        left: -100%;
-        width: 50%; 
-        height: 100%;
+        top: 0; left: -100%;
+        width: 50%; height: 100%;
         background: linear-gradient(90deg, transparent, rgba(0, 255, 204, 0.4), transparent);
         transition: all 0.5s ease;
     }
-
-    .resume-btn:hover::after {
-        left: 150%;
-        transition: all 0.7s ease;
-    }
-
+    .resume-btn:hover::after { left: 150%; transition: all 0.7s ease; }
 </style>
 </head>
 <body>
@@ -500,35 +590,62 @@
     </ul>
 </nav>
 
+<!-- ========== TORA ROBOT + CHAT PANEL ========== -->
 <div id="chuti-bot">
-    
+
+    <!-- ── FULL AI CHAT PANEL ── -->
     <div class="tora-chat-panel" id="tora-chat-panel">
-        <button class="close-chat" onclick="closeChat(event)">✖</button>
-        <div class="tora-message" id="tora-message">Hi! I'm TORA 🤖<br>Ask me anything about Malith!</div>
-        <div class="tora-options" id="tora-options">
-            <button onclick="askQuestion(1)">Who is Malith?</button>
-            <button onclick="askQuestion(2)">What is his Degree?</button>
-            <button onclick="askQuestion(3)">Web Dev Skills?</button>
-            <button onclick="askQuestion(4)">Design Skills?</button>
-            <button onclick="askQuestion(5)">Top Projects?</button>
-            <button onclick="askQuestion(6)">His Laptop Setup?</button>
-            <button onclick="askQuestion(7)">How to Contact?</button>
+
+        <!-- Header -->
+        <div class="tora-header">
+            <div class="tora-avatar">🤖</div>
+            <div class="tora-header-info">
+                <div class="tora-header-name">TORA · AI Assistant</div>
+                <div class="tora-header-status">● Online · Ask me about Malith!</div>
+            </div>
+            <button class="tora-close-btn" onclick="closeChat(event)" title="Close">✕</button>
+        </div>
+
+        <!-- Messages -->
+        <div class="tora-messages" id="tora-messages"></div>
+
+        <!-- Quick chips (hidden after first message) -->
+        <div class="tora-chips" id="tora-chips">
+            <span class="t-chip" onclick="sendChip(this)">Who is Malith?</span>
+            <span class="t-chip" onclick="sendChip(this)">His degree?</span>
+            <span class="t-chip" onclick="sendChip(this)">Web Dev skills?</span>
+            <span class="t-chip" onclick="sendChip(this)">Top projects?</span>
+            <span class="t-chip" onclick="sendChip(this)">Contact info?</span>
+        </div>
+
+        <!-- Input -->
+        <div class="tora-input-area">
+            <div class="tora-input-row">
+                <textarea
+                    id="tora-input"
+                    rows="1"
+                    placeholder="Ask TORA anything…"
+                    onkeydown="handleToraKey(event)"
+                    oninput="toraAutoResize(this)"
+                ></textarea>
+                <button class="tora-send-btn" id="tora-send-btn" onclick="toraSend()" title="Send">
+                    <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                </button>
+            </div>
         </div>
     </div>
 
+    <!-- TORA Robot body -->
     <div class="chuti-name" id="tora-name"></div>
     <div class="chuti-shadow"></div>
     <div class="chuti-wrapper">
-        
         <div class="chuti-arm left"></div>
         <div class="chuti-arm right"></div>
         <div class="chuti-leg left"></div>
         <div class="chuti-leg right"></div>
-        
         <div class="chuti-body">
             <div class="chuti-core"></div>
         </div>
-        
         <div class="chuti-head" id="chuti-head">
             <div class="chuti-ear left"></div>
             <div class="chuti-ear right"></div>
@@ -541,15 +658,10 @@
                 <div class="chuti-cheek right"></div>
             </div>
         </div>
-
     </div>
-
-    
 </div>
 
-<a href="MALITH ERANGA CV.pdf" target="_blank" class="resume-btn" id="resumeBtn">
-    MY RESUME
-</a>
+<a href="MALITH ERANGA CV.pdf" target="_blank" class="resume-btn" id="resumeBtn">MY RESUME</a>
 
 <iframe id="Projects" src="Projects.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
 <iframe id="education" src="Education.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
@@ -557,235 +669,269 @@
 <iframe id="contact" src="Contact.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
 
 <script>
-    // --- Background Stars Logic ---
+    // =========================================
+    // STARS
+    // =========================================
     const canvas = document.getElementById('starsCanvas');
     const ctx = canvas.getContext('2d');
     const heroSection = document.querySelector('.hero-section');
     let stars = [];
 
-    function resize() {
-        canvas.width = heroSection.offsetWidth;
-        canvas.height = heroSection.offsetHeight;
-    }
+    function resize() { canvas.width = heroSection.offsetWidth; canvas.height = heroSection.offsetHeight; }
 
     class Star {
         constructor() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 1.5 + 0.2; 
+            this.size = Math.random() * 1.5 + 0.2;
             this.baseAlpha = Math.random() * 0.5 + 0.1;
             this.pulseSpeed = Math.random() * 0.02 + 0.005;
-            this.angle = Math.random() * Math.PI * 2; 
+            this.angle = Math.random() * Math.PI * 2;
         }
         update() {
             this.angle += this.pulseSpeed;
             this.alpha = this.baseAlpha + Math.sin(this.angle) * 0.5;
-            if (this.alpha < 0) this.alpha = 0; if (this.alpha > 1) this.alpha = 1;
+            if (this.alpha < 0) this.alpha = 0;
+            if (this.alpha > 1) this.alpha = 1;
         }
         draw() {
             ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
-            if (this.alpha > 0.6) { ctx.shadowBlur = 6; ctx.shadowColor = "rgba(255, 255, 255, 0.8)"; } 
+            if (this.alpha > 0.6) { ctx.shadowBlur = 6; ctx.shadowColor = "rgba(255,255,255,0.8)"; }
             else { ctx.shadowBlur = 0; }
             ctx.fill();
         }
     }
 
     function initStars() { stars = []; for (let i = 0; i < 200; i++) stars.push(new Star()); }
-    function animateStars() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        stars.forEach(star => { star.update(); star.draw(); });
-        requestAnimationFrame(animateStars);
-    }
-
+    function animateStars() { ctx.clearRect(0, 0, canvas.width, canvas.height); stars.forEach(s => { s.update(); s.draw(); }); requestAnimationFrame(animateStars); }
     window.addEventListener('resize', resize); resize(); initStars(); animateStars();
 
-    // --- Navigation Scroll Logic ---
+    // =========================================
+    // NAV SCROLL
+    // =========================================
     const navLinks = document.querySelectorAll('.top-nav ul li a');
     window.addEventListener('scroll', () => {
         let current = '';
-        const sections = document.querySelectorAll('#aboutme, #Projects, #education, #more, #contact');
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            if (pageYOffset >= sectionTop - 250) { current = section.getAttribute('id'); }
+        document.querySelectorAll('#aboutme, #Projects, #education, #more, #contact').forEach(sec => {
+            if (pageYOffset >= sec.offsetTop - 250) current = sec.getAttribute('id');
         });
         navLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href').includes(current) && current !== '') { link.classList.add('active'); }
+            if (link.getAttribute('href').includes(current) && current) link.classList.add('active');
         });
     });
 
     window.addEventListener('message', function(event) {
         if (event.data && event.data.type === 'resize') {
-            const iframes = document.querySelectorAll('.Projects-iframe');
-            iframes.forEach(iframe => {
-                if (event.data.url.includes(iframe.getAttribute('src'))) {
-                    iframe.style.height = event.data.height + 'px'; 
-                }
+            document.querySelectorAll('.Projects-iframe').forEach(iframe => {
+                if (event.data.url.includes(iframe.getAttribute('src')))
+                    iframe.style.height = event.data.height + 'px';
             });
         }
     });
 
-    // =========================================
-    // SCROLL ANIMATION LOGIC
-    // =========================================
     function slowScrollTo(elementId, duration) {
         const target = document.getElementById(elementId);
         if (!target) return;
-
         document.documentElement.style.scrollBehavior = 'auto';
-
         const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
         const startPosition = window.pageYOffset;
         const distance = targetPosition - startPosition;
         let startTime = null;
-
         function animation(currentTime) {
             if (startTime === null) startTime = currentTime;
             const timeElapsed = currentTime - startTime;
             const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
-            
             window.scrollTo(0, run);
-            
-            if (timeElapsed < duration) {
-                requestAnimationFrame(animation);
-            } else {
-                document.documentElement.style.scrollBehavior = 'smooth';
-            }
+            if (timeElapsed < duration) requestAnimationFrame(animation);
+            else document.documentElement.style.scrollBehavior = 'smooth';
         }
-
         function easeInOutQuad(t, b, c, d) {
             t /= d / 2;
             if (t < 1) return c / 2 * t * t + b;
             t--;
             return -c / 2 * (t * (t - 2) - 1) + b;
         }
-
         requestAnimationFrame(animation);
     }
 
     // =========================================
-    // TORA CHATBOT LOGIC (SHORT ANSWERS)
+    // TORA AI CHATBOT – Claude API
     // =========================================
+    const TORA_SYSTEM = `You are TORA, a cute and friendly AI assistant robot embedded in Malith Eranga's personal portfolio website.
+Your personality: Friendly, helpful, slightly playful, uses occasional emojis. Keep answers SHORT and punchy — 2 to 4 sentences max.
+Only answer questions about Malith or his portfolio. Politely redirect anything unrelated.
+
+MALITH ERANGA – PORTFOLIO INFO:
+- Full Name: Malith Eranga
+- Role: Undergraduate Student, Freelance Graphic Designer, Web Developer, Founder of "Modern Pixels"
+- Degree: BSc (Hons) in Chemical Technology at Sabaragamuwa University of Sri Lanka (SUSL)
+- Web Dev Skills: HTML, CSS, JavaScript, PHP, MySQL, C Programming
+- Design Skills: Adobe Photoshop (5+ years), Adobe Illustrator — professional-level graphic design
+- Notable Projects:
+    • SafeHeaven – Pet Care platform
+    • GreenChain – Carbon Footprint Tracker
+- Laptop/Setup: ASUS TUF F15 with NVIDIA RTX 3050
+- Business: Founder of "Modern Pixels" — a freelance design & web studio
+- Location: Sri Lanka
+- Contact: Available via the Contact section of this portfolio
+- Interests: Tech, design, sustainability, clean UI/UX
+
+If asked about contact, tell them to scroll to the Contact section of the portfolio.`;
+
+    let toraHistory = [];
+    let toraLoading = false;
+
+    // Open chat on robot click
     const chutiBot = document.getElementById('chuti-bot');
     const chatPanel = document.getElementById('tora-chat-panel');
-    const toraMessage = document.getElementById('tora-message');
-    const toraOptions = document.getElementById('tora-options');
 
     chutiBot.addEventListener('click', (e) => {
-        if(e.target.closest('.tora-chat-panel')) return; 
+        if (e.target.closest('.tora-chat-panel')) return;
         chatPanel.classList.add('show');
-        resetChat(); 
+        if (toraHistory.length === 0) {
+            addToraMsg('bot', "Hey! I'm TORA 🤖 Malith's AI assistant. Ask me anything about him!");
+        }
     });
 
     function closeChat(e) {
-        e.stopPropagation(); 
+        e.stopPropagation();
         chatPanel.classList.remove('show');
     }
 
-    function askQuestion(id) {
-        toraOptions.style.display = 'none'; 
-        
-        switch(id) {
-            case 1:
-                toraMessage.innerHTML = "Undergrad at SUSL, Freelance Designer & Founder of Modern Pixels! 🎓";
-                break;
-            case 2:
-                toraMessage.innerHTML = "He is pursuing BSc (Hons) in Chemical Technology at SUSL. 🧪";
-                break;
-            case 3:
-                toraMessage.innerHTML = "Expert in HTML, CSS, JS, PHP, MySQL, and C programming! 👨‍💻";
-                break;
-            case 4:
-                toraMessage.innerHTML = "5+ yrs experience. Pro in Adobe Photoshop & Illustrator. 🎨";
-                break;
-            case 5:
-                toraMessage.innerHTML = "Top ones are 'SafeHeaven' (Pet Care) & 'GreenChain' (Carbon Tracker). 🚀";
-                break;
-            case 6:
-                toraMessage.innerHTML = "He codes & designs on an ASUS TUF F15 with an RTX 3050. 💻⚡";
-                break;
-            case 7:
-                toraMessage.innerHTML = "Click below to jump straight to his Contact Info! 👇<br><br><button class='back-btn' style='background:#22c55e; color:#000; border:none;' onclick='slowScrollTo(\"contact\", 1500)'>Go to Contact</button>";
-                break;
+    async function toraSend(text) {
+        const input = document.getElementById('tora-input');
+        const msg = (text || input.value).trim();
+        if (!msg || toraLoading) return;
+
+        document.getElementById('tora-chips').style.display = 'none';
+        addToraMsg('user', msg);
+        if (!text) { input.value = ''; toraAutoResize(input); }
+
+        toraHistory.push({ role: 'user', content: msg });
+        setToraLoading(true);
+
+        try {
+            const res = await fetch('https://api.anthropic.com/v1/messages', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    model: 'claude-sonnet-4-20250514',
+                    max_tokens: 1000,
+                    system: TORA_SYSTEM,
+                    messages: toraHistory
+                })
+            });
+
+            const data = await res.json();
+            if (data.error) throw new Error(data.error.message);
+
+            const reply = data.content?.find(b => b.type === 'text')?.text || "Hmm, I couldn't get a response. Try again! 🙏";
+            toraHistory.push({ role: 'assistant', content: reply });
+            removeToraTyping();
+            addToraMsg('bot', reply);
+
+        } catch (err) {
+            removeToraTyping();
+            addToraMsg('bot', `⚠️ Connection issue: ${err.message}`);
+        } finally {
+            setToraLoading(false);
         }
-        
-        toraMessage.innerHTML += "<button class='back-btn' onclick='resetChat()'>⬅ Back</button>";
     }
 
-    function resetChat() {
-        toraMessage.innerHTML = "Hi! I'm TORA 🤖<br>Ask me anything about Malith!";
-        toraOptions.style.display = 'flex';
+    function sendChip(el) { toraSend(el.textContent); }
+
+    function addToraMsg(role, text) {
+        const container = document.getElementById('tora-messages');
+        const row = document.createElement('div');
+        row.className = `t-msg ${role}`;
+        const icon = role === 'bot' ? '🤖' : '🧑';
+        row.innerHTML = `
+            <div class="t-msg-icon ${role}">${icon}</div>
+            <div class="t-bubble">${formatTora(text)}</div>`;
+        container.appendChild(row);
+        container.scrollTop = container.scrollHeight;
+    }
+
+    function showToraTyping() {
+        const container = document.getElementById('tora-messages');
+        const row = document.createElement('div');
+        row.className = 't-msg bot';
+        row.id = 'tora-typing';
+        row.innerHTML = `
+            <div class="t-msg-icon bot">🤖</div>
+            <div class="typing-dots"><span></span><span></span><span></span></div>`;
+        container.appendChild(row);
+        container.scrollTop = container.scrollHeight;
+    }
+
+    function removeToraTyping() { document.getElementById('tora-typing')?.remove(); }
+
+    function setToraLoading(val) {
+        toraLoading = val;
+        document.getElementById('tora-send-btn').disabled = val;
+        if (val) showToraTyping();
+    }
+
+    function handleToraKey(e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); toraSend(); }
+    }
+
+    function toraAutoResize(el) {
+        el.style.height = 'auto';
+        el.style.height = Math.min(el.scrollHeight, 80) + 'px';
+    }
+
+    function formatTora(text) {
+        return text
+            .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+            .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+            .replace(/\*(.*?)\*/g,'<em>$1</em>')
+            .replace(/\n/g,'<br>');
     }
 
     // =========================================
-    // CUTE MOUSE TRACKING & PROXIMITY LOGIC
+    // MOUSE TRACKING (head & eyes follow cursor)
     // =========================================
     const chutiHead = document.getElementById('chuti-head');
     const chutiEyes = document.getElementById('chuti-eyes');
-
-    let currentX = 0, currentY = 0;
-    let targetX = 0, targetY = 0;
-    
-    let rawMouseX = window.innerWidth / 2;
-    let rawMouseY = window.innerHeight / 2;
+    let currentX = 0, currentY = 0, targetX = 0, targetY = 0;
+    let rawMouseX = window.innerWidth / 2, rawMouseY = window.innerHeight / 2;
 
     function updateTargetPosition(clientX, clientY) {
-        rawMouseX = clientX;
-        rawMouseY = clientY;
+        rawMouseX = clientX; rawMouseY = clientY;
         targetX = ((clientX / window.innerWidth) - 0.5) * 2;
         targetY = ((clientY / window.innerHeight) - 0.5) * 2;
     }
 
-    document.addEventListener('mousemove', (e) => {
-        updateTargetPosition(e.clientX, e.clientY);
-    });
+    document.addEventListener('mousemove', e => updateTargetPosition(e.clientX, e.clientY));
 
-    const allIframes = document.querySelectorAll('.Projects-iframe');
-    allIframes.forEach(iframe => {
+    document.querySelectorAll('.Projects-iframe').forEach(iframe => {
         iframe.addEventListener('load', () => {
             try {
-                const iframeDoc = iframe.contentWindow.document;
-                iframeDoc.addEventListener('mousemove', (e) => {
+                iframe.contentWindow.document.addEventListener('mousemove', e => {
                     const rect = iframe.getBoundingClientRect();
-                    const adjustedX = e.clientX + rect.left;
-                    const adjustedY = e.clientY + rect.top;
-                    updateTargetPosition(adjustedX, adjustedY);
+                    updateTargetPosition(e.clientX + rect.left, e.clientY + rect.top);
                 });
-            } catch (err) {
-                console.warn("Iframe tracking active.");
-            }
+            } catch(err) {}
         });
     });
 
     function animateChuti() {
         if (chutiHead && chutiEyes && chutiBot) {
             const rect = chutiBot.getBoundingClientRect();
-            const centerX = rect.left + rect.width / 2;
-            const centerY = rect.top + rect.height / 2;
-            const dist = Math.hypot(rawMouseX - centerX, rawMouseY - centerY);
-            
-            if (dist < 150) {
-                chutiBot.classList.add('tora-active');
-            } else {
-                chutiBot.classList.remove('tora-active');
-            }
+            const dist = Math.hypot(rawMouseX - (rect.left + rect.width/2), rawMouseY - (rect.top + rect.height/2));
+            chutiBot.classList.toggle('tora-active', dist < 150);
 
             currentX += (targetX - currentX) * 0.1;
             currentY += (targetY - currentY) * 0.1;
-            
-            const headTilt = currentX * 15; 
-            const headShiftX = currentX * 8; 
-            const headShiftY = currentY * 5; 
-            chutiHead.style.transform = `translate(${headShiftX}px, ${headShiftY}px) rotate(${headTilt}deg)`;
 
-            const eyeShiftX = currentX * 10;
-            const eyeShiftY = currentY * 4;
-            chutiEyes.style.transform = `translate(${eyeShiftX}px, ${eyeShiftY}px)`;
+            chutiHead.style.transform = `translate(${currentX*8}px, ${currentY*5}px) rotate(${currentX*15}deg)`;
+            chutiEyes.style.transform = `translate(${currentX*10}px, ${currentY*4}px)`;
         }
         requestAnimationFrame(animateChuti);
     }
-    
     animateChuti();
 </script>
 </body>
