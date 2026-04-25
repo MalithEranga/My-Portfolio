@@ -22,7 +22,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* Normal cursor restored */
         }
 
         body {
@@ -220,13 +219,16 @@
            --- ADVANCED MASONRY GRID & CARDS ---
            ========================================== */
         .masonry-grid {
-            column-count: 3;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             column-gap: 30px;
+            grid-auto-rows: 10px; /* JS uses this to tightly pack items */
+            align-items: start;
             margin-top: 40px;
             margin-bottom: 100px;
             opacity: 0;
             transform: translateY(60px);
-            transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .masonry-grid.visible {
@@ -234,13 +236,11 @@
             transform: translateY(0);
         }
 
-        @media (max-width: 1024px) { .masonry-grid { column-count: 2; } }
-        @media (max-width: 640px) { .masonry-grid { column-count: 1; } }
+        @media (max-width: 1024px) { .masonry-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 640px) { .masonry-grid { grid-template-columns: 1fr; } }
 
         /* ADVANCED CARD CONTAINER */
         .glass-image-card {
-            break-inside: avoid;
-            margin-bottom: 30px;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 16px;
@@ -250,10 +250,11 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            backdrop-filter: blur(12px); /* True glassmorphism */
+            backdrop-filter: blur(12px); 
             -webkit-backdrop-filter: blur(12px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             cursor: pointer;
+            height: max-content;
         }
 
         /* Glowing Border on Hover */
@@ -288,7 +289,6 @@
             pointer-events: none;
         }
 
-        /* Premium Look Changes */
         .glass-image-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 25px 50px rgba(0,0,0,0.6), 0 0 40px rgba(0, 255, 204, 0.15);
@@ -309,7 +309,7 @@
             box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
         }
 
-        /* View Button Overlay inside the image */
+        /* View Button Overlay */
         .img-wrapper::before {
            
             position: absolute;
@@ -336,18 +336,17 @@
             transform: translate(-50%, -50%) scale(1);
         }
 
-        /* Image settings - Removed Black & White */
         .img-wrapper img {
             width: 100%;
             height: auto;
             display: block;
             transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.6s ease;
-            filter: brightness(0.95); /* Full color, just slightly dimmed by default */
+            filter: brightness(0.95); 
         }
 
         .glass-image-card:hover .img-wrapper img {
-            transform: scale(1.08); /* Smoother, deeper zoom */
-            filter: brightness(1.1); /* Brighten up on hover */
+            transform: scale(1.08); 
+            filter: brightness(1.1); 
         }
 
         /* ==========================================
@@ -476,80 +475,10 @@
             </p>
         </section>
 
-        <h2 class="section-heading reveal-on-scroll">Tuition Post Design</h2>
-        <div class="masonry-grid reveal-on-scroll">
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/001.jpg" alt="Tuition Post 1"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/002.jpg" alt="Tuition Post 2"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/003.jpg" alt="Tuition Post 3"></div>
-            </div>
-             <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/004.jpg" alt="Tuition Post 1"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/005.jpg" alt="Tuition Post 2"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/006.jpg" alt="Tuition Post 3"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/007.jpg" alt="Tuition Post 1"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/008.jpg" alt="Tuition Post 2"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/009.jpg" alt="Tuition Post 3"></div>
-            </div>
-             <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/010.jpg" alt="Tuition Post 1"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/011.jpg" alt="Tuition Post 2"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/012.jpg" alt="Tuition Post 3"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/013.jpg" alt="Tuition Post 1"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/014.jpg" alt="Tuition Post 2"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/015.jpg" alt="Tuition Post 3"></div>
-            </div>
-             <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/016.jpg" alt="Tuition Post 1"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/017.jpg" alt="Tuition Post 2"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/018.jpg" alt="Tuition Post 3"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/019.jpg" alt="Tuition Post 1"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/020.jpg" alt="Tuition Post 2"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/021.jpg" alt="Tuition Post 3"></div>
-            </div>
-             <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/022.jpg" alt="Tuition Post 1"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/023.jpg" alt="Tuition Post 2"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/Social Media Post/024.jpg" alt="Tuition Post 3"></div>
-            </div>
+
+       <h2 class="section-heading reveal-on-scroll">Social Media Post Design</h2>
+    
+    <div class="masonry-grid reveal-on-scroll" id="image-grid">
         </div>
 
         <h2 class="section-heading reveal-on-scroll">Tuition Tute Cover</h2>
@@ -565,31 +494,6 @@
             </div>
         </div>
 
-        <h2 class="section-heading reveal-on-scroll">Brand Post Design</h2>
-        <div class="masonry-grid reveal-on-scroll">
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Images/BrandPost1.jpg" alt="Brand Post 1"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Images/BrandPost2.jpg" alt="Brand Post 2"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Images/BrandPost3.jpg" alt="Brand Post 3"></div>
-            </div>
-        </div>
-
-        <h2 class="section-heading reveal-on-scroll">Volunteer Posts</h2>
-        <div class="masonry-grid reveal-on-scroll">
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Images/Volunteer1.jpg" alt="Volunteer Post 1"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Images/Volunteer2.jpg" alt="Volunteer Post 2"></div>
-            </div>
-            <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Images/Volunteer3.jpg" alt="Volunteer Post 3"></div>
-            </div>
-        </div>
 
         <div style="text-align: center; padding-bottom: 50px; opacity: 0; transform: translateY(20px);" class="reveal-on-scroll">
             <a href="index.html" class="back-btn">← BACK TO PORTFOLIO</a>
@@ -603,7 +507,34 @@
     </div>
 
     <script>
-        // 1. Enhanced Scroll Reveal (subtler)
+
+      // පින්තූර වැටිය යුතු ප්‍රධාන ඩිව් (div) එක හඳුනාගැනීම
+        const grid = document.getElementById("image-grid");
+        
+        // ඔබට ඇති මුළු පින්තූර ගණන
+        const totalImages = 113;
+
+        // 1 සිට 124 දක්වා පින්තූර ස්වයංක්‍රීයව සාදාගැනීම
+        for (let i = 1; i <= totalImages; i++) {
+            
+            // පින්තූරයේ නම ඉලක්කම් 3කින් හදාගැනීම (උදා: 1 -> "001", 15 -> "015")
+            let imgNumber = String(i).padStart(3, '0');
+            
+            // එක පින්තූරයකට අදාල HTML කේතය (හිස්තැන් සඳහා %20 යොදා ඇත)
+            let cardHTML = `
+                <div class="glass-image-card">
+                    <div class="img-wrapper">
+                        <img src="Modern%20Pixels/Social%20Media%20Post/${imgNumber}.jpg" alt="Social Media Post ${i}">
+                    </div>
+                </div>
+            `;
+            
+            // සකස් කළ පින්තූරය හිස් Grid එක ඇතුලට දැමීම
+            grid.innerHTML += cardHTML;
+        }
+
+
+        // 1. Enhanced Scroll Reveal
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -635,14 +566,14 @@
                 if(img) { 
                     lightbox.classList.add('active');
                     lightboxImg.src = img.src;
-                    document.body.style.overflow = 'hidden'; // Prevent scrolling when open
+                    document.body.style.overflow = 'hidden';
                 }
             });
         });
 
         const closeLightboxBox = () => {
             lightbox.classList.remove('active');
-            setTimeout(() => { lightboxImg.src = ''; }, 400); // Clear image after animation
+            setTimeout(() => { lightboxImg.src = ''; }, 400);
             document.body.style.overflow = 'auto';
         };
 
@@ -651,12 +582,41 @@
             if(e.target !== lightboxImg) closeLightboxBox();
         });
         
-        // Close on Escape key
         document.addEventListener('keydown', (e) => {
             if(e.key === 'Escape' && lightbox.classList.contains('active')) {
                 closeLightboxBox();
             }
         });
+
+        // 3. True Masonry Layout Logic (Left to Right + Tight Vertical Packing)
+        function layoutMasonry() {
+            const grids = document.querySelectorAll('.masonry-grid');
+            grids.forEach(grid => {
+                const cards = grid.querySelectorAll('.glass-image-card');
+                
+                // Reset first to get natural heights
+                cards.forEach(card => {
+                    card.style.gridRowEnd = 'auto'; 
+                });
+
+                // Calculate and apply tight packing
+                cards.forEach(card => {
+                    const height = card.offsetHeight;
+                    const gap = 30; // 30px spacing
+                    // Calculate how many 10px rows this card needs
+                    const rowSpan = Math.ceil((height + gap) / 10); 
+                    card.style.gridRowEnd = `span ${rowSpan}`;
+                });
+            });
+        }
+
+        // Run when images are fully loaded to get correct heights
+        Promise.all(Array.from(document.images).filter(img => !img.complete).map(img => new Promise(resolve => {
+            img.onload = img.onerror = resolve;
+        }))).then(layoutMasonry);
+        
+        // Re-calculate if window is resized
+        window.addEventListener('resize', layoutMasonry);
     </script>
 </body>
 </html>
