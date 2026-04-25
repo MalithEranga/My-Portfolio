@@ -216,16 +216,16 @@
         }
 
         /* ==========================================
-           --- ADVANCED MASONRY GRID & CARDS ---
+           --- TRUE MASONRY GRID (NO GAPS, CORRECT ORDER) ---
            ========================================== */
         .masonry-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             column-gap: 30px;
-            grid-auto-rows: 10px; /* JS uses this to tightly pack items */
+            grid-auto-rows: 10px; /* මේකෙන් තමයි හිස්තැන් නැති කරලා තද කරන්නේ */
             align-items: start;
             margin-top: 40px;
-            margin-bottom: 100px;
+            margin-bottom: 40px;
             opacity: 0;
             transform: translateY(60px);
             transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -245,7 +245,8 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 16px;
             padding: 12px;
-            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            /* Height වෙනස් වෙද්දී ගැස්සෙන එක නවත්තන්න Transition එක වෙනස් කරා */
+            transition: transform 0.5s ease, box-shadow 0.5s ease, background 0.5s ease, border-color 0.5s ease;
             position: relative;
             overflow: hidden;
             display: flex;
@@ -254,7 +255,6 @@
             -webkit-backdrop-filter: blur(12px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             cursor: pointer;
-            height: max-content;
         }
 
         /* Glowing Border on Hover */
@@ -311,7 +311,7 @@
 
         /* View Button Overlay */
         .img-wrapper::before {
-           
+            
             position: absolute;
             top: 50%;
             left: 50%;
@@ -475,25 +475,27 @@
             </p>
         </section>
 
+        <h2 class="section-heading reveal-on-scroll">Social Media Post Design</h2>
+        
+        <div class="masonry-grid reveal-on-scroll" id="image-grid">
+        </div>
 
-       <h2 class="section-heading reveal-on-scroll">Social Media Post Design</h2>
-    
-    <div class="masonry-grid reveal-on-scroll" id="image-grid">
+        <div style="text-align: center; margin-bottom: 80px;" class="reveal-on-scroll">
+            <button id="loadMoreBtn" class="back-btn" style="cursor: pointer;">LOAD MORE DESIGNS</button>
         </div>
 
         <h2 class="section-heading reveal-on-scroll">Tuition Tute Cover</h2>
         <div class="masonry-grid reveal-on-scroll">
             <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/046 DHANANJAYA TUTE COVER.jpg" alt="Tute Cover 1"></div>
+                <div class="img-wrapper"><img loading="lazy" src="Modern Pixels/046 DHANANJAYA TUTE COVER.jpg" alt="Tute Cover 1"></div>
             </div>
             <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/047 DHANANJAYA TUTE COVER.jpg" alt="Tute Cover 2"></div>
+                <div class="img-wrapper"><img loading="lazy" src="Modern Pixels/047 DHANANJAYA TUTE COVER.jpg" alt="Tute Cover 2"></div>
             </div>
             <div class="glass-image-card">
-                <div class="img-wrapper"><img src="Modern Pixels/048 DHANANJAYA TUTE COVER.jpg" alt="Tute Cover 3"></div>
+                <div class="img-wrapper"><img loading="lazy" src="Modern Pixels/048 DHANANJAYA TUTE COVER.jpg" alt="Tute Cover 3"></div>
             </div>
         </div>
-
 
         <div style="text-align: center; padding-bottom: 50px; opacity: 0; transform: translateY(20px);" class="reveal-on-scroll">
             <a href="index.html" class="back-btn">← BACK TO PORTFOLIO</a>
@@ -507,37 +509,85 @@
     </div>
 
     <script>
+        // 1. Image Loading & True Masonry Logic
+        const grid = document.getElementById("image-grid");
+        const totalImages = 113;
+        let currentImageCount = 1;
+        const imagesPerLoad = 30; // එක පාරට Load වෙන්නේ 12යි
 
-      // පින්තූර වැටිය යුතු ප්‍රධාන ඩිව් (div) එක හඳුනාගැනීම
-const grid = document.getElementById("image-grid");
+        // මේ function එකෙන් කාඩ් වල උස මැනලා, හිස්තැන් නැතිව හරියටම අසුරනවා
+        function layoutMasonry() {
+            const grids = document.querySelectorAll('.masonry-grid');
+            grids.forEach(grid => {
+                const cards = grid.querySelectorAll('.glass-image-card');
+                
+                // කලින් මැනපු ඒවා Reset කරනවා
+                cards.forEach(card => {
+                    card.style.gridRowEnd = 'auto'; 
+                });
 
-// ඔබට ඇති මුළු පින්තූර ගණන
-const totalImages = 113;
+                // අලුතින් උස මැනලා හිස්තැන් පුරවනවා
+                cards.forEach(card => {
+                    const height = card.offsetHeight;
+                    const gap = 30; // 30px spacing
+                    const rowSpan = Math.ceil((height + gap) / 10); 
+                    card.style.gridRowEnd = `span ${rowSpan}`;
+                });
+            });
+        }
 
-// ඔක්කොම HTML ටික තියාගන්න හිස් Variable එකක් හදාගන්නවා
-let allCardsHTML = ""; 
+        function loadImages() {
+            let cardsHTML = "";
+            let endCount = currentImageCount + imagesPerLoad - 1;
+            
+            if (endCount > totalImages) endCount = totalImages;
 
-// 1 සිට 113 දක්වා පින්තූර ස්වයංක්‍රීයව සාදාගැනීම
-for (let i = 1; i <= totalImages; i++) {
-    
-    // පින්තූරයේ නම ඉලක්කම් 3කින් හදාගැනීම
-    let imgNumber = String(i).padStart(3, '0');
-    
-    // එක පින්තූරයකට අදාල HTML කේතය (loading="lazy" එකතු කරලා තියෙන්නේ)
-    allCardsHTML += `
-        <div class="glass-image-card">
-            <div class="img-wrapper">
-                <img loading="lazy" src="Modern%20Pixels/Social%20Media%20Post/${imgNumber}.jpg" alt="Social Media Post ${i}">
-            </div>
-        </div>
-    `;
-}
+            for (let i = currentImageCount; i <= endCount; i++) {
+                let imgNumber = String(i).padStart(3, '0');
+                cardsHTML += `
+                    <div class="glass-image-card">
+                        <div class="img-wrapper">
+                            <img loading="lazy" src="Modern%20Pixels/Social%20Media%20Post/${imgNumber}.jpg" alt="Social Media Post ${i}">
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Grid එකට දානවා
+            grid.innerHTML += cardsHTML;
+            currentImageCount = endCount + 1;
 
-// Loop එකෙන් එළියට ආවට පස්සේ එකපාරක් විතරක් DOM එකට දානවා (මෙතනින් තමයි ලොකුම speed එක එන්නේ!)
-grid.innerHTML = allCardsHTML;
+            // Load More Button එක හංගනවා ඉවර උනාම
+            if (currentImageCount > totalImages) {
+                document.getElementById("loadMoreBtn").style.display = "none";
+            }
+
+            // Lightbox එක අලුත් පින්තූර වලටත් සම්බන්ද කරනවා
+            attachLightboxEvents();
+
+            // වැදගත්ම කෑල්ල: අලුතින් ආපු පින්තූර 12 Load උනාට පස්සේ විතරක් හිස්තැන් මනිනවා (Site එක හිරවෙන්නේ නෑ)
+            const newImages = Array.from(grid.querySelectorAll('img')).filter(img => !img.complete);
+            
+            if(newImages.length > 0) {
+                Promise.all(newImages.map(img => new Promise(resolve => {
+                    img.onload = img.onerror = resolve;
+                }))).then(layoutMasonry);
+            } else {
+                layoutMasonry();
+            }
+        }
+
+        // මුලින්ම පින්තූර ටික Load කිරීම
+        loadImages();
+
+        // Button එක Click කරාම තව Load කිරීම
+        document.getElementById("loadMoreBtn").addEventListener("click", loadImages);
+
+        // Screen එක ලොකු/පොඩි කරද්දිත් හිස්තැන් හැදෙනවා
+        window.addEventListener('resize', layoutMasonry);
 
 
-        // 1. Enhanced Scroll Reveal
+        // 2. Scroll Reveal Animation
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -557,22 +607,25 @@ grid.innerHTML = allCardsHTML;
             observer.observe(section);
         });
 
-        // 2. Lightbox Logic
+
+        // 3. Lightbox Logic
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const closeBtn = document.querySelector('.close-lightbox');
-        const imageCards = document.querySelectorAll('.glass-image-card');
 
-        imageCards.forEach(card => {
-            card.addEventListener('click', function() {
-                const img = this.querySelector('img');
-                if(img) { 
-                    lightbox.classList.add('active');
-                    lightboxImg.src = img.src;
-                    document.body.style.overflow = 'hidden';
-                }
+        function attachLightboxEvents() {
+            const imageCards = document.querySelectorAll('.glass-image-card');
+            imageCards.forEach(card => {
+                card.onclick = function() {
+                    const img = this.querySelector('img');
+                    if(img) { 
+                        lightbox.classList.add('active');
+                        lightboxImg.src = img.src;
+                        document.body.style.overflow = 'hidden';
+                    }
+                };
             });
-        });
+        }
 
         const closeLightboxBox = () => {
             lightbox.classList.remove('active');
@@ -591,35 +644,6 @@ grid.innerHTML = allCardsHTML;
             }
         });
 
-        // 3. True Masonry Layout Logic (Left to Right + Tight Vertical Packing)
-        function layoutMasonry() {
-            const grids = document.querySelectorAll('.masonry-grid');
-            grids.forEach(grid => {
-                const cards = grid.querySelectorAll('.glass-image-card');
-                
-                // Reset first to get natural heights
-                cards.forEach(card => {
-                    card.style.gridRowEnd = 'auto'; 
-                });
-
-                // Calculate and apply tight packing
-                cards.forEach(card => {
-                    const height = card.offsetHeight;
-                    const gap = 30; // 30px spacing
-                    // Calculate how many 10px rows this card needs
-                    const rowSpan = Math.ceil((height + gap) / 10); 
-                    card.style.gridRowEnd = `span ${rowSpan}`;
-                });
-            });
-        }
-
-        // Run when images are fully loaded to get correct heights
-        Promise.all(Array.from(document.images).filter(img => !img.complete).map(img => new Promise(resolve => {
-            img.onload = img.onerror = resolve;
-        }))).then(layoutMasonry);
-        
-        // Re-calculate if window is resized
-        window.addEventListener('resize', layoutMasonry);
     </script>
 </body>
 </html>
