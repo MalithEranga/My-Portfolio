@@ -215,14 +215,12 @@
             position: relative;
         }
 
-        /* ==========================================
-           --- TRUE MASONRY GRID (NO GAPS, CORRECT ORDER) ---
-           ========================================== */
+        /* TRUE MASONRY GRID */
         .masonry-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             column-gap: 30px;
-            grid-auto-rows: 9.8px; /* මේකෙන් තමයි හිස්තැන් නැති කරලා තද කරන්නේ */
+            grid-auto-rows: 9.8px;
             align-items: start;
             margin-top: 40px;
             margin-bottom: 40px;
@@ -245,7 +243,6 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 16px;
             padding: 5px;
-            /* Height වෙනස් වෙද්දී ගැස්සෙන එක නවත්තන්න Transition එක වෙනස් කරා */
             transition: transform 0.5s ease, box-shadow 0.5s ease, background 0.5s ease, border-color 0.5s ease;
             position: relative;
             overflow: hidden;
@@ -309,8 +306,6 @@
             box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
         }
 
-        
-
         .glass-image-card:hover .img-wrapper::before {
             opacity: 1;
             transform: translate(-50%, -50%) scale(1);
@@ -329,9 +324,7 @@
             filter: brightness(1.1); 
         }
 
-        /* ==========================================
-           --- LIGHTBOX (IMAGE VIEWER) ---
-           ========================================== */
+        /* LIGHTBOX */
         .lightbox {
             display: none;
             position: fixed;
@@ -424,6 +417,18 @@
             .section-heading { font-size: 1.6rem; }
             .brand-logo { max-width: 280px; }
             .floating-logos { opacity: 0.1; }
+            
+            .glass-image-card {
+                backdrop-filter: none; 
+                -webkit-backdrop-filter: none;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+            }
+            body::before {
+                background-attachment: scroll; 
+            }
+            .floating-logos {
+                display: none; 
+            }
         }
     </style>
 </head>
@@ -467,13 +472,13 @@
         <h2 class="section-heading reveal-on-scroll">Tuition Tute Cover</h2>
         <div class="masonry-grid reveal-on-scroll">
             <div class="glass-image-card">
-                <div class="img-wrapper"><img loading="lazy" src="Modern Pixels/046 DHANANJAYA TUTE COVER.jpg" alt="Tute Cover 1"></div>
+                <div class="img-wrapper"><img loading="lazy" src="Modern Pixels/1111.png" alt="Tute Cover 1"></div>
             </div>
             <div class="glass-image-card">
-                <div class="img-wrapper"><img loading="lazy" src="Modern Pixels/047 DHANANJAYA TUTE COVER.jpg" alt="Tute Cover 2"></div>
+                <div class="img-wrapper"><img loading="lazy" src="Modern Pixels/1111.png" alt="Tute Cover 2"></div>
             </div>
             <div class="glass-image-card">
-                <div class="img-wrapper"><img loading="lazy" src="Modern Pixels/048 DHANANJAYA TUTE COVER.jpg" alt="Tute Cover 3"></div>
+                <div class="img-wrapper"><img loading="lazy" src="Modern Pixels/1111.png" alt="Tute Cover 3"></div>
             </div>
         </div>
 
@@ -493,23 +498,20 @@
         const grid = document.getElementById("image-grid");
         const totalImages = 113;
         let currentImageCount = 1;
-        const imagesPerLoad = 12; // එක පාරට Load වෙන්නේ 12යි
+        const imagesPerLoad = 12;
 
-        // මේ function එකෙන් කාඩ් වල උස මැනලා, හිස්තැන් නැතිව හරියටම අසුරනවා
         function layoutMasonry() {
             const grids = document.querySelectorAll('.masonry-grid');
             grids.forEach(grid => {
                 const cards = grid.querySelectorAll('.glass-image-card');
                 
-                // කලින් මැනපු ඒවා Reset කරනවා
                 cards.forEach(card => {
                     card.style.gridRowEnd = 'auto'; 
                 });
 
-                // අලුතින් උස මැනලා හිස්තැන් පුරවනවා
                 cards.forEach(card => {
                     const height = card.offsetHeight;
-                    const gap = 30; // 30px spacing
+                    const gap = 30; 
                     const rowSpan = Math.ceil((height + gap) / 10); 
                     card.style.gridRowEnd = `span ${rowSpan}`;
                 });
@@ -524,28 +526,25 @@
 
             for (let i = currentImageCount; i <= endCount; i++) {
                 let imgNumber = String(i).padStart(3, '0');
+                // මෙතන imgNumber එකට පස්සේ _result කියලා එකතු කරා 👇
                 cardsHTML += `
                     <div class="glass-image-card">
                         <div class="img-wrapper">
-                            <img loading="lazy" src="Modern%20Pixels/Social%20Media%20Post/${imgNumber}.jpg" alt="Social Media Post ${i}">
+                            <img loading="lazy" src="Modern%20Pixels/Social%20Media%20Post/${imgNumber}_result.webp" alt="Social Media Post ${i}">
                         </div>
                     </div>
                 `;
             }
             
-            // Grid එකට දානවා
-            grid.innerHTML += cardsHTML;
+            grid.insertAdjacentHTML('beforeend', cardsHTML);
             currentImageCount = endCount + 1;
 
-            // Load More Button එක හංගනවා ඉවර උනාම
             if (currentImageCount > totalImages) {
                 document.getElementById("loadMoreBtn").style.display = "none";
             }
 
-            // Lightbox එක අලුත් පින්තූර වලටත් සම්බන්ද කරනවා
             attachLightboxEvents();
 
-            // වැදගත්ම කෑල්ල: අලුතින් ආපු පින්තූර 12 Load උනාට පස්සේ විතරක් හිස්තැන් මනිනවා (Site එක හිරවෙන්නේ නෑ)
             const newImages = Array.from(grid.querySelectorAll('img')).filter(img => !img.complete);
             
             if(newImages.length > 0) {
@@ -557,15 +556,9 @@
             }
         }
 
-        // මුලින්ම පින්තූර ටික Load කිරීම
         loadImages();
-
-        // Button එක Click කරාම තව Load කිරීම
         document.getElementById("loadMoreBtn").addEventListener("click", loadImages);
-
-        // Screen එක ලොකු/පොඩි කරද්දිත් හිස්තැන් හැදෙනවා
         window.addEventListener('resize', layoutMasonry);
-
 
         // 2. Scroll Reveal Animation
         const observerOptions = {
@@ -586,7 +579,6 @@
         document.querySelectorAll('.reveal-on-scroll').forEach((section) => {
             observer.observe(section);
         });
-
 
         // 3. Lightbox Logic
         const lightbox = document.getElementById('lightbox');
