@@ -509,29 +509,32 @@
     <script>
 
       // පින්තූර වැටිය යුතු ප්‍රධාන ඩිව් (div) එක හඳුනාගැනීම
-        const grid = document.getElementById("image-grid");
-        
-        // ඔබට ඇති මුළු පින්තූර ගණන
-        const totalImages = 113;
+const grid = document.getElementById("image-grid");
 
-        // 1 සිට 124 දක්වා පින්තූර ස්වයංක්‍රීයව සාදාගැනීම
-        for (let i = 1; i <= totalImages; i++) {
-            
-            // පින්තූරයේ නම ඉලක්කම් 3කින් හදාගැනීම (උදා: 1 -> "001", 15 -> "015")
-            let imgNumber = String(i).padStart(3, '0');
-            
-            // එක පින්තූරයකට අදාල HTML කේතය (හිස්තැන් සඳහා %20 යොදා ඇත)
-            let cardHTML = `
-                <div class="glass-image-card">
-                    <div class="img-wrapper">
-                        <img src="Modern%20Pixels/Social%20Media%20Post/${imgNumber}.jpg" alt="Social Media Post ${i}">
-                    </div>
-                </div>
-            `;
-            
-            // සකස් කළ පින්තූරය හිස් Grid එක ඇතුලට දැමීම
-            grid.innerHTML += cardHTML;
-        }
+// ඔබට ඇති මුළු පින්තූර ගණන
+const totalImages = 113;
+
+// ඔක්කොම HTML ටික තියාගන්න හිස් Variable එකක් හදාගන්නවා
+let allCardsHTML = ""; 
+
+// 1 සිට 113 දක්වා පින්තූර ස්වයංක්‍රීයව සාදාගැනීම
+for (let i = 1; i <= totalImages; i++) {
+    
+    // පින්තූරයේ නම ඉලක්කම් 3කින් හදාගැනීම
+    let imgNumber = String(i).padStart(3, '0');
+    
+    // එක පින්තූරයකට අදාල HTML කේතය (loading="lazy" එකතු කරලා තියෙන්නේ)
+    allCardsHTML += `
+        <div class="glass-image-card">
+            <div class="img-wrapper">
+                <img loading="lazy" src="Modern%20Pixels/Social%20Media%20Post/${imgNumber}.jpg" alt="Social Media Post ${i}">
+            </div>
+        </div>
+    `;
+}
+
+// Loop එකෙන් එළියට ආවට පස්සේ එකපාරක් විතරක් DOM එකට දානවා (මෙතනින් තමයි ලොකුම speed එක එන්නේ!)
+grid.innerHTML = allCardsHTML;
 
 
         // 1. Enhanced Scroll Reveal
