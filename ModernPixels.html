@@ -48,7 +48,7 @@
         }
 
         /* -------------------------------------
-           NAVIGATION BAR
+           NAVIGATION BAR (අලුතින් එකතු කළ කොටස)
         ---------------------------------------- */
         .navbar {
             position: fixed;
@@ -59,7 +59,7 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background: rgba(2, 4, 10, 0.8);
+            background: rgba(2, 4, 10, 0.6);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--glass-border);
@@ -75,7 +75,6 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            z-index: 1002; /* Menu එකට උඩින් තියෙන්න */
         }
 
         .nav-brand span {
@@ -116,23 +115,6 @@
 
         .nav-links a:hover::after {
             width: 100%;
-        }
-
-        /* Mobile Menu Button */
-        .mobile-menu-btn {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            cursor: pointer;
-            z-index: 1002;
-        }
-
-        .mobile-menu-btn span {
-            width: 30px;
-            height: 2px;
-            background-color: #fff;
-            border-radius: 2px;
-            transition: all 0.3s ease;
         }
 
         /* Floating Tool Logos */
@@ -185,6 +167,7 @@
         .container {
             max-width: 1300px;
             margin: 0 auto;
+            /* Nav bar එක නිසා උඩින් ඉඩ වැඩි කළා */
             padding: 160px 5% 50px 5%; 
             position: relative;
             z-index: 1;
@@ -239,8 +222,8 @@
             -webkit-background-clip: text;
             background-clip: text;
             margin-bottom: 40px;
-            padding-top: 80px; 
-            margin-top: -40px; 
+            padding-top: 80px; /* Scroll කරද්දි Nav එකට යට නොවෙන්න */
+            margin-top: -40px; /* offset the padding */
             letter-spacing: 4px;
             display: block;
             position: relative;
@@ -325,7 +308,7 @@
         }
 
         @media (max-width: 1024px) { .masonry-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 640px) { .masonry-grid { grid-template-columns: 1fr; column-gap: 15px; } }
+        @media (max-width: 640px) { .masonry-grid { grid-template-columns: 1fr; } }
 
         /* ADVANCED CARD CONTAINER */
         .glass-image-card {
@@ -446,11 +429,6 @@
             transition: all 0.3s;
             z-index: 10001;
             cursor: pointer;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .close-lightbox:hover { color: var(--accent); transform: rotate(90deg); }
@@ -461,13 +439,13 @@
             align-items: center;
             justify-content: center;
             gap: 15px;
-            padding: 15px 35px;
+            padding: 20px 45px;
             background: rgba(255, 255, 255, 0.02);
             color: #fff;
             text-decoration: none;
             font-family: 'Syncopate', sans-serif;
-            font-size: 0.85rem;
-            letter-spacing: 3px;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 50px;
             transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -500,86 +478,22 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ==========================================================
-           📱 RESPONSIVE DESIGN FOR MOBILE & TABLETS (Mobile Friendly)
-           ========================================================== */
         @media (max-width: 768px) {
-            .container { padding-top: 100px; padding-bottom: 20px; }
+            .story-text-container { padding: 40px 25px; border-radius: 12px; }
+            .section-heading { font-size: 1.6rem; }
+            .brand-logo { max-width: 280px; }
+            .floating-logos { opacity: 0.1; }
             
-            /* Hamburger Menu Active Animation */
-            .mobile-menu-btn { display: flex; }
-            .mobile-menu-btn.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-            .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
-            .mobile-menu-btn.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-            /* Mobile Dropdown Menu */
-            .nav-links {
-                position: fixed;
-                top: 0; left: 0;
-                width: 100%; height: 100vh;
-                background: rgba(2, 4, 10, 0.98);
-                backdrop-filter: blur(25px);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 40px;
-                opacity: 0;
-                pointer-events: none;
-                transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-                z-index: 1001;
-                transform: translateY(-20px);
-            }
-
-            .nav-links.active {
-                opacity: 1;
-                pointer-events: all;
-                transform: translateY(0);
-            }
-
-            .nav-links a {
-                font-size: 1.3rem;
-                letter-spacing: 4px;
-            }
-
-            .brand-header { margin-bottom: 60px; }
-            .brand-logo { max-width: 250px; }
-            .founder-name { font-size: 0.9rem; letter-spacing: 3px; }
-            
-            .section-heading { 
-                font-size: 1.4rem; 
-                padding-top: 60px; 
-                margin-top: -20px; 
-                text-align: center;
-                letter-spacing: 2px;
-            }
-            .section-heading::after { left: 50%; transform: translateX(-50%); }
-
-            .story-text-container { 
-                padding: 35px 20px; 
-                border-radius: 12px; 
-                margin-bottom: 60px;
-            }
-            .story-text { font-size: 1rem; line-height: 1.7; text-align: center; }
-
-            .floating-logos { display: none; } /* ဖုန်း එකේ වැඩිකරදර නැතිවෙන්න අයින් කලා */
-            body::before { background-attachment: scroll; }
+            .navbar { padding: 15px 5%; justify-content: center; flex-wrap: wrap; gap: 15px; }
+            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
             
             .glass-image-card {
                 backdrop-filter: none; 
                 -webkit-backdrop-filter: none;
                 box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
             }
-
-            /* Lightbox Mobile Fix */
-            .close-lightbox {
-                top: 15px; 
-                right: 15px; 
-                font-size: 35px;
-                background: rgba(0,0,0,0.5);
-                border-radius: 50%;
-            }
-            .lightbox-content { max-width: 95%; max-height: 80vh; }
-            .back-btn { padding: 15px 25px; font-size: 0.75rem; width: 100%; max-width: 300px; }
+            body::before { background-attachment: scroll; }
+            .floating-logos { display: none; }
         }
     </style>
 </head>
@@ -588,15 +502,7 @@
     <!-- Navigation Bar -->
     <nav class="navbar">
         <a href="#" class="nav-brand">Modern <span>Pixels</span></a>
-        
-        <!-- Mobile Menu Button (Hamburger) -->
-        <div class="mobile-menu-btn" id="mobileMenuBtn">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-        <ul class="nav-links" id="navLinks">
+        <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#social">Social Media</a></li>
             <li><a href="#tute">Tute Covers</a></li>
@@ -644,7 +550,7 @@
             <button id="loadMoreTuteBtn" class="back-btn" style="cursor: pointer;">LOAD MORE COVERS</button>
         </div>
 
-        <!-- Other Designs Section -->
+        <!-- 🔴 අලුතින් එකතු කළ Other Designs Section එක -->
         <h2 id="other" class="section-heading reveal-on-scroll">Other Designs</h2>
         <div class="masonry-grid reveal-on-scroll" id="other-grid"></div>
         <div style="text-align: center; margin-bottom: 80px;" class="reveal-on-scroll">
@@ -664,34 +570,6 @@
 
     <script>
         // ==========================================
-        // 0. Mobile Menu Logic
-        // ==========================================
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-        const navItems = document.querySelectorAll('.nav-links a');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenuBtn.classList.toggle('active');
-            navLinks.classList.toggle('active');
-            
-            // Menu එක open කරද්දි යට තියෙන ඒවා scroll වෙන එක නවත්තන්න
-            if(navLinks.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'auto';
-            }
-        });
-
-        // Link එකක් click කරාම menu එක auto close වෙන්න
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                mobileMenuBtn.classList.remove('active');
-                navLinks.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-        });
-
-        // ==========================================
         // 1. Image Loading Setup
         // ==========================================
         const imagesPerLoad = 50; 
@@ -705,10 +583,10 @@
         // --- Tute Cover Section ---
         const tuteGrid = document.getElementById("tute-grid");
         const loadMoreTuteBtn = document.getElementById("loadMoreTuteBtn");
-        const totalTuteImages = 18; 
+        const totalTuteImages = 22; 
         let currentTuteImage = totalTuteImages;
 
-        // --- Other Designs Section ---
+        // 🔴 --- Other Designs Section ---
         const otherGrid = document.getElementById("other-grid");
         const loadMoreOtherBtn = document.getElementById("loadMoreOtherBtn");
         const totalOtherImages = 20; // 🔴 මෙතනට Other Designs ෆෝල්ඩරයේ තියෙන පින්තූර ගණන දෙන්න
@@ -726,7 +604,7 @@
 
                 cards.forEach(card => {
                     const height = card.offsetHeight;
-                    const gap = window.innerWidth <= 640 ? 15 : 30; // Mobile එකේදි gap එක අඩු කළා
+                    const gap = 30; 
                     const rowSpan = Math.ceil((height + gap) / 10); 
                     card.style.gridRowEnd = `span ${rowSpan}`;
                 });
@@ -785,19 +663,21 @@
             currentTuteImage = loadGalleryImages(tuteGrid, currentTuteImage, "Tute%20Cover%20Design", loadMoreTuteBtn, "Tute Cover");
         }
 
+        // 🔴 Other Designs ලෝඩ් කරන Function එක
         function loadOtherDesigns() {
+            // ෆෝල්ඩරයේ නම 'Other Designs' ලෙස සකසා ඇත (Space එක %20 ලෙස යෙදේ)
             currentOtherImage = loadGalleryImages(otherGrid, currentOtherImage, "Other%20Designs", loadMoreOtherBtn, "Other Design");
         }
 
         // මුලින්ම පින්තූර ටික ලෝඩ් කිරීම
         loadSocialMedia();
         loadTuteCovers();
-        loadOtherDesigns(); 
+        loadOtherDesigns(); // 🔴 
 
         // Load More Buttons වලට clicks ඇල්ලීම
         loadMoreSocialBtn.addEventListener("click", loadSocialMedia);
         loadMoreTuteBtn.addEventListener("click", loadTuteCovers);
-        loadMoreOtherBtn.addEventListener("click", loadOtherDesigns); 
+        loadMoreOtherBtn.addEventListener("click", loadOtherDesigns); // 🔴
 
         window.addEventListener('resize', layoutMasonry);
 
