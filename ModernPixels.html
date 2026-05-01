@@ -10,12 +10,12 @@
         @property --accent {
             syntax: '<color>';
             inherits: true;
-            initial-value: #00ffcc;
+            initial-value: #00bfff; /* Started with Blue for Services */
         }
         @property --accent-glow {
             syntax: '<color>';
             inherits: true;
-            initial-value: rgba(0, 255, 204, 0.6);
+            initial-value: rgba(0, 191, 255, 0.6);
         }
 
         /* IMPORT CUSTOM FONT (DOPE DISPLAY) */
@@ -35,8 +35,8 @@
 
         :root {
             --primary: #02040a; 
-            --accent: #00ffcc;
-            --accent-glow: rgba(0, 255, 204, 0.6);
+            --accent: #00bfff; /* Blue default */
+            --accent-glow: rgba(0, 191, 255, 0.6);
             --accent-alt: #8a2be2; 
             --text-light: #f8fafc;
             --text-muted: #94a3b8;
@@ -75,7 +75,7 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: -3;
-            background-image: url('Backgrounds/background3.png'); 
+            background-image: url('Backgrounds/background3.webp'); 
             background-size: cover;
             background-position: center;
             background-color: rgba(2, 4, 10, 0.85); 
@@ -110,7 +110,7 @@
             animation: pulsePreloader 3.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
             will-change: transform, opacity;
         }
-        .pl-glow-1 { top: -10%; left: -10%; width: 40vw; height: 40vw; background: rgba(0, 255, 204, 0.2); }
+        .pl-glow-1 { top: -10%; left: -10%; width: 40vw; height: 40vw; background: rgba(0, 191, 255, 0.2); }
         .pl-glow-2 { bottom: -10%; right: -10%; width: 50vw; height: 50vw; background: rgba(138, 43, 226, 0.2); animation-delay: 0.5s; }
 
         @keyframes pulsePreloader {
@@ -169,7 +169,7 @@
         @keyframes cinematicTitle {
             0% { opacity: 0; transform: scale(0.85); filter: blur(20px); }
             30% { opacity: 1; filter: blur(0px); }
-            100% { opacity: 1; transform: scale(1.05); filter: blur(0px); text-shadow: 0 0 30px rgba(0, 255, 204, 0.3); }
+            100% { opacity: 1; transform: scale(1.05); filter: blur(0px); text-shadow: 0 0 30px rgba(0, 191, 255, 0.3); }
         }
 
         @keyframes slowRevealText {
@@ -216,8 +216,8 @@
             top: 15px;
             width: 95%;
             background: rgba(5, 8, 15, 0.9);
-            border-color: rgba(0, 255, 204, 0.4);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 255, 204, 0.15), inset 0 0 15px rgba(0, 255, 204, 0.08);
+            border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px color-mix(in srgb, var(--accent) 15%, transparent), inset 0 0 15px color-mix(in srgb, var(--accent) 8%, transparent);
             padding: 12px 40px;
         }
 
@@ -272,10 +272,8 @@
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
             border-radius: 30px;
-            background: rgba(0, 255, 204, 0.08); /* Fallback */
             background: color-mix(in srgb, var(--accent) 8%, transparent);
             border: 1px solid var(--accent);
-            opacity: 0.4;
             z-index: -1;
             opacity: 0;
             transform: scale(0.85);
@@ -1316,12 +1314,12 @@
 
         // SECTION COLORS SETUP
         const sectionColors = [
-            { id: 'services', color: '#00ffcc', glow: 'rgba(0, 255, 204, 0.6)' },   // Default Green
+            { id: 'services', color: '#00bfff', glow: 'rgba(0, 191, 255, 0.6)' },   // Blue (Nil)
             { id: 'about',    color: '#00bfff', glow: 'rgba(0, 191, 255, 0.6)' },   // Blue (Nil)
-            { id: 'social',   color: '#00ffcc', glow: 'rgba(0, 255, 204, 0.6)' },   // Green (Kola)
-            { id: 'tute',     color: '#ffea00', glow: 'rgba(255, 234, 0, 0.6)' },   // Yellow (Kaha)
+            { id: 'social',   color: '#ffea00', glow: 'rgba(255, 234, 0, 0.6)' },   // Yellow (Kaha)
+            { id: 'tute',     color: '#00ffcc', glow: 'rgba(0, 255, 204, 0.6)' },   // Green (Kola)
             { id: 'packages', color: '#ff2a2a', glow: 'rgba(255, 42, 42, 0.6)' },   // Red (Rathu)
-            { id: 'contact',  color: '#b200ff', glow: 'rgba(178, 0, 255, 0.6)' }    // Purple (Dam)
+            { id: 'contact',  color: '#25D366', glow: 'rgba(37, 211, 102, 0.6)' }   // Light Green (WhatsApp)
         ];
 
         let isScrolling = false;
