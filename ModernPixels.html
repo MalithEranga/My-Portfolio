@@ -659,6 +659,50 @@
             opacity: 1; 
         }
 
+        /* 4-SQUARE BOUNCING LOADER */
+        .loader-squares {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            gap: 6px;
+            z-index: 0; 
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader-squares div {
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent);
+            border-radius: 2px;
+            animation: bounceSquare 0.6s infinite alternate cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* Animation delays for the wave effect */
+        .loader-squares div:nth-child(1) { animation-delay: 0s; }
+        .loader-squares div:nth-child(2) { animation-delay: 0.15s; }
+        .loader-squares div:nth-child(3) { animation-delay: 0.3s; }
+        .loader-squares div:nth-child(4) { animation-delay: 0.45s; }
+
+        @keyframes bounceSquare {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-15px); opacity: 0.4; }
+        }
+
+        /* Hide the loader once the image is fully loaded */
+        .img-wrapper img.loaded + .loader-squares {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Make sure the image sits above the loader when loaded */
+        .img-wrapper img {
+            position: relative;
+            z-index: 1;
+        }
+
         .glass-image-card:hover .img-wrapper img {
             transform: scale(1.08) translateZ(0); 
             filter: brightness(1.1); 
@@ -1478,6 +1522,10 @@
                     <div class="glass-image-card new-item-hidden" style="opacity: 0; transform: translateY(30px);">
                         <div class="img-wrapper">
                             <img loading="lazy" src="Modern%20Pixels/${folderName}/${imgNumber}.webp" alt="${altText} ${i}">
+                            <!-- අලුතින් add කරපු animation එක -->
+                            <div class="loader-squares">
+                                <div></div><div></div><div></div><div></div>
+                            </div>
                         </div>
                     </div>
                 `;
