@@ -6,6 +6,18 @@
     <title>Modern Pixels | Advanced Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Syncopate:wght@600&display=swap" rel="stylesheet">
     <style>
+        /* REGISTER CSS VARIABLES FOR SMOOTH COLOR TRANSITION */
+        @property --accent {
+            syntax: '<color>';
+            inherits: true;
+            initial-value: #00ffcc;
+        }
+        @property --accent-glow {
+            syntax: '<color>';
+            inherits: true;
+            initial-value: rgba(0, 255, 204, 0.6);
+        }
+
         /* IMPORT CUSTOM FONT (DOPE DISPLAY) */
         @font-face {
             font-family: 'Dope Display';
@@ -15,6 +27,10 @@
             font-weight: normal;
             font-style: normal;
             font-display: swap;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         :root {
@@ -27,6 +43,9 @@
             --glass-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.08);
             --container-bg: rgba(2, 4, 10, 0.9);
+            
+            /* Add transition for colors */
+            transition: --accent 0.8s ease, --accent-glow 0.8s ease;
         }
 
         * {
@@ -41,7 +60,6 @@
             color: var(--text-light);
             overflow-x: hidden;
             position: relative;
-            scroll-behavior: smooth;
         }
 
         /* Hardware Acceleration Classes for Performance */
@@ -57,7 +75,7 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: -3;
-            background-image: url('Backgrounds/background3.webp'); 
+            background-image: url('Backgrounds/background3.png'); 
             background-size: cover;
             background-position: center;
             background-color: rgba(2, 4, 10, 0.85); 
@@ -225,6 +243,7 @@
         .nav-brand span {
             color: var(--accent);
             text-shadow: 0 0 12px var(--accent-glow);
+            transition: color 0.5s ease, text-shadow 0.5s ease;
         }
 
         .nav-links {
@@ -253,8 +272,10 @@
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
             border-radius: 30px;
-            background: rgba(0, 255, 204, 0.08);
-            border: 1px solid rgba(0, 255, 204, 0.4);
+            background: rgba(0, 255, 204, 0.08); /* Fallback */
+            background: color-mix(in srgb, var(--accent) 8%, transparent);
+            border: 1px solid var(--accent);
+            opacity: 0.4;
             z-index: -1;
             opacity: 0;
             transform: scale(0.85);
@@ -263,13 +284,13 @@
 
         .nav-links a:hover {
             color: #fff;
-            text-shadow: 0 0 10px rgba(0, 255, 204, 0.8);
+            text-shadow: 0 0 10px var(--accent-glow);
         }
 
         .nav-links a:hover::before {
             opacity: 1;
             transform: scale(1);
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2), inset 0 0 10px rgba(0, 255, 204, 0.1);
+            box-shadow: 0 0 20px var(--accent-glow), inset 0 0 10px color-mix(in srgb, var(--accent) 10%, transparent);
         }
 
         .mobile-menu-btn {
@@ -325,8 +346,9 @@
             opacity: 0.2;
             animation: floatGlow 15s infinite alternate ease-in-out;
             will-change: transform;
+            transition: background 0.8s ease;
         }
-        .glow-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(0, 255, 204, 0.1); }
+        .glow-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: color-mix(in srgb, var(--accent) 10%, transparent); }
         .glow-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: rgba(138, 43, 226, 0.05); animation-delay: -5s; }
 
         @keyframes floatGlow {
@@ -336,7 +358,7 @@
         
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--primary); }
-        ::-webkit-scrollbar-thumb { background: rgba(0, 255, 204, 0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
         .container {
@@ -367,14 +389,14 @@
             max-width: 380px;
             width: 100%;
             height: auto;
-            filter: drop-shadow(0 0 20px rgba(0, 255, 204, 0.05));
+            filter: drop-shadow(0 0 20px color-mix(in srgb, var(--accent) 10%, transparent));
             transition: all 0.4s ease;
             will-change: transform;
         }
 
         .brand-logo:hover {
             transform: scale(1.05) translateY(-3px);
-            filter: drop-shadow(0 15px 30px rgba(0, 255, 204, 0.2));
+            filter: drop-shadow(0 15px 30px color-mix(in srgb, var(--accent) 20%, transparent));
         }
 
         .founder-name {
@@ -393,7 +415,7 @@
             font-family: 'Syncopate', sans-serif;
             font-size: 2.2rem;
             color: transparent;
-            -webkit-text-stroke: 1px rgba(0, 255, 204, 0.7);
+            -webkit-text-stroke: 1px var(--accent);
             background: linear-gradient(90deg, #fff, var(--accent));
             -webkit-background-clip: text;
             background-clip: text;
@@ -425,7 +447,7 @@
             border-radius: 2px;
             background: var(--accent);
             box-shadow: 0 0 10px var(--accent-glow);
-            transition: width 0.6s ease;
+            transition: width 0.6s ease, background 0.6s ease, box-shadow 0.6s ease;
         }
 
         /* -------------------------------------
@@ -467,13 +489,13 @@
             background: var(--accent);
             filter: blur(60px);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease, background 0.6s ease;
         }
 
         .service-card:hover {
             transform: translateY(-10px) translateZ(0);
             border-color: var(--accent);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(0, 255, 204, 0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px var(--accent-glow);
         }
 
         .service-card:hover::before { opacity: 0.15; }
@@ -483,8 +505,8 @@
             height: 50px;
             margin: 0 auto 25px auto;
             fill: var(--accent);
-            transition: transform 0.3s ease;
-            filter: drop-shadow(0 0 10px rgba(0,255,204,0.3));
+            transition: transform 0.3s ease, fill 0.6s ease, filter 0.6s ease;
+            filter: drop-shadow(0 0 10px var(--accent-glow));
         }
 
         .service-card:hover .service-icon { transform: scale(1.15); }
@@ -603,7 +625,7 @@
 
         .glass-image-card:hover {
             transform: translateY(-10px) translateZ(0);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6), 0 0 40px rgba(0, 255, 204, 0.15);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6), 0 0 40px color-mix(in srgb, var(--accent) 15%, transparent);
             background: rgba(255, 255, 255, 0.04);
             border-color: rgba(255, 255, 255, 0.1);
         }
@@ -677,7 +699,7 @@
         .pricing-card:hover {
             transform: translateY(-10px) translateZ(0);
             border-color: var(--accent);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(0, 255, 204, 0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px var(--accent-glow);
         }
 
         .pricing-card::before {
@@ -688,7 +710,7 @@
             background: var(--accent);
             filter: blur(60px);
             opacity: 0.1;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease, background 0.6s ease;
         }
 
         .pricing-card:hover::before { opacity: 0.3; }
@@ -723,6 +745,7 @@
             color: var(--accent);
             font-size: 1.2rem;
             line-height: 1;
+            transition: color 0.6s ease;
         }
 
         .price-calculator {
@@ -754,10 +777,11 @@
             font-family: 'Space Grotesk', sans-serif;
             font-weight: 600;
             letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+            text-shadow: 0 0 10px var(--accent-glow);
+            transition: text-shadow 0.6s ease;
         }
 
-        .usd-output { font-size: 1.1rem; color: var(--accent); font-weight: 500; letter-spacing: 1px; margin-top: 5px; }
+        .usd-output { font-size: 1.1rem; color: var(--accent); font-weight: 500; letter-spacing: 1px; margin-top: 5px; transition: color 0.6s ease; }
 
         .custom-price-box {
             border-color: rgba(138, 43, 226, 0.3);
@@ -790,7 +814,7 @@
             CUSTOM PACKAGE BANNER
         ---------------------------------------- */
         .custom-package-banner {
-            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1) 0%, rgba(0, 255, 204, 0.05) 100%);
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1) 0%, color-mix(in srgb, var(--accent) 5%, transparent) 100%);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-top: 1px solid rgba(255,255,255,0.2);
             border-left: 1px solid rgba(255,255,255,0.2);
@@ -806,15 +830,17 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: background 0.8s ease;
         }
 
         .custom-package-banner::before {
             content: '';
             position: absolute;
             top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(0,255,204,0.1) 0%, transparent 50%);
+            background: radial-gradient(circle, color-mix(in srgb, var(--accent) 10%, transparent) 0%, transparent 50%);
             z-index: -1;
             animation: pulseBanner 8s infinite alternate ease-in-out;
+            transition: background 0.8s ease;
         }
 
         @keyframes pulseBanner {
@@ -899,13 +925,13 @@
 
         .back-btn::before {
             content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 204, 0.3), transparent);
+            background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 30%, transparent), transparent);
             transition: left 0.4s ease; z-index: -1;
         }
 
         .back-btn:hover {
             border-color: var(--accent); color: var(--accent);
-            box-shadow: 0 0 25px rgba(0, 255, 204, 0.15), inset 0 0 15px rgba(0, 255, 204, 0.05);
+            box-shadow: 0 0 25px var(--accent-glow), inset 0 0 15px color-mix(in srgb, var(--accent) 5%, transparent);
             transform: translateY(-2px) translateZ(0);
         }
 
@@ -921,8 +947,8 @@
         .lightbox.active { display: flex; opacity: 1; }
 
         .lightbox-content {
-            max-width: 90%; max-height: 90vh; border-radius: 10px; box-shadow: 0 0 50px rgba(0, 255, 204, 0.25);
-            transform: scale(0.95); transition: transform 0.3s ease; object-fit: contain;
+            max-width: 90%; max-height: 90vh; border-radius: 10px; box-shadow: 0 0 50px var(--accent-glow);
+            transform: scale(0.95); transition: transform 0.3s ease, box-shadow 0.6s ease; object-fit: contain;
             will-change: transform;
         }
 
@@ -973,8 +999,8 @@
             }
             .glass-image-card.focused {
                 transform: scale(1.03) translateZ(0); 
-                box-shadow: 0 10px 25px rgba(0, 255, 204, 0.15); 
-                border-color: rgba(0, 255, 204, 0.4);
+                box-shadow: 0 10px 25px color-mix(in srgb, var(--accent) 15%, transparent); 
+                border-color: color-mix(in srgb, var(--accent) 40%, transparent);
                 z-index: 10;
             }
 
@@ -986,7 +1012,7 @@
                 backdrop-filter: none; -webkit-backdrop-filter: none;
                 flex-direction: column; justify-content: center; align-items: center; gap: 25px;
                 transition: right 0.4s ease;
-                border-left: 1px solid rgba(0, 255, 204, 0.1);
+                border-left: 1px solid color-mix(in srgb, var(--accent) 10%, transparent);
                 box-shadow: -10px 0 30px rgba(0,0,0,0.8);
             }
             .nav-links.active { right: 0; }
@@ -1010,6 +1036,7 @@
             animation: spinButton 0.8s ease-in-out infinite;
             margin-right: 10px;
             vertical-align: middle;
+            transition: border-top-color 0.6s ease;
         }
 
         @keyframes spinButton {
@@ -1274,7 +1301,6 @@
 
     <script>
         // --- PRELOADER LOGIC ---
-        // Animation plays slowly for 3.5 seconds before fading out
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
@@ -1288,15 +1314,42 @@
         const navLinks = document.getElementById('navLinks');
         const navItems = document.querySelectorAll('.nav-links a');
 
+        // SECTION COLORS SETUP
+        const sectionColors = [
+            { id: 'services', color: '#00ffcc', glow: 'rgba(0, 255, 204, 0.6)' },   // Default Green
+            { id: 'about',    color: '#00bfff', glow: 'rgba(0, 191, 255, 0.6)' },   // Blue (Nil)
+            { id: 'social',   color: '#00ffcc', glow: 'rgba(0, 255, 204, 0.6)' },   // Green (Kola)
+            { id: 'tute',     color: '#ffea00', glow: 'rgba(255, 234, 0, 0.6)' },   // Yellow (Kaha)
+            { id: 'packages', color: '#ff2a2a', glow: 'rgba(255, 42, 42, 0.6)' },   // Red (Rathu)
+            { id: 'contact',  color: '#b200ff', glow: 'rgba(178, 0, 255, 0.6)' }    // Purple (Dam)
+        ];
+
         let isScrolling = false;
         window.addEventListener('scroll', () => {
             if (!isScrolling) {
                 window.requestAnimationFrame(() => {
+                    // Navbar Style Toggle
                     if (window.scrollY > 50) {
                         navbar.classList.add('scrolled');
                     } else {
                         navbar.classList.remove('scrolled');
                     }
+
+                    // --- SCROLL COLOR DETECTION LOGIC ---
+                    const triggerPosition = window.scrollY + (window.innerHeight / 2.5);
+                    let activeSection = sectionColors[0]; // Default Fallback
+
+                    for (let i = 0; i < sectionColors.length; i++) {
+                        const el = document.getElementById(sectionColors[i].id);
+                        if (el && el.offsetTop <= triggerPosition) {
+                            activeSection = sectionColors[i];
+                        }
+                    }
+
+                    // Update CSS Variables dynamically
+                    document.documentElement.style.setProperty('--accent', activeSection.color);
+                    document.documentElement.style.setProperty('--accent-glow', activeSection.glow);
+
                     isScrolling = false;
                 });
                 isScrolling = true;
@@ -1309,11 +1362,30 @@
             document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
         });
 
+        // --- SMOOTH SCROLL WITH NAVBAR OFFSET ---
         navItems.forEach(item => {
-            item.addEventListener('click', () => {
+            item.addEventListener('click', function(e) {
+                // Close mobile menu if open
                 mobileMenuBtn.classList.remove('active');
                 navLinks.classList.remove('active');
                 document.body.style.overflow = 'auto';
+
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.scrollY;
+                        
+                        // Scroll with 20px extra offset
+                        window.scrollTo({
+                            top: targetPosition - navbarHeight - 20, 
+                            behavior: 'smooth'
+                        });
+                    }
+                }
             });
         });
 
@@ -1352,7 +1424,6 @@
             }
         }, focusObserverOptions);
 
-
         const imagesPerLoad = 12; 
         const socialGrid = document.getElementById("image-grid");
         const loadMoreSocialBtn = document.getElementById("loadMoreBtn");
@@ -1367,101 +1438,100 @@
         let currentOtherImage = 20; 
 
         function layoutMasonry() {
-    const grids = document.querySelectorAll('.masonry-grid');
-    
-    // Page eke dan inna scroll position eka save karaganna
-    const currentScrollY = window.scrollY;
+            const grids = document.querySelectorAll('.masonry-grid');
+            
+            // Page eke dan inna scroll position eka save karaganna
+            const currentScrollY = window.scrollY;
 
-    grids.forEach(grid => {
-        const cards = grid.querySelectorAll('.glass-image-card');
-        cards.forEach(card => card.style.gridRowEnd = 'auto');
-        cards.forEach(card => {
-            const height = card.offsetHeight;
-            const gap = 30; 
-            const rowSpan = Math.ceil((height + gap) / 10); 
-            card.style.gridRowEnd = `span ${rowSpan}`;
-        });
-    });
+            grids.forEach(grid => {
+                const cards = grid.querySelectorAll('.glass-image-card');
+                cards.forEach(card => card.style.gridRowEnd = 'auto');
+                cards.forEach(card => {
+                    const height = card.offsetHeight;
+                    const gap = 30; 
+                    const rowSpan = Math.ceil((height + gap) / 10); 
+                    card.style.gridRowEnd = `span ${rowSpan}`;
+                });
+            });
 
-    // Layout eka hadunata passe apahu parana thanatama scroll eka thiyanna (jump wena eka nawaththanna)
-    window.scrollTo(0, currentScrollY);
-}
-
-        // Aluth loadGalleryImages function eka
-function loadGalleryImages(gridElement, currentImageCount, folderName, btnElement, altText) {
-    if (currentImageCount < 1) return currentImageCount;
-
-    btnElement.blur();
-
-    // 1. Button eke Loading Animation eka pennanna
-    const originalBtnText = btnElement.innerText;
-    btnElement.innerHTML = '<span class="loading-spinner"></span> LOADING...';
-    btnElement.style.pointerEvents = "none";
-    btnElement.style.opacity = "0.7";
-
-    let endImage = currentImageCount - imagesPerLoad + 1;
-    if (endImage < 1) endImage = 1;
-
-    let cardsHTML = "";
-    for (let i = currentImageCount; i >= endImage; i--) {
-        let imgNumber = String(i).padStart(4, '0');
-        // Card eka hide karala thiyanna (opacity 0)
-        cardsHTML += `
-            <div class="glass-image-card new-item-hidden" style="opacity: 0; transform: translateY(30px);">
-                <div class="img-wrapper">
-                    <img loading="lazy" src="Modern%20Pixels/${folderName}/${imgNumber}.webp" alt="${altText} ${i}">
-                </div>
-            </div>
-        `;
-    }
-    
-    gridElement.insertAdjacentHTML('beforeend', cardsHTML);
-    let newCurrentCount = endImage - 1;
-
-    if (newCurrentCount < 1) btnElement.style.display = "none";
-
-    const newCards = Array.from(gridElement.querySelectorAll('.new-item-hidden'));
-    const newImages = newCards.map(card => card.querySelector('img'));
-
-    // 2. Images tika fully background eke load wenakam inna
-    Promise.all(newImages.map(img => new Promise(resolve => {
-        if (img.complete) {
-            resolve();
-        } else {
-            img.onload = () => resolve();
-            img.onerror = () => resolve(); // Image eka nathath hang wenne nathi wenna
+            // Layout eka hadunata passe apahu parana thanatama scroll eka thiyanna (jump wena eka nawaththanna)
+            window.scrollTo(0, currentScrollY);
         }
-    }))).then(() => {
-        // 3. Images load una. Dan masonry layout eka hariyatama calculate karanna
-        layoutMasonry();
 
-        // 4. Smooth staggered reveal (Eken eka smoothly fade wela enawa lag wenne nathuwa)
-        newCards.forEach((card, index) => {
-            setTimeout(() => {
-                card.classList.remove('new-item-hidden');
-                card.style.transition = 'opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-                card.querySelector('img').classList.add('loaded');
+        function loadGalleryImages(gridElement, currentImageCount, folderName, btnElement, altText) {
+            if (currentImageCount < 1) return currentImageCount;
+
+            btnElement.blur();
+
+            // 1. Button eke Loading Animation eka pennanna
+            const originalBtnText = btnElement.innerText;
+            btnElement.innerHTML = '<span class="loading-spinner"></span> LOADING...';
+            btnElement.style.pointerEvents = "none";
+            btnElement.style.opacity = "0.7";
+
+            let endImage = currentImageCount - imagesPerLoad + 1;
+            if (endImage < 1) endImage = 1;
+
+            let cardsHTML = "";
+            for (let i = currentImageCount; i >= endImage; i--) {
+                let imgNumber = String(i).padStart(4, '0');
+                // Card eka hide karala thiyanna (opacity 0)
+                cardsHTML += `
+                    <div class="glass-image-card new-item-hidden" style="opacity: 0; transform: translateY(30px);">
+                        <div class="img-wrapper">
+                            <img loading="lazy" src="Modern%20Pixels/${folderName}/${imgNumber}.webp" alt="${altText} ${i}">
+                        </div>
+                    </div>
+                `;
+            }
+            
+            gridElement.insertAdjacentHTML('beforeend', cardsHTML);
+            let newCurrentCount = endImage - 1;
+
+            if (newCurrentCount < 1) btnElement.style.display = "none";
+
+            const newCards = Array.from(gridElement.querySelectorAll('.new-item-hidden'));
+            const newImages = newCards.map(card => card.querySelector('img'));
+
+            // 2. Images tika fully background eke load wenakam inna
+            Promise.all(newImages.map(img => new Promise(resolve => {
+                if (img.complete) {
+                    resolve();
+                } else {
+                    img.onload = () => resolve();
+                    img.onerror = () => resolve(); // Image eka nathath hang wenne nathi wenna
+                }
+            }))).then(() => {
+                // 3. Images load una. Dan masonry layout eka hariyatama calculate karanna
+                layoutMasonry();
+
+                // 4. Smooth staggered reveal (Eken eka smoothly fade wela enawa lag wenne nathuwa)
+                newCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.remove('new-item-hidden');
+                        card.style.transition = 'opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)';
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                        card.querySelector('img').classList.add('loaded');
+                        
+                        // Observers add kirima
+                        card.classList.add('focus-observed');
+                        focusObserver.observe(card);
+                    }, index * 100); // Ekakata passe ekak 100ms gap ekakin enawa
+                });
+
+                // 5. Button eka apahu parana thathwayata genna
+                if (newCurrentCount >= 1) {
+                    btnElement.innerText = originalBtnText;
+                    btnElement.style.pointerEvents = "auto";
+                    btnElement.style.opacity = "1";
+                }
                 
-                // Observers add kirima
-                card.classList.add('focus-observed');
-                focusObserver.observe(card);
-            }, index * 100); // Ekakata passe ekak 100ms gap ekakin enawa
-        });
+                attachLightboxEvents();
+            });
 
-        // 5. Button eka apahu parana thathwayata genna
-        if (newCurrentCount >= 1) {
-            btnElement.innerText = originalBtnText;
-            btnElement.style.pointerEvents = "auto";
-            btnElement.style.opacity = "1";
+            return newCurrentCount;
         }
-        
-        attachLightboxEvents();
-    });
-
-    return newCurrentCount;
-}
 
         loadSocialMedia(); 
         loadTuteCovers(); 
