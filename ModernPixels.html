@@ -48,22 +48,36 @@
         }
 
         /* -------------------------------------
-           NAVIGATION BAR (අලුතින් එකතු කළ කොටස)
+            ADVANCED NAVIGATION BAR
         ---------------------------------------- */
         .navbar {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%;
-            padding: 20px 5%;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1100px;
+            padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background: rgba(2, 4, 10, 0.6);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--glass-border);
-            transition: all 0.4s ease;
+            background: rgba(10, 15, 30, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), inset 0 0 15px rgba(255,255,255,0.02);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .navbar.scrolled {
+            top: 15px;
+            width: 95%;
+            background: rgba(5, 8, 15, 0.85);
+            border-color: rgba(0, 255, 204, 0.25);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 255, 204, 0.15);
+            padding: 12px 40px;
         }
 
         .nav-brand {
@@ -75,15 +89,17 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            z-index: 1002;
         }
 
         .nav-brand span {
             color: var(--accent);
+            text-shadow: 0 0 10px var(--accent-glow);
         }
 
         .nav-links {
             display: flex;
-            gap: 30px;
+            gap: 5px;
             list-style: none;
         }
 
@@ -92,29 +108,54 @@
             text-decoration: none;
             font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
+            letter-spacing: 1.5px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             position: relative;
+            z-index: 1;
+            overflow: hidden;
+            display: block;
         }
 
-        .nav-links a::after {
+        .nav-links a::before {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-            box-shadow: 0 0 10px var(--accent-glow);
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.15), transparent);
+            border-radius: 30px;
+            z-index: -1;
+            transform: scale(0.5);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         .nav-links a:hover {
             color: var(--accent);
+            text-shadow: 0 0 8px rgba(0, 255, 204, 0.5);
+            box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.1);
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        .nav-links a:hover::before {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1002;
+        }
+
+        .mobile-menu-btn span {
+            width: 28px;
+            height: 2px;
+            background: #fff;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            border-radius: 2px;
+            box-shadow: 0 0 5px rgba(255,255,255,0.2);
         }
 
         /* Floating Tool Logos */
@@ -158,7 +199,6 @@
             100% { transform: translate(30px, 30px) scale(1.05); }
         }
         
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--primary); }
         ::-webkit-scrollbar-thumb { background: rgba(0, 255, 204, 0.1); border-radius: 10px; }
@@ -167,7 +207,6 @@
         .container {
             max-width: 1300px;
             margin: 0 auto;
-            /* Nav bar එක නිසා උඩින් ඉඩ වැඩි කළා */
             padding: 160px 5% 50px 5%; 
             position: relative;
             z-index: 1;
@@ -212,7 +251,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Section Heading */
         .section-heading {
             font-family: 'Syncopate', sans-serif;
             font-size: 2.2rem;
@@ -222,8 +260,8 @@
             -webkit-background-clip: text;
             background-clip: text;
             margin-bottom: 40px;
-            padding-top: 80px; /* Scroll කරද්දි Nav එකට යට නොවෙන්න */
-            margin-top: -40px; /* offset the padding */
+            padding-top: 80px; 
+            margin-top: -40px; 
             letter-spacing: 4px;
             display: block;
             position: relative;
@@ -251,7 +289,76 @@
             transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        /* Story Text Section */
+        /* -------------------------------------
+            SERVICES SECTION
+        ---------------------------------------- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid var(--glass-border);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            transition: all 0.4s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50px; right: -50px;
+            width: 100px; height: 100px;
+            background: var(--accent);
+            filter: blur(60px);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(0, 255, 204, 0.1);
+        }
+
+        .service-card:hover::before { opacity: 0.15; }
+
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 25px auto;
+            fill: var(--accent);
+            transition: transform 0.4s ease;
+            filter: drop-shadow(0 0 10px rgba(0,255,204,0.3));
+        }
+
+        .service-card:hover .service-icon { transform: scale(1.15); }
+
+        .service-title {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        .service-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
         .story-text-container {
             background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
             border: 1px solid var(--glass-border);
@@ -281,14 +388,7 @@
             max-width: 900px;
         }
 
-        .story-text strong {
-            color: #fff;
-            font-weight: 500;
-            text-shadow: 0 0 10px rgba(255,255,255,0.3);
-            position: relative;
-        }
-
-        /* TRUE MASONRY GRID */
+        /* Masonry Grid */
         .masonry-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -302,15 +402,11 @@
             transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        .masonry-grid.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .masonry-grid.visible { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 1024px) { .masonry-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 640px) { .masonry-grid { grid-template-columns: 1fr; } }
 
-        /* ADVANCED CARD CONTAINER */
         .glass-image-card {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -346,15 +442,11 @@
         .glass-image-card::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
+            top: 0; left: -100%; width: 50%; height: 100%;
             background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0) 100%);
             transform: skewX(-25deg);
             transition: all 0.75s ease;
-            z-index: 1;
-            pointer-events: none;
+            z-index: 1; pointer-events: none;
         }
 
         .glass-image-card:hover {
@@ -368,110 +460,307 @@
         .glass-image-card:hover::after { left: 150%; }
 
         .img-wrapper {
-            width: 100%;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            display: block;
-            background: rgba(0, 0, 0, 0.4);
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            width: 100%; border-radius: 10px; overflow: hidden; position: relative;
+            display: block; background: rgba(0, 0, 0, 0.4); box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
         }
 
         .img-wrapper img {
-            width: 100%;
-            height: auto;
-            display: block;
+            width: 100%; height: auto; display: block;
             transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.6s ease;
             filter: brightness(0.95); 
         }
 
         .glass-image-card:hover .img-wrapper img {
-            transform: scale(1.08); 
-            filter: brightness(1.1); 
+            transform: scale(1.08); filter: brightness(1.1); 
         }
 
-        /* LIGHTBOX */
-        .lightbox {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(2, 4, 10, 0.98);
+        /* -------------------------------------
+            PRICING PACKAGES SECTION
+        ---------------------------------------- */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            margin-bottom: 50px;
+        }
+
+        .pricing-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid var(--glass-border);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-left: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
             backdrop-filter: blur(15px);
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px rgba(0, 255, 204, 0.1);
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: -50px; right: -50px;
+            width: 100px; height: 100px;
+            background: var(--accent);
+            filter: blur(60px);
+            opacity: 0.1;
             transition: opacity 0.4s ease;
         }
 
-        .lightbox.active { display: flex; opacity: 1; }
+        .pricing-card:hover::before { opacity: 0.3; }
 
-        .lightbox-content {
-            max-width: 90%;
-            max-height: 90vh;
-            border-radius: 10px;
-            box-shadow: 0 0 50px rgba(0, 255, 204, 0.25);
-            transform: scale(0.95);
-            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-            object-fit: contain;
-        }
-
-        .lightbox.active .lightbox-content { transform: scale(1); }
-
-        .close-lightbox {
-            position: absolute;
-            top: 30px; right: 40px;
+        .package-title {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.3rem;
             color: #fff;
-            font-size: 45px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 300;
-            transition: all 0.3s;
-            z-index: 10001;
-            cursor: pointer;
+            margin-bottom: 25px;
+            text-align: center;
+            letter-spacing: 2px;
         }
 
-        .close-lightbox:hover { color: var(--accent); transform: rotate(90deg); }
+        .package-features {
+            list-style: none;
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
 
-        /* Advanced Button */
-        .back-btn {
-            display: inline-flex;
+        .package-features li {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 30px;
+            font-size: 0.95rem;
+        }
+
+        .package-features li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .price-calculator {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+
+        .price-input-wrapper {
+            display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            padding: 20px 45px;
-            background: rgba(255, 255, 255, 0.02);
+            gap: 10px;
+            width: 100%;
+        }
+
+        .currency-label { color: var(--text-muted); font-size: 1rem; font-weight: 500; }
+
+        .lkr-value {
             color: #fff;
-            text-decoration: none;
-            font-family: 'Syncopate', sans-serif;
-            font-size: 0.9rem;
-            letter-spacing: 4px;
+            font-size: 1.8rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+
+        .usd-output { font-size: 1.1rem; color: var(--accent); font-weight: 500; letter-spacing: 1px; margin-top: 5px; }
+
+        /* Custom Pricing Cards Specific Styling */
+        .custom-price-box {
+            border-color: rgba(138, 43, 226, 0.3);
+            box-shadow: inset 0 0 10px rgba(138, 43, 226, 0.1);
+        }
+        
+        .pricing-card:hover .custom-price-box {
+            border-color: rgba(138, 43, 226, 0.6);
+            box-shadow: inset 0 0 15px rgba(138, 43, 226, 0.2);
+        }
+
+        .custom-text {
+            color: #fff;
+            font-size: 1.4rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.4);
+        }
+
+        .custom-sub-text {
+            font-size: 0.95rem;
+            color: var(--accent-alt);
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        /* -------------------------------------
+            CUSTOM PACKAGE BANNER
+        ---------------------------------------- */
+        .custom-package-banner {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.1) 0%, rgba(0, 255, 204, 0.05) 100%);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-            margin-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            border-left: 1px solid rgba(255,255,255,0.2);
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            margin-bottom: 80px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3), inset 0 0 20px rgba(255,255,255,0.02);
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .custom-package-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(0,255,204,0.1) 0%, transparent 50%);
+            z-index: -1;
+            animation: pulseBanner 8s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseBanner {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        .banner-title {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.6rem;
+            color: #fff;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .banner-desc {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            line-height: 1.6;
+        }
+
+        .banner-btn { margin-top: 0; }
+
+        /* -------------------------------------
+            CONTACT SECTION
+        ---------------------------------------- */
+        .contact-container {
+            background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, rgba(2, 4, 10, 0.8) 100%);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 80px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-text { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 30px; line-height: 1.6; }
+
+        .whatsapp-btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 15px;
+            padding: 18px 45px; background: rgba(37, 211, 102, 0.1); color: #25D366;
+            text-decoration: none; font-family: 'Syncopate', sans-serif; font-size: 1rem;
+            font-weight: 600; letter-spacing: 2px; border: 1px solid rgba(37, 211, 102, 0.3);
+            border-radius: 50px; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative; overflow: hidden; backdrop-filter: blur(8px);
+        }
+
+        .whatsapp-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(37, 211, 102, 0.2), transparent);
+            transition: left 0.5s ease; z-index: -1;
+        }
+
+        .whatsapp-btn:hover {
+            border-color: #25D366; color: #fff; background: #25D366;
+            box-shadow: 0 0 25px rgba(37, 211, 102, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .whatsapp-btn:hover::before { left: 100%; }
+
+        .whatsapp-btn svg { width: 24px; height: 24px; fill: currentColor; transition: transform 0.3s ease; }
+        .whatsapp-btn:hover svg { transform: scale(1.1); }
+
+        .back-btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 15px;
+            padding: 20px 45px; background: rgba(255, 255, 255, 0.02); color: #fff;
+            text-decoration: none; font-family: 'Syncopate', sans-serif; font-size: 0.9rem;
+            letter-spacing: 4px; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); margin-top: 20px;
+            position: relative; overflow: hidden; backdrop-filter: blur(8px);
         }
 
         .back-btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%; width: 100%; height: 100%;
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(0, 255, 204, 0.3), transparent);
-            transition: left 0.5s ease;
-            z-index: -1;
+            transition: left 0.5s ease; z-index: -1;
         }
 
         .back-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
+            border-color: var(--accent); color: var(--accent);
             box-shadow: 0 0 25px rgba(0, 255, 204, 0.15), inset 0 0 15px rgba(0, 255, 204, 0.05);
             transform: translateY(-2px);
         }
 
         .back-btn:hover::before { left: 100%; }
+
+        /* LIGHTBOX */
+        .lightbox {
+            display: none; position: fixed; z-index: 10000; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(2, 4, 10, 0.98); backdrop-filter: blur(15px);
+            justify-content: center; align-items: center; opacity: 0; transition: opacity 0.4s ease;
+        }
+
+        .lightbox.active { display: flex; opacity: 1; }
+
+        .lightbox-content {
+            max-width: 90%; max-height: 90vh; border-radius: 10px; box-shadow: 0 0 50px rgba(0, 255, 204, 0.25);
+            transform: scale(0.95); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); object-fit: contain;
+        }
+
+        .lightbox.active .lightbox-content { transform: scale(1); }
+
+        .close-lightbox {
+            position: absolute; top: 30px; right: 40px; color: #fff; font-size: 45px;
+            font-family: 'Space Grotesk', sans-serif; font-weight: 300; transition: all 0.3s;
+            z-index: 10001; cursor: pointer;
+        }
+
+        .close-lightbox:hover { color: var(--accent); transform: rotate(90deg); }
 
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-30px); }
@@ -484,29 +773,48 @@
             .brand-logo { max-width: 280px; }
             .floating-logos { opacity: 0.1; }
             
-            .navbar { padding: 15px 5%; justify-content: center; flex-wrap: wrap; gap: 15px; }
-            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
-            
             .glass-image-card {
-                backdrop-filter: none; 
-                -webkit-backdrop-filter: none;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+                backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
             }
             body::before { background-attachment: scroll; }
             .floating-logos { display: none; }
+
+            .navbar { top: 15px; padding: 15px 25px; width: 92%; }
+            .navbar.scrolled { top: 10px; padding: 12px 25px; width: 95%; }
+            .mobile-menu-btn { display: flex; }
+            .nav-links {
+                position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+                background: rgba(5, 8, 15, 0.98); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+                flex-direction: column; justify-content: center; align-items: center; gap: 20px;
+                transition: right 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            }
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 1.2rem; padding: 15px 30px; }
+            
+            .mobile-menu-btn.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
+            .mobile-menu-btn.active span:nth-child(2) { opacity: 0; transform: translateX(-20px); }
+            .mobile-menu-btn.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: var(--accent); box-shadow: 0 0 10px var(--accent-glow); }
+            
+            .banner-title { font-size: 1.3rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <a href="#" class="nav-brand">Modern <span>Pixels</span></a>
-        <ul class="nav-links">
+        
+        <div class="mobile-menu-btn" id="mobileMenuBtn">
+            <span></span><span></span><span></span>
+        </div>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#services">Services</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#social">Social Media</a></li>
             <li><a href="#tute">Tute Covers</a></li>
-            <li><a href="#other">Other Designs</a></li>
+            <li><a href="#packages">Packages</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
 
@@ -529,10 +837,36 @@
             <div class="founder-name">Modern Pixels by Malith Eranga</div>
         </header>
 
+        <!-- SERVICES SECTION -->
+        <h2 id="services" class="section-heading reveal-on-scroll">Our Expertise</h2>
+        <div class="services-grid reveal-on-scroll">
+            <div class="service-card">
+                <svg class="service-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c1.38 0 2.5-1.12 2.5-2.5 0-.61-.23-1.16-.61-1.57-.35-.38-.55-.89-.55-1.43 0-1.38 1.12-2.5 2.5-2.5H18c2.76 0 5-2.24 5-5 0-4.96-4.93-9-11-9zm-6.5 9c-.83 0-1.5-.67-1.5-1.5S4.67 8 5.5 8 7 8.67 7 9.5 6.33 11 5.5 11zm3-4c-.83 0-1.5-.67-1.5-1.5S7.67 4 8.5 4 10 4.67 10 5.5 9.33 7 8.5 7zm6 0c-.83 0-1.5-.67-1.5-1.5S13.67 4 14.5 4 16 4.67 16 5.5 15.33 7 14.5 7zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 8 17.5 8 19 8.67 19 9.5 18.33 11 17.5 11z"/></svg>
+                <h3 class="service-title">Creative Design</h3>
+                <p class="service-desc">Eye-catching social media posts, branding materials, and stunning graphic concepts tailored to elevate your visual identity.</p>
+            </div>
+            <div class="service-card">
+                <svg class="service-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4zm-6.25 11.5L9 12l2.75-2.5L14.5 12l-2.75 3.5z"/></svg>
+                <h3 class="service-title">Video Post-Production</h3>
+                <p class="service-desc">Professional video editing, motion graphics, and engaging visual storytelling that captures your audience's attention.</p>
+            </div>
+            <div class="service-card">
+                <svg class="service-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 19h16v2H4v-2zm16-4H4v2h16v-2zM4 11h16v2H4v-2zm16-4H4v2h16V7zm-2-4H6c-1.1 0-2 .9-2 2v1h16V5c0-1.1-.9-2-2-2z"/></svg>
+                <h3 class="service-title">Typesetting & Formatting</h3>
+                <p class="service-desc">Clean, readable, and highly professional layout formatting for tuition tutes, books, magazines, and print media.</p>
+            </div>
+            <div class="service-card">
+                <svg class="service-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                <h3 class="service-title">Academic & Content Writing</h3>
+                <p class="service-desc">High-quality assignment writing and content creation that is well-researched, perfectly structured, and strictly formatted.</p>
+            </div>
+        </div>
+
+        <!-- ABOUT SECTION -->
         <h2 id="about" class="section-heading reveal-on-scroll">Our Evolution</h2>
         <section class="story-text-container reveal-on-scroll">
             <p class="story-text">
-              I am Malith Eranga, the creator of Modern Pixels. By blending my background in Chemical Technology with digital design, I fuse scientific precision with unlimited creativity. Across over 500 completed projects, I craft impactful visual solutions, treating every pixel like an atom that is placed with perfect clarity and purpose.
+                "Welcome to Modern Pixels. I am Malith Eranga, a dedicated Graphic Designer with over 5 years of industry experience. As an undergraduate pursuing my studies in Chemical Technology, I discovered my true strength at the intersection of analytical thinking and digital art. What started as a personal passion has now grown into a full-scale agency. Backed by a dedicated team working under my creative direction, we have delivered over 500 projects that help businesses stand out through clean, modern, and impactful aesthetics."
             </p>
         </section>
 
@@ -550,11 +884,139 @@
             <button id="loadMoreTuteBtn" class="back-btn" style="cursor: pointer;">LOAD MORE COVERS</button>
         </div>
 
-        <!-- 🔴 අලුතින් එකතු කළ Other Designs Section එක -->
+        <!-- Other Designs Section -->
         <h2 id="other" class="section-heading reveal-on-scroll">Other Designs</h2>
         <div class="masonry-grid reveal-on-scroll" id="other-grid"></div>
         <div style="text-align: center; margin-bottom: 80px;" class="reveal-on-scroll">
             <button id="loadMoreOtherBtn" class="back-btn" style="cursor: pointer;">LOAD MORE DESIGNS</button>
+        </div>
+
+        <!-- PACKAGES SECTION -->
+        <h2 id="packages" class="section-heading reveal-on-scroll">Design Packages</h2>
+        <div class="pricing-grid reveal-on-scroll">
+            
+            <div class="pricing-card">
+                <h3 class="package-title">Single Post</h3>
+                <ul class="package-features">
+                    <li>1 High-Quality Social Media Post</li>
+                    <li>Custom Typography & Colors</li>
+                    <li>High-Res JPEG / PNG</li>
+                    <li>2 Revisions</li>
+                </ul>
+                <div class="price-calculator">
+                    <div class="price-input-wrapper">
+                        <span class="currency-label">LKR</span>
+                        <span class="lkr-value">1200</span>
+                    </div>
+                    <span class="usd-output">~ $0.00</span>
+                </div>
+            </div>
+
+            <div class="pricing-card">
+                <h3 class="package-title">Tute Cover</h3>
+                <ul class="package-features">
+                    <li>Premium Tute Cover Design</li>
+                    <li>Front & Back Pages</li>
+                    <li>Print-Ready PDF Format</li>
+                    <li>2 Revisions</li>
+                </ul>
+                <div class="price-calculator">
+                    <div class="price-input-wrapper">
+                        <span class="currency-label">LKR</span>
+                        <span class="lkr-value">1200</span>
+                    </div>
+                    <span class="usd-output">~ $0.00</span>
+                </div>
+            </div>
+
+            <div class="pricing-card">
+                <h3 class="package-title">Standard Pack</h3>
+                <ul class="package-features">
+                    <li>10 Social Media Posts</li>
+                    <li>Brand Identity Alignment</li>
+                    <li>Unlimited Revisions</li>
+                </ul>
+                <div class="price-calculator">
+                    <div class="price-input-wrapper">
+                        <span class="currency-label">LKR</span>
+                        <span class="lkr-value">10000</span>
+                    </div>
+                    <span class="usd-output">~ $0.00</span>
+                </div>
+            </div>
+
+            <!-- Custom Package: Video Editing -->
+            <div class="pricing-card">
+                <h3 class="package-title">Video Editing</h3>
+                <ul class="package-features">
+                    <li>Social Media Reels & Shorts</li>
+                    <li>Promotional Video Adverts</li>
+                    <li>Motion Graphics & Transitions</li>
+                    <li>Color Grading & Audio Sync</li>
+                </ul>
+                <div class="price-calculator custom-price-box">
+                    <div class="price-input-wrapper">
+                        <span class="custom-text">Let's Talk</span>
+                    </div>
+                    <span class="custom-sub-text">Customized to requirement</span>
+                </div>
+            </div>
+
+            <!-- Custom Package: Typesetting -->
+            <div class="pricing-card">
+                <h3 class="package-title">Typesetting</h3>
+                <ul class="package-features">
+                    <li>Tuition Tutes & Book Layouts</li>
+                    <li>Magazines & Brochures</li>
+                    <li>Academic Formatting</li>
+                    <li>Print-Ready PDF Delivery</li>
+                    <li>To strictly protect client privacy and confidentiality, samples of previous work are not shared.</li>
+                </ul>
+                <div class="price-calculator custom-price-box">
+                    <div class="price-input-wrapper">
+                        <span class="custom-text">Let's Talk</span>
+                    </div>
+                    <span class="custom-sub-text">Based on page count</span>
+                </div>
+            </div>
+
+            <div class="pricing-card">
+                <h3 class="package-title">Assignments</h3>
+                <ul class="package-features">
+                    <li>Academic Content Writing</li>
+                    <li>Research & Formatting</li>
+                    <li>Presentations & Reports</li>
+                    <li>Plagiarism-Free Content</li>
+                    <li>To strictly protect client privacy and confidentiality, samples of previous work are not shared.</li>
+                </ul>
+                <div class="price-calculator custom-price-box">
+                    <div class="price-input-wrapper">
+                        <span class="custom-text">Let's Talk</span>
+                    </div>
+                    <span class="custom-sub-text">Based on word count</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CUSTOM PACKAGE BANNER -->
+        <div class="custom-package-banner reveal-on-scroll">
+            <h3 class="banner-title">Need a Custom Design Package?</h3>
+            <p class="banner-desc">Every brand is unique, and so are your design needs. Tell us what you are looking for, and we will build a fully customized design package tailored exactly to your requirements and budget.</p>
+            <a href="https://wa.me/94719954387?text=Hello%20Malith,%20I%20would%20like%20to%20discuss%20a%20custom%20design%20package!" target="_blank" class="back-btn banner-btn">REQUEST CUSTOM QUOTE</a>
+        </div>
+
+        <!-- CONTACT SECTION -->
+        <h2 id="contact" class="section-heading reveal-on-scroll">Let's Work Together</h2>
+        <div class="contact-container reveal-on-scroll">
+            <p class="contact-text">Looking to elevate your brand with stunning, minimalist designs? Reach out to me directly and let's turn your ideas into visual masterpieces.</p>
+            
+            <a href="https://wa.me/94719954387?text=Hello%20Malith,%20I'm%20interested%20in%20your%20design%20services!" target="_blank" class="whatsapp-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zM223.9 413.4c-33 0-65.4-8.9-94-25.6l-6.7-4-69.8 18.3L72 334.3l-4.4-7.1c-18.3-29.6-28-63.7-28-98.2 0-101.4 82.5-184 184-184 55.8 0 108.3 21.7 147.8 61.2s61.2 92.1 61.2 147.8c0 101.4-82.5 184-184.2 184h-.1zM324 285.6c-5.5-2.8-32.5-16.1-37.5-17.9-5-1.8-8.7-2.8-12.4 2.8-3.7 5.5-14.2 17.9-17.4 21.6-3.2 3.7-6.4 4.1-11.9 1.4-5.5-2.8-23.2-8.5-44.2-27.3-16.3-14.6-27.3-32.6-30.5-38.1-3.2-5.5-.3-8.5 2.5-11.2 2.5-2.5 5.5-6.4 8.2-9.6 2.8-3.2 3.7-5.5 5.5-9.2 1.8-3.7.9-6.9-.5-9.6-1.4-2.8-12.4-30.1-17-41.2-4.5-10.8-9.1-9.3-12.4-9.5-3.2-.2-6.9-.2-10.5-.2-3.7 0-9.6 1.4-14.6 6.9-5 5.5-19.2 18.8-19.2 45.9s19.7 53.3 22.4 57c2.8 3.7 38.9 59.4 94.2 83.3 13.1 5.7 23.4 9.1 31.4 11.6 13.2 4.2 25.2 3.6 34.7 2.2 10.6-1.5 32.5-13.3 37.1-26.1 4.6-12.8 4.6-23.8 3.2-26.1-1.4-2.3-5-3.7-10.5-6.5z"/>
+                </svg>
+                WHATSAPP ME (0719954387)
+            </a>
         </div>
 
         <div style="text-align: center; padding-bottom: 50px; opacity: 0; transform: translateY(20px);" class="reveal-on-scroll">
@@ -569,39 +1031,70 @@
     </div>
 
     <script>
-        // ==========================================
-        // 1. Image Loading Setup
-        // ==========================================
-        const imagesPerLoad = 50; 
+        const navbar = document.getElementById('navbar');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const navItems = document.querySelectorAll('.nav-links a');
 
-        // --- Social Media Section ---
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        const EXCHANGE_RATE = 300; 
+
+        document.querySelectorAll('.price-calculator:not(.custom-price-box)').forEach(container => {
+            const lkrElement = container.querySelector('.lkr-value');
+            const usdOutput = container.querySelector('.usd-output');
+            
+            if(lkrElement) {
+                // String එකෙන් '+' මාක් එක තියෙනවා නම් ඒක අයින් කරලා ගණන් හදනවා 
+                // (උදා: 10000 + 700 වගේ ඒවා වෙනුවට දැන් තියෙන්නේ වෙනම විදිහට නිසා අපි parseFloat කරනවා)
+                const textValue = lkrElement.innerText;
+                const baseValue = parseFloat(textValue);
+                
+                if(!isNaN(baseValue)) {
+                    const usdValue = (baseValue / EXCHANGE_RATE).toFixed(2);
+                    usdOutput.innerText = `~ $${usdValue}`;
+                }
+            }
+        });
+
+        const imagesPerLoad = 50; 
         const socialGrid = document.getElementById("image-grid");
         const loadMoreSocialBtn = document.getElementById("loadMoreBtn");
-        const totalSocialImages = 114; 
-        let currentSocialImage = totalSocialImages;
+        let currentSocialImage = 114; 
 
-        // --- Tute Cover Section ---
         const tuteGrid = document.getElementById("tute-grid");
         const loadMoreTuteBtn = document.getElementById("loadMoreTuteBtn");
-        const totalTuteImages = 22; 
-        let currentTuteImage = totalTuteImages;
+        let currentTuteImage = 22; 
 
-        // 🔴 --- Other Designs Section ---
         const otherGrid = document.getElementById("other-grid");
         const loadMoreOtherBtn = document.getElementById("loadMoreOtherBtn");
-        const totalOtherImages = 20; // 🔴 මෙතනට Other Designs ෆෝල්ඩරයේ තියෙන පින්තූර ගණන දෙන්න
-        let currentOtherImage = totalOtherImages;
+        let currentOtherImage = 20; 
 
-        // True Masonry Layout 
         function layoutMasonry() {
             const grids = document.querySelectorAll('.masonry-grid');
             grids.forEach(grid => {
                 const cards = grid.querySelectorAll('.glass-image-card');
-                
-                cards.forEach(card => {
-                    card.style.gridRowEnd = 'auto'; 
-                });
-
+                cards.forEach(card => card.style.gridRowEnd = 'auto');
                 cards.forEach(card => {
                     const height = card.offsetHeight;
                     const gap = 30; 
@@ -611,18 +1104,15 @@
             });
         }
 
-        // පොදු Image Loading Function එක
         function loadGalleryImages(gridElement, currentImageCount, folderName, btnElement, altText) {
             if (currentImageCount < 1) return currentImageCount;
 
             let cardsHTML = "";
             let endImage = currentImageCount - imagesPerLoad + 1;
-            
             if (endImage < 1) endImage = 1;
 
             for (let i = currentImageCount; i >= endImage; i--) {
                 let imgNumber = String(i).padStart(4, '0');
-                
                 cardsHTML += `
                     <div class="glass-image-card">
                         <div class="img-wrapper">
@@ -635,14 +1125,11 @@
             gridElement.insertAdjacentHTML('beforeend', cardsHTML);
             let newCurrentCount = endImage - 1;
 
-            if (newCurrentCount < 1) {
-                btnElement.style.display = "none";
-            }
+            if (newCurrentCount < 1) btnElement.style.display = "none";
 
             attachLightboxEvents();
 
             const newImages = Array.from(gridElement.querySelectorAll('img')).filter(img => !img.complete);
-            
             if(newImages.length > 0) {
                 Promise.all(newImages.map(img => new Promise(resolve => {
                     img.onload = img.onerror = resolve;
@@ -654,42 +1141,19 @@
             return newCurrentCount;
         }
 
-        // Gallery ලෝඩ් කරන Functions
-        function loadSocialMedia() {
-            currentSocialImage = loadGalleryImages(socialGrid, currentSocialImage, "Social%20Media%20Post", loadMoreSocialBtn, "Social Media Post");
-        }
+        function loadSocialMedia() { currentSocialImage = loadGalleryImages(socialGrid, currentSocialImage, "Social%20Media%20Post", loadMoreSocialBtn, "Social Media Post"); }
+        function loadTuteCovers() { currentTuteImage = loadGalleryImages(tuteGrid, currentTuteImage, "Tute%20Cover%20Design", loadMoreTuteBtn, "Tute Cover"); }
+        function loadOtherDesigns() { currentOtherImage = loadGalleryImages(otherGrid, currentOtherImage, "Other%20Designs", loadMoreOtherBtn, "Other Design"); }
 
-        function loadTuteCovers() {
-            currentTuteImage = loadGalleryImages(tuteGrid, currentTuteImage, "Tute%20Cover%20Design", loadMoreTuteBtn, "Tute Cover");
-        }
+        loadSocialMedia(); loadTuteCovers(); loadOtherDesigns(); 
 
-        // 🔴 Other Designs ලෝඩ් කරන Function එක
-        function loadOtherDesigns() {
-            // ෆෝල්ඩරයේ නම 'Other Designs' ලෙස සකසා ඇත (Space එක %20 ලෙස යෙදේ)
-            currentOtherImage = loadGalleryImages(otherGrid, currentOtherImage, "Other%20Designs", loadMoreOtherBtn, "Other Design");
-        }
-
-        // මුලින්ම පින්තූර ටික ලෝඩ් කිරීම
-        loadSocialMedia();
-        loadTuteCovers();
-        loadOtherDesigns(); // 🔴 
-
-        // Load More Buttons වලට clicks ඇල්ලීම
         loadMoreSocialBtn.addEventListener("click", loadSocialMedia);
         loadMoreTuteBtn.addEventListener("click", loadTuteCovers);
-        loadMoreOtherBtn.addEventListener("click", loadOtherDesigns); // 🔴
+        loadMoreOtherBtn.addEventListener("click", loadOtherDesigns); 
 
         window.addEventListener('resize', layoutMasonry);
 
-        // ==========================================
-        // 2. Scroll Reveal Animation
-        // ==========================================
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -699,13 +1163,8 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.reveal-on-scroll').forEach((section) => {
-            observer.observe(section);
-        });
+        document.querySelectorAll('.reveal-on-scroll').forEach((section) => observer.observe(section));
 
-        // ==========================================
-        // 3. Lightbox Logic
-        // ==========================================
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const closeBtn = document.querySelector('.close-lightbox');
@@ -731,15 +1190,8 @@
         };
 
         closeBtn.addEventListener('click', closeLightboxBox);
-        lightbox.addEventListener('click', (e) => {
-            if(e.target !== lightboxImg) closeLightboxBox();
-        });
-        
-        document.addEventListener('keydown', (e) => {
-            if(e.key === 'Escape' && lightbox.classList.contains('active')) {
-                closeLightboxBox();
-            }
-        });
+        lightbox.addEventListener('click', (e) => { if(e.target !== lightboxImg) closeLightboxBox(); });
+        document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && lightbox.classList.contains('active')) closeLightboxBox(); });
     </script>
 </body>
 </html>
