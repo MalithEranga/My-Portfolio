@@ -547,6 +547,7 @@
             transform: translateY(60px) translateZ(0);
             transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
             will-change: transform, opacity;
+            overflow-anchor: none;
         }
 
         .masonry-grid.visible { opacity: 1; transform: translateY(0) translateZ(0); }
@@ -1367,22 +1368,31 @@
         let currentOtherImage = 20; 
 
         function layoutMasonry() {
-            const grids = document.querySelectorAll('.masonry-grid');
-            grids.forEach(grid => {
-                const cards = grid.querySelectorAll('.glass-image-card');
-                cards.forEach(card => card.style.gridRowEnd = 'auto');
-                cards.forEach(card => {
-                    const height = card.offsetHeight;
-                    const gap = 30; 
-                    const rowSpan = Math.ceil((height + gap) / 10); 
-                    card.style.gridRowEnd = `span ${rowSpan}`;
-                });
-            });
-        }
+    const grids = document.querySelectorAll('.masonry-grid');
+    
+    // Page eke dan inna scroll position eka save karaganna
+    const currentScrollY = window.scrollY;
+
+    grids.forEach(grid => {
+        const cards = grid.querySelectorAll('.glass-image-card');
+        cards.forEach(card => card.style.gridRowEnd = 'auto');
+        cards.forEach(card => {
+            const height = card.offsetHeight;
+            const gap = 30; 
+            const rowSpan = Math.ceil((height + gap) / 10); 
+            card.style.gridRowEnd = `span ${rowSpan}`;
+        });
+    });
+
+    // Layout eka hadunata passe apahu parana thanatama scroll eka thiyanna (jump wena eka nawaththanna)
+    window.scrollTo(0, currentScrollY);
+}
 
         // Aluth loadGalleryImages function eka
 function loadGalleryImages(gridElement, currentImageCount, folderName, btnElement, altText) {
     if (currentImageCount < 1) return currentImageCount;
+
+    btnElement.blur();
 
     // 1. Button eke Loading Animation eka pennanna
     const originalBtnText = btnElement.innerText;
