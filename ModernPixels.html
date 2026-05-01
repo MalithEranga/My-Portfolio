@@ -55,7 +55,7 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: -3;
-            background-image: url('Backgrounds/background3.webp'); 
+            background-image: url('Backgrounds/background3.png'); 
             background-size: cover;
             background-position: center;
             background-color: rgba(2, 4, 10, 0.85); 
@@ -995,6 +995,31 @@
             
             .banner-title { font-size: 1.3rem; }
         }
+
+        /* --- LOADING SPINNER FOR BUTTONS --- */
+.loading-spinner {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: var(--accent);
+    animation: spinButton 0.8s ease-in-out infinite;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+@keyframes spinButton {
+    to { transform: rotate(360deg); }
+}
+
+.new-item-hidden {
+    pointer-events: none;
+}
+
+
+
+
     </style>
 </head>
 <body style="overflow: hidden;"> <!-- Initially prevent scroll while preloader shows -->
@@ -1355,52 +1380,79 @@
             });
         }
 
-        function loadGalleryImages(gridElement, currentImageCount, folderName, btnElement, altText) {
-            if (currentImageCount < 1) return currentImageCount;
+        // Aluth loadGalleryImages function eka
+function loadGalleryImages(gridElement, currentImageCount, folderName, btnElement, altText) {
+    if (currentImageCount < 1) return currentImageCount;
 
-            let cardsHTML = "";
-            let endImage = currentImageCount - imagesPerLoad + 1;
-            if (endImage < 1) endImage = 1;
+    // 1. Button eke Loading Animation eka pennanna
+    const originalBtnText = btnElement.innerText;
+    btnElement.innerHTML = '<span class="loading-spinner"></span> LOADING...';
+    btnElement.style.pointerEvents = "none";
+    btnElement.style.opacity = "0.7";
 
-            for (let i = currentImageCount; i >= endImage; i--) {
-                let imgNumber = String(i).padStart(4, '0');
-                cardsHTML += `
-                    <div class="glass-image-card">
-                        <div class="img-wrapper">
-                            <img loading="lazy" src="Modern%20Pixels/${folderName}/${imgNumber}.webp" alt="${altText} ${i}">
-                        </div>
-                    </div>
-                `;
-            }
-            
-            gridElement.insertAdjacentHTML('beforeend', cardsHTML);
-            let newCurrentCount = endImage - 1;
+    let endImage = currentImageCount - imagesPerLoad + 1;
+    if (endImage < 1) endImage = 1;
 
-            if (newCurrentCount < 1) btnElement.style.display = "none";
+    let cardsHTML = "";
+    for (let i = currentImageCount; i >= endImage; i--) {
+        let imgNumber = String(i).padStart(4, '0');
+        // Card eka hide karala thiyanna (opacity 0)
+        cardsHTML += `
+            <div class="glass-image-card new-item-hidden" style="opacity: 0; transform: translateY(30px);">
+                <div class="img-wrapper">
+                    <img loading="lazy" src="Modern%20Pixels/${folderName}/${imgNumber}.webp" alt="${altText} ${i}">
+                </div>
+            </div>
+        `;
+    }
+    
+    gridElement.insertAdjacentHTML('beforeend', cardsHTML);
+    let newCurrentCount = endImage - 1;
 
-            const newCards = gridElement.querySelectorAll('.glass-image-card:not(.focus-observed)');
-            newCards.forEach(card => {
-                card.classList.add('focus-observed');
-                focusObserver.observe(card); 
-            });
+    if (newCurrentCount < 1) btnElement.style.display = "none";
 
-            attachLightboxEvents();
+    const newCards = Array.from(gridElement.querySelectorAll('.new-item-hidden'));
+    const newImages = newCards.map(card => card.querySelector('img'));
 
-            const newImages = Array.from(gridElement.querySelectorAll('img')).filter(img => !img.complete);
-            if(newImages.length > 0) {
-                Promise.all(newImages.map(img => new Promise(resolve => {
-                    img.onload = () => {
-                        img.classList.add('loaded'); 
-                        resolve();
-                    };
-                    img.onerror = resolve;
-                }))).then(layoutMasonry);
-            } else {
-                layoutMasonry();
-            }
-
-            return newCurrentCount;
+    // 2. Images tika fully background eke load wenakam inna
+    Promise.all(newImages.map(img => new Promise(resolve => {
+        if (img.complete) {
+            resolve();
+        } else {
+            img.onload = () => resolve();
+            img.onerror = () => resolve(); // Image eka nathath hang wenne nathi wenna
         }
+    }))).then(() => {
+        // 3. Images load una. Dan masonry layout eka hariyatama calculate karanna
+        layoutMasonry();
+
+        // 4. Smooth staggered reveal (Eken eka smoothly fade wela enawa lag wenne nathuwa)
+        newCards.forEach((card, index) => {
+            setTimeout(() => {
+                card.classList.remove('new-item-hidden');
+                card.style.transition = 'opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+                card.querySelector('img').classList.add('loaded');
+                
+                // Observers add kirima
+                card.classList.add('focus-observed');
+                focusObserver.observe(card);
+            }, index * 100); // Ekakata passe ekak 100ms gap ekakin enawa
+        });
+
+        // 5. Button eka apahu parana thathwayata genna
+        if (newCurrentCount >= 1) {
+            btnElement.innerText = originalBtnText;
+            btnElement.style.pointerEvents = "auto";
+            btnElement.style.opacity = "1";
+        }
+        
+        attachLightboxEvents();
+    });
+
+    return newCurrentCount;
+}
 
         loadSocialMedia(); 
         loadTuteCovers(); 
