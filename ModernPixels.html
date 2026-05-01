@@ -10,9 +10,11 @@
         @font-face {
             font-family: 'Dope Display';
             /* ඔයාගේ Dope Display font file එක මෙතනින් link කරන්න */
-            src: url('Fonts/DopeDisplay.ttf') format('truetype'); 
+            src: url('./Fonts/DopeDisplay.woff2') format('woff2'),
+                 url('./Fonts/DopeDisplay.ttf') format('truetype'); 
             font-weight: normal;
             font-style: normal;
+            font-display: swap;
         }
 
         :root {
@@ -998,28 +1000,25 @@
         }
 
         /* --- LOADING SPINNER FOR BUTTONS --- */
-.loading-spinner {
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    border: 2px solid rgba(255,255,255,0.3);
-    border-radius: 50%;
-    border-top-color: var(--accent);
-    animation: spinButton 0.8s ease-in-out infinite;
-    margin-right: 10px;
-    vertical-align: middle;
-}
+        .loading-spinner {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spinButton 0.8s ease-in-out infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
 
-@keyframes spinButton {
-    to { transform: rotate(360deg); }
-}
+        @keyframes spinButton {
+            to { transform: rotate(360deg); }
+        }
 
-.new-item-hidden {
-    pointer-events: none;
-}
-
-
-
+        .new-item-hidden {
+            pointer-events: none;
+        }
 
     </style>
 </head>
