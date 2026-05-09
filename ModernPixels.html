@@ -29,6 +29,7 @@
 
         html { scroll-behavior: smooth; }
 
+        /* PRELOADER RESPONSIVE VARIABLES */
         :root {
             --primary: #02040a; 
             --accent: #00ff66;
@@ -40,6 +41,46 @@
             --glass-border: rgba(255, 255, 255, 0.08);
             --container-bg: rgba(2, 4, 10, 0.9);
             transition: --accent 0.8s ease, --accent-glow 0.8s ease;
+
+            /* Preloader default (Desktop) */
+            --pl-title-size: 6.5rem;
+            --pl-letter-space-start: 30px;
+            --pl-letter-space-end: 15px;
+            --pl-sub-size: 0.75rem;
+            --pl-sub-space: 12px;
+        }
+
+        /* Tablet Adjustments */
+        @media (max-width: 992px) {
+            :root {
+                --pl-title-size: 4.5rem;
+                --pl-letter-space-start: 20px;
+                --pl-letter-space-end: 10px;
+                --pl-sub-size: 0.7rem;
+                --pl-sub-space: 8px;
+            }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 576px) {
+            :root {
+                --pl-title-size: 2.5rem;
+                --pl-letter-space-start: 10px;
+                --pl-letter-space-end: 4px;
+                --pl-sub-size: 0.55rem;
+                --pl-sub-space: 4px;
+            }
+        }
+
+        /* Small Mobile Adjustments (iPhone SE etc.) */
+        @media (max-width: 380px) {
+            :root {
+                --pl-title-size: 2.2rem;
+                --pl-letter-space-start: 8px;
+                --pl-letter-space-end: 3px;
+                --pl-sub-size: 0.5rem;
+                --pl-sub-space: 3px;
+            }
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -73,7 +114,7 @@
         .preloader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100vh;
-            background-color: #010205; /* Deep dark background */
+            background-color: #010205;
             z-index: 999999;
             display: flex;
             justify-content: center;
@@ -87,7 +128,6 @@
             visibility: hidden;
         }
 
-        /* Very subtle ambient glow */
         .preloader-ambient {
             position: absolute;
             width: 50vw; height: 50vw;
@@ -108,28 +148,29 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            text-align: center;
             z-index: 2;
+            width: 100%;
+            padding: 0 15px;
             transition: transform 1.2s cubic-bezier(0.8, 0, 0.2, 1);
         }
 
-        /* When fading out, push the text forward (zoom effect) */
         .preloader.fade-out .preloader-content {
             transform: scale(1.15) translateZ(0);
         }
 
         .preloader-title {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 6.5rem;
-            color: rgba(255, 255, 255, 0.03); /* Base text is very dark/transparent */
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15); /* Sleek outline */
-            letter-spacing: 15px;
-            margin-right: -15px;
+            font-size: var(--pl-title-size);
+            color: rgba(255, 255, 255, 0.03); 
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15); 
             text-transform: uppercase;
             position: relative;
+            white-space: nowrap; /* Prevents text breaking into 2 lines on mobile */
             animation: elegantReveal 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
-        /* The Premium Shine Sweep */
         .preloader-title::after {
             content: attr(data-text);
             position: absolute;
@@ -142,26 +183,40 @@
             animation: premiumShine 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             animation-delay: 0.2s;
             opacity: 0;
+            width: 100%; /* Ensures the sweep covers the whole word properly */
         }
 
         .preloader-subtitle {
             font-family: 'Syncopate', sans-serif;
-            font-size: 0.75rem;
+            font-size: var(--pl-sub-size);
             font-weight: 600;
             color: var(--text-muted);
-            letter-spacing: 12px;
+            letter-spacing: var(--pl-sub-space);
             text-transform: uppercase;
             margin-top: 10px;
-            margin-right: -12px;
+            margin-right: calc(var(--pl-sub-space) * -1); /* Counteracts letter-spacing offset */
             opacity: 0;
+            white-space: nowrap;
             transform: translateY(15px);
             animation: smoothUp 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
             animation-delay: 1s;
         }
 
         @keyframes elegantReveal {
-            0% { transform: scale(0.9); opacity: 0; filter: blur(20px); letter-spacing: 30px; margin-right: -30px;}
-            100% { transform: scale(1); opacity: 1; filter: blur(0); letter-spacing: 15px; margin-right: -15px;}
+            0% { 
+                transform: scale(0.9); 
+                opacity: 0; 
+                filter: blur(20px); 
+                letter-spacing: var(--pl-letter-space-start); 
+                margin-right: calc(var(--pl-letter-space-start) * -1); 
+            }
+            100% { 
+                transform: scale(1); 
+                opacity: 1; 
+                filter: blur(0); 
+                letter-spacing: var(--pl-letter-space-end); 
+                margin-right: calc(var(--pl-letter-space-end) * -1); 
+            }
         }
 
         @keyframes premiumShine {
@@ -173,11 +228,6 @@
 
         @keyframes smoothUp {
             to { opacity: 0.6; transform: translateY(0); }
-        }
-
-        @media (max-width: 768px) {
-            .preloader-title { font-size: 3.5rem; letter-spacing: 10px; margin-right: -10px; }
-            .preloader-subtitle { font-size: 0.6rem; letter-spacing: 6px; margin-right: -6px; }
         }
 
         /* -------------------------------------
