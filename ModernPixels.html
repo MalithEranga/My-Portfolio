@@ -465,34 +465,30 @@
         }
 
         /* -------------------------------------
-            HANGING GLOWING BULBS
+            ULTRA-PREMIUM LED PENDANT BULBS
         ---------------------------------------- */
         .hanging-bulbs {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden; 
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 0; overflow: hidden; 
         }
 
         .bulb-group {
-            position: absolute;
-            top: 0;
-            transform-origin: top center;
+            position: absolute; top: 0; transform-origin: top center;
         }
 
-        .b1 { left: 15%; animation: swing 4.5s infinite ease-in-out alternate; }
-        .b2 { left: 35%; animation: swing 5.2s infinite ease-in-out alternate-reverse; }
-        .b3 { left: 70%; animation: swing 3.8s infinite ease-in-out alternate; }
-        .b4 { left: 88%; animation: swing 4.8s infinite ease-in-out alternate-reverse; }
+        /* Smooth, heavy pendulum physics */
+        .b1 { left: 15%; animation: swing 5.5s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate; }
+        .b2 { left: 35%; animation: swing 6.2s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate-reverse; }
+        .b3 { left: 70%; animation: swing 4.8s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate; }
+        .b4 { left: 88%; animation: swing 5.8s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate-reverse; }
 
+        /* Sleek Modern Cable */
         .wire {
             width: 1.5px;
-            background: rgba(255, 255, 255, 0.15);
+            background: linear-gradient(to right, #0a0a0f, #3a3a4a, #0a0a0f);
             margin: 0 auto;
+            box-shadow: 0 0 2px rgba(255,255,255,0.05);
         }
 
         .b1 .wire { height: 180px; }
@@ -500,51 +496,66 @@
         .b3 .wire { height: 130px; }
         .b4 .wire { height: 220px; }
 
+        /* High-End Glass Teardrop / Capsule */
         .bulb {
-            width: 18px;
-            height: 28px;
-            background: #ffffff;
-            border-radius: 50% 50% 40% 40%;
+            width: 28px;
+            height: 45px;
             margin: 0 auto;
             position: relative;
+            border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            /* Complex glass reflections - NO solid borders */
             box-shadow: 
-                0 0 10px #fff, 
-                0 0 25px #fff, 
-                0 0 40px var(--accent-glow), 
-                0 0 80px var(--accent);
+                inset 3px 3px 8px rgba(255, 255, 255, 0.25), 
+                inset -3px -3px 12px rgba(0, 0, 0, 0.8),
+                inset 0 -15px 15px rgba(255, 255, 255, 0.04),
+                0 15px 35px var(--accent-glow), 
+                0 0 80px color-mix(in srgb, var(--accent) 30%, transparent);
             transition: box-shadow 0.8s ease;
         }
 
+        /* Matte Black & Metal Base */
         .bulb::before {
             content: '';
             position: absolute;
-            top: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 12px;
-            height: 8px;
-            background: #333;
-            border-radius: 2px;
+            top: -12px; left: 50%; transform: translateX(-50%);
+            width: 14px; height: 14px;
+            background: linear-gradient(90deg, #111, #444 30%, #222 60%, #050505);
+            border-radius: 2px 2px 0 0;
+            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.8);
+            z-index: 3;
         }
 
+        /* Cyberpunk / Neon LED Core */
         .bulb::after {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 6px;
-            height: 12px;
+            top: 20%; left: 50%; transform: translateX(-50%);
+            width: 3px; height: 50%;
             background: #fff;
-            border-radius: 50%;
-            filter: blur(2px);
+            border-radius: 10px;
+            box-shadow: 
+                0 0 5px #fff,
+                0 0 15px var(--accent),
+                0 0 30px var(--accent),
+                0 0 50px var(--accent);
+            z-index: 2;
+            animation: corePulse 3s infinite alternate cubic-bezier(0.4, 0, 0.6, 1);
         }
 
+        /* Physics Swing */
         @keyframes swing {
-            0% { transform: rotate(6deg); }
-            100% { transform: rotate(-6deg); }
+            0% { transform: rotate(7deg); }
+            100% { transform: rotate(-7deg); }
         }
 
+        /* Smooth Breathing Core */
+        @keyframes corePulse {
+            0% { opacity: 0.85; box-shadow: 0 0 5px #fff, 0 0 15px var(--accent); }
+            100% { opacity: 1; box-shadow: 0 0 10px #fff, 0 0 25px var(--accent), 0 0 50px var(--accent); }
+        }
         /* -------------------------------------
             PLANET & STARS ANIMATION (FIXED)
         ---------------------------------------- */
@@ -790,7 +801,20 @@
             }
             .ambient-glow { display: none !important; }
             .floating-logos { display: none; }
-            body::before { background-attachment: scroll; }
+            @media (max-width: 768px) {
+    
+    /* Background එක jump වෙන එක නතර කරන්න */
+    body::before {
+        height: 100vh;
+        height: 100dvh; /* Aluth mobile browsers වලට හරියන්න */
+    }
+
+    /* Scroll කරද්දී colors transition වෙන නිසා එන ලොකු lag එක නතර කරන්න */
+    :root {
+        transition: none !important;
+    }
+
+    /* ... ඔයාගේ අනිත් mobile CSS code ටික ඒ විදිහටම තියන්න ... */
 
             .glass-image-card, .service-card, .pricing-card, .story-text-container, .contact-container, .custom-package-banner {
                 backdrop-filter: none !important; 
@@ -1481,10 +1505,7 @@
                         </div>
                         
                         <!-- Floating Experience Badge -->
-                        <div class="experience-badge">
-                            <span class="exp-number">5+</span>
-                            <span class="exp-text">Years<br>Experience</span>
-                        </div>
+                    
                     </div>
                     <div class="about-glow"></div>
                 </div>
@@ -1508,6 +1529,10 @@
                         <div class="stat-item">
                             <span class="stat-value">100%</span>
                             <span class="stat-label">Creative Passion</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">5+ Years</span>
+                            <span class="stat-label">Experience</span>
                         </div>
                     </div>
                 </div>
