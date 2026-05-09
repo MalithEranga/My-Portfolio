@@ -109,24 +109,37 @@
         }
 
         /* -------------------------------------
-            DARK PREMIUM PRELOADER 
+            ULTRA PREMIUM PRELOADER 
         ---------------------------------------- */
         .preloader {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100vh;
+            top: 0; left: 0; width: 100%; height: 100vh; height: 100dvh;
             background-color: #010205;
             z-index: 999999;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: opacity 1.2s cubic-bezier(0.8, 0, 0.2, 1), visibility 1.2s;
-            overflow: hidden;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+            will-change: transform;
         }
 
-        .preloader.fade-out {
-            opacity: 0;
-            visibility: hidden;
+        .preloader.slide-up {
+            transform: translateY(-100%);
         }
+
+        /* New Premium Grid Pattern */
+        .preloader-grid {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeInGrid 2s ease forwards;
+        }
+        @keyframes fadeInGrid { to { opacity: 1; } }
 
         .preloader-ambient {
             position: absolute;
@@ -136,6 +149,7 @@
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             filter: blur(80px);
+            z-index: 2;
             animation: pulseAmbient 4s ease-in-out infinite alternate;
         }
 
@@ -150,14 +164,15 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            z-index: 2;
+            z-index: 3;
             width: 100%;
             padding: 0 15px;
-            transition: transform 1.2s cubic-bezier(0.8, 0, 0.2, 1);
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
         }
 
-        .preloader.fade-out .preloader-content {
-            transform: scale(1.15) translateZ(0);
+        .preloader.slide-up .preloader-content {
+            transform: translateY(50px) scale(0.95);
+            opacity: 0;
         }
 
         .preloader-title {
@@ -200,6 +215,24 @@
             transform: translateY(15px);
             animation: smoothUp 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
             animation-delay: 1s;
+        }
+
+        .preloader-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: 5;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent-glow);
+            transition: width 0.1s linear;
         }
 
         @keyframes elegantReveal {
@@ -314,10 +347,22 @@
         .glow-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: rgba(138, 43, 226, 0.05); animation-delay: -5s; }
         @keyframes floatGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(30px, 30px) scale(1.05); } }
         
+        /* SCROLLBAR DESKTOP ONLY */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--primary); }
         ::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        /* HIDE SCROLLBAR ON MOBILE */
+        @media (max-width: 768px) {
+            ::-webkit-scrollbar {
+                display: none;
+            }
+            body {
+                -ms-overflow-style: none;  /* IE and Edge */
+                scrollbar-width: none;  /* Firefox */
+            }
+        }
 
         .container { max-width: 1300px; margin: 0 auto; padding: 160px 5% 50px 5%; position: relative; z-index: 1; }
 
@@ -598,12 +643,18 @@
 </head>
 <body style="overflow: hidden;">
 
-    <!-- PREMIUM DARK PRELOADER -->
+    <!-- ULTRA PREMIUM DARK PRELOADER -->
     <div id="preloader" class="preloader">
+        <div class="preloader-grid"></div>
         <div class="preloader-ambient"></div>
+        
         <div class="preloader-content">
             <div class="preloader-title" data-text="MODERN PIXELS">MODERN PIXELS</div>
             <div class="preloader-subtitle">Premium Design Agency</div>
+        </div>
+        
+        <div class="preloader-progress">
+            <div class="progress-bar"></div>
         </div>
     </div>
 
@@ -870,20 +921,38 @@
     </div>
 
     <script>
-        // --- PREMIUM PRELOADER LOGIC ---
+        // --- ULTRA PREMIUM PRELOADER LOGIC ---
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
+            const barEl = document.querySelector('.progress-bar');
             
-            // Just let the beautiful CSS animation run, then fade out smoothly
-            setTimeout(() => {
-                preloader.classList.add('fade-out');
+            let progress = 0;
+            
+            // Faking the loading process elegantly
+            const interval = setInterval(() => {
+                // Increment progress randomly for a realistic feel
+                progress += Math.random() * 3 + 1;
                 
-                // Allow scrolling and remove from DOM after fade completes
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                    document.body.style.overflow = ''; 
-                }, 1200); 
-            }, 3500); // 3.5 seconds to show the brand name elegantly
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    
+                    if(barEl) barEl.style.width = '100%';
+                    
+                    // Small delay after reaching 100%, then slide up
+                    setTimeout(() => {
+                        preloader.classList.add('slide-up');
+                        
+                        // Wait for slide up animation to finish, then hide
+                        setTimeout(() => {
+                            preloader.style.display = 'none';
+                            document.body.style.overflow = ''; 
+                        }, 1200); 
+                    }, 600); // Wait 0.6s at 100%
+                } else {
+                    if(barEl) barEl.style.width = progress + '%';
+                }
+            }, 30); // Interval speed
         });
 
         // --- REST OF THE JAVASCRIPT ---
