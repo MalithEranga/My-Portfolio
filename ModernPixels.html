@@ -167,7 +167,7 @@
             -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15); 
             text-transform: uppercase;
             position: relative;
-            white-space: nowrap;
+            white-space: nowrap; /* Prevents text breaking into 2 lines on mobile */
             animation: elegantReveal 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
@@ -183,7 +183,7 @@
             animation: premiumShine 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             animation-delay: 0.2s;
             opacity: 0;
-            width: 100%;
+            width: 100%; /* Ensures the sweep covers the whole word properly */
         }
 
         .preloader-subtitle {
@@ -194,7 +194,7 @@
             letter-spacing: var(--pl-sub-space);
             text-transform: uppercase;
             margin-top: 10px;
-            margin-right: calc(var(--pl-sub-space) * -1);
+            margin-right: calc(var(--pl-sub-space) * -1); /* Counteracts letter-spacing offset */
             opacity: 0;
             white-space: nowrap;
             transform: translateY(15px);
@@ -388,13 +388,12 @@
         .service-desc { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
 
         /* MASONRY GRID */
-        .masonry-grid { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 30px; grid-auto-rows: 9.8px; align-items: start; margin-top: 40px; margin-bottom: 80px; opacity: 0; transform: translateY(60px) translateZ(0); transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, opacity; overflow-anchor: none; }
+        .masonry-grid { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 30px; grid-auto-rows: 9.8px; align-items: start; margin-top: 40px; margin-bottom: 40px; opacity: 0; transform: translateY(60px) translateZ(0); transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, opacity; overflow-anchor: none; }
         .masonry-grid.visible { opacity: 1; transform: translateY(0) translateZ(0); }
         @media (max-width: 1024px) { .masonry-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 640px) { .masonry-grid { grid-template-columns: 1fr; } }
 
-        /* Cards are now visible by default since they inject on load */
-        .glass-image-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 5px; transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease, border-color 0.4s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); cursor: pointer; will-change: transform; transform: translateZ(0); opacity: 1; }
+        .glass-image-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 5px; transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease, border-color 0.4s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); cursor: pointer; will-change: transform; transform: translateZ(0); }
         .glass-image-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 16px; border: 2px solid transparent; background: linear-gradient(135deg, transparent, var(--accent), transparent) border-box; -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); -webkit-mask-composite: destination-out; mask-composite: exclude; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; z-index: 2; }
         .glass-image-card::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); transition: all 0.6s ease; z-index: 1; pointer-events: none; }
         .glass-image-card:hover { transform: translateY(-10px) translateZ(0); box-shadow: 0 25px 50px rgba(0,0,0,0.6), 0 0 40px color-mix(in srgb, var(--accent) 15%, transparent); background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.1); }
@@ -465,6 +464,12 @@
         .close-lightbox:hover { color: var(--accent); transform: rotate(90deg); }
 
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* LOADING SPINNER FOR BUTTONS */
+        .loading-spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: var(--accent); animation: spinButton 0.8s ease-in-out infinite; margin-right: 10px; vertical-align: middle; transition: border-top-color 0.6s ease; }
+        @keyframes spinButton { to { transform: rotate(360deg); } }
+        .new-item-hidden { pointer-events: none; }
+
     </style>
 </head>
 <body style="overflow: hidden;">
@@ -558,15 +563,24 @@
         <!-- Social Media Section -->
         <h2 id="social" class="section-heading reveal-on-scroll">Social Media Post Design</h2>
         <div class="masonry-grid reveal-on-scroll" id="image-grid"></div>
+        <div style="text-align: center; margin-bottom: 80px;" class="reveal-on-scroll">
+            <button id="loadMoreBtn" class="back-btn" style="cursor: pointer;">LOAD MORE DESIGNS</button>
+        </div>
 
         <!-- Tute Cover Section -->
         <h2 id="tute" class="section-heading reveal-on-scroll">Tuition Tute Cover</h2>
         <div class="masonry-grid reveal-on-scroll" id="tute-grid"></div>
+        <div style="text-align: center; margin-bottom: 80px;" class="reveal-on-scroll">
+            <button id="loadMoreTuteBtn" class="back-btn" style="cursor: pointer;">LOAD MORE COVERS</button>
+        </div>
 
         <!-- OTHERS SECTION -->
-        <div id="others-section-wrapper">
+        <div id="others-section-wrapper" style="display: none;">
             <h2 id="other" class="section-heading reveal-on-scroll">Others</h2>
             <div class="masonry-grid reveal-on-scroll" id="other-grid"></div>
+            <div style="text-align: center; margin-bottom: 80px;" class="reveal-on-scroll">
+                <button id="loadMoreOtherBtn" class="back-btn" style="cursor: pointer;">LOAD MORE DESIGNS</button>
+            </div>
         </div>
 
         <!-- SERVICES SECTION -->
@@ -723,16 +737,20 @@
         // --- PREMIUM PRELOADER LOGIC ---
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
+            
+            // Just let the beautiful CSS animation run, then fade out smoothly
             setTimeout(() => {
                 preloader.classList.add('fade-out');
+                
+                // Allow scrolling and remove from DOM after fade completes
                 setTimeout(() => {
                     preloader.style.display = 'none';
                     document.body.style.overflow = ''; 
                 }, 1200); 
-            }, 3500);
+            }, 3500); // 3.5 seconds to show the brand name elegantly
         });
 
-        // --- NAVIGATION & SCROLL COLORS ---
+        // --- REST OF THE JAVASCRIPT ---
         const navbar = document.getElementById('navbar');
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
@@ -819,6 +837,19 @@
             }
         }, focusObserverOptions);
 
+        const imagesPerLoad = 12; 
+        const socialGrid = document.getElementById("image-grid");
+        const loadMoreSocialBtn = document.getElementById("loadMoreBtn");
+        let currentSocialImage = 114; 
+
+        const tuteGrid = document.getElementById("tute-grid");
+        const loadMoreTuteBtn = document.getElementById("loadMoreTuteBtn");
+        let currentTuteImage = 22; 
+
+        const otherGrid = document.getElementById("other-grid");
+        const loadMoreOtherBtn = document.getElementById("loadMoreOtherBtn");
+        let currentOtherImage = 20; 
+
         function layoutMasonry() {
             const grids = document.querySelectorAll('.masonry-grid');
             const currentScrollY = window.scrollY;
@@ -835,95 +866,86 @@
             window.scrollTo(0, currentScrollY);
         }
 
-        let masonryTimeout;
-        function debouncedLayoutMasonry() {
-            clearTimeout(masonryTimeout);
-            masonryTimeout = setTimeout(layoutMasonry, 100);
-        }
+        function loadGalleryImages(gridElement, currentImageCount, folderName, btnElement, altText) {
+            if (currentImageCount < 1) return currentImageCount;
 
-        // --- ADVANCED INTERSECTION OBSERVER FOR STRICT LAZY LOADING ---
-        const socialGrid = document.getElementById("image-grid");
-        const tuteGrid = document.getElementById("tute-grid");
-        const otherGrid = document.getElementById("other-grid");
+            btnElement.blur();
+            const originalBtnText = btnElement.innerText;
+            btnElement.innerHTML = '<span class="loading-spinner"></span> LOADING...';
+            btnElement.style.pointerEvents = "none";
+            btnElement.style.opacity = "0.7";
 
-        const totalSocialImages = 114;
-        const totalTuteImages = 22;
-        const totalOtherImages = 20;
+            let endImage = currentImageCount - imagesPerLoad + 1;
+            if (endImage < 1) endImage = 1;
 
-        // Custom Lazy Loading Observer
-        const imageLoadObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    const realSrc = img.getAttribute('data-src');
-                    
-                    if (realSrc) {
-                        img.src = realSrc;
-                        
-                        img.onload = () => {
-                            img.classList.add('loaded');
-                            debouncedLayoutMasonry(); // Recalculate grid when image successfully loads
-                        };
-                        
-                        img.onerror = () => {
-                            const loader = img.nextElementSibling; // Get the loader squares
-                            if (loader) loader.style.display = 'none';
-                        };
-                        
-                        img.removeAttribute('data-src'); // Clean up
-                    }
-                    observer.unobserve(img); // Stop tracking this image once it starts loading
-                }
-            });
-        }, {
-            root: null,
-            rootMargin: '300px 0px', // Start loading when image is 300px away from viewport
-            threshold: 0
-        });
-
-        function renderGallery(gridElement, totalCount, folderName, altText) {
             let cardsHTML = "";
-            for (let i = totalCount; i >= 1; i--) {
+            for (let i = currentImageCount; i >= endImage; i--) {
                 let imgNumber = String(i).padStart(4, '0');
                 cardsHTML += `
-                    <div class="glass-image-card focus-observed">
+                    <div class="glass-image-card new-item-hidden" style="opacity: 0; transform: translateY(30px);">
                         <div class="img-wrapper">
-                            <!-- We use data-src here. Real src is injected only when scrolled -->
-                            <img data-src="Modern%20Pixels/${folderName}/${imgNumber}.webp" alt="${altText} ${i}">
+                            <img loading="lazy" src="Modern%20Pixels/${folderName}/${imgNumber}.webp" alt="${altText} ${i}">
                             <div class="loader-squares"><div></div><div></div><div></div><div></div></div>
                         </div>
                     </div>
                 `;
             }
-            gridElement.innerHTML = cardsHTML;
+            
+            gridElement.insertAdjacentHTML('beforeend', cardsHTML);
+            let newCurrentCount = endImage - 1;
 
-            const newCards = gridElement.querySelectorAll('.glass-image-card');
-            newCards.forEach(card => {
-                focusObserver.observe(card); // For mobile focus effects
-                const img = card.querySelector('img');
-                imageLoadObserver.observe(img); // Start lazy observing
+            if (newCurrentCount < 1) btnElement.style.display = "none";
+
+            const newCards = Array.from(gridElement.querySelectorAll('.new-item-hidden'));
+            const newImages = newCards.map(card => card.querySelector('img'));
+
+            Promise.all(newImages.map(img => new Promise(resolve => {
+                if (img.complete) resolve();
+                else { img.onload = () => resolve(); img.onerror = () => resolve(); }
+            }))).then(() => {
+                layoutMasonry();
+                newCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.remove('new-item-hidden');
+                        card.style.transition = 'opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)';
+                        card.style.opacity = '1'; card.style.transform = 'translateY(0)';
+                        card.querySelector('img').classList.add('loaded');
+                        card.classList.add('focus-observed');
+                        focusObserver.observe(card);
+                    }, index * 100); 
+                });
+
+                if (newCurrentCount >= 1) {
+                    btnElement.innerText = originalBtnText;
+                    btnElement.style.pointerEvents = "auto";
+                    btnElement.style.opacity = "1";
+                }
+                attachLightboxEvents();
             });
+
+            return newCurrentCount;
         }
 
-        // Render all sections. The browser won't download anything until you scroll.
-        renderGallery(socialGrid, totalSocialImages, "Social%20Media%20Post", "Social Media Post");
-        renderGallery(tuteGrid, totalTuteImages, "Tute%20Cover%20Design", "Tute Cover");
-        renderGallery(otherGrid, totalOtherImages, "Other%20Designs", "Other Design");
+        loadSocialMedia(); loadTuteCovers(); 
 
-        window.addEventListener('resize', debouncedLayoutMasonry);
+        loadMoreSocialBtn.addEventListener("click", loadSocialMedia);
+        loadMoreTuteBtn.addEventListener("click", loadTuteCovers);
+        loadMoreOtherBtn.addEventListener("click", loadOtherDesigns); 
 
-        const scrollAnimObserver = new IntersectionObserver((entries, observer) => {
+        window.addEventListener('resize', layoutMasonry);
+
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+        const scrollObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                     observer.unobserve(entry.target); 
                 }
             });
-        }, { root: null, rootMargin: '0px', threshold: 0.1 });
+        }, observerOptions);
 
-        document.querySelectorAll('.reveal-on-scroll').forEach((section) => scrollAnimObserver.observe(section));
+        document.querySelectorAll('.reveal-on-scroll').forEach((section) => scrollObserver.observe(section));
 
-        // LIGHTBOX
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const closeBtn = document.querySelector('.close-lightbox');
@@ -932,28 +954,24 @@
             document.querySelectorAll('.glass-image-card').forEach(card => {
                 card.onclick = function() {
                     const img = this.querySelector('img');
-                    if(img && img.classList.contains('loaded')) { 
-                        lightbox.classList.add('active'); 
-                        lightboxImg.src = img.src; 
-                        document.body.style.overflow = 'hidden';
+                    if(img) { 
+                        lightbox.classList.add('active'); lightboxImg.src = img.src; document.body.style.overflow = 'hidden';
                     }
                 };
             });
         }
 
         const closeLightboxBox = () => {
-            lightbox.classList.remove('active'); 
-            setTimeout(() => { lightboxImg.src = ''; }, 300); 
-            document.body.style.overflow = 'auto';
+            lightbox.classList.remove('active'); setTimeout(() => { lightboxImg.src = ''; }, 300); document.body.style.overflow = 'auto';
         };
 
         closeBtn.addEventListener('click', closeLightboxBox);
         lightbox.addEventListener('click', (e) => { if(e.target !== lightboxImg) closeLightboxBox(); });
         document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && lightbox.classList.contains('active')) closeLightboxBox(); });
 
-        attachLightboxEvents();
-        setTimeout(layoutMasonry, 200);
-
+        function loadSocialMedia() { currentSocialImage = loadGalleryImages(socialGrid, currentSocialImage, "Social%20Media%20Post", loadMoreSocialBtn, "Social Media Post"); }
+        function loadTuteCovers() { currentTuteImage = loadGalleryImages(tuteGrid, currentTuteImage, "Tute%20Cover%20Design", loadMoreTuteBtn, "Tute Cover"); }
+        function loadOtherDesigns() { currentOtherImage = loadGalleryImages(otherGrid, currentOtherImage, "Other%20Designs", loadMoreOtherBtn, "Other Design"); }
     </script>
 </body>
 </html>
