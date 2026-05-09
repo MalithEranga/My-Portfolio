@@ -154,7 +154,6 @@
             opacity: 0;
             transform: scale(0.85);
             filter: blur(20px);
-            /* Flowing Gradient Text */
             background: linear-gradient(90deg, #ffffff 0%, var(--accent) 50%, #ffffff 100%);
             background-size: 200% auto;
             -webkit-background-clip: text;
@@ -465,45 +464,109 @@
             position: relative;
         }
 
-        .about-image-wrapper {
+        /* -------------------------------------
+            HANGING GLOWING BULBS
+        ---------------------------------------- */
+        .hanging-bulbs {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden; 
+        }
+
+        .bulb-group {
+            position: absolute;
+            top: 0;
+            transform-origin: top center;
+        }
+
+        .b1 { left: 15%; animation: swing 4.5s infinite ease-in-out alternate; }
+        .b2 { left: 35%; animation: swing 5.2s infinite ease-in-out alternate-reverse; }
+        .b3 { left: 70%; animation: swing 3.8s infinite ease-in-out alternate; }
+        .b4 { left: 88%; animation: swing 4.8s infinite ease-in-out alternate-reverse; }
+
+        .wire {
+            width: 1.5px;
+            background: rgba(255, 255, 255, 0.15);
+            margin: 0 auto;
+        }
+
+        .b1 .wire { height: 180px; }
+        .b2 .wire { height: 80px; }
+        .b3 .wire { height: 130px; }
+        .b4 .wire { height: 220px; }
+
+        .bulb {
+            width: 18px;
+            height: 28px;
+            background: #ffffff;
+            border-radius: 50% 50% 40% 40%;
+            margin: 0 auto;
             position: relative;
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 20px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            z-index: 2;
-            overflow: hidden;
-            aspect-ratio: 4/5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
-            transform: translateZ(0);
+            box-shadow: 
+                0 0 10px #fff, 
+                0 0 25px #fff, 
+                0 0 40px var(--accent-glow), 
+                0 0 80px var(--accent);
+            transition: box-shadow 0.8s ease;
+        }
+
+        .bulb::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 8px;
+            background: #333;
+            border-radius: 2px;
+        }
+
+        .bulb::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 12px;
+            background: #fff;
+            border-radius: 50%;
+            filter: blur(2px);
+        }
+
+        @keyframes swing {
+            0% { transform: rotate(6deg); }
+            100% { transform: rotate(-6deg); }
         }
 
         /* -------------------------------------
-            PLANET & STARS ANIMATION
+            PLANET & STARS ANIMATION (FIXED)
         ---------------------------------------- */
-        .planet-bg {
-            background: transparent !important; 
-            border: none !important;
-            box-shadow: none !important;
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
+        .planet-wrapper {
+            position: relative;
+            width: 100%;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
         }
 
         .space-system {
             position: relative;
             width: 100%;
-            height: 100%;
+            height: 400px;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
         }
 
-        /* The Central Planet */
         .planet-center {
             width: 90px;
             height: 90px;
@@ -523,7 +586,6 @@
             100% { transform: scale(1.05); box-shadow: 0 0 70px rgba(255, 255, 255, 0.9), inset -15px -15px 25px rgba(0, 0, 0, 0.4); }
         }
 
-        /* Orbit Rings */
         .orbit {
             position: absolute;
             top: 50%;
@@ -535,12 +597,10 @@
             will-change: transform;
         }
 
-        /* Different sizes and speeds for orbits */
         .orbit-1 { width: 180px; height: 180px; animation-duration: 8s; }
         .orbit-2 { width: 280px; height: 280px; animation-duration: 14s; animation-direction: reverse; }
         .orbit-3 { width: 380px; height: 380px; animation-duration: 22s; }
 
-        /* Orbiting Stars (White Glowing) */
         .orbiting-star {
             position: absolute;
             top: 0; 
@@ -553,7 +613,6 @@
             box-shadow: 0 0 15px #fff, 0 0 30px #fff, 0 0 45px rgba(255, 255, 255, 0.8);
         }
 
-        /* Varying sizes for realism */
         .orbit-2 .orbiting-star { width: 6px; height: 6px; }
         .orbit-3 .orbiting-star { width: 14px; height: 14px; box-shadow: 0 0 20px #fff, 0 0 40px #fff; }
 
@@ -715,6 +774,80 @@
             .about-title { font-size: 2.2rem; }
             .about-stats { gap: 30px; flex-wrap: wrap; }
             .stat-value { font-size: 2.5rem; }
+        }
+
+        /* MOBILE FIX FOR PLANET & BULBS (Prevents getting cut off) */
+        @media (max-width: 768px) {
+            .space-system {
+                transform: scale(0.65); 
+                height: 300px;
+            }
+            .planet-wrapper {
+                min-height: 250px;
+            }
+            .hanging-bulbs {
+                opacity: 0.6; 
+            }
+            .ambient-glow { display: none !important; }
+            .floating-logos { display: none; }
+            body::before { background-attachment: scroll; }
+
+            .glass-image-card, .service-card, .pricing-card, .story-text-container, .contact-container, .custom-package-banner {
+                backdrop-filter: none !important; 
+                -webkit-backdrop-filter: none !important; 
+                background-color: rgba(10, 15, 25, 0.98) !important;
+            }
+
+            .navbar { 
+                top: 15px; 
+                padding: 12px 25px; 
+                width: 92%; 
+                min-width: auto;
+                justify-content: space-between;
+                backdrop-filter: none !important; 
+                -webkit-backdrop-filter: none !important;
+                background-color: rgba(5, 8, 15, 0.98) !important;
+            }
+            .navbar.scrolled { 
+                top: 10px; 
+                padding: 10px 25px; 
+                width: 95%; 
+            }
+
+            .story-text-container { padding: 40px 25px; border-radius: 12px; }
+            .section-heading { font-size: 1.6rem; }
+            .brand-logo { max-width: 280px; }
+            
+            .glass-image-card {
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+                transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            }
+            .glass-image-card.focused {
+                transform: scale(1.03) translateZ(0); 
+                box-shadow: 0 10px 25px color-mix(in srgb, var(--accent) 15%, transparent); 
+                border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+                z-index: 10;
+            }
+
+            .mobile-menu-btn { display: flex; }
+            
+            .nav-links {
+                position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+                background: rgba(5, 8, 15, 0.98); 
+                backdrop-filter: none; -webkit-backdrop-filter: none;
+                flex-direction: column; justify-content: center; align-items: center; gap: 25px;
+                transition: right 0.4s ease;
+                border-left: 1px solid color-mix(in srgb, var(--accent) 10%, transparent);
+                box-shadow: -10px 0 30px rgba(0,0,0,0.8);
+            }
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 1.3rem; padding: 15px 40px; }
+            
+            .mobile-menu-btn.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); }
+            .mobile-menu-btn.active span:nth-child(2) { opacity: 0; transform: translateX(20px); }
+            .mobile-menu-btn.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); }
+            
+            .banner-title { font-size: 1.3rem; }
         }
 
         /* -------------------------------------
@@ -1239,72 +1372,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* -------------------------------------
-            MOBILE OPTIMIZATION (Performance First)
-        ---------------------------------------- */
-        @media (max-width: 768px) {
-            .ambient-glow { display: none !important; }
-            .floating-logos { display: none; }
-            body::before { background-attachment: scroll; }
-
-            .glass-image-card, .service-card, .pricing-card, .story-text-container, .contact-container, .custom-package-banner {
-                backdrop-filter: none !important; 
-                -webkit-backdrop-filter: none !important; 
-                background-color: rgba(10, 15, 25, 0.98) !important;
-            }
-
-            .navbar { 
-                top: 15px; 
-                padding: 12px 25px; 
-                width: 92%; 
-                min-width: auto;
-                justify-content: space-between;
-                backdrop-filter: none !important; 
-                -webkit-backdrop-filter: none !important;
-                background-color: rgba(5, 8, 15, 0.98) !important;
-            }
-            .navbar.scrolled { 
-                top: 10px; 
-                padding: 10px 25px; 
-                width: 95%; 
-            }
-
-            .story-text-container { padding: 40px 25px; border-radius: 12px; }
-            .section-heading { font-size: 1.6rem; }
-            .brand-logo { max-width: 280px; }
-            
-            .glass-image-card {
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
-                transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            }
-            .glass-image-card.focused {
-                transform: scale(1.03) translateZ(0); 
-                box-shadow: 0 10px 25px color-mix(in srgb, var(--accent) 15%, transparent); 
-                border-color: color-mix(in srgb, var(--accent) 40%, transparent);
-                z-index: 10;
-            }
-
-            .mobile-menu-btn { display: flex; }
-            
-            .nav-links {
-                position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
-                background: rgba(5, 8, 15, 0.98); 
-                backdrop-filter: none; -webkit-backdrop-filter: none;
-                flex-direction: column; justify-content: center; align-items: center; gap: 25px;
-                transition: right 0.4s ease;
-                border-left: 1px solid color-mix(in srgb, var(--accent) 10%, transparent);
-                box-shadow: -10px 0 30px rgba(0,0,0,0.8);
-            }
-            .nav-links.active { right: 0; }
-            .nav-links a { font-size: 1.3rem; padding: 15px 40px; }
-            
-            .mobile-menu-btn.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); }
-            .mobile-menu-btn.active span:nth-child(2) { opacity: 0; transform: translateX(20px); }
-            .mobile-menu-btn.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); }
-            
-            .banner-title { font-size: 1.3rem; }
-        }
-
         /* --- LOADING SPINNER FOR BUTTONS --- */
         .loading-spinner {
             display: inline-block;
@@ -1369,6 +1436,26 @@
 
     <div class="container">
         
+        <!-- HANGING GLOWING BULBS -->
+        <div class="hanging-bulbs">
+            <div class="bulb-group b1">
+                <div class="wire"></div>
+                <div class="bulb"></div>
+            </div>
+            <div class="bulb-group b2">
+                <div class="wire"></div>
+                <div class="bulb"></div>
+            </div>
+            <div class="bulb-group b3">
+                <div class="wire"></div>
+                <div class="bulb"></div>
+            </div>
+            <div class="bulb-group b4">
+                <div class="wire"></div>
+                <div class="bulb"></div>
+            </div>
+        </div>
+
         <header class="brand-header">
             <div class="logo-container">
                 <img src="Modern Pixels/MODERNPIXELS.png" alt="Modern Pixels Logo" class="brand-logo">
@@ -1383,23 +1470,14 @@
             <div class="about-grid">
                 <!-- Visual / Planet Animation Column -->
                 <div class="about-visual">
-                    <div class="about-image-wrapper planet-bg">
+                    <div class="planet-wrapper">
                         
                         <!-- Planet Animation System -->
                         <div class="space-system">
                             <div class="planet-center"></div>
-                            
-                            <div class="orbit orbit-1">
-                                <div class="orbiting-star"></div>
-                            </div>
-                            
-                            <div class="orbit orbit-2">
-                                <div class="orbiting-star"></div>
-                            </div>
-                            
-                            <div class="orbit orbit-3">
-                                <div class="orbiting-star"></div>
-                            </div>
+                            <div class="orbit orbit-1"><div class="orbiting-star"></div></div>
+                            <div class="orbit orbit-2"><div class="orbiting-star"></div></div>
+                            <div class="orbit orbit-3"><div class="orbiting-star"></div></div>
                         </div>
                         
                         <!-- Floating Experience Badge -->
