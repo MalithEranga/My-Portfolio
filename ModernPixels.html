@@ -167,7 +167,7 @@
             -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15); 
             text-transform: uppercase;
             position: relative;
-            white-space: nowrap; /* Prevents text breaking into 2 lines on mobile */
+            white-space: nowrap;
             animation: elegantReveal 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
@@ -183,7 +183,7 @@
             animation: premiumShine 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             animation-delay: 0.2s;
             opacity: 0;
-            width: 100%; /* Ensures the sweep covers the whole word properly */
+            width: 100%;
         }
 
         .preloader-subtitle {
@@ -194,7 +194,7 @@
             letter-spacing: var(--pl-sub-space);
             text-transform: uppercase;
             margin-top: 10px;
-            margin-right: calc(var(--pl-sub-space) * -1); /* Counteracts letter-spacing offset */
+            margin-right: calc(var(--pl-sub-space) * -1);
             opacity: 0;
             white-space: nowrap;
             transform: translateY(15px);
@@ -470,6 +470,130 @@
         @keyframes spinButton { to { transform: rotate(360deg); } }
         .new-item-hidden { pointer-events: none; }
 
+        /* =========================================
+           ADVANCED LOAD MORE BUTTON STYLES
+           ========================================= */
+        .load-more-wrapper {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-load-more {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px 45px;
+            background: rgba(5, 8, 15, 0.4);
+            color: #fff;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            overflow: visible;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.08);
+        }
+
+        /* Animated Glowing Border - Now ALWAYS ON */
+        .btn-load-more::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent, var(--accent), transparent);
+            background-size: 200% 100%;
+            border-radius: 50px;
+            z-index: -2;
+            opacity: 0.7; /* Always visible but slightly dimmed */
+            animation: borderFlow 3s infinite linear; /* Always animating */
+            transition: opacity 0.4s ease, filter 0.4s ease;
+        }
+
+        /* Inner Background */
+        .btn-load-more::after {
+            content: '';
+            position: absolute;
+            top: 2px; left: 2px; right: 2px; bottom: 2px;
+            background: rgba(5, 8, 15, 0.95);
+            border-radius: 50px;
+            z-index: -1;
+            transition: background 0.4s ease;
+        }
+
+        .btn-load-more:hover {
+            transform: translateY(-5px) translateZ(0);
+            color: var(--accent);
+            text-shadow: 0 0 15px var(--accent-glow);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5), 0 0 25px color-mix(in srgb, var(--accent) 15%, transparent);
+        }
+
+        /* Make it glow brighter on hover */
+        .btn-load-more:hover::before {
+            opacity: 1;
+            filter: brightness(1.2) blur(2px);
+        }
+
+        .btn-load-more:hover::after {
+            background: rgba(2, 4, 10, 0.8);
+        }
+
+        /* Arrow Icon Animation */
+        .btn-load-more svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            filter: drop-shadow(0 0 5px currentColor);
+        }
+
+        .btn-load-more:hover svg {
+            transform: translateY(4px);
+        }
+
+        @keyframes borderFlow {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Outer Pulse Ring */
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border-radius: 50px;
+            border: 1px solid var(--accent);
+            opacity: 0;
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        .btn-load-more:hover .pulse-ring {
+            animation: pulseRingAnim 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+        }
+
+        @keyframes pulseRingAnim {
+            0% { width: 100%; height: 100%; opacity: 0.8; border-width: 2px; }
+            100% { width: 120%; height: 150%; opacity: 0; border-width: 0px; }
+        }
+
+        @media (max-width: 576px) {
+            .btn-load-more { padding: 15px 30px; font-size: 0.8rem; letter-spacing: 2px; }
+            .btn-load-more svg { width: 16px; height: 16px; }
+        }
+
     </style>
 </head>
 <body style="overflow: hidden;">
@@ -563,23 +687,35 @@
         <!-- Social Media Section -->
         <h2 id="social" class="section-heading reveal-on-scroll">Social Media Post Design</h2>
         <div class="masonry-grid reveal-on-scroll" id="image-grid"></div>
-        <div style="text-align: center; margin-bottom: 80px;" class="reveal-on-scroll">
-            <button id="loadMoreBtn" class="back-btn" style="cursor: pointer;">LOAD MORE DESIGNS</button>
+        <div class="load-more-wrapper reveal-on-scroll">
+            <button id="loadMoreBtn" class="btn-load-more">
+                <span>LOAD MORE DESIGNS</span>
+                <svg viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                <div class="pulse-ring"></div>
+            </button>
         </div>
 
         <!-- Tute Cover Section -->
         <h2 id="tute" class="section-heading reveal-on-scroll">Tuition Tute Cover</h2>
         <div class="masonry-grid reveal-on-scroll" id="tute-grid"></div>
-        <div style="text-align: center; margin-bottom: 80px;" class="reveal-on-scroll">
-            <button id="loadMoreTuteBtn" class="back-btn" style="cursor: pointer;">LOAD MORE COVERS</button>
+        <div class="load-more-wrapper reveal-on-scroll">
+            <button id="loadMoreTuteBtn" class="btn-load-more">
+                <span>LOAD MORE COVERS</span>
+                <svg viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                <div class="pulse-ring"></div>
+            </button>
         </div>
 
         <!-- OTHERS SECTION -->
         <div id="others-section-wrapper" style="display: none;">
             <h2 id="other" class="section-heading reveal-on-scroll">Others</h2>
             <div class="masonry-grid reveal-on-scroll" id="other-grid"></div>
-            <div style="text-align: center; margin-bottom: 80px;" class="reveal-on-scroll">
-                <button id="loadMoreOtherBtn" class="back-btn" style="cursor: pointer;">LOAD MORE DESIGNS</button>
+            <div class="load-more-wrapper reveal-on-scroll">
+                <button id="loadMoreOtherBtn" class="btn-load-more">
+                    <span>LOAD MORE DESIGNS</span>
+                    <svg viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                    <div class="pulse-ring"></div>
+                </button>
             </div>
         </div>
 
@@ -870,7 +1006,7 @@
             if (currentImageCount < 1) return currentImageCount;
 
             btnElement.blur();
-            const originalBtnText = btnElement.innerText;
+            const originalBtnHTML = btnElement.innerHTML; // Changed from innerText to innerHTML to preserve SVG
             btnElement.innerHTML = '<span class="loading-spinner"></span> LOADING...';
             btnElement.style.pointerEvents = "none";
             btnElement.style.opacity = "0.7";
@@ -916,7 +1052,7 @@
                 });
 
                 if (newCurrentCount >= 1) {
-                    btnElement.innerText = originalBtnText;
+                    btnElement.innerHTML = originalBtnHTML; // Changed from innerText to innerHTML
                     btnElement.style.pointerEvents = "auto";
                     btnElement.style.opacity = "1";
                 }
