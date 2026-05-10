@@ -216,115 +216,146 @@
         .container { max-width: 1400px; margin: 0 auto; padding: 160px 2% 50px 2%; position: relative; z-index: 1; overflow-x: hidden; }
 
         /* =======================================================
-           ULTRA-ADVANCED NEON LOGO GLOW (Parallax & Orbits)
+           FREE-FLOATING 3D LOGO SECTION (NO BOXES, JUST GLOW)
            ======================================================= */
         .brand-header { 
-            text-align: center; margin-bottom: 120px; opacity: 0; 
-            transform: translateY(-20px); animation: fadeInDown 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; 
-            animation-delay: 3s; display: flex; flex-direction: column; align-items: center; 
-            will-change: transform, opacity; position: relative; z-index: 2;
-        }
-        
-        .logo-container { 
-            margin-bottom: 25px; 
-            position: relative; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1000px; /* Activates 3D space for the mouse tilt */
-            padding: 40px; 
-            border-radius: 50%;
-        }
-        
-        /* 1. The Concentrated Glowing Mesh behind the Logo */
-        .logo-glow-mesh {
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 130%; height: 130%;
-            transform: translate(-50%, -50%);
-            background: 
-                radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--accent) 60%, transparent), transparent 50%),
-                radial-gradient(circle at 70% 70%, color-mix(in srgb, var(--accent-alt) 60%, transparent), transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08), transparent 60%);
-            filter: blur(40px);
-            opacity: 0.5;
-            z-index: -2;
-            border-radius: 50%;
-            animation: meshSpin 12s infinite linear;
-            pointer-events: none;
-            transition: all 0.5s ease;
+            text-align: center; margin-bottom: 80px; padding-top: 40px;
+            opacity: 0; transform: translateY(-20px); 
+            animation: fadeInDown 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; 
+            animation-delay: 2.8s; display: flex; flex-direction: column; 
+            align-items: center; position: relative; z-index: 2;
         }
 
-        /* 2. High-Tech Radar Light Sweep */
-        .logo-light-sweep {
+        /* The 3D Hitbox boundary (Invisible, just catches the mouse) */
+        .magnetic-wrapper {
+            position: relative;
+            width: 100%; max-width: 600px; height: 380px;
+            display: flex; justify-content: center; align-items: center;
+            perspective: 1500px; 
+            margin-bottom: 20px;
+        }
+
+        /* Soft, sophisticated ambient background bleed (The Glow) */
+        .ambient-glow {
             position: absolute;
             top: 50%; left: 50%;
-            width: 170%; height: 170%;
+            width: 100%; height: 100%;
             transform: translate(-50%, -50%);
-            background: conic-gradient(from 0deg, transparent 70%, color-mix(in srgb, var(--accent) 30%, transparent) 80%, transparent 100%);
-            border-radius: 50%;
-            filter: blur(15px);
-            z-index: -1;
-            animation: sweepSpin 6s infinite linear;
-            pointer-events: none;
+            /* Much softer gradient since there is no box */
+            background: radial-gradient(circle at center, color-mix(in srgb, var(--accent) 25%, transparent), transparent 60%);
+            filter: blur(80px);
             opacity: 0.6;
-            transition: opacity 0.5s ease;
-        }
-
-        /* 3. Orbital Tech Rings */
-        .logo-orbital-ring {
-            position: absolute;
-            top: 50%; left: 50%;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 0;
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
             pointer-events: none;
-            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        .ring-1 {
-            width: 90%; height: 90%;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-left: 1px solid var(--accent);
-            border-right: 1px solid var(--accent-alt);
-            animation: ringSpin 15s infinite linear;
-        }
-        .ring-2 {
-            width: 110%; height: 110%;
-            border: 1px dashed rgba(255, 255, 255, 0.08);
-            animation: ringSpin 25s infinite reverse linear;
-        }
-        /* Glowing Particle on the outer ring */
-        .ring-2::before {
-            content: ''; position: absolute; top: -3px; left: 50%; width: 6px; height: 6px;
-            background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent-glow);
-            transform: translateX(-50%);
+            z-index: -1;
         }
 
-        /* Animations */
-        @keyframes meshSpin { 0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); } 50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.1); } 100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); } }
-        @keyframes sweepSpin { to { transform: translate(-50%, -50%) rotate(360deg); } }
-        @keyframes ringSpin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+        /* Pure Free-Floating Container */
+        .free-floating-logo {
+            position: relative; 
+            display: flex; justify-content: center; align-items: center;
+            width: 100%; height: 100%;
+            transform-style: preserve-3d;
+            will-change: transform;
+            z-index: 2;
+        }
 
-        /* The Logo Itself - Prepared for 3D JS Manipulation */
+        /* Minimal Logo Image */
         .brand-logo { 
-            max-width: 350px; width: 100%; height: auto; 
-            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); /* Smooth reset */
-            will-change: transform; 
-            position: relative; z-index: 1;
-            filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));
+            max-width: 320px; width: 90%; height: auto; 
+            transform: translateZ(50px); /* Cinematic 3D Pop */
+            position: relative; z-index: 5;
+            /* Extremely deep and beautiful drop shadow to separate it from the background */
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8)) drop-shadow(0 0 40px color-mix(in srgb, var(--accent) 20%, transparent));
+            transition: filter 0.5s ease;
         }
         
-        /* ---- INTERACTIVE HOVER EFFECTS ---- */
-        .logo-container:hover .logo-glow-mesh { opacity: 0.9; filter: blur(50px); transform: translate(-50%, -50%) scale(1.1); }
-        .logo-container:hover .logo-light-sweep { opacity: 1; }
-        .logo-container:hover .ring-1 { width: 105%; height: 105%; border-color: rgba(255,255,255,0.1); border-left-color: var(--accent); box-shadow: inset 0 0 20px rgba(255,255,255,0.02); }
-        .logo-container:hover .ring-2 { width: 125%; height: 125%; border-color: rgba(255,255,255,0.2); }
-        
-        /* Magic Mode Enhancements */
-        body.magic-mode .logo-glow-mesh { opacity: 1; filter: blur(35px); animation: meshSpin 8s infinite linear, corePulse 3s infinite alternate; }
-        body.magic-mode .ring-1 { border-left: 2px solid var(--accent); border-right: 2px solid var(--accent-alt); box-shadow: inset 0 0 30px color-mix(in srgb, var(--accent) 20%, transparent); }
+        /* ---- HIGH-END INTERACTIVE HOVER EFFECTS ---- */
+        .magnetic-wrapper:hover .ambient-glow { 
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(1.2); 
+            filter: blur(90px); 
+        }
+        .magnetic-wrapper:hover .brand-logo { 
+            filter: drop-shadow(0 30px 60px rgba(0,0,0,0.9)) drop-shadow(0 0 60px color-mix(in srgb, var(--accent) 40%, transparent)); 
+        }
 
-        .founder-name { font-size: 1.1rem; color: var(--text-muted); letter-spacing: 6px; text-transform: uppercase; font-weight: 500; margin-top: 10px; background: linear-gradient(90deg, #cbd5e1, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; position: relative; z-index: 2; }
+        /* Elegant Typography */
+        .founder-name { font-size: 1.1rem; color: var(--text-muted); letter-spacing: 8px; text-transform: uppercase; font-weight: 500; background: linear-gradient(90deg, #94a3b8, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; position: relative; z-index: 2; margin-top: 10px; }
+        .agency-tagline { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; color: var(--accent); letter-spacing: 4px; text-transform: uppercase; margin-top: 12px; font-weight: 400; opacity: 0.8; transition: color 0.8s ease; }
+
+        /* =======================================================
+           INFINITE SCROLLING MARQUEE TEXT (BELOW LOGO)
+           ======================================================= */
+        .scrolling-text-wrapper {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            margin-top: 50px;
+            padding: 15px 0;
+            overflow: hidden;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.02) 20%, rgba(255,255,255,0.02) 80%, transparent);
+            border-top: 1px solid rgba(255,255,255,0.03);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            display: flex;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInDown 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            animation-delay: 3s;
+        }
+
+        /* Track moves from 0 to -50% to create perfect loop with 2 identical children */
+        .scrolling-text-track {
+            display: flex;
+            width: fit-content;
+            animation: scrollTextLeft 30s linear infinite;
+            will-change: transform;
+        }
+
+        .scrolling-text-group {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .scrolling-text-group span {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: transparent; /* Makes text outline-only initially */
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            transition: all 0.4s ease;
+            cursor: default;
+        }
+
+        .scrolling-text-group span:hover {
+            color: var(--accent);
+            -webkit-text-stroke: 1px var(--accent);
+            text-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .scrolling-text-group .sep {
+            color: var(--accent-alt);
+            -webkit-text-stroke: 0;
+            font-size: 1.2rem;
+            margin: 0 25px;
+            opacity: 0.7;
+        }
+
+        @keyframes scrollTextLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } 
+        }
+
+        /* Pause animation on hover so users can read it */
+        .scrolling-text-wrapper:hover .scrolling-text-track {
+            animation-play-state: paused;
+        }
 
         .section-heading { font-family: 'Syncopate', sans-serif; font-size: 2.2rem; color: transparent; -webkit-text-stroke: 1px var(--accent); background: linear-gradient(90deg, #fff, var(--accent)); -webkit-background-clip: text; background-clip: text; margin-bottom: 40px; padding-top: 80px; margin-top: -40px; letter-spacing: 4px; display: block; position: relative; text-transform: uppercase; opacity: 0; transform: translate3d(0, 40px, 0); transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, opacity; margin-left: 3%; }
         .section-heading.visible { opacity: 1; transform: translate3d(0, 0, 0); }
@@ -606,12 +637,14 @@
             .about-modern-container, .services-grid, .pricing-grid, .custom-package-banner, .contact-container, .load-more-wrapper { padding: 0 5%; } 
             .section-heading { font-size: 1.6rem; margin-left: 5%; } 
             
-            /* NEON LOGO MESH MOBILE OVERRIDES */
-            .logo-container { padding: 20px; perspective: none; } /* Disable 3D tilt on mobile for better touch experience */
-            .logo-glow-mesh { width: 140%; height: 140%; filter: blur(30px); }
-            .ring-1 { width: 105%; height: 105%; }
-            .ring-2 { width: 125%; height: 125%; }
-            .brand-logo { max-width: 260px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8)); } 
+            /* MINIMAL LOGO MOBILE OVERRIDES */
+            .magnetic-wrapper { height: auto; padding: 20px; margin-bottom: 10px; perspective: none; } 
+            .ambient-glow { width: 90%; height: 90%; filter: blur(60px); }
+            .brand-logo { max-width: 240px; transform: translateZ(20px); filter: drop-shadow(0 10px 15px rgba(0,0,0,0.8)); } 
+            .founder-name { font-size: 0.9rem; letter-spacing: 4px; }
+            .agency-tagline { font-size: 0.7rem; letter-spacing: 2px; }
+            .scrolling-text-group span { font-size: 0.7rem; letter-spacing: 2px; }
+            .scrolling-text-wrapper { margin-top: 30px; padding: 10px 0; }
 
             /* ABOUT SECTION MOBILE GRID FIX */
             .about-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
@@ -726,16 +759,49 @@
             <div class="bulb-group b4"><div class="wire"></div><div class="bulb"></div></div>
         </div>
 
-        <!-- ULTRA-ADVANCED INTERACTIVE LOGO SECTION -->
+        <!-- FREE-FLOATING MAGNETIC LOGO SECTION (MINIMAL) -->
         <header class="brand-header">
-            <div class="logo-container" id="logoContainer">
-                <div class="logo-glow-mesh"></div>
-                <div class="logo-light-sweep"></div>
-                <div class="logo-orbital-ring ring-1"></div>
-                <div class="logo-orbital-ring ring-2"></div>
-                <img src="Modern Pixels/MODERNPIXELS.png" alt="Modern Pixels Logo" class="brand-logo" id="brandLogo">
+            <div class="magnetic-wrapper" id="magneticWrapper">
+                <!-- Massive cinematic background glow -->
+                <div class="ambient-glow"></div>
+                
+                <!-- 3D Transform Container (No box, just the logo) -->
+                <div class="free-floating-logo" id="logoContainer">
+                    <img src="Modern Pixels/MODERNPIXELS.png" alt="Modern Pixels Logo" class="brand-logo">
+                </div>
             </div>
+
             <div class="founder-name">Modern Pixels by Malith Eranga</div>
+            <div class="agency-tagline">Premium Digital Aesthetics</div>
+            
+            <!-- INFINITE SCROLLING MARQUEE TEXT -->
+            <div class="scrolling-text-wrapper">
+                <div class="scrolling-text-track">
+                    <!-- Group 1 -->
+                    <div class="scrolling-text-group">
+                        <span>Social Media Post Design</span> <span class="sep">✧</span>
+                        <span>Tuition Tute Cover Design</span> <span class="sep">✧</span>
+                        <span>Brand Post Design</span> <span class="sep">✧</span>
+                        <span>Logo Design</span> <span class="sep">✧</span>
+                        <span>Video Editing</span> <span class="sep">✧</span>
+                        <span>Typesetting</span> <span class="sep">✧</span>
+                        <span>CV Design</span> <span class="sep">✧</span>
+                        <span>Assignments</span> <span class="sep">✧</span>
+                    </div>
+                    <!-- Group 2 (Duplicate for infinite seamless loop) -->
+                    <div class="scrolling-text-group">
+                        <span>Social Media Post Design</span> <span class="sep">✧</span>
+                        <span>Tuition Tute Cover Design</span> <span class="sep">✧</span>
+                        <span>Brand Post Design</span> <span class="sep">✧</span>
+                        <span>Logo Design</span> <span class="sep">✧</span>
+                        <span>Video Editing</span> <span class="sep">✧</span>
+                        <span>Typesetting</span> <span class="sep">✧</span>
+                        <span>CV Design</span> <span class="sep">✧</span>
+                        <span>Assignments</span> <span class="sep">✧</span>
+                    </div>
+                </div>
+            </div>
+            
         </header>
 
         <!-- ABOUT SECTION -->
@@ -956,32 +1022,47 @@
     </div>
 
     <script>
-        // --- 3D MOUSE PARALLAX FOR LOGO ---
+        // --- 3D MAGNETIC LERP PHYSICS FOR FREE-FLOATING LOGO (MATURE) ---
+        const magneticWrapper = document.getElementById('magneticWrapper');
         const logoContainer = document.getElementById('logoContainer');
-        const brandLogo = document.getElementById('brandLogo');
+        
+        let mouseX = 0, mouseY = 0;
+        let currentX = 0, currentY = 0;
+        let isHovering = false;
 
-        if (logoContainer && brandLogo && window.innerWidth > 768) {
-            logoContainer.addEventListener('mousemove', (e) => {
-                const rect = logoContainer.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
-                // Tilt calculation
-                const rotateX = -(y / rect.height) * 25; 
-                const rotateY = (x / rect.width) * 25;
-                
-                brandLogo.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05) translateZ(30px)`;
+        if (magneticWrapper && logoContainer && window.innerWidth > 768) {
+            magneticWrapper.addEventListener('mousemove', (e) => {
+                const rect = magneticWrapper.getBoundingClientRect();
+                mouseX = e.clientX - rect.left - rect.width / 2;
+                mouseY = e.clientY - rect.top - rect.height / 2;
             });
 
-            logoContainer.addEventListener('mouseleave', () => {
-                brandLogo.style.transform = `rotateX(0deg) rotateY(0deg) scale(1) translateZ(0)`;
-                setTimeout(() => { brandLogo.style.transition = 'transform 0.1s ease-out'; }, 400); 
-                brandLogo.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)'; 
-            });
+            magneticWrapper.addEventListener('mouseenter', () => { isHovering = true; });
             
-            logoContainer.addEventListener('mouseenter', () => {
-                brandLogo.style.transition = 'transform 0.1s ease-out'; 
+            magneticWrapper.addEventListener('mouseleave', () => { 
+                isHovering = false; 
+                mouseX = 0; 
+                mouseY = 0; 
             });
+
+            function renderPhysics() {
+                // Slower lerp for heavier, more premium feel (0.05 instead of 0.08)
+                currentX += (mouseX - currentX) * 0.05;
+                currentY += (mouseY - currentY) * 0.05;
+
+                // Subtle Tilt angles
+                const rotateX = -(currentY / (magneticWrapper.offsetHeight / 2)) * 15; 
+                const rotateY = (currentX / (magneticWrapper.offsetWidth / 2)) * 15;
+                
+                // Magnetic Pull
+                const translateX = currentX * 0.15;
+                const translateY = currentY * 0.15;
+
+                logoContainer.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translate3d(${translateX}px, ${translateY}px, 0)`;
+                
+                requestAnimationFrame(renderPhysics);
+            }
+            requestAnimationFrame(renderPhysics);
         }
 
         // --- GENERATE TINY STARS ---
