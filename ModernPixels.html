@@ -100,12 +100,44 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: -3;
+            z-index: -4; /* Changed to -4 to keep stars above */
             background-image: url('Backgrounds/background3.webp'); 
             background-size: cover;
             background-position: center;
             background-color: rgba(2, 4, 10, 0.85); 
             background-blend-mode: overlay;
+        }
+
+        /* ==========================================
+           STAR BACKGROUND ANIMATION
+           ========================================== */
+        #stars-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -3; /* Above background image, behind content */
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #ffffff;
+            border-radius: 50%;
+            opacity: 0.1;
+            /* Variables populated by JS for random effect */
+            animation: twinkle var(--twinkle-duration) ease-in-out infinite var(--twinkle-delay),
+                       drift var(--drift-duration) linear infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.1; box-shadow: none; }
+            50% { opacity: 0.8; box-shadow: 0 0 4px rgba(255, 255, 255, 0.6); }
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(var(--drift-x), var(--drift-y)); }
         }
 
         /* -------------------------------------
@@ -324,9 +356,9 @@
         @media (max-width: 992px) { .about-grid { grid-template-columns: 1fr; gap: 50px; } .about-title { font-size: 2.2rem; } .about-stats { gap: 30px; flex-wrap: wrap; } .stat-value { font-size: 2.5rem; } }
         @media (max-width: 768px) { :root { transition: none !important; } .space-system { transform: scale(0.65); height: 300px; } .planet-wrapper { min-height: 250px; } .hanging-bulbs { opacity: 0.6; } .ambient-glow { display: none !important; } .floating-logos { display: none; } body::before { height: 100vh; height: 100dvh; } .service-card, .pricing-card, .contact-container, .custom-package-banner { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background-color: rgba(10, 15, 25, 0.98) !important; } .navbar { top: 15px; padding: 12px 25px; width: 92%; min-width: auto; justify-content: space-between; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background-color: rgba(5, 8, 15, 0.98) !important; } .navbar.scrolled { top: 10px; padding: 10px 25px; width: 95%; } .section-heading { font-size: 1.6rem; margin-left: 5%; } .brand-logo { max-width: 280px; } .mobile-menu-btn { display: flex; } .nav-links { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: rgba(5, 8, 15, 0.98); backdrop-filter: none; -webkit-backdrop-filter: none; flex-direction: column; justify-content: center; align-items: center; gap: 25px; transition: right 0.4s ease; border-left: 1px solid color-mix(in srgb, var(--accent) 10%, transparent); box-shadow: -10px 0 30px rgba(0,0,0,0.8); } .nav-links.active { right: 0; } .nav-links a { font-size: 1.3rem; padding: 15px 40px; } .mobile-menu-btn.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); } .mobile-menu-btn.active span:nth-child(2) { opacity: 0; transform: translateX(20px); } .mobile-menu-btn.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); } .banner-title { font-size: 1.3rem; } .container { padding: 160px 0 50px 0; } .about-modern-container, .services-grid, .pricing-grid, .custom-package-banner, .contact-container, .load-more-wrapper { padding: 0 5%; } }
 
-        /* ==========================================
-           DYNAMIC MULTI-ROW AUTO SCROLL GRIDS
-           ========================================== */
+       /* ==========================================
+            DYNAMIC MULTI-ROW AUTO SCROLL GRIDS
+            ========================================== */
         .multi-row-wrapper {
             margin-bottom: 20px;
             opacity: 0; 
@@ -348,57 +380,80 @@
             -ms-overflow-style: none; 
             scrollbar-width: none;  
             padding-left: 3%; padding-right: 3%;
-            opacity: 1; /* Always visible once appended */
+            opacity: 1; 
         }
         
         .horizontal-grid::-webkit-scrollbar { 
             display: none; 
         }
 
-        /* Cleaned up Image Card */
         .glass-image-card { 
-            flex: 0 0 260px; 
-            max-width: 260px;
+            flex: 0 0 280px; 
+            max-width: 280px;
             position: relative; 
             cursor: pointer; 
             will-change: transform; 
             transform: translateZ(0); 
             transition: transform 0.3s ease; 
         }
-        
-        @media (max-width: 768px) {
-            .glass-image-card { flex: 0 0 200px; max-width: 200px; }
-        }
-
-        .glass-image-card:hover { transform: translateY(-8px) translateZ(0); }
-        .glass-image-card:hover .img-wrapper { box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 20px color-mix(in srgb, var(--accent) 20%, transparent); }
 
         .img-wrapper { 
-            width: 100%; border-radius: 12px; overflow: hidden; position: relative; display: block; 
-            background: rgba(255,255,255,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.3); min-height: 200px; transition: box-shadow 0.4s ease;
+            width: 100%; 
+            border-radius: 12px; 
+            overflow: hidden; 
+            position: relative; 
+            display: block; 
+            min-height: 200px; 
+            transition: box-shadow 0.4s ease;
         }
         
-        .img-wrapper img { width: 100%; height: auto; display: block; transition: transform 0.4s ease, filter 0.4s ease, opacity 0.4s ease; filter: brightness(0.95); opacity: 0; will-change: transform, opacity; }
+        .img-wrapper img { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease, opacity 0.4s ease; 
+            filter: brightness(0.95); 
+            opacity: 0; 
+            will-change: transform, opacity; 
+        }
+        
         .img-wrapper img.loaded { opacity: 1; }
 
         .loader-squares { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; gap: 6px; z-index: 0; transition: opacity 0.5s ease, visibility 0.5s ease; }
         .loader-squares div { width: 10px; height: 10px; background-color: var(--accent); border-radius: 2px; animation: bounceSquare 0.6s infinite alternate cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: 0 0 10px var(--accent-glow); }
         .loader-squares div:nth-child(1) { animation-delay: 0s; } .loader-squares div:nth-child(2) { animation-delay: 0.15s; } .loader-squares div:nth-child(3) { animation-delay: 0.3s; } .loader-squares div:nth-child(4) { animation-delay: 0.45s; }
         @keyframes bounceSquare { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-15px); opacity: 0.4; } }
+        
         .img-wrapper img.loaded + .loader-squares { opacity: 0; visibility: hidden; }
         .img-wrapper img { position: relative; z-index: 1; }
-        .glass-image-card:hover .img-wrapper img { transform: scale(1.05) translateZ(0); filter: brightness(1.1); }
 
-        /* LOADING SPINNER FOR BUTTONS */
+        @media (hover: hover) {
+            .glass-image-card:hover { transform: translateY(-8px) translateZ(0); z-index: 10;}
+            .glass-image-card:hover .img-wrapper { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px color-mix(in srgb, var(--accent) 20%, transparent); }
+            .glass-image-card:hover .img-wrapper img { transform: scale(1.06) translateZ(0); filter: brightness(1.1); }
+        }
+
+        @media (max-width: 768px) {
+            .horizontal-grid { gap: 15px; padding-left: 5%; padding-right: 5%; }
+            .glass-image-card { flex: 0 0 180px; max-width: 180px; }
+            .img-wrapper { min-height: 150px; border-radius: 10px; }
+        }
+
+        @media (max-width: 480px) {
+            .horizontal-grid { gap: 12px; padding-left: 5%; padding-right: 5%; }
+            .glass-image-card { flex: 0 0 140px; max-width: 140px; }
+            .img-wrapper { min-height: 120px; border-radius: 8px; }
+        }
+
         .loading-spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: var(--accent); animation: spinButton 0.8s ease-in-out infinite; margin-right: 10px; vertical-align: middle; transition: border-top-color 0.6s ease; }
         @keyframes spinButton { to { transform: rotate(360deg); } }
         .new-item-hidden { pointer-events: none; }
 
         /* =========================================
-           ADVANCED LOAD MORE BUTTON STYLES
-           ========================================= */
+            ADVANCED LOAD MORE BUTTON STYLES
+            ========================================= */
         .load-more-wrapper { text-align: center; margin-bottom: 80px; position: relative; display: flex; justify-content: center; }
-        .btn-load-more { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 18px 45px; background: rgba(5, 8, 15, 0.4); color: #fff; font-family: 'Syncopate', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 3px; border-radius: 50px; border: none; cursor: pointer; overflow: visible; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 1; box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.08); }
+        .btn-load-more { position: relative; display: inline-flex; align-items: center; justify-content: gap: 12px; padding: 18px 45px; background: rgba(5, 8, 15, 0.4); color: #fff; font-family: 'Syncopate', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 3px; border-radius: 50px; border: none; cursor: pointer; overflow: visible; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 1; box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.08); }
         .btn-load-more::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(90deg, transparent, var(--accent), transparent, var(--accent), transparent); background-size: 200% 100%; border-radius: 50px; z-index: -2; opacity: 0.7; animation: borderFlow 3s infinite linear; transition: opacity 0.4s ease, filter 0.4s ease; }
         .btn-load-more::after { content: ''; position: absolute; top: 2px; left: 2px; right: 2px; bottom: 2px; background: rgba(5, 8, 15, 0.95); border-radius: 50px; z-index: -1; transition: background 0.4s ease; }
         .btn-load-more:hover { transform: translateY(-5px) translateZ(0); color: var(--accent); text-shadow: 0 0 15px var(--accent-glow); box-shadow: 0 15px 40px rgba(0,0,0,0.5), 0 0 25px color-mix(in srgb, var(--accent) 15%, transparent); }
@@ -480,6 +535,9 @@
 </head>
 <body style="overflow: hidden;">
 
+    <!-- NEW: STAR BACKGROUND CONTAINER -->
+    <div id="stars-container"></div>
+
     <!-- ULTRA PREMIUM DARK PRELOADER -->
     <div id="preloader" class="preloader">
         <div class="preloader-door top-door"></div>
@@ -507,7 +565,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#social">Social Media</a></li>
             <li><a href="#tute">Tute Covers</a></li>
-            <li><a href="#other">Others</a></li>
+            <!-- <li><a href="#other">Others</a></li> --> <!-- Hid Others Link -->
             <li><a href="#services">Services</a></li>
             <li><a href="#packages">Packages</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -596,7 +654,8 @@
             </button>
         </div>
 
-        <!-- OTHERS SECTION -->
+        <!-- OTHERS SECTION (HIDDEN) -->
+        <!-- 
         <h2 id="other" class="section-heading reveal-on-scroll">Others</h2>
         <div class="multi-row-wrapper reveal-on-scroll" id="other-wrapper"></div>
         <div class="load-more-wrapper reveal-on-scroll">
@@ -606,6 +665,7 @@
                 <div class="pulse-ring"></div>
             </button>
         </div>
+        -->
 
         <!-- SERVICES SECTION -->
         <h2 id="services" class="section-heading reveal-on-scroll">Our Expertise</h2>
@@ -758,6 +818,42 @@
     </div>
 
     <script>
+        // --- NEW: GENERATE BACKGROUND STARS ---
+        function createStars() {
+            const container = document.getElementById('stars-container');
+            const starCount = 150; // තරු ගණන වෙනස් කරගන්න පුළුවන්
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+
+                // ගොඩක් පොඩි size එකක් (0.5px ඉඳන් 2px වෙනකන්)
+                const size = Math.random() * 1.5 + 0.5;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+
+                // තැනින් තැන position වීම
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+
+                // ඔක්කොම එකපාර blink නොවී එකිනෙකට වෙනස් වෙලාවල් වල blink වෙන්න
+                star.style.setProperty('--twinkle-duration', `${Math.random() * 4 + 2}s`); // 2s - 6s අතර
+                star.style.setProperty('--twinkle-delay', `${Math.random() * 5}s`);
+                
+                // හෙමින් drift වෙන speed එක
+                star.style.setProperty('--drift-duration', `${Math.random() * 50 + 30}s`); 
+                
+                // වෙනස් පැතිවලට drift වෙන්න
+                const driftX = (Math.random() - 0.5) * 150; 
+                const driftY = (Math.random() - 0.5) * 150;
+                star.style.setProperty('--drift-x', `${driftX}px`);
+                star.style.setProperty('--drift-y', `${driftY}px`);
+
+                container.appendChild(star);
+            }
+        }
+        createStars();
+
         // --- ULTRA PREMIUM PRELOADER LOGIC ---
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
@@ -802,7 +898,7 @@
             { id: 'about',    color: '#00ff66', glow: 'rgba(0, 255, 102, 0.6)' },
             { id: 'social',   color: '#ffea00', glow: 'rgba(255, 234, 0, 0.6)' },
             { id: 'tute',     color: '#00ffcc', glow: 'rgba(0, 255, 204, 0.6)' },
-            { id: 'other',    color: '#ff00ff', glow: 'rgba(255, 0, 255, 0.6)' },
+            // { id: 'other',    color: '#ff00ff', glow: 'rgba(255, 0, 255, 0.6)' }, // Hid Others section color
             { id: 'services', color: '#00bfff', glow: 'rgba(0, 191, 255, 0.6)' },
             { id: 'packages', color: '#ff2a2a', glow: 'rgba(255, 42, 42, 0.6)' },
             { id: 'contact',  color: '#25D366', glow: 'rgba(37, 211, 102, 0.6)' }
@@ -902,7 +998,7 @@
         const sectionState = {
             social: { currentCount: 114, wrapperId: 'social-wrapper', folder: 'Social Media Post', altText: 'Social Media Post', rowCount: 0, btnId: 'loadMoreBtn' },
             tute:   { currentCount: 22,  wrapperId: 'tute-wrapper',   folder: 'Tute Cover Design', altText: 'Tute Cover',        rowCount: 0, btnId: 'loadMoreTuteBtn' },
-            other:  { currentCount: 20,  wrapperId: 'other-wrapper',  folder: 'Other Designs',     altText: 'Other Design',      rowCount: 0, btnId: 'loadMoreOtherBtn' }
+            // other:  { currentCount: 20,  wrapperId: 'other-wrapper',  folder: 'Other Designs',     altText: 'Other Design',      rowCount: 0, btnId: 'loadMoreOtherBtn' } // Hid Others state
         };
 
         function startAutoScroll(gridElement, direction) {
@@ -955,6 +1051,13 @@
         function createRow(sectionKey) {
             return new Promise((resolve) => {
                 const sec = sectionState[sectionKey];
+                
+                // If section is undefined (like when commented out), just resolve
+                if (!sec) {
+                    resolve();
+                    return;
+                }
+
                 if (sec.currentCount < 1) {
                     resolve();
                     return;
@@ -1000,7 +1103,7 @@
                 }
 
                 newGrid.innerHTML = cardsHTML;
-                wrapper.appendChild(newGrid);
+                if (wrapper) wrapper.appendChild(newGrid);
 
                 sec.currentCount = endImage - 1;
 
@@ -1059,23 +1162,26 @@
         // --- BUTTON EVENT LISTENERS ---
         document.getElementById('loadMoreBtn').addEventListener('click', () => createRow('social'));
         document.getElementById('loadMoreTuteBtn').addEventListener('click', () => createRow('tute'));
-        document.getElementById('loadMoreOtherBtn').addEventListener('click', () => createRow('other'));
+        // document.getElementById('loadMoreOtherBtn').addEventListener('click', () => createRow('other')); // Hid Others button listener
 
         // --- INITIAL LOAD ---
-        // Social: 3 rows initially
+        // Social: 4 rows initially
         createRow('social');
         setTimeout(() => createRow('social'), 300);
         setTimeout(() => createRow('social'), 600);
+        setTimeout(() => createRow('social'), 900); // 4 වෙනි පේළිය
         
-        // Tute: 3 rows initially
+        // Tute: 4 rows initially
         createRow('tute');
         setTimeout(() => createRow('tute'), 300);
         setTimeout(() => createRow('tute'), 600);
+        setTimeout(() => createRow('tute'), 900); // 4 වෙනි පේළිය
         
-        // Others: 3 rows initially
-        createRow('other');
-        setTimeout(() => createRow('other'), 300);
-        setTimeout(() => createRow('other'), 600);
+        // Others: 4 rows initially (HIDDEN)
+        // createRow('other');
+        // setTimeout(() => createRow('other'), 300);
+        // setTimeout(() => createRow('other'), 600);
+        // setTimeout(() => createRow('other'), 900);
 
 
         // Observe Reveal on scroll
