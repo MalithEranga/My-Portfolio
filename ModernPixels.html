@@ -109,22 +109,52 @@
         }
 
         /* -------------------------------------
-            ULTRA PREMIUM PRELOADER 
+            ULTRA PREMIUM PRELOADER (ADVANCED)
         ---------------------------------------- */
         .preloader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100vh; height: 100dvh;
-            background-color: #010205;
             z-index: 999999;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
-            will-change: transform;
+            pointer-events: all;
         }
 
-        .preloader.slide-up {
-            transform: translateY(-100%);
+        /* Split Screen Doors */
+        .preloader-door {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background-color: #010205;
+            z-index: 1;
+            transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+            will-change: transform;
+        }
+        .top-door { top: 0; }
+        .bottom-door { bottom: 0; }
+
+        .preloader.loaded { pointer-events: none; }
+        .preloader.loaded .top-door { transform: translateY(-100%); }
+        .preloader.loaded .bottom-door { transform: translateY(100%); }
+
+        /* Dynamic Percentage Background */
+        .percentage-counter {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 25vw;
+            color: rgba(255, 255, 255, 0.02);
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.05);
+            z-index: 2;
+            transition: opacity 0.8s ease, transform 1.2s ease;
+            pointer-events: none;
+        }
+        .preloader.loaded .percentage-counter { 
+            opacity: 0; 
+            transform: translate(-50%, -50%) scale(1.1); 
         }
 
         /* New Premium Grid Pattern */
@@ -135,7 +165,7 @@
                 linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
             background-size: 60px 60px;
-            z-index: 1;
+            z-index: 2;
             opacity: 0;
             animation: fadeInGrid 2s ease forwards;
         }
@@ -158,109 +188,74 @@
             100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
         }
 
-        .preloader-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            z-index: 3;
-            width: 100%;
-            padding: 0 15px;
-            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+        .preloader.loaded .preloader-grid, .preloader.loaded .preloader-ambient { 
+            opacity: 0; 
+            transition: opacity 0.8s ease; 
         }
 
-        .preloader.slide-up .preloader-content {
-            transform: translateY(50px) scale(0.95);
+        .preloader-content {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; z-index: 3; width: 100%; padding: 0 15px;
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+        }
+        .preloader.loaded .preloader-content {
+            transform: scale(1.05);
             opacity: 0;
         }
 
         .preloader-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: var(--pl-title-size);
-            color: rgba(255, 255, 255, 0.03); 
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15); 
-            text-transform: uppercase;
-            position: relative;
-            white-space: nowrap;
-            animation: elegantReveal 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+            font-family: 'Bebas Neue', sans-serif; font-size: var(--pl-title-size);
+            color: rgba(255, 255, 255, 0.03); -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15); 
+            text-transform: uppercase; position: relative; white-space: nowrap;
+            animation: elegantReveal 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
 
         .preloader-title::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0; left: 0;
+            content: attr(data-text); position: absolute; top: 0; left: 0;
             color: transparent;
             background: linear-gradient(90deg, transparent 0%, #fff 40%, var(--accent) 50%, #fff 60%, transparent 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            animation: premiumShine 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-            animation-delay: 0.2s;
-            opacity: 0;
-            width: 100%;
+            background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
+            animation: premiumShine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            opacity: 0; width: 100%;
+            animation-delay: 0.5s;
         }
 
         .preloader-subtitle {
-            font-family: 'Syncopate', sans-serif;
-            font-size: var(--pl-sub-size);
-            font-weight: 600;
-            color: var(--text-muted);
-            letter-spacing: var(--pl-sub-space);
-            text-transform: uppercase;
-            margin-top: 10px;
-            margin-right: calc(var(--pl-sub-space) * -1);
-            opacity: 0;
-            white-space: nowrap;
-            transform: translateY(15px);
+            font-family: 'Syncopate', sans-serif; font-size: var(--pl-sub-size);
+            font-weight: 600; color: var(--text-muted); letter-spacing: var(--pl-sub-space);
+            text-transform: uppercase; margin-top: 10px; margin-right: calc(var(--pl-sub-space) * -1);
+            opacity: 0; white-space: nowrap; transform: translateY(15px);
             animation: smoothUp 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-            animation-delay: 1s;
+            animation-delay: 0.8s;
         }
 
         .preloader-progress {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.05);
-            z-index: 5;
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
+            background: rgba(255, 255, 255, 0.05); z-index: 5;
+            transition: opacity 0.5s ease;
         }
+        .preloader.loaded .preloader-progress { opacity: 0; }
 
         .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: var(--accent);
+            height: 100%; width: 0%; background: var(--accent);
             box-shadow: 0 0 15px var(--accent-glow);
             transition: width 0.1s linear;
         }
 
         @keyframes elegantReveal {
-            0% { 
-                transform: scale(0.9); 
-                opacity: 0; 
-                filter: blur(20px); 
-                letter-spacing: var(--pl-letter-space-start); 
-                margin-right: calc(var(--pl-letter-space-start) * -1); 
-            }
-            100% { 
-                transform: scale(1); 
-                opacity: 1; 
-                filter: blur(0); 
-                letter-spacing: var(--pl-letter-space-end); 
-                margin-right: calc(var(--pl-letter-space-end) * -1); 
-            }
+            0% { transform: scale(0.95); opacity: 0; filter: blur(10px); letter-spacing: var(--pl-letter-space-start); }
+            100% { transform: scale(1); opacity: 1; filter: blur(0); letter-spacing: var(--pl-letter-space-end); }
         }
 
         @keyframes premiumShine {
-            0% { background-position: 200% center; opacity: 0; filter: blur(5px); }
-            10% { opacity: 1; filter: blur(0); text-shadow: 0 0 40px rgba(0, 255, 102, 0.3); }
-            90% { opacity: 1; filter: blur(0); text-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
+            0% { background-position: 200% center; opacity: 0; }
+            10% { opacity: 1; filter: drop-shadow(0 0 15px var(--accent-glow)); }
+            90% { opacity: 1; }
             100% { background-position: -100% center; opacity: 0; }
         }
 
         @keyframes smoothUp {
-            to { opacity: 0.6; transform: translateY(0); }
+            to { opacity: 0.8; transform: translateY(0); }
         }
 
         /* -------------------------------------
@@ -645,8 +640,15 @@
 
     <!-- ULTRA PREMIUM DARK PRELOADER -->
     <div id="preloader" class="preloader">
+        <!-- Cinematic Split Doors -->
+        <div class="preloader-door top-door"></div>
+        <div class="preloader-door bottom-door"></div>
+
         <div class="preloader-grid"></div>
         <div class="preloader-ambient"></div>
+        
+        <!-- Large Background Percentage -->
+        <div class="percentage-counter" id="progress-text">0%</div>
         
         <div class="preloader-content">
             <div class="preloader-title" data-text="MODERN PIXELS">MODERN PIXELS</div>
@@ -925,34 +927,38 @@
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             const barEl = document.querySelector('.progress-bar');
+            const progressText = document.getElementById('progress-text');
             
             let progress = 0;
             
             // Faking the loading process elegantly
             const interval = setInterval(() => {
-                // Increment progress randomly for a realistic feel
-                progress += Math.random() * 3 + 1;
+                // Increment progress randomly for a realistic feel (slower at the end)
+                let increment = progress > 80 ? Math.random() * 1.5 : Math.random() * 3 + 1;
+                progress += increment;
                 
                 if (progress >= 100) {
                     progress = 100;
                     clearInterval(interval);
                     
                     if(barEl) barEl.style.width = '100%';
+                    if(progressText) progressText.innerText = '100%';
                     
-                    // Small delay after reaching 100%, then slide up
+                    // Small delay after reaching 100%, then trigger split cinematic reveal
                     setTimeout(() => {
-                        preloader.classList.add('slide-up');
+                        preloader.classList.add('loaded');
                         
-                        // Wait for slide up animation to finish, then hide
+                        // Wait for split door animation to finish, then hide container
                         setTimeout(() => {
                             preloader.style.display = 'none';
                             document.body.style.overflow = ''; 
-                        }, 1200); 
-                    }, 600); // Wait 0.6s at 100%
+                        }, 1500); // Matches the 1.5s door transition
+                    }, 500); 
                 } else {
                     if(barEl) barEl.style.width = progress + '%';
+                    if(progressText) progressText.innerText = Math.floor(progress) + '%';
                 }
-            }, 30); // Interval speed
+            }, 35); // Interval speed
         });
 
         // --- REST OF THE JAVASCRIPT ---
@@ -1075,7 +1081,7 @@
             if (currentImageCount < 1) return currentImageCount;
 
             btnElement.blur();
-            const originalBtnHTML = btnElement.innerHTML; // Changed from innerText to innerHTML to preserve SVG
+            const originalBtnHTML = btnElement.innerHTML;
             btnElement.innerHTML = '<span class="loading-spinner"></span> LOADING...';
             btnElement.style.pointerEvents = "none";
             btnElement.style.opacity = "0.7";
@@ -1121,7 +1127,7 @@
                 });
 
                 if (newCurrentCount >= 1) {
-                    btnElement.innerHTML = originalBtnHTML; // Changed from innerText to innerHTML
+                    btnElement.innerHTML = originalBtnHTML; 
                     btnElement.style.pointerEvents = "auto";
                     btnElement.style.opacity = "1";
                 }
