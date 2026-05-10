@@ -109,7 +109,7 @@
         }
 
         /* -------------------------------------
-            ULTRA PREMIUM PRELOADER (V3 - AWWWARDS LEVEL)
+            ULTRA PREMIUM PRELOADER (ADVANCED)
         ---------------------------------------- */
         .preloader {
             position: fixed;
@@ -119,106 +119,103 @@
             justify-content: center;
             align-items: center;
             pointer-events: all;
-            background: transparent;
         }
 
-        /* 5-Panel Staggered Shutter Reveal */
-        .preloader-panels {
+        /* Split Screen Doors */
+        .preloader-door {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            display: flex;
-            z-index: 1;
-        }
-        .preloader-panel {
-            flex: 1;
-            height: 100%;
+            left: 0;
+            width: 100%;
+            height: 50%;
             background-color: #010205;
-            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 1;
+            transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
             will-change: transform;
-            border-right: 1px solid rgba(255,255,255,0.02);
         }
-        .preloader-panel:last-child { border-right: none; }
-
-        /* Alternating slide directions with Center-Out Delay */
-        .preloader.loaded .preloader-panel:nth-child(1) { transform: translateY(-100%); transition-delay: 0.2s; }
-        .preloader.loaded .preloader-panel:nth-child(2) { transform: translateY(100%); transition-delay: 0.1s; }
-        .preloader.loaded .preloader-panel:nth-child(3) { transform: translateY(-100%); transition-delay: 0s; } /* Center opens first */
-        .preloader.loaded .preloader-panel:nth-child(4) { transform: translateY(100%); transition-delay: 0.1s; }
-        .preloader.loaded .preloader-panel:nth-child(5) { transform: translateY(-100%); transition-delay: 0.2s; }
+        .top-door { top: 0; }
+        .bottom-door { bottom: 0; }
 
         .preloader.loaded { pointer-events: none; }
+        .preloader.loaded .top-door { transform: translateY(-100%); }
+        .preloader.loaded .bottom-door { transform: translateY(100%); }
 
-        /* Animated Noise overlay for Cinematic feel */
-        .preloader-noise {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 2; opacity: 0.05; pointer-events: none;
-            background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
-        }
-        .preloader.loaded .preloader-noise { opacity: 0; transition: opacity 1s ease; }
-
-        .preloader-ambient {
-            position: absolute; width: 60vw; height: 60vw;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
-            border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            filter: blur(100px); z-index: 2; opacity: 0.3;
-            animation: pulseAmbient 4s ease-in-out infinite alternate;
-        }
-
-        /* Tech-Style Large Background Odometer */
-        .tech-counter-wrapper {
+        /* Dynamic Percentage Background */
+        .percentage-counter {
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            pointer-events: none;
-            transition: opacity 0.6s ease, transform 1s cubic-bezier(0.77, 0, 0.175, 1);
-        }
-        .preloader.loaded .tech-counter-wrapper {
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(1.2);
-        }
-        .sys-label {
-            font-family: 'Space Grotesk', sans-serif; font-size: 1rem;
-            color: var(--accent); letter-spacing: 10px; text-transform: uppercase;
-            margin-bottom: -15px; font-weight: 600; opacity: 0.8;
-            animation: flicker 4s infinite;
-        }
-        .percentage-counter {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 22vw;
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
-            position: relative;
-            line-height: 1;
+            font-size: 25vw;
+            color: rgba(255, 255, 255, 0.02);
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.05);
+            z-index: 2;
+            transition: opacity 0.8s ease, transform 1.2s ease;
+            pointer-events: none;
         }
-        .percentage-counter::before {
-            content: attr(data-val); position: absolute; left: 0; top: 0;
-            color: rgba(255, 255, 255, 0.05); z-index: -1;
-            filter: blur(15px);
+        .preloader.loaded .percentage-counter { 
+            opacity: 0; 
+            transform: translate(-50%, -50%) scale(1.1); 
+        }
+
+        /* New Premium Grid Pattern */
+        .preloader-grid {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeInGrid 2s ease forwards;
+        }
+        @keyframes fadeInGrid { to { opacity: 1; } }
+
+        .preloader-ambient {
+            position: absolute;
+            width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(0, 255, 102, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            filter: blur(80px);
+            z-index: 2;
+            animation: pulseAmbient 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseAmbient {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+        }
+
+        .preloader.loaded .preloader-grid, .preloader.loaded .preloader-ambient { 
+            opacity: 0; 
+            transition: opacity 0.8s ease; 
         }
 
         .preloader-content {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             text-align: center; z-index: 3; width: 100%; padding: 0 15px;
-            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease;
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
         }
-        .preloader.loaded .preloader-content { transform: scale(1.1); opacity: 0; }
+        .preloader.loaded .preloader-content {
+            transform: scale(1.05);
+            opacity: 0;
+        }
 
         .preloader-title {
             font-family: 'Bebas Neue', sans-serif; font-size: var(--pl-title-size);
-            color: rgba(255, 255, 255, 0.05); -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2); 
+            color: rgba(255, 255, 255, 0.03); -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15); 
             text-transform: uppercase; position: relative; white-space: nowrap;
             animation: elegantReveal 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
         }
+
         .preloader-title::after {
             content: attr(data-text); position: absolute; top: 0; left: 0;
             color: transparent;
             background: linear-gradient(90deg, transparent 0%, #fff 40%, var(--accent) 50%, #fff 60%, transparent 100%);
             background-size: 200% auto; -webkit-background-clip: text; background-clip: text;
-            animation: premiumShine 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            animation: premiumShine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
             opacity: 0; width: 100%;
             animation-delay: 0.5s;
         }
@@ -232,61 +229,33 @@
             animation-delay: 0.8s;
         }
 
-        /* Scanline effect over the whole preloader */
-        .scanline {
-            position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: rgba(255, 255, 255, 0.1); box-shadow: 0 0 10px var(--accent-glow);
-            z-index: 4; opacity: 0.5;
-            animation: scan 3s linear infinite;
-        }
-
-        @keyframes scan {
-            0% { top: -10%; }
-            100% { top: 110%; }
-        }
-
-        /* Bottom Progress Tracking Bar */
         .preloader-progress {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 4px;
-            background: rgba(255, 255, 255, 0.03); z-index: 5;
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
+            background: rgba(255, 255, 255, 0.05); z-index: 5;
             transition: opacity 0.5s ease;
-            display: flex;
         }
         .preloader.loaded .preloader-progress { opacity: 0; }
 
         .progress-bar {
             height: 100%; width: 0%; background: var(--accent);
-            box-shadow: 0 0 20px var(--accent-glow), 0 0 5px #fff;
+            box-shadow: 0 0 15px var(--accent-glow);
             transition: width 0.1s linear;
-            position: relative;
-        }
-        /* Glowing tip on the progress bar */
-        .progress-bar::after {
-            content: ''; position: absolute; right: 0; top: -2px;
-            width: 8px; height: 8px; background: #fff; border-radius: 50%;
-            box-shadow: 0 0 10px #fff, 0 0 20px var(--accent);
         }
 
         @keyframes elegantReveal {
-            0% { transform: scale(0.9); opacity: 0; filter: blur(15px); letter-spacing: var(--pl-letter-space-start); }
+            0% { transform: scale(0.95); opacity: 0; filter: blur(10px); letter-spacing: var(--pl-letter-space-start); }
             100% { transform: scale(1); opacity: 1; filter: blur(0); letter-spacing: var(--pl-letter-space-end); }
         }
+
         @keyframes premiumShine {
-            0% { background-position: 200% center; opacity: 0; filter: blur(2px); }
-            15% { opacity: 1; filter: drop-shadow(0 0 20px var(--accent-glow)) blur(0); }
-            85% { opacity: 1; }
+            0% { background-position: 200% center; opacity: 0; }
+            10% { opacity: 1; filter: drop-shadow(0 0 15px var(--accent-glow)); }
+            90% { opacity: 1; }
             100% { background-position: -100% center; opacity: 0; }
         }
-        @keyframes smoothUp { to { opacity: 0.9; transform: translateY(0); } }
-        @keyframes pulseAmbient {
-            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.2; }
-            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.4; }
-        }
-        @keyframes flicker {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 0.3; }
-            55% { opacity: 0.9; }
-            60% { opacity: 0.2; }
+
+        @keyframes smoothUp {
+            to { opacity: 0.8; transform: translateY(0); }
         }
 
         /* -------------------------------------
@@ -541,7 +510,9 @@
         @keyframes spinButton { to { transform: rotate(360deg); } }
         .new-item-hidden { pointer-events: none; }
 
-        /* ADVANCED LOAD MORE BUTTON STYLES */
+        /* =========================================
+           ADVANCED LOAD MORE BUTTON STYLES
+           ========================================= */
         .load-more-wrapper {
             text-align: center;
             margin-bottom: 80px;
@@ -574,67 +545,110 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.08);
         }
 
+        /* Animated Glowing Border - Now ALWAYS ON */
         .btn-load-more::before {
-            content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px;
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
             background: linear-gradient(90deg, transparent, var(--accent), transparent, var(--accent), transparent);
-            background-size: 200% 100%; border-radius: 50px; z-index: -2; opacity: 0.7; 
-            animation: borderFlow 3s infinite linear; transition: opacity 0.4s ease, filter 0.4s ease;
+            background-size: 200% 100%;
+            border-radius: 50px;
+            z-index: -2;
+            opacity: 0.7; /* Always visible but slightly dimmed */
+            animation: borderFlow 3s infinite linear; /* Always animating */
+            transition: opacity 0.4s ease, filter 0.4s ease;
         }
 
+        /* Inner Background */
         .btn-load-more::after {
-            content: ''; position: absolute; top: 2px; left: 2px; right: 2px; bottom: 2px;
-            background: rgba(5, 8, 15, 0.95); border-radius: 50px; z-index: -1; transition: background 0.4s ease;
+            content: '';
+            position: absolute;
+            top: 2px; left: 2px; right: 2px; bottom: 2px;
+            background: rgba(5, 8, 15, 0.95);
+            border-radius: 50px;
+            z-index: -1;
+            transition: background 0.4s ease;
         }
 
         .btn-load-more:hover {
-            transform: translateY(-5px) translateZ(0); color: var(--accent);
+            transform: translateY(-5px) translateZ(0);
+            color: var(--accent);
             text-shadow: 0 0 15px var(--accent-glow);
             box-shadow: 0 15px 40px rgba(0,0,0,0.5), 0 0 25px color-mix(in srgb, var(--accent) 15%, transparent);
         }
 
-        .btn-load-more:hover::before { opacity: 1; filter: brightness(1.2) blur(2px); }
-        .btn-load-more:hover::after { background: rgba(2, 4, 10, 0.8); }
-
-        .btn-load-more svg { width: 20px; height: 20px; fill: currentColor; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); filter: drop-shadow(0 0 5px currentColor); }
-        .btn-load-more:hover svg { transform: translateY(4px); }
-
-        @keyframes borderFlow { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-
-        .pulse-ring {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%;
-            border-radius: 50px; border: 1px solid var(--accent); opacity: 0; z-index: -3; pointer-events: none;
+        /* Make it glow brighter on hover */
+        .btn-load-more:hover::before {
+            opacity: 1;
+            filter: brightness(1.2) blur(2px);
         }
-        .btn-load-more:hover .pulse-ring { animation: pulseRingAnim 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
 
-        @keyframes pulseRingAnim { 0% { width: 100%; height: 100%; opacity: 0.8; border-width: 2px; } 100% { width: 120%; height: 150%; opacity: 0; border-width: 0px; } }
+        .btn-load-more:hover::after {
+            background: rgba(2, 4, 10, 0.8);
+        }
 
-        @media (max-width: 576px) { .btn-load-more { padding: 15px 30px; font-size: 0.8rem; letter-spacing: 2px; } .btn-load-more svg { width: 16px; height: 16px; } }
+        /* Arrow Icon Animation */
+        .btn-load-more svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            filter: drop-shadow(0 0 5px currentColor);
+        }
+
+        .btn-load-more:hover svg {
+            transform: translateY(4px);
+        }
+
+        @keyframes borderFlow {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Outer Pulse Ring */
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            border-radius: 50px;
+            border: 1px solid var(--accent);
+            opacity: 0;
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        .btn-load-more:hover .pulse-ring {
+            animation: pulseRingAnim 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+        }
+
+        @keyframes pulseRingAnim {
+            0% { width: 100%; height: 100%; opacity: 0.8; border-width: 2px; }
+            100% { width: 120%; height: 150%; opacity: 0; border-width: 0px; }
+        }
+
+        @media (max-width: 576px) {
+            .btn-load-more { padding: 15px 30px; font-size: 0.8rem; letter-spacing: 2px; }
+            .btn-load-more svg { width: 16px; height: 16px; }
+        }
+
     </style>
 </head>
 <body style="overflow: hidden;">
 
-    <!-- ULTRA PREMIUM DARK PRELOADER V3 -->
+    <!-- ULTRA PREMIUM DARK PRELOADER -->
     <div id="preloader" class="preloader">
-        <!-- Animated Noise Overlay -->
-        <div class="preloader-noise"></div>
-        <div class="scanline"></div>
+        <!-- Cinematic Split Doors -->
+        <div class="preloader-door top-door"></div>
+        <div class="preloader-door bottom-door"></div>
 
-        <!-- 5-Panel Staggered Shutter -->
-        <div class="preloader-panels">
-            <div class="preloader-panel"></div>
-            <div class="preloader-panel"></div>
-            <div class="preloader-panel"></div>
-            <div class="preloader-panel"></div>
-            <div class="preloader-panel"></div>
-        </div>
-
+        <div class="preloader-grid"></div>
         <div class="preloader-ambient"></div>
         
-        <!-- Tech-Style Background Odometer -->
-        <div class="tech-counter-wrapper">
-            <div class="sys-label">SYSTEM_LOAD</div>
-            <div class="percentage-counter" id="progress-text" data-val="000">000</div>
-        </div>
+        <!-- Large Background Percentage -->
+        <div class="percentage-counter" id="progress-text">0%</div>
         
         <div class="preloader-content">
             <div class="preloader-title" data-text="MODERN PIXELS">MODERN PIXELS</div>
@@ -909,7 +923,7 @@
     </div>
 
     <script>
-        // --- ULTRA PREMIUM PRELOADER LOGIC V3 ---
+        // --- ULTRA PREMIUM PRELOADER LOGIC ---
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             const barEl = document.querySelector('.progress-bar');
@@ -919,8 +933,8 @@
             
             // Faking the loading process elegantly
             const interval = setInterval(() => {
-                // Slower near the end for dramatic effect
-                let increment = progress > 85 ? Math.random() * 1.2 : Math.random() * 3 + 1;
+                // Increment progress randomly for a realistic feel (slower at the end)
+                let increment = progress > 80 ? Math.random() * 1.5 : Math.random() * 3 + 1;
                 progress += increment;
                 
                 if (progress >= 100) {
@@ -928,32 +942,23 @@
                     clearInterval(interval);
                     
                     if(barEl) barEl.style.width = '100%';
-                    if(progressText) {
-                        progressText.innerText = '100';
-                        progressText.setAttribute('data-val', '100');
-                    }
+                    if(progressText) progressText.innerText = '100%';
                     
-                    // Trigger the staggered panel reveal
+                    // Small delay after reaching 100%, then trigger split cinematic reveal
                     setTimeout(() => {
                         preloader.classList.add('loaded');
                         
-                        // Clean up after animations finish (1.5s is the longest panel transition)
+                        // Wait for split door animation to finish, then hide container
                         setTimeout(() => {
                             preloader.style.display = 'none';
                             document.body.style.overflow = ''; 
-                        }, 1500); 
-                    }, 400); 
+                        }, 1500); // Matches the 1.5s door transition
+                    }, 500); 
                 } else {
                     if(barEl) barEl.style.width = progress + '%';
-                    
-                    if(progressText) {
-                        // Pad with leading zeros: 004, 045, etc.
-                        let displayNum = Math.floor(progress).toString().padStart(3, '0');
-                        progressText.innerText = displayNum;
-                        progressText.setAttribute('data-val', displayNum); // For the shadow effect
-                    }
+                    if(progressText) progressText.innerText = Math.floor(progress) + '%';
                 }
-            }, 30); // Speed
+            }, 35); // Interval speed
         });
 
         // --- REST OF THE JAVASCRIPT ---
