@@ -76,13 +76,52 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: -4;
+            z-index: -5;
             background-image: url('Backgrounds/background3.webp'); 
             background-size: cover;
             background-position: center;
             background-color: rgba(2, 4, 10, 0.85); 
             background-blend-mode: overlay;
         }
+
+        /* -------------------------------------
+           AMBIENT MOVING GLOW (HIGH PERFORMANCE)
+        ---------------------------------------- */
+        .ambient-glow-container {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh;
+            z-index: -4; pointer-events: none; overflow: hidden;
+        }
+        
+        .glow-orb {
+            position: absolute; border-radius: 50%;
+            will-change: transform;
+        }
+
+        .orb-1 {
+            width: 60vw; height: 60vw; min-width: 400px; min-height: 400px;
+            background: radial-gradient(circle, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 60%);
+            top: -20%; left: -10%;
+            animation: floatOrb1 25s infinite alternate ease-in-out;
+        }
+
+        .orb-2 {
+            width: 70vw; height: 70vw; min-width: 500px; min-height: 500px;
+            /* Constant Green Glow */
+            background: radial-gradient(circle, rgba(0, 255, 102, 0.10) 0%, transparent 60%);
+            bottom: -20%; right: -10%;
+            animation: floatOrb2 30s infinite alternate-reverse ease-in-out;
+        }
+
+        .orb-3 {
+            width: 50vw; height: 50vw; min-width: 300px; min-height: 300px;
+            background: radial-gradient(circle, color-mix(in srgb, var(--accent) 8%, transparent) 0%, transparent 60%);
+            top: 30%; left: 30%;
+            animation: floatOrb3 35s infinite alternate ease-in-out;
+        }
+
+        @keyframes floatOrb1 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(30vw, 20vh) scale(1.2); } }
+        @keyframes floatOrb2 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-40vw, -30vh) scale(1.1); } }
+        @keyframes floatOrb3 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-20vw, 40vh) scale(1.3); } }
 
         /* -------------------------------------
            TINY BLINKING STARS (HIGH PERFORMANCE)
@@ -271,7 +310,6 @@
         .multi-row-wrapper { margin-bottom: 20px; opacity: 0; transform: translate3d(0, 40px, 0); transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, opacity; }
         .multi-row-wrapper.visible { opacity: 1; transform: translate3d(0, 0, 0); }
         
-        /* The container hides native overflow, track does the scrolling */
         .horizontal-grid { 
             position: relative; 
             overflow: hidden; 
@@ -279,7 +317,6 @@
             opacity: 1;
         }
         
-        /* This track is moved by JS transform for buttery smooth animation */
         .scroll-track {
             display: flex;
             flex-wrap: nowrap;
@@ -550,6 +587,13 @@
     </style>
 </head>
 <body>
+
+    <!-- AMBIENT MOVING GLOW (NEW) -->
+    <div class="ambient-glow-container">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
 
     <!-- MAGIC STARS CONTAINER -->
     <div id="magic-stars-container"></div>
