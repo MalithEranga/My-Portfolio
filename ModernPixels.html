@@ -76,52 +76,13 @@
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: -5;
+            z-index: -4;
             background-image: url('Backgrounds/background3.webp'); 
             background-size: cover;
             background-position: center;
             background-color: rgba(2, 4, 10, 0.85); 
             background-blend-mode: overlay;
         }
-
-        /* -------------------------------------
-           AMBIENT MOVING GLOW (HIGH PERFORMANCE)
-        ---------------------------------------- */
-        .ambient-glow-container {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh;
-            z-index: -4; pointer-events: none; overflow: hidden;
-        }
-        
-        .glow-orb {
-            position: absolute; border-radius: 50%;
-            will-change: transform;
-        }
-
-        .orb-1 {
-            width: 60vw; height: 60vw; min-width: 400px; min-height: 400px;
-            background: radial-gradient(circle, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 60%);
-            top: -20%; left: -10%;
-            animation: floatOrb1 25s infinite alternate ease-in-out;
-        }
-
-        .orb-2 {
-            width: 70vw; height: 70vw; min-width: 500px; min-height: 500px;
-            /* Constant Green Glow */
-            background: radial-gradient(circle, rgba(0, 255, 102, 0.10) 0%, transparent 60%);
-            bottom: -20%; right: -10%;
-            animation: floatOrb2 30s infinite alternate-reverse ease-in-out;
-        }
-
-        .orb-3 {
-            width: 50vw; height: 50vw; min-width: 300px; min-height: 300px;
-            background: radial-gradient(circle, color-mix(in srgb, var(--accent) 8%, transparent) 0%, transparent 60%);
-            top: 30%; left: 30%;
-            animation: floatOrb3 35s infinite alternate ease-in-out;
-        }
-
-        @keyframes floatOrb1 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(30vw, 20vh) scale(1.2); } }
-        @keyframes floatOrb2 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-40vw, -30vh) scale(1.1); } }
-        @keyframes floatOrb3 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-20vw, 40vh) scale(1.3); } }
 
         /* -------------------------------------
            TINY BLINKING STARS (HIGH PERFORMANCE)
@@ -254,10 +215,59 @@
 
         .container { max-width: 1400px; margin: 0 auto; padding: 160px 2% 50px 2%; position: relative; z-index: 1; overflow-x: hidden; }
 
-        .brand-header { text-align: center; margin-bottom: 120px; opacity: 0; transform: translateY(-20px); animation: fadeInDown 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: 3s; display: flex; flex-direction: column; align-items: center; will-change: transform, opacity; }
-        .logo-container { margin-bottom: 25px; position: relative; }
-        .brand-logo { max-width: 380px; width: 100%; height: auto; transition: all 0.4s ease; will-change: transform; }
-        .brand-logo:hover { transform: scale(1.05) translateY(-3px); }
+        /* =======================================================
+           PREMIUM NEON LOGO GLOW (Clean & Centered)
+           ======================================================= */
+        .brand-header { 
+            text-align: center; margin-bottom: 120px; opacity: 0; 
+            transform: translateY(-20px); animation: fadeInDown 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; 
+            animation-delay: 3s; display: flex; flex-direction: column; align-items: center; 
+            will-change: transform, opacity; position: relative; z-index: 2;
+        }
+        
+        .logo-container { 
+            margin-bottom: 25px; 
+            position: relative; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* The Concentrated Glowing Mesh behind the Logo */
+        .logo-glow-mesh {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 160%; height: 160%;
+            transform: translate(-50%, -50%);
+            background: 
+                radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--accent) 70%, transparent), transparent 55%),
+                radial-gradient(circle at 70% 70%, color-mix(in srgb, var(--accent-alt) 70%, transparent), transparent 55%),
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1), transparent 60%);
+            filter: blur(50px);
+            opacity: 0.6;
+            z-index: -1;
+            border-radius: 50%;
+            animation: meshSpin 12s infinite linear;
+            pointer-events: none;
+            will-change: transform;
+        }
+
+        /* Enhances the glow when Magic Mode is ON */
+        body.magic-mode .logo-glow-mesh {
+            opacity: 0.95;
+            filter: blur(40px);
+            animation: meshSpin 8s infinite linear, corePulse 3s infinite alternate;
+        }
+
+        @keyframes meshSpin {
+            0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+            50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.1); }
+            100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
+        }
+
+        .brand-logo { max-width: 380px; width: 100%; height: auto; transition: all 0.4s ease; will-change: transform; position: relative; z-index: 1;}
+        .brand-logo:hover { transform: scale(1.05) translateY(-3px); filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
+        
         .founder-name { font-size: 1.1rem; color: var(--text-muted); letter-spacing: 6px; text-transform: uppercase; font-weight: 500; margin-top: 10px; background: linear-gradient(90deg, #cbd5e1, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .section-heading { font-family: 'Syncopate', sans-serif; font-size: 2.2rem; color: transparent; -webkit-text-stroke: 1px var(--accent); background: linear-gradient(90deg, #fff, var(--accent)); -webkit-background-clip: text; background-clip: text; margin-bottom: 40px; padding-top: 80px; margin-top: -40px; letter-spacing: 4px; display: block; position: relative; text-transform: uppercase; opacity: 0; transform: translate3d(0, 40px, 0); transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, opacity; margin-left: 3%; }
@@ -310,6 +320,7 @@
         .multi-row-wrapper { margin-bottom: 20px; opacity: 0; transform: translate3d(0, 40px, 0); transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, opacity; }
         .multi-row-wrapper.visible { opacity: 1; transform: translate3d(0, 0, 0); }
         
+        /* The container hides native overflow, track does the scrolling */
         .horizontal-grid { 
             position: relative; 
             overflow: hidden; 
@@ -317,6 +328,7 @@
             opacity: 1;
         }
         
+        /* This track is moved by JS transform for buttery smooth animation */
         .scroll-track {
             display: flex;
             flex-wrap: nowrap;
@@ -537,8 +549,11 @@
             .container { padding: 140px 0 50px 0; } 
             .about-modern-container, .services-grid, .pricing-grid, .custom-package-banner, .contact-container, .load-more-wrapper { padding: 0 5%; } 
             .section-heading { font-size: 1.6rem; margin-left: 5%; } 
-            .brand-logo { max-width: 280px; } 
             
+            /* NEON LOGO MESH MOBILE OVERRIDES */
+            .logo-glow-mesh { width: 180%; height: 180%; filter: blur(40px); }
+            .brand-logo { max-width: 280px; } 
+
             /* ABOUT SECTION MOBILE GRID FIX */
             .about-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
             .about-title { font-size: 2.2rem; }
@@ -587,13 +602,6 @@
     </style>
 </head>
 <body>
-
-    <!-- AMBIENT MOVING GLOW (NEW) -->
-    <div class="ambient-glow-container">
-        <div class="glow-orb orb-1"></div>
-        <div class="glow-orb orb-2"></div>
-        <div class="glow-orb orb-3"></div>
-    </div>
 
     <!-- MAGIC STARS CONTAINER -->
     <div id="magic-stars-container"></div>
@@ -659,8 +667,11 @@
             <div class="bulb-group b4"><div class="wire"></div><div class="bulb"></div></div>
         </div>
 
+        <!-- NEW CLEAN NEON MESH GLOW BEHIND LOGO -->
         <header class="brand-header">
             <div class="logo-container">
+                <!-- This creates the rotating glowing aura -->
+                <div class="logo-glow-mesh"></div>
                 <img src="Modern Pixels/MODERNPIXELS.png" alt="Modern Pixels Logo" class="brand-logo">
             </div>
             <div class="founder-name">Modern Pixels by Malith Eranga</div>
