@@ -199,6 +199,9 @@
 
         .mobile-menu-btn { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
         .mobile-menu-btn span { width: 24px; height: 2px; background: #fff; transition: all 0.3s ease; border-radius: 2px; }
+        .mobile-menu-btn.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--accent); }
+        .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--accent); }
 
         .floating-logos { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; opacity: 0.15; will-change: transform; }
         .floating-logos img { position: absolute; max-width: 60px; filter: grayscale(100%) invert(100%); animation: floatLogos 25s infinite alternate ease-in-out; will-change: transform; }
@@ -264,12 +267,27 @@
         .stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem; color: #fff; letter-spacing: 3px; line-height: 1; text-shadow: 0 0 20px rgba(255,255,255,0.2); }
         .stat-label { color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; transition: color 0.8s ease; }
 
-        /* MULTI-ROW GRIDS */
+        /* MULTI-ROW GRIDS (Hardware Accelerated Scroll) */
         .multi-row-wrapper { margin-bottom: 20px; opacity: 0; transform: translate3d(0, 40px, 0); transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, opacity; }
         .multi-row-wrapper.visible { opacity: 1; transform: translate3d(0, 0, 0); }
         
-        .horizontal-grid { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 20px; scroll-behavior: auto; -ms-overflow-style: none; scrollbar-width: none;  padding-left: 3%; padding-right: 3%; opacity: 1; will-change: scroll-position; transform: translateZ(0); }
-        .horizontal-grid::-webkit-scrollbar { display: none; }
+        /* The container hides native overflow, track does the scrolling */
+        .horizontal-grid { 
+            position: relative; 
+            overflow: hidden; 
+            padding-left: 3%; padding-right: 3%; 
+            opacity: 1;
+        }
+        
+        /* This track is moved by JS transform for buttery smooth animation */
+        .scroll-track {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 20px;
+            will-change: transform;
+            transform: translateZ(0); 
+        }
+
         .glass-image-card { flex: 0 0 280px; max-width: 280px; position: relative; cursor: pointer; will-change: transform; transform: translateZ(0); transition: transform 0.3s ease; }
         .img-wrapper { width: 100%; border-radius: 12px; overflow: hidden; position: relative; display: block; min-height: 200px; transition: box-shadow 0.4s ease; }
         .img-wrapper img { width: 100%; height: auto; display: block; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s ease, opacity 0.4s ease; filter: brightness(0.95); opacity: 0; will-change: transform, opacity; }
@@ -292,7 +310,7 @@
         .new-item-hidden { pointer-events: none; }
 
         .load-more-wrapper { text-align: center; margin-bottom: 80px; position: relative; display: flex; justify-content: center; }
-        .btn-load-more { position: relative; display: inline-flex; align-items: center; justify-content: gap: 12px; padding: 18px 45px; background: rgba(5, 8, 15, 0.4); color: #fff; font-family: 'Syncopate', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 3px; border-radius: 50px; border: none; cursor: pointer; overflow: visible; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 1; box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.08); }
+        .btn-load-more { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 18px 45px; background: rgba(5, 8, 15, 0.4); color: #fff; font-family: 'Syncopate', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 3px; border-radius: 50px; border: none; cursor: pointer; overflow: visible; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 1; box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.08); }
         .btn-load-more::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(90deg, transparent, var(--accent), transparent, var(--accent), transparent); background-size: 200% 100%; border-radius: 50px; z-index: -2; opacity: 0.7; animation: borderFlow 3s infinite linear; transition: opacity 0.4s ease, filter 0.4s ease; }
         .btn-load-more::after { content: ''; position: absolute; top: 2px; left: 2px; right: 2px; bottom: 2px; background: rgba(5, 8, 15, 0.95); border-radius: 50px; z-index: -1; transition: background 0.4s ease; }
         .btn-load-more:hover { transform: translateY(-5px) translateZ(0); color: var(--accent); box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
@@ -341,8 +359,7 @@
         .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; padding: 0 3%; margin-top: 20px; margin-bottom: 60px; }
         .pricing-card { 
             position: relative; background: rgba(10, 15, 25, 0.8); border-radius: 20px; 
-            padding: 2px; /* space for the glowing border */
-            overflow: hidden; z-index: 1; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); 
+            padding: 2px; overflow: hidden; z-index: 1; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); 
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
         .pricing-card::before { 
@@ -445,6 +462,34 @@
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
 
         /* COMPACT & NEON MOBILE SIZING */
+        @media (max-width: 992px) {
+            /* MOBILE MENU DROPDOWN FIX */
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                right: 0;
+                background: rgba(5, 8, 15, 0.95);
+                backdrop-filter: blur(25px);
+                -webkit-backdrop-filter: blur(25px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 16px;
+                padding: 25px;
+                width: 250px;
+                box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+                text-align: center;
+                gap: 20px;
+            }
+            .nav-links.active {
+                display: flex;
+                animation: fadeInDown 0.3s ease forwards;
+            }
+            .mobile-menu-btn {
+                display: flex;
+            }
+        }
+        
         @media (max-width: 768px) { 
             :root { transition: none !important; } 
             .space-system { transform: scale(0.65); height: 300px; } 
@@ -457,6 +502,13 @@
             .section-heading { font-size: 1.6rem; margin-left: 5%; } 
             .brand-logo { max-width: 280px; } 
             
+            /* ABOUT SECTION MOBILE GRID FIX */
+            .about-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+            .about-title { font-size: 2.2rem; }
+            .about-text-content { font-size: 0.95rem; text-align: center; }
+            .about-stats { justify-content: center; flex-wrap: wrap; gap: 30px; }
+            .stat-value { font-size: 2.5rem; }
+
             /* COMPACT MOBILE OVERRIDES */
             .services-grid { gap: 15px; grid-template-columns: 1fr; margin-bottom: 50px; }
             .service-card { padding: 25px 20px; border-radius: 14px; background: rgba(10, 15, 25, 0.98); }
@@ -470,7 +522,7 @@
             .pricing-card-content { padding: 25px 20px; }
             .package-title { font-size: 1.1rem; margin-bottom: 15px; padding-bottom: 12px; }
             .package-features { margin-bottom: 20px; }
-            .package-features li { font-size: 0.85rem; margin-bottom: 10px; padding-left: 25px; }
+            .package-features li { font-size: 0.85rem; margin-bottom: 10px; padding-left: 25px; text-align: left; }
             .package-features li::before { font-size: 1rem; top: 0; }
             .price-calculator { padding: 15px 12px; border-radius: 10px; }
             .lkr-value { font-size: 1.4rem; }
@@ -489,14 +541,15 @@
             .whatsapp-btn svg { width: 20px; height: 20px; }
         }
         @media (max-width: 480px) {
-            .horizontal-grid { gap: 12px; padding-left: 5%; padding-right: 5%; }
+            .horizontal-grid { padding-left: 5%; padding-right: 5%; }
+            .scroll-track { gap: 12px; }
             .glass-image-card { flex: 0 0 140px; max-width: 140px; }
             .img-wrapper { min-height: 120px; border-radius: 8px; }
         }
 
     </style>
 </head>
-<body style="overflow: hidden;">
+<body>
 
     <!-- MAGIC STARS CONTAINER -->
     <div id="magic-stars-container"></div>
@@ -893,14 +946,12 @@
         mobileMenuBtn.addEventListener('click', () => {
             mobileMenuBtn.classList.toggle('active');
             navLinks.classList.toggle('active');
-            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
         });
 
         navItems.forEach(item => {
             item.addEventListener('click', function(e) {
                 mobileMenuBtn.classList.remove('active');
                 navLinks.classList.remove('active');
-                document.body.style.overflow = 'auto';
 
                 const targetId = this.getAttribute('href');
                 if (targetId.startsWith('#')) {
@@ -928,16 +979,6 @@
             }
         });
 
-        const focusObserverOptions = { root: null, rootMargin: '-35% 0px -35% 0px', threshold: 0 };
-        const focusObserver = new IntersectionObserver((entries) => {
-            if (window.innerWidth <= 768) { 
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('focused');
-                    else entry.target.classList.remove('focused');
-                });
-            }
-        }, focusObserverOptions);
-
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const closeBtn = document.querySelector('.close-lightbox');
@@ -952,7 +993,7 @@
 
 
         // ==========================================
-        //  DYNAMIC ROW GENERATION & SCROLL LOGIC 
+        //  DYNAMIC ROW GENERATION & SMOOTH SCROLL 
         // ==========================================
         const imagesPerLoad = 6; 
 
@@ -961,21 +1002,20 @@
             tute:   { currentCount: 22,  wrapperId: 'tute-wrapper',  folder: 'Tute Cover Design', altText: 'Tute Cover',        rowCount: 0, btnId: 'loadMoreTuteBtn' },
         };
 
-        // HARDWARE ACCELERATED & FRAME RATE INDEPENDENT AUTO SCROLL
-        function startAutoScroll(gridElement, direction) {
-            let speedPerSecond = window.innerWidth <= 768 ? 15 : 35; 
-            
-            let exactScroll = gridElement.scrollLeft;
+        // NEW HARDWARE ACCELERATED SUB-PIXEL SCROLL (Fixes Stuttering completely)
+        function startAutoScroll(track, direction, initialScroll = 0) {
+            let speedPerSecond = window.innerWidth <= 768 ? 20 : 40; 
+            let exactScroll = initialScroll;
             let isHovered = false;
             let lastTime = 0;
 
-            gridElement.addEventListener('mouseenter', () => isHovered = true);
-            gridElement.addEventListener('mouseleave', () => { isHovered = false; lastTime = 0; });
-            gridElement.addEventListener('touchstart', () => isHovered = true, {passive: true});
-            gridElement.addEventListener('touchend', () => { isHovered = false; lastTime = 0; });
+            track.addEventListener('mouseenter', () => isHovered = true);
+            track.addEventListener('mouseleave', () => { isHovered = false; lastTime = 0; });
+            track.addEventListener('touchstart', () => isHovered = true, {passive: true});
+            track.addEventListener('touchend', () => { isHovered = false; lastTime = 0; });
 
             window.addEventListener('resize', () => {
-                speedPerSecond = window.innerWidth <= 768 ? 15 : 35;
+                speedPerSecond = window.innerWidth <= 768 ? 20 : 40;
             }, {passive: true});
 
             function scroll(currentTime) {
@@ -985,48 +1025,45 @@
 
                 if (deltaTime > 50) deltaTime = 16; 
 
-                if (!isHovered && gridElement.children.length > 1) {
+                if (!isHovered && track.children.length > 1) {
                     let gap = window.innerWidth <= 768 ? 15 : 20; 
                     
                     let scrollAmount = (speedPerSecond * deltaTime) / 1000;
 
                     if (direction === 'left') {
                         exactScroll += scrollAmount;
-                        gridElement.scrollLeft = exactScroll;
                         
-                        if (gridElement.firstElementChild && exactScroll >= (gridElement.firstElementChild.offsetWidth + gap)) {
-                            let itemWidth = gridElement.firstElementChild.offsetWidth + gap;
-                            gridElement.appendChild(gridElement.firstElementChild);
+                        if (track.firstElementChild && exactScroll >= (track.firstElementChild.offsetWidth + gap)) {
+                            let itemWidth = track.firstElementChild.offsetWidth + gap;
+                            track.appendChild(track.firstElementChild);
                             exactScroll -= itemWidth;
-                            gridElement.scrollLeft = exactScroll;
                         }
                     } else if (direction === 'right') {
-                        if (gridElement.lastElementChild && exactScroll <= 0) {
-                            let itemWidth = gridElement.lastElementChild.offsetWidth + gap;
-                            gridElement.prepend(gridElement.lastElementChild);
+                        if (track.lastElementChild && exactScroll <= 0) {
+                            let itemWidth = track.lastElementChild.offsetWidth + gap;
+                            track.prepend(track.lastElementChild);
                             exactScroll += itemWidth;
-                            gridElement.scrollLeft = exactScroll;
                         }
                         exactScroll -= scrollAmount;
-                        gridElement.scrollLeft = exactScroll;
                     }
-                } else {
-                    exactScroll = gridElement.scrollLeft;
+                    
+                    // Hardware accelerated translate3d
+                    track.style.transform = `translate3d(${-exactScroll}px, 0, 0)`;
                 }
                 requestAnimationFrame(scroll);
             }
             requestAnimationFrame(scroll);
         }
 
-        function makeGridInfiniteReady(grid) {
-            const children = Array.from(grid.children);
+        function makeGridInfiniteReady(track) {
+            const children = Array.from(track.children);
             children.forEach(child => {
                 const clone = child.cloneNode(true);
                 clone.onclick = function() {
                     const img = this.querySelector('img');
                     if(img) { lightbox.classList.add('active'); lightboxImg.src = img.src; document.body.style.overflow = 'hidden'; }
                 };
-                grid.appendChild(clone);
+                track.appendChild(clone);
             });
         }
 
@@ -1034,12 +1071,7 @@
             return new Promise((resolve) => {
                 const sec = sectionState[sectionKey];
                 
-                if (!sec) {
-                    resolve();
-                    return;
-                }
-
-                if (sec.currentCount < 1) {
+                if (!sec || sec.currentCount < 1) {
                     resolve();
                     return;
                 }
@@ -1065,6 +1097,10 @@
                 newGrid.style.paddingTop = '5px';
                 newGrid.style.paddingBottom = '5px';
 
+                // Track div wrapper for transform animation
+                const track = document.createElement('div');
+                track.className = 'scroll-track';
+
                 let endImage = sec.currentCount - imagesPerLoad + 1;
                 if (endImage < 1) endImage = 1;
 
@@ -1081,12 +1117,14 @@
                     `;
                 }
 
-                newGrid.innerHTML = cardsHTML;
+                track.innerHTML = cardsHTML;
+                newGrid.appendChild(track);
+                
                 if (wrapper) wrapper.appendChild(newGrid);
 
                 sec.currentCount = endImage - 1;
 
-                const newCards = Array.from(newGrid.querySelectorAll('.new-item-hidden'));
+                const newCards = Array.from(track.querySelectorAll('.new-item-hidden'));
                 const newImages = newCards.map(card => card.querySelector('img'));
 
                 Promise.all(newImages.map(img => new Promise(res => {
@@ -1113,13 +1151,14 @@
                     });
 
                     setTimeout(() => {
-                        makeGridInfiniteReady(newGrid);
+                        makeGridInfiniteReady(track);
                         
+                        let initialScroll = 0;
                         if (direction === 'right') {
-                            newGrid.scrollLeft = newGrid.scrollWidth / 2;
+                            initialScroll = track.scrollWidth / 2;
                         }
                         
-                        startAutoScroll(newGrid, direction);
+                        startAutoScroll(track, direction, initialScroll);
 
                         if (btn) {
                             btn.style.pointerEvents = 'auto';
