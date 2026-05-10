@@ -1046,6 +1046,20 @@
         themeBtn.addEventListener('click', () => {
             document.body.classList.toggle('light-theme');
             themeBtn.classList.toggle('active');
+
+            // --- Update Logos Based on Theme ---
+            const isLight = document.body.classList.contains('light-theme');
+            const logoPath = isLight ? 'Modern Pixels/Modern Pixels Light.png' : 'Modern Pixels/MODERNPIXELS.png';
+            
+            const brandLogo = document.querySelector('.brand-logo');
+            if(brandLogo) brandLogo.src = logoPath;
+            
+            const footerLogo = document.querySelector('.site-footer img');
+            if(footerLogo) footerLogo.src = logoPath;
+
+            document.querySelectorAll('.floating-logos img').forEach(img => {
+                img.src = logoPath;
+            });
         });
 
         // --- PRELOADER LOGIC ---
