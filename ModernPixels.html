@@ -502,7 +502,6 @@
             <li><a href="#about">About</a></li>
             <li><a href="#social">Social Media</a></li>
             <li><a href="#tute">Tute Covers</a></li>
-            <!-- <li><a href="#other">Others</a></li> --> 
             <li><a href="#services">Services</a></li>
             <li><a href="#packages">Packages</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -883,11 +882,11 @@
         };
 
         function startAutoScroll(gridElement, direction) {
-            if (window.innerWidth <= 768) {
-                return; 
-            }
+            // මෙහි තිබූ if (window.innerWidth <= 768) කොටස ඉවත් කර ඇත, 
+            // ඒ නිසා දැන් Mobile වලදීත් Auto Scroll එක වැඩ කරයි.
 
-            let scrollSpeed = 0.5;
+            let scrollSpeed = 0.5; // <-- අවශ්‍ය නම් මෙතනින් speed එක වෙනස් කරන්න
+            let exactScroll = gridElement.scrollLeft;
             let isHovered = false;
 
             gridElement.addEventListener('mouseenter', () => isHovered = true);
@@ -900,21 +899,27 @@
                     let gap = 20;
                     
                     if (direction === 'left') {
-                        gridElement.scrollLeft += scrollSpeed;
+                        exactScroll += scrollSpeed;
+                        gridElement.scrollLeft = exactScroll;
                         
                         if (gridElement.firstElementChild && gridElement.scrollLeft >= (gridElement.firstElementChild.offsetWidth + gap)) {
                             let itemWidth = gridElement.firstElementChild.offsetWidth + gap;
                             gridElement.appendChild(gridElement.firstElementChild);
-                            gridElement.scrollLeft -= itemWidth;
+                            exactScroll -= itemWidth;
+                            gridElement.scrollLeft = exactScroll;
                         }
                     } else if (direction === 'right') {
                         if (gridElement.lastElementChild && gridElement.scrollLeft <= 0) {
                             let itemWidth = gridElement.lastElementChild.offsetWidth + gap;
                             gridElement.prepend(gridElement.lastElementChild);
-                            gridElement.scrollLeft += itemWidth;
+                            exactScroll += itemWidth;
+                            gridElement.scrollLeft = exactScroll;
                         }
-                        gridElement.scrollLeft -= scrollSpeed;
+                        exactScroll -= scrollSpeed;
+                        gridElement.scrollLeft = exactScroll;
                     }
+                } else {
+                    exactScroll = gridElement.scrollLeft;
                 }
                 requestAnimationFrame(scroll);
             }
