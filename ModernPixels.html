@@ -473,57 +473,107 @@
         .section-heading.visible { opacity: 1; transform: translate3d(0, 0, 0); }
         .section-heading::after { content: ''; position: absolute; bottom: -12px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: var(--accent); transition: width 0.6s ease, background 0.6s ease; }
 
-        /* ABOUT SECTION */
-        .about-modern-container { margin-bottom: 120px; opacity: 0; transform: translate3d(0, 40px, 0); transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, opacity; padding: 0 3%; }
+        /* =======================================================
+           ADVANCED ABOUT SECTION
+           ======================================================= */
+        .about-modern-container { margin-bottom: 120px; opacity: 0; transform: translate3d(0, 40px, 0); transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, opacity; padding: 0 3%; position: relative; z-index: 5;}
         .about-modern-container.visible { opacity: 1; transform: translate3d(0, 0, 0); }
         .about-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 70px; align-items: center; }
         .about-visual { position: relative; }
 
-        .hanging-bulbs { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
-        .bulb-group { position: absolute; top: 0; transform-origin: top center; }
-        .b1 { left: 15%; animation: swing 7s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate; } .b2 { left: 35%; animation: swing 8s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate-reverse; } .b3 { left: 70%; animation: swing 6.5s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate; } .b4 { left: 88%; animation: swing 7.5s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate-reverse; }
-        .wire { width: 1.5px; background: linear-gradient(to right, #0a0a0f, #3a3a4a, #0a0a0f); margin: 0 auto; box-shadow: 0 0 2px rgba(255,255,255,0.05); transition: background 0.8s ease; }
-        .b1 .wire { height: 180px; } .b2 .wire { height: 80px; } .b3 .wire { height: 130px; } .b4 .wire { height: 220px; }
+        /* Holographic Planet Core */
+        .planet-wrapper { position: relative; width: 100%; min-height: 450px; display: flex; align-items: center; justify-content: center; z-index: 2; perspective: 1000px; }
+        .advanced-core { position: relative; width: 100%; height: 450px; display: flex; justify-content: center; align-items: center; transform-style: preserve-3d; transform: rotateX(10deg); transition: all 0.5s ease; }
         
-        .bulb { width: 28px; height: 45px; margin: 0 auto; position: relative; border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%; background: rgba(255, 255, 255, 0.01); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); box-shadow: inset 3px 3px 8px rgba(255, 255, 255, 0.15), inset -3px -3px 12px rgba(0, 0, 0, 0.8), inset 0 -15px 15px rgba(255, 255, 255, 0.02); transition: all 0.8s ease; }
-        .bulb::before { content: ''; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 14px; height: 14px; background: linear-gradient(90deg, #111, #444 30%, #222 60%, #050505); border-radius: 2px 2px 0 0; box-shadow: inset 0 -2px 5px rgba(0,0,0,0.8); z-index: 3; transition: all 0.8s ease; }
-        .bulb::after { content: ''; position: absolute; top: 20%; left: 50%; transform: translateX(-50%); width: 3px; height: 50%; background: #fff; border-radius: 10px; opacity: 0.05; transition: all 0.8s ease; z-index: 2; }
-        @keyframes swing { 0% { transform: rotate(2deg); } 100% { transform: rotate(-2deg); } }
+        .planet-center { width: 80px; height: 80px; background: radial-gradient(circle at 30% 30%, #fff 0%, color-mix(in srgb, var(--accent) 30%, transparent) 50%, #02040a 100%); border-radius: 50%; box-shadow: 0 0 50px rgba(255, 255, 255, 0.2), inset -10px -10px 20px rgba(0,0,0,0.8), 0 0 40px var(--accent-glow); z-index: 10; position: relative; display: flex; justify-content: center; align-items: center; }
+        body.light-theme .planet-center { background: radial-gradient(circle at 30% 30%, #fff 0%, #cbd5e1 50%, #0f172a 100%); box-shadow: 0 0 40px rgba(0,0,0,0.1); }
         
-        body.magic-mode .bulb { box-shadow: inset 3px 3px 8px rgba(255, 255, 255, 0.25), inset -3px -3px 12px rgba(0, 0, 0, 0.8), inset 0 -15px 15px rgba(255, 255, 255, 0.04), 0 20px 45px var(--accent-glow), 0 0 90px color-mix(in srgb, var(--accent) 40%, transparent); }
-        body.magic-mode .bulb::after { animation: corePulse 1.5s infinite alternate cubic-bezier(0.4, 0, 0.6, 1); } 
-        @keyframes corePulse { 0% { opacity: 0.85; box-shadow: 0 0 5px #fff, 0 0 15px var(--accent); } 100% { opacity: 1; box-shadow: 0 0 15px #fff, 0 0 35px var(--accent), 0 0 60px var(--accent); } }
-        body.magic-mode .b1 { animation-duration: 4s; } body.magic-mode .b2 { animation-duration: 4.5s; } body.magic-mode .b3 { animation-duration: 3.5s; } body.magic-mode .b4 { animation-duration: 4.2s; } 
+        /* Layered Glowing Rings */
+        .core-ring { position: absolute; border-radius: 50%; border: 1px solid transparent; border-top-color: var(--accent); border-bottom-color: var(--accent); opacity: 0.6; animation: spinRing linear infinite; }
+        .r1 { width: 110px; height: 110px; animation-duration: 4s; }
+        .r2 { width: 130px; height: 130px; animation-duration: 7s; animation-direction: reverse; border-left-color: var(--accent-alt); border-right-color: var(--accent-alt); border-top-color: transparent; border-bottom-color: transparent; opacity: 0.4; }
+        .r3 { width: 150px; height: 150px; border: 1px dashed color-mix(in srgb, var(--accent) 50%, transparent); animation-duration: 12s; }
+        @keyframes spinRing { 100% { transform: rotate(360deg); } }
 
-        .planet-wrapper { position: relative; width: 100%; min-height: 400px; display: flex; align-items: center; justify-content: center; z-index: 2; }
-        .space-system { position: relative; width: 100%; height: 400px; display: flex; justify-content: center; align-items: center; transition: all 0.5s ease; }
-        body.magic-mode .space-system { animation: spacePulse 3s infinite alternate; } 
-        @keyframes spacePulse { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
+        /* Advanced Orbits with Hovering Skills */
+        .orbit { position: absolute; top: 50%; left: 50%; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.08); transform: translate(-50%, -50%); animation: orbitSpin infinite linear; transform-style: preserve-3d; }
+        body.light-theme .orbit { border-color: rgba(0,0,0,0.1); }
+        
+        .orbit-1 { width: 220px; height: 220px; animation-duration: 15s; } 
+        .orbit-2 { width: 300px; height: 300px; animation-duration: 22s; animation-direction: reverse; border-style: dashed; } 
+        .orbit-3 { width: 380px; height: 380px; animation-duration: 30s; }
+        .orbit-4 { width: 460px; height: 460px; animation-duration: 40s; animation-direction: reverse; border-color: color-mix(in srgb, var(--accent) 20%, transparent); }
 
-        .planet-center { width: 90px; height: 90px; background: #ffffff; border-radius: 50%; box-shadow: 0 0 50px rgba(255, 255, 255, 0.6), inset -15px -15px 25px rgba(0, 0, 0, 0.4), inset 10px 10px 20px rgba(255, 255, 255, 0.9), 0 0 30px rgba(0, 255, 102, 0.2); z-index: 10; animation: planetPulse 6s infinite alternate ease-in-out; will-change: transform, box-shadow; transition: all 0.8s ease; }
-        body.magic-mode .planet-center { animation-duration: 3s; box-shadow: 0 0 70px rgba(255, 255, 255, 0.8), inset -15px -15px 25px rgba(0, 0, 0, 0.4), 0 0 60px var(--accent-glow); }
-        @keyframes planetPulse { 0% { transform: scale(1); box-shadow: 0 0 40px rgba(255, 255, 255, 0.5), inset -15px -15px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 255, 102, 0.15); } 100% { transform: scale(1.05); box-shadow: 0 0 70px rgba(255, 255, 255, 0.9), inset -15px -15px 25px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 255, 102, 0.25); } }
+        /* Skill Tags (Keeping text upright while orbiting) */
+        .orbiting-skill { 
+            position: absolute; top: 0; left: 50%; transform-origin: center;
+            background: rgba(5, 8, 15, 0.9); backdrop-filter: blur(5px);
+            color: var(--text-light); border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
+            padding: 6px 14px; border-radius: 50px; font-size: 0.75rem; letter-spacing: 1px;
+            font-family: 'Syncopate', sans-serif; font-weight: 600; text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5), 0 0 15px color-mix(in srgb, var(--accent) 30%, transparent);
+            transition: all 0.4s ease; cursor: default;
+        }
+        body.light-theme .orbiting-skill { background: rgba(255,255,255,0.9); color: #0f172a; border-color: rgba(0,0,0,0.1); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         
-        .orbit { position: absolute; top: 50%; left: 50%; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.15); transform: translate(-50%, -50%); animation: orbitSpin infinite linear; will-change: transform; transition: all 0.8s ease; }
-        .orbit-1 { width: 180px; height: 180px; animation-duration: 12s; } .orbit-2 { width: 280px; height: 280px; animation-duration: 20s; animation-direction: reverse; } .orbit-3 { width: 380px; height: 380px; animation-duration: 35s; }
-        body.magic-mode .orbit-1 { animation-duration: 6s; } body.magic-mode .orbit-2 { animation-duration: 10s; } body.magic-mode .orbit-3 { animation-duration: 15s; } 
-        
-        .orbiting-star { position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; background: #ffffff; border-radius: 50%; box-shadow: 0 0 8px rgba(0, 255, 102, 0.5); transition: all 0.8s ease; }
-        .orbit-2 .orbiting-star { width: 6px; height: 6px; } .orbit-3 .orbiting-star { width: 14px; height: 14px; }
-        body.magic-mode .orbiting-star { box-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent-glow); transform: translate(-50%, -50%) scale(1.5); }
+        .orbit-1 .orbiting-skill { animation: keepUpright1 15s infinite linear; }
+        .orbit-2 .orbiting-skill { animation: keepUpright2 22s infinite linear; border-color: color-mix(in srgb, var(--accent-alt) 50%, transparent); color: var(--accent-alt); }
+        .orbit-3 .orbiting-skill { animation: keepUpright3 30s infinite linear; }
+        .orbit-4 .orbiting-skill { animation: keepUpright4 40s infinite linear; color: var(--accent); }
+
+        /* Magic Mode Boost for Planet */
+        body.magic-mode .planet-center { box-shadow: 0 0 60px #fff, 0 0 100px var(--accent-glow); background: radial-gradient(circle at 30% 30%, #fff 0%, var(--accent) 60%, #000 100%); }
+        body.magic-mode .core-ring { border-width: 2px; opacity: 1; filter: drop-shadow(0 0 10px var(--accent)); }
+        body.magic-mode .orbiting-skill { box-shadow: 0 0 20px var(--accent-glow); border-color: var(--accent); color: #fff; background: var(--accent); }
+
+        /* Keyframes to counter-rotate the text so it doesn't appear upside down */
         @keyframes orbitSpin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+        @keyframes keepUpright1 { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(-360deg); } }
+        @keyframes keepUpright2 { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } } /* Reverse orbit needs forward text */
+        @keyframes keepUpright3 { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(-360deg); } }
+        @keyframes keepUpright4 { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
 
+        /* Typography */
         .about-content { display: flex; flex-direction: column; gap: 20px; position: relative; z-index: 2; }
         .about-subtitle { color: var(--accent); font-family: 'Syncopate', sans-serif; font-size: 0.9rem; letter-spacing: 5px; text-transform: uppercase; transition: color 0.8s ease; }
         .about-title { font-size: 2.8rem; color: #fff; font-weight: 300; line-height: 1.2; margin-bottom: 10px; transition: color 0.8s ease; }
         .about-title span { font-family: 'Syncopate', sans-serif; font-weight: 600; background: linear-gradient(90deg, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transition: all 0.8s ease; }
         .about-text-content { color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; font-weight: 300; display: flex; flex-direction: column; gap: 15px; text-align: justify; transition: color 0.8s ease; }
         .about-text-content strong { color: #fff; font-weight: 500; letter-spacing: 1px; transition: color 0.8s ease; }
-        .about-stats { display: flex; gap: 50px; margin-top: 25px; padding-top: 35px; border-top: 1px solid rgba(255,255,255,0.08); }
-        .stat-item { display: flex; flex-direction: column; gap: 5px; }
-        .stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem; color: #fff; letter-spacing: 3px; line-height: 1; text-shadow: 0 0 20px rgba(255,255,255,0.2); transition: all 0.8s ease; }
-        .stat-label { color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; transition: color 0.8s ease; }
 
+        /* Glassmorphism Stat Cards */
+        .about-stats-advanced { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 25px; margin-top: 25px; padding-top: 35px; border-top: 1px solid rgba(255,255,255,0.08); }
+        
+        .stat-glass-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,255,255,0.05); border-radius: 20px;
+            padding: 30px 20px; text-align: center;
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            position: relative; overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); cursor: default;
+        }
+        .stat-glass-card::before {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle at center, color-mix(in srgb, var(--accent) 15%, transparent) 0%, transparent 60%);
+            opacity: 0; transition: opacity 0.5s ease; z-index: 0;
+        }
+        .stat-glass-card:hover {
+            transform: translateY(-10px); border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 20px color-mix(in srgb, var(--accent) 15%, transparent);
+        }
+        .stat-glass-card:hover::before { opacity: 1; }
+        
+        body.light-theme .stat-glass-card { background: rgba(255,255,255,0.8); border-color: rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        body.light-theme .stat-glass-card:hover { background: #fff; border-color: var(--accent); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        body.magic-mode .stat-glass-card { box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 30px var(--accent-glow); border-color: var(--accent); }
+
+        .stat-card-inner { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 8px; }
+        .stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: #fff; letter-spacing: 3px; line-height: 1; text-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: color 0.8s ease; }
+        body.light-theme .stat-value { color: #0f172a; text-shadow: none; }
+        .stat-glass-card:hover .stat-value { color: var(--accent); text-shadow: 0 0 15px var(--accent-glow); }
+        .stat-label { color: var(--text-muted); font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; transition: color 0.4s ease; }
+        .stat-glass-card:hover .stat-label { color: var(--text-light); }
+        body.light-theme .stat-glass-card:hover .stat-label { color: #0f172a; }
         /* MULTI-ROW GRIDS */
         .multi-row-wrapper { margin-bottom: 20px; opacity: 0; transform: translate3d(0, 40px, 0); transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, opacity; }
         .multi-row-wrapper.visible { opacity: 1; transform: translate3d(0, 0, 0); }
@@ -979,20 +1029,38 @@
             
         </header>
 
-        <h2 id="about" class="section-heading reveal-on-scroll">The Creative Mind</h2>
         <section class="about-modern-container reveal-on-scroll">
             <div class="about-grid">
+                
+                <!-- ADVANCED HOLOGRAPHIC VISUAL -->
                 <div class="about-visual">
                     <div class="planet-wrapper">
-                        <div class="space-system">
-                            <div class="planet-center"></div>
-                            <div class="orbit orbit-1"><div class="orbiting-star"></div></div>
-                            <div class="orbit orbit-2"><div class="orbiting-star"></div></div>
-                            <div class="orbit orbit-3"><div class="orbiting-star"></div></div>
+                        <div class="space-system advanced-core">
+                            <!-- Holographic Core -->
+                            <div class="planet-center">
+                                <div class="core-ring r1"></div>
+                                <div class="core-ring r2"></div>
+                                <div class="core-ring r3"></div>
+                            </div>
+                            
+                            <!-- Orbiting Skills -->
+                            <div class="orbit orbit-1">
+                                <div class="orbiting-skill">Ps</div>
+                            </div>
+                            <div class="orbit orbit-2">
+                                <div class="orbiting-skill">Ai</div>
+                            </div>
+                            <div class="orbit orbit-3">
+                                <div class="orbiting-skill">Figma</div>
+                            </div>
+                            <div class="orbit orbit-4">
+                                <div class="orbiting-skill">Web</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                <!-- CONTENT & GLASS STATS -->
                 <div class="about-content">
                     <h3 class="about-subtitle">Welcome to Modern Pixels</h3>
                     <h4 class="about-title">I am <span>Malith Eranga</span></h4>
@@ -1002,11 +1070,28 @@
                         <p>What started as a personal passion has evolved into a full-scale design agency. Today, backed by a talented team, we focus on delivering clean, modern, and impactful aesthetics that elevate brands.</p>
                     </div>
                     
-                    <div class="about-stats">
-                        <div class="stat-item"><span class="stat-value"><span class="counter" data-target="500">0</span>+</span><span class="stat-label">Projects Delivered</span></div>
-                        <div class="stat-item"><span class="stat-value"><span class="counter" data-target="100">0</span>%</span><span class="stat-label">Creative Passion</span></div>
-                        <div class="stat-item"><span class="stat-value"><span class="counter" data-target="5">0</span>+ Years</span><span class="stat-label">Experience</span></div>
+                    <!-- Advanced Glassmorphism Cards -->
+                    <div class="about-stats-advanced">
+                        <div class="stat-glass-card">
+                            <div class="stat-card-inner">
+                                <span class="stat-value"><span class="counter" data-target="500">0</span>+</span>
+                                <span class="stat-label">Projects Delivered</span>
+                            </div>
+                        </div>
+                        <div class="stat-glass-card">
+                            <div class="stat-card-inner">
+                                <span class="stat-value"><span class="counter" data-target="100">0</span>%</span>
+                                <span class="stat-label">Creative Passion</span>
+                            </div>
+                        </div>
+                        <div class="stat-glass-card">
+                            <div class="stat-card-inner">
+                                <span class="stat-value"><span class="counter" data-target="5">0</span>+</span>
+                                <span class="stat-label">Years Experience</span>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </section>
