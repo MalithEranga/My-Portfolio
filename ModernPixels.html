@@ -277,24 +277,23 @@
         .container { max-width: 1400px; margin: 0 auto; padding: 160px 2% 50px 2%; position: relative; z-index: 1; overflow-x: hidden; }
 
         /* =======================================================
-           ULTRA-ADVANCED 3D BIRDS ANIMATION - FIXED
+           ULTRA-REALISTIC 3D BIRDS ANIMATION (PRO)
            ======================================================= */
-        .premium-birds-v2 {
+        .premium-birds-pro {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: 10; overflow: visible; /* වෙනස් කලා: කුරුල්ලෝ කැපෙන්නෙ නෑ */
+            pointer-events: none; z-index: 10; overflow: visible;
         }
         
         .b-wrapper { position: absolute; width: 35px; height: 35px; will-change: transform, left, top; }
-        
-        /* අලුතින් එකතු කල කොටස: කුරුල්ලෝ off-screen යන්නේ නැති වෙන්න sizes හැදුවා */
-        .b-bob, .b-pitch, .b-pitch-lander {
+        .b-bob, .b-pitch, .b-bank, .b-bob-fast, .b-pitch-fast, .b-bank-fast, .b-pitch-lander {
             position: absolute; width: 100%; height: 100%; top: 0; left: 0;
-            transform-origin: center;
+            transform-origin: center; will-change: transform;
         }
 
         .b-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: visible; }
-        .b-3d-group { transform-style: preserve-3d; perspective: 200px; }
+        .b-3d-group { transform-style: preserve-3d; perspective: 250px; }
         
+        /* වර්ණ සහ ආලෝකය */
         .b-body { fill: #f8fafc; transition: fill 0.8s; }
         .near-w path { fill: #cbd5e1; opacity: 0.95; transition: fill 0.8s; }
         .far-w path  { fill: #94a3b8; opacity: 0.7; transition: fill 0.8s; }
@@ -310,90 +309,110 @@
         body.magic-mode .far-w path,
         body.magic-mode .b-wing-folded {
             fill: var(--accent);
-            filter: drop-shadow(0 0 8px var(--accent-glow));
+            filter: drop-shadow(0 0 10px var(--accent-glow));
         }
 
-        .near-w {
-            transform-origin: 5px 2px;
-            animation: flapNear 0.3s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate;
-        }
-        .far-w {
-            transform-origin: 5px -2px;
-            animation: flapFar 0.3s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate;
-        }
+        /* 3D තටු ගැසීම - උපරිම Smoothness */
+        .near-w { transform-origin: 5px 2px; animation: flapNear 0.28s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate; }
+        .far-w  { transform-origin: 5px -2px; animation: flapFar 0.28s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate; }
         
-        @keyframes flapNear {
-            0% { transform: rotateX(-50deg) rotateZ(10deg); }
-            100% { transform: rotateX(60deg) rotateZ(-10deg); }
+        @keyframes flapNear { 0% { transform: rotateX(-55deg) rotateZ(12deg); } 100% { transform: rotateX(65deg) rotateZ(-12deg); } }
+        @keyframes flapFar  { 0% { transform: rotateX(55deg) rotateZ(-12deg); } 100% { transform: rotateX(-65deg) rotateZ(12deg); } }
+
+        /* -------------------------------------
+           1. Background Bird (Depth of Field)
+           ------------------------------------- */
+        .b-bg-flyer { animation: bgFlyerX 25s linear infinite; filter: blur(2px); opacity: 0.5; z-index: 1; }
+        .b-bg-flyer .b-bob { animation: bgFlyerY 6s ease-in-out infinite alternate; }
+        
+        @keyframes bgFlyerX {
+            0%   { left: 110%; transform: scale(0.4) scaleX(-1); } /* අනිත් පැත්තට යන්නේ */
+            100% { left: -20%; transform: scale(0.4) scaleX(-1); }
         }
-        @keyframes flapFar {
-            0% { transform: rotateX(50deg) rotateZ(-10deg); }
-            100% { transform: rotateX(-60deg) rotateZ(10deg); }
+        @keyframes bgFlyerY { 0% { top: 10%; } 100% { top: 40%; } }
+
+        /* -------------------------------------
+           2. Main Flyer (Dynamic Swoop & Bank)
+           ------------------------------------- */
+        .b-main-flyer { animation: mainFlyerX 14s cubic-bezier(0.25, 0.1, 0.25, 1) infinite; z-index: 5; }
+        .b-main-flyer .b-bob-fast { animation: mainFlyerY 14s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+        .b-main-flyer .b-pitch-fast { animation: mainFlyerPitch 14s ease-in-out infinite; }
+        .b-main-flyer .b-bank-fast { animation: mainFlyerBank 14s ease-in-out infinite; } /* හැරෙනකොට ඇලවීම */
+
+        @keyframes mainFlyerX {
+            0%   { left: -20%; }
+            40%  { left: 40%; }
+            100% { left: 120%; }
+        }
+        @keyframes mainFlyerY {
+            0%   { top: 10%; }
+            40%  { top: 60%; } /* පල්ලෙහාට swope වෙනවා */
+            100% { top: -10%; }
+        }
+        @keyframes mainFlyerPitch {
+            0%   { transform: rotate(20deg); } /* පල්ලෙහාට බලන් එන්නේ */
+            40%  { transform: rotate(-5deg); } /* උඩට හරවනවා */
+            100% { transform: rotate(-25deg); }
+        }
+        @keyframes mainFlyerBank {
+            0%   { transform: rotateZ(0deg); }
+            35%  { transform: rotateZ(-20deg); } /* වංගුව ගනිද්දී ඇලවෙනවා */
+            50%  { transform: rotateZ(0deg); }
+            100% { transform: rotateZ(10deg); }
         }
 
         /* -------------------------------------
-           BIRD 1 (Speed up: තත්පර 12න් පියාඹයි)
+           3. Lander Pro (Hover -> Land -> Breathe -> Fly)
            ------------------------------------- */
-        .b-flyer-x { animation: flyerX 12s linear infinite; }
-        .b-flyer-x .b-bob { animation: flyerY 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate; }
-        .b-flyer-x .b-pitch { animation: flyerPitch 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate; }
-        
-        @keyframes flyerX {
-            0%   { left: -15%; transform: scale(0.8); }
-            100% { left: 115%; transform: scale(1.1); }
+        .b-lander-pro {
+            animation: landerPosPro 20s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            animation-delay: 3s; opacity: 0; z-index: 10;
         }
-        @keyframes flyerY {
-            0%   { top: 20%; }
-            100% { top: 50%; }
-        }
-        @keyframes flyerPitch {
-            0%   { transform: rotate(-15deg); } 
-            100% { transform: rotate(15deg); }  
-        }
-
-        /* -------------------------------------
-           BIRD 2 (Speed up: තත්පර 18න් වහලා යයි)
-           ------------------------------------- */
-        .b-lander-pos {
-            animation: landerPos 18s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-            animation-delay: 2s;
-            opacity: 0;
-        }
-        .b-lander-pos .b-pitch-lander {
-            animation: landerPitch 18s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-            animation-delay: 2s;
+        .b-lander-pro .b-pitch-lander {
+            animation: landerPitchPro 20s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+            animation-delay: 3s;
         }
         
-        @keyframes landerPos {
-            0%   { left: -20%; top: -10%; transform: scale(1.1); opacity: 0; }
+        @keyframes landerPosPro {
+            0%   { left: -20%; top: -20%; transform: scale(1.1); opacity: 0; }
             5%   { opacity: 1; }
-            18%  { left: 50%; top: 35%; transform: scale(0.9); }  
-            45%  { left: 50%; top: 35%; transform: scale(0.9); opacity: 1; } 
-            55%  { left: 120%; top: 5%; transform: scale(1.1); opacity: 0; } 
-            100% { left: 120%; top: 5%; transform: scale(1.1); opacity: 0; }
+            15%  { left: 45%; top: 25%; transform: scale(0.95); } /* Hover කරන්න ලං වෙනවා */
+            18%  { left: 50%; top: 32%; transform: scale(0.9); }  /* Hover කරලා හිමීට පාත් වෙනවා (Landing) */
+            45%  { left: 50%; top: 32%; transform: scale(0.9); opacity: 1; } /* වහලා ඉන්නවා */
+            52%  { left: 120%; top: 10%; transform: scale(1.1); opacity: 0; } /* පියාඹලා යයි */
+            100% { left: 120%; top: 10%; transform: scale(1.1); opacity: 0; }
         }
         
-        @keyframes landerPitch {
-            0%   { transform: rotate(15deg); } 
-            15%  { transform: rotate(-15deg); } 
-            18%, 45%  { transform: rotate(-5deg); } 
-            48%  { transform: rotate(20deg); } 
-            55%, 100% { transform: rotate(0deg); }
+        @keyframes landerPitchPro {
+            0%   { transform: rotate(25deg); } /* වේගෙන් එනවා */
+            13%  { transform: rotate(-20deg); } /* Hover කරන්න බ්‍රේක් කරනවා */
+            18%, 45%  { transform: rotate(-5deg); } /* වහලා ඉන්න විදිහ */
+            47%  { transform: rotate(15deg); } /* පියාඹන්න ready වෙනවා */
+            52%, 100% { transform: rotate(0deg); }
+        }
+
+        /* සජීවීව හුස්ම ගන්නවා වගේ (Breathing/Looking around) */
+        .b-breathing { transform-origin: bottom center; animation: breatheAnim 2.5s ease-in-out infinite; }
+        @keyframes breatheAnim {
+            0%, 100% { transform: scaleY(1) rotate(0deg); }
+            50%      { transform: scaleY(1.05) rotate(2deg); } /* පපුව ඉස්සෙනවා, ඔලුව පොඩ්ඩක් හැරෙනවා */
         }
         
-        .state-flying { animation: fadeFlying 18s infinite; animation-delay: 2s; }
-        .state-resting { animation: fadeResting 18s infinite; animation-delay: 2s; opacity: 0; }
+        /* වහනකොට තටු අකුලගන්න එක */
+        .state-flying { animation: fadeFlyingPro 20s infinite; animation-delay: 3s; }
+        .state-resting { animation: fadeRestingPro 20s infinite; animation-delay: 3s; opacity: 0; }
         
-        @keyframes fadeFlying {
-            0%, 17.5% { opacity: 1; }
-            18%, 44.5% { opacity: 0; } 
+        @keyframes fadeFlyingPro {
+            0%, 17.5% { opacity: 1; } /* Hover වෙනකන් තටු ගහනවා */
+            18%, 44.5% { opacity: 0; } /* වහලා ඉද්දි පේන්නේ නෑ */
             45%, 100% { opacity: 1; }
         }
-        @keyframes fadeResting {
+        @keyframes fadeRestingPro {
             0%, 17.5% { opacity: 0; }
-            18%, 44.5% { opacity: 1; } 
+            18%, 44.5% { opacity: 1; } /* වහලා ඉද්දි විතරක් තටු අකුලපු එක පේනවා */
             45%, 100% { opacity: 0; }
         }
+
         /* =======================================================
            STATIC LOGO SECTION WITH ROTATING FADED GLOW
            ======================================================= */
@@ -866,31 +885,47 @@
             <div class="logo-presentation-wrapper">
                 <div class="rotating-glow"></div>
                 
-                <!-- ADVANCED 3D BIRDS CONTAINER -->
-                <div class="premium-birds-v2">
+                <!-- ULTRA-REALISTIC 3D BIRDS CONTAINER -->
+                <div class="premium-birds-pro">
                     
-                    <!-- 1 වැනි කුරුල්ලා: Smooth විදිහට පියාඹනවා -->
-                    <div class="b-wrapper b-flyer-x">
+                    <!-- 1. පසුබිමින් පියාඹන කුරුල්ලා (Out of focus / Blurred) -->
+                    <div class="b-wrapper b-bg-flyer">
                         <div class="b-bob">
                             <div class="b-pitch">
-                                <svg class="b-svg" viewBox="-30 -40 60 80">
-                                    <g class="b-3d-group">
-                                        <!-- එහා පැත්තේ තටුව -->
-                                        <g class="far-w"><path d="M 5,-2 C 5,-20 -5,-30 -20,-35 C -5,-20 0,-10 0,0 Z" /></g>
-                                        <!-- ඇඟ -->
-                                        <path class="b-body" d="M 15,0 C 10,-3 -5,-3 -15,0 L -25,-2 L -20,0 L -25,2 L -15,0 C -5,3 10,3 15,0 Z" />
-                                        <!-- මෙහා පැත්තේ තටුව -->
-                                        <g class="near-w"><path d="M 5,2 C 5,20 -5,30 -20,35 C -5,20 0,10 0,0 Z" /></g>
-                                    </g>
-                                </svg>
+                                <div class="b-bank">
+                                    <svg class="b-svg" viewBox="-30 -40 60 80">
+                                        <g class="b-3d-group">
+                                            <g class="far-w"><path d="M 5,-2 C 5,-20 -5,-30 -20,-35 C -5,-20 0,-10 0,0 Z" /></g>
+                                            <path class="b-body" d="M 15,0 C 10,-3 -5,-3 -15,0 L -25,-2 L -20,0 L -25,2 L -15,0 C -5,3 10,3 15,0 Z" />
+                                            <g class="near-w"><path d="M 5,2 C 5,20 -5,30 -20,35 C -5,20 0,10 0,0 Z" /></g>
+                                        </g>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. ප්‍රධාන පියාඹන කුරුල්ලා (Fast Swoop & Bank) -->
+                    <div class="b-wrapper b-main-flyer">
+                        <div class="b-bob-fast">
+                            <div class="b-pitch-fast">
+                                <div class="b-bank-fast">
+                                    <svg class="b-svg" viewBox="-30 -40 60 80">
+                                        <g class="b-3d-group">
+                                            <g class="far-w"><path d="M 5,-2 C 5,-20 -5,-30 -20,-35 C -5,-20 0,-10 0,0 Z" /></g>
+                                            <path class="b-body" d="M 15,0 C 10,-3 -5,-3 -15,0 L -25,-2 L -20,0 L -25,2 L -15,0 C -5,3 10,3 15,0 Z" />
+                                            <g class="near-w"><path d="M 5,2 C 5,20 -5,30 -20,35 C -5,20 0,10 0,0 Z" /></g>
+                                        </g>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- 2 වැනි කුරුල්ලා: Logo එක උඩ වහනවා -->
-                    <div class="b-wrapper b-lander-pos">
+                    <!-- 3. ලෝගෝ එකට වහන කුරුල්ලා (Hover & Breathe) -->
+                    <div class="b-wrapper b-lander-pro">
                         <div class="b-pitch-lander">
-                            <!-- පියාඹන අවස්ථාව (වහන්න එනකොට සහ යනකොට) -->
+                            <!-- පියාඹන / Hover කරන අවස්ථාව -->
                             <svg class="b-svg state-flying" viewBox="-30 -40 60 80">
                                 <g class="b-3d-group">
                                     <g class="far-w"><path d="M 5,-2 C 5,-20 -5,-30 -20,-35 C -5,-20 0,-10 0,0 Z" /></g>
@@ -898,10 +933,12 @@
                                     <g class="near-w"><path d="M 5,2 C 5,20 -5,30 -20,35 C -5,20 0,10 0,0 Z" /></g>
                                 </g>
                             </svg>
-                            <!-- වහලා ඉන්න අවස්ථාව (තටු අකුලගෙන) -->
+                            <!-- වහලා ඉන්න අවස්ථාව (Breathing) -->
                             <svg class="b-svg state-resting" viewBox="-30 -40 60 80">
-                                <path class="b-body" d="M 15,-10 C 10,-15 -5,-10 -15,5 L -25,12 L -20,10 L -25,15 L -12,8 C -5,10 10,5 15,-10 Z" />
-                                <path class="b-wing-folded" d="M 5,-5 C 0,0 -10,8 -20,12 C -10,5 0,0 5,-5 Z" />
+                                <g class="b-breathing">
+                                    <path class="b-body" d="M 15,-10 C 10,-15 -5,-10 -15,5 L -25,12 L -20,10 L -25,15 L -12,8 C -5,10 10,5 15,-10 Z" />
+                                    <path class="b-wing-folded" d="M 5,-5 C 0,0 -10,8 -20,12 C -10,5 0,0 5,-5 Z" />
+                                </g>
                             </svg>
                         </div>
                     </div>
