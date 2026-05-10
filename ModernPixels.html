@@ -109,7 +109,7 @@
         }
 
         /* ==========================================
-           STAR BACKGROUND ANIMATION
+           STAR BACKGROUND ANIMATION (OPTIMIZED)
            ========================================== */
         #stars-container {
             position: fixed;
@@ -130,9 +130,10 @@
                        drift var(--drift-duration) linear infinite;
         }
 
+        /* Box shadow removed for better mobile performance */
         @keyframes twinkle {
-            0%, 100% { opacity: 0.1; box-shadow: none; }
-            50% { opacity: 0.8; box-shadow: 0 0 4px rgba(255, 255, 255, 0.6); }
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.8; }
         }
 
         @keyframes drift {
@@ -141,7 +142,7 @@
         }
 
         /* -------------------------------------
-            ULTRA PREMIUM PRELOADER
+           ULTRA PREMIUM PRELOADER
         ---------------------------------------- */
         .preloader {
             position: fixed;
@@ -261,7 +262,7 @@
         @keyframes smoothUp { to { opacity: 0.8; transform: translateY(0); } }
 
         /* -------------------------------------
-            ADVANCED NAVIGATION BAR
+           ADVANCED NAVIGATION BAR
         ---------------------------------------- */
         .navbar {
             position: fixed; top: 30px; left: 50%; transform: translateX(-50%) translateZ(0); width: auto; min-width: max-content; display: flex; justify-content: space-between; align-items: center; gap: 60px; padding: 12px 35px; z-index: 1000; background: rgba(5, 8, 15, 0.4); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 100px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, background, box-shadow, border-color;
@@ -818,32 +819,31 @@
     </div>
 
     <script>
-        // --- NEW: GENERATE BACKGROUND STARS ---
+        // --- GENERATE BACKGROUND STARS (OPTIMIZED) ---
         function createStars() {
             const container = document.getElementById('stars-container');
-            const starCount = 150; // තරු ගණන වෙනස් කරගන්න පුළුවන්
+            
+            // Screen size එක අනුව තරු ගාණ තීරණය කිරීම (Phone = 30, PC = 150)
+            const isMobile = window.innerWidth <= 768;
+            const starCount = isMobile ? 30 : 150; 
 
             for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
 
-                // ගොඩක් පොඩි size එකක් (0.5px ඉඳන් 2px වෙනකන්)
                 const size = Math.random() * 1.5 + 0.5;
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
 
-                // තැනින් තැන position වීම
                 star.style.left = `${Math.random() * 100}%`;
                 star.style.top = `${Math.random() * 100}%`;
 
-                // ඔක්කොම එකපාර blink නොවී එකිනෙකට වෙනස් වෙලාවල් වල blink වෙන්න
-                star.style.setProperty('--twinkle-duration', `${Math.random() * 4 + 2}s`); // 2s - 6s අතර
+                // Mobile වලදී duration එක ටිකක් වැඩි කරමු
+                star.style.setProperty('--twinkle-duration', `${Math.random() * 4 + (isMobile ? 4 : 2)}s`); 
                 star.style.setProperty('--twinkle-delay', `${Math.random() * 5}s`);
                 
-                // හෙමින් drift වෙන speed එක
                 star.style.setProperty('--drift-duration', `${Math.random() * 50 + 30}s`); 
                 
-                // වෙනස් පැතිවලට drift වෙන්න
                 const driftX = (Math.random() - 0.5) * 150; 
                 const driftY = (Math.random() - 0.5) * 150;
                 star.style.setProperty('--drift-x', `${driftX}px`);
@@ -997,11 +997,16 @@
         // State storage for sections
         const sectionState = {
             social: { currentCount: 114, wrapperId: 'social-wrapper', folder: 'Social Media Post', altText: 'Social Media Post', rowCount: 0, btnId: 'loadMoreBtn' },
-            tute:   { currentCount: 22,  wrapperId: 'tute-wrapper',   folder: 'Tute Cover Design', altText: 'Tute Cover',        rowCount: 0, btnId: 'loadMoreTuteBtn' },
+            tute:   { currentCount: 22,  wrapperId: 'tute-wrapper',  folder: 'Tute Cover Design', altText: 'Tute Cover',        rowCount: 0, btnId: 'loadMoreTuteBtn' },
             // other:  { currentCount: 20,  wrapperId: 'other-wrapper',  folder: 'Other Designs',     altText: 'Other Design',      rowCount: 0, btnId: 'loadMoreOtherBtn' } // Hid Others state
         };
 
         function startAutoScroll(gridElement, direction) {
+            // Mobile එකේදී Auto Scroll එක නවත්තන්න
+            if (window.innerWidth <= 768) {
+                return; 
+            }
+
             let scrollSpeed = 0.5; // Smooth slow speed
             let isHovered = false;
 
