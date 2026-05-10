@@ -137,7 +137,7 @@
         @keyframes smoothUp { to { opacity: 0.8; transform: translateY(0); } }
 
         /* -------------------------------------
-           NEW SPLIT NAVIGATION BAR
+           NEW SPLIT NAVIGATION BAR (FIXED ACTIVE STATE)
         ---------------------------------------- */
         .header-container {
             position: fixed; top: 25px; left: 3%; width: 94%;
@@ -179,10 +179,42 @@
         .nav-links, .magic-btn, .mobile-menu-btn { z-index: 1; position: relative; }
 
         .nav-links { display: flex; gap: 25px; list-style: none; margin: 0; padding: 0; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.75rem; text-transform: uppercase; font-weight: 500; letter-spacing: 1.5px; padding: 5px 0; transition: color 0.3s ease; display: block; }
-        .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background: var(--accent); border-radius: 2px; transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.4s ease; }
-        .nav-links a:hover { color: #fff; text-shadow: 0 0 8px rgba(255, 255, 255, 0.2); }
-        .nav-links a:hover::after { width: 100%; }
+        
+        /* Fixed Position Relative for underline */
+        .nav-links a { 
+            position: relative; 
+            color: var(--text-muted); 
+            text-decoration: none; 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            font-weight: 500; 
+            letter-spacing: 1.5px; 
+            padding: 5px 0; 
+            transition: color 0.3s ease; 
+            display: block; 
+        }
+        
+        .nav-links a::after { 
+            content: ''; 
+            position: absolute; 
+            bottom: -2px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: 0; 
+            height: 2px; 
+            background: var(--accent); 
+            border-radius: 2px; 
+            transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.4s ease; 
+        }
+        
+        /* Active State & Hover State */
+        .nav-links a:hover, .nav-links a.active { 
+            color: #fff; 
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.2); 
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { 
+            width: 100%; 
+        }
 
         /* MAGIC TOGGLE BUTTON */
         .magic-btn {
@@ -286,7 +318,7 @@
         .agency-tagline { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; color: var(--accent); letter-spacing: 4px; text-transform: uppercase; margin-top: 12px; font-weight: 400; opacity: 0.8; transition: color 0.8s ease; }
 
         /* =======================================================
-           ADVANCED INFINITE SCROLLING MARQUEE TEXT
+           ADVANCED INFINITE SCROLLING MARQUEE TEXT (FILLED & GLOWING)
            ======================================================= */
         .scrolling-text-wrapper {
             width: 100vw;
@@ -326,12 +358,13 @@
             flex-shrink: 0;
         }
 
+        /* Permanently filled and glowing text */
         .scrolling-text-group span {
             font-family: 'Syncopate', sans-serif;
             font-size: 0.95rem;
             font-weight: 600;
-            color: transparent; /* Makes text outline-only initially */
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+            color: var(--accent); /* Filled with Accent Color */
+            text-shadow: 0 0 10px var(--accent-glow); /* Glowing effect applied */
             letter-spacing: 2px;
             text-transform: uppercase;
             white-space: nowrap;
@@ -339,18 +372,12 @@
             cursor: default;
         }
 
-        .scrolling-text-group span:hover {
-            color: var(--accent);
-            -webkit-text-stroke: 1px var(--accent);
-            text-shadow: 0 0 15px var(--accent-glow);
-        }
-
         .scrolling-text-group .sep {
             color: var(--accent-alt);
-            -webkit-text-stroke: 0;
             font-size: 1.2rem;
             margin: 0 35px;
             opacity: 0.7;
+            text-shadow: none; /* Separator doesn't need to glow as heavily */
         }
 
         @keyframes scrollTextLeft {
@@ -782,6 +809,7 @@
                         <span>Social Media Post Design</span> <span class="sep">✧</span>
                         <span>Tuition Tute Cover Design</span> <span class="sep">✧</span>
                         <span>Brand Post Design</span> <span class="sep">✧</span>
+                        <span>UI/UX Design</span> <span class="sep">✧</span>
                         <span>Logo Design</span> <span class="sep">✧</span>
                         <span>Video Editing</span> <span class="sep">✧</span>
                         <span>Typesetting</span> <span class="sep">✧</span>
@@ -1118,6 +1146,14 @@
 
                     document.documentElement.style.setProperty('--accent', activeSection.color);
                     document.documentElement.style.setProperty('--accent-glow', activeSection.glow);
+
+                    // Update active state in Navigation Bar dynamically
+                    navItems.forEach(item => {
+                        item.classList.remove('active');
+                        if (item.getAttribute('href') === '#' + activeSection.id) {
+                            item.classList.add('active');
+                        }
+                    });
 
                     isScrolling = false;
                 });
