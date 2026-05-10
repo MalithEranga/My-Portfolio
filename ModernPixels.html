@@ -359,7 +359,7 @@
             }
         }
 
-        .container { max-width: 1300px; margin: 0 auto; padding: 160px 5% 50px 5%; position: relative; z-index: 1; }
+        .container { max-width: 1300px; margin: 0 auto; padding: 160px 5% 50px 5%; position: relative; z-index: 1; overflow-x: hidden; }
 
         .brand-header { text-align: center; margin-bottom: 120px; opacity: 0; transform: translateY(-20px); animation: fadeInDown 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: 3s; display: flex; flex-direction: column; align-items: center; will-change: transform, opacity; }
         .logo-container { margin-bottom: 25px; position: relative; }
@@ -427,13 +427,44 @@
         .service-title { font-family: 'Syncopate', sans-serif; font-size: 1.1rem; color: #fff; margin-bottom: 15px; letter-spacing: 1px; }
         .service-desc { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
 
-        /* MASONRY GRID */
-        .masonry-grid { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 30px; grid-auto-rows: 9.8px; align-items: start; margin-top: 40px; margin-bottom: 40px; opacity: 0; transform: translateY(60px) translateZ(0); transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, opacity; overflow-anchor: none; }
-        .masonry-grid.visible { opacity: 1; transform: translateY(0) translateZ(0); }
-        @media (max-width: 1024px) { .masonry-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 640px) { .masonry-grid { grid-template-columns: 1fr; } }
+        /* ==========================================
+           HORIZONTAL AUTOSCROLL GRID (REPLACED MASONRY) 
+           ========================================== */
+        .horizontal-grid { 
+            display: flex; 
+            flex-wrap: nowrap;
+            overflow-x: auto; /* Allows manual swipe/scroll */
+            gap: 30px; 
+            padding: 20px 5px; 
+            margin-top: 40px; 
+            margin-bottom: 40px; 
+            opacity: 0; 
+            transform: translateY(60px) translateZ(0); 
+            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); 
+            will-change: transform, opacity; 
+            scroll-behavior: auto;
+            /* Hide scrollbars but keep functionality */
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        .horizontal-grid::-webkit-scrollbar { 
+            display: none; 
+        }
+        .horizontal-grid.visible { opacity: 1; transform: translateY(0) translateZ(0); }
 
-        .glass-image-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 5px; transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease, border-color 0.4s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); cursor: pointer; will-change: transform; transform: translateZ(0); }
+        .glass-image-card { 
+            flex: 0 0 320px; /* Fixed width for horizontal layout */
+            max-width: 320px;
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 16px; padding: 5px; transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease, border-color 0.4s ease; position: relative; overflow: hidden; display: flex; flex-direction: column; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); cursor: pointer; will-change: transform; transform: translateZ(0); 
+        }
+        
+        @media (max-width: 768px) {
+            .glass-image-card {
+                flex: 0 0 260px;
+                max-width: 260px;
+            }
+        }
+
         .glass-image-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; border-radius: 16px; border: 2px solid transparent; background: linear-gradient(135deg, transparent, var(--accent), transparent) border-box; -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); -webkit-mask-composite: destination-out; mask-composite: exclude; opacity: 0; transition: opacity 0.4s ease; pointer-events: none; z-index: 2; }
         .glass-image-card::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); transition: all 0.6s ease; z-index: 1; pointer-events: none; }
         .glass-image-card:hover { transform: translateY(-10px) translateZ(0); box-shadow: 0 25px 50px rgba(0,0,0,0.6), 0 0 40px color-mix(in srgb, var(--accent) 15%, transparent); background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.1); }
@@ -739,7 +770,7 @@
 
         <!-- Social Media Section -->
         <h2 id="social" class="section-heading reveal-on-scroll">Social Media Post Design</h2>
-        <div class="masonry-grid reveal-on-scroll" id="image-grid"></div>
+        <div class="horizontal-grid reveal-on-scroll" id="image-grid"></div>
         <div class="load-more-wrapper reveal-on-scroll">
             <button id="loadMoreBtn" class="btn-load-more">
                 <span>LOAD MORE DESIGNS</span>
@@ -750,7 +781,7 @@
 
         <!-- Tute Cover Section -->
         <h2 id="tute" class="section-heading reveal-on-scroll">Tuition Tute Cover</h2>
-        <div class="masonry-grid reveal-on-scroll" id="tute-grid"></div>
+        <div class="horizontal-grid reveal-on-scroll" id="tute-grid"></div>
         <div class="load-more-wrapper reveal-on-scroll">
             <button id="loadMoreTuteBtn" class="btn-load-more">
                 <span>LOAD MORE COVERS</span>
@@ -762,7 +793,7 @@
         <!-- OTHERS SECTION -->
         <div id="others-section-wrapper" style="display: none;">
             <h2 id="other" class="section-heading reveal-on-scroll">Others</h2>
-            <div class="masonry-grid reveal-on-scroll" id="other-grid"></div>
+            <div class="horizontal-grid reveal-on-scroll" id="other-grid"></div>
             <div class="load-more-wrapper reveal-on-scroll">
                 <button id="loadMoreOtherBtn" class="btn-load-more">
                     <span>LOAD MORE DESIGNS</span>
@@ -1061,21 +1092,36 @@
         const loadMoreOtherBtn = document.getElementById("loadMoreOtherBtn");
         let currentOtherImage = 20; 
 
-        function layoutMasonry() {
-            const grids = document.querySelectorAll('.masonry-grid');
-            const currentScrollY = window.scrollY;
-            grids.forEach(grid => {
-                const cards = grid.querySelectorAll('.glass-image-card');
-                cards.forEach(card => card.style.gridRowEnd = 'auto');
-                cards.forEach(card => {
-                    const height = card.offsetHeight;
-                    const gap = 30; 
-                    const rowSpan = Math.ceil((height + gap) / 10); 
-                    card.style.gridRowEnd = `span ${rowSpan}`;
-                });
-            });
-            window.scrollTo(0, currentScrollY);
+        // --- HORIZONTAL AUTO-SCROLL LOGIC ---
+        function startAutoScroll(gridElement) {
+            let scrollSpeed = 1; // You can adjust speed here
+            let isHovered = false;
+
+            // Pause on hover or touch so users can click/view
+            gridElement.addEventListener('mouseenter', () => isHovered = true);
+            gridElement.addEventListener('mouseleave', () => isHovered = false);
+            gridElement.addEventListener('touchstart', () => isHovered = true);
+            gridElement.addEventListener('touchend', () => isHovered = false);
+
+            function scroll() {
+                if (!isHovered && gridElement.children.length > 0) {
+                    gridElement.scrollLeft += scrollSpeed;
+                    
+                    // Loop back to start if reached the end
+                    if (gridElement.scrollLeft >= (gridElement.scrollWidth - gridElement.clientWidth - 1)) {
+                        gridElement.scrollLeft = 0;
+                    }
+                }
+                requestAnimationFrame(scroll);
+            }
+            scroll();
         }
+
+        // Apply auto-scroll to the grids
+        startAutoScroll(socialGrid);
+        startAutoScroll(tuteGrid);
+        startAutoScroll(otherGrid);
+
 
         function loadGalleryImages(gridElement, currentImageCount, folderName, btnElement, altText) {
             if (currentImageCount < 1) return currentImageCount;
@@ -1114,7 +1160,6 @@
                 if (img.complete) resolve();
                 else { img.onload = () => resolve(); img.onerror = () => resolve(); }
             }))).then(() => {
-                layoutMasonry();
                 newCards.forEach((card, index) => {
                     setTimeout(() => {
                         card.classList.remove('new-item-hidden');
@@ -1142,8 +1187,6 @@
         loadMoreSocialBtn.addEventListener("click", loadSocialMedia);
         loadMoreTuteBtn.addEventListener("click", loadTuteCovers);
         loadMoreOtherBtn.addEventListener("click", loadOtherDesigns); 
-
-        window.addEventListener('resize', layoutMasonry);
 
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
         const scrollObserver = new IntersectionObserver((entries, observer) => {
