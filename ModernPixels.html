@@ -72,7 +72,7 @@
             }
         }
 
-        /* Small Mobile Adjustments (iPhone SE etc.) */
+        /* Small Mobile Adjustments */
         @media (max-width: 380px) {
             :root {
                 --pl-title-size: 2.2rem;
@@ -109,7 +109,7 @@
         }
 
         /* -------------------------------------
-            ULTRA PREMIUM PRELOADER (ADVANCED)
+            ULTRA PREMIUM PRELOADER
         ---------------------------------------- */
         .preloader {
             position: fixed;
@@ -185,20 +185,14 @@
             100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
         }
 
-        .preloader.loaded .preloader-grid, .preloader.loaded .preloader-ambient { 
-            opacity: 0; 
-            transition: opacity 0.8s ease; 
-        }
+        .preloader.loaded .preloader-grid, .preloader.loaded .preloader-ambient { opacity: 0; transition: opacity 0.8s ease; }
 
         .preloader-content {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             text-align: center; z-index: 3; width: 100%; padding: 0 15px;
             transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
         }
-        .preloader.loaded .preloader-content {
-            transform: scale(1.05);
-            opacity: 0;
-        }
+        .preloader.loaded .preloader-content { transform: scale(1.05); opacity: 0; }
 
         .preloader-title {
             font-family: 'Bebas Neue', sans-serif; font-size: var(--pl-title-size);
@@ -226,98 +220,28 @@
             animation-delay: 0.8s;
         }
 
-        .preloader-progress {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
-            background: rgba(255, 255, 255, 0.05); z-index: 5;
-            transition: opacity 0.5s ease;
-        }
+        .preloader-progress { position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: rgba(255, 255, 255, 0.05); z-index: 5; transition: opacity 0.5s ease; }
         .preloader.loaded .preloader-progress { opacity: 0; }
+        .progress-bar { height: 100%; width: 0%; background: var(--accent); box-shadow: 0 0 15px var(--accent-glow); transition: width 0.1s linear; }
 
-        .progress-bar {
-            height: 100%; width: 0%; background: var(--accent);
-            box-shadow: 0 0 15px var(--accent-glow);
-            transition: width 0.1s linear;
-        }
-
-        @keyframes elegantReveal {
-            0% { transform: scale(0.95); opacity: 0; filter: blur(10px); letter-spacing: var(--pl-letter-space-start); }
-            100% { transform: scale(1); opacity: 1; filter: blur(0); letter-spacing: var(--pl-letter-space-end); }
-        }
-
-        @keyframes premiumShine {
-            0% { background-position: 200% center; opacity: 0; }
-            10% { opacity: 1; filter: drop-shadow(0 0 15px var(--accent-glow)); }
-            90% { opacity: 1; }
-            100% { background-position: -100% center; opacity: 0; }
-        }
-
-        @keyframes smoothUp {
-            to { opacity: 0.8; transform: translateY(0); }
-        }
+        @keyframes elegantReveal { 0% { transform: scale(0.95); opacity: 0; filter: blur(10px); letter-spacing: var(--pl-letter-space-start); } 100% { transform: scale(1); opacity: 1; filter: blur(0); letter-spacing: var(--pl-letter-space-end); } }
+        @keyframes premiumShine { 0% { background-position: 200% center; opacity: 0; } 10% { opacity: 1; filter: drop-shadow(0 0 15px var(--accent-glow)); } 90% { opacity: 1; } 100% { background-position: -100% center; opacity: 0; } }
+        @keyframes smoothUp { to { opacity: 0.8; transform: translateY(0); } }
 
         /* -------------------------------------
             ADVANCED NAVIGATION BAR
         ---------------------------------------- */
         .navbar {
-            position: fixed;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateZ(0);
-            width: auto;
-            min-width: max-content;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 60px;
-            padding: 12px 35px;
-            z-index: 1000;
-            background: rgba(5, 8, 15, 0.4);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 100px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-            will-change: transform, background, box-shadow, border-color;
+            position: fixed; top: 30px; left: 50%; transform: translateX(-50%) translateZ(0); width: auto; min-width: max-content; display: flex; justify-content: space-between; align-items: center; gap: 60px; padding: 12px 35px; z-index: 1000; background: rgba(5, 8, 15, 0.4); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 100px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, background, box-shadow, border-color;
         }
+        .navbar.scrolled { top: 15px; background: rgba(2, 4, 10, 0.9); border-color: color-mix(in srgb, var(--accent) 30%, transparent); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px color-mix(in srgb, var(--accent) 15%, transparent); padding: 10px 35px; }
 
-        .navbar.scrolled {
-            top: 15px;
-            background: rgba(2, 4, 10, 0.9);
-            border-color: color-mix(in srgb, var(--accent) 30%, transparent);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px color-mix(in srgb, var(--accent) 15%, transparent);
-            padding: 10px 35px;
-        }
-
-        .nav-brand {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.3rem; 
-            text-transform: uppercase;
-            color: #fff;
-            text-decoration: none;
-            letter-spacing: 3px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 1002;
-            transition: opacity 0.3s ease;
-        }
-
-        .nav-brand span {
-            color: var(--accent);
-            text-shadow: 0 0 10px var(--accent-glow);
-            transition: color 0.5s ease, text-shadow 0.5s ease;
-        }
+        .nav-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; text-transform: uppercase; color: #fff; text-decoration: none; letter-spacing: 3px; display: flex; align-items: center; gap: 8px; z-index: 1002; transition: opacity 0.3s ease; }
+        .nav-brand span { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); transition: color 0.5s ease, text-shadow 0.5s ease; }
 
         .nav-links { display: flex; gap: 35px; list-style: none; }
-        .nav-links a {
-            color: var(--text-muted); text-decoration: none; font-size: 0.8rem; text-transform: uppercase;
-            font-weight: 500; letter-spacing: 2px; padding: 5px 0; transition: color 0.3s ease; position: relative; z-index: 1; display: block;
-        }
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%); width: 0; height: 2px;
-            background: var(--accent); border-radius: 2px; transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, background 0.4s ease;
-        }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.8rem; text-transform: uppercase; font-weight: 500; letter-spacing: 2px; padding: 5px 0; transition: color 0.3s ease; position: relative; z-index: 1; display: block; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background: var(--accent); border-radius: 2px; transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, background 0.4s ease; }
         .nav-links a:hover { color: #fff; text-shadow: 0 0 8px rgba(255, 255, 255, 0.2); }
         .nav-links a:hover::after { width: 100%; box-shadow: 0 0 10px var(--accent-glow); }
 
@@ -328,10 +252,7 @@
         .floating-logos { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; opacity: 0.15; will-change: transform; }
         .floating-logos img { position: absolute; max-width: 60px; filter: grayscale(100%) invert(100%); animation: floatLogos 15s infinite alternate ease-in-out; will-change: transform; }
         @keyframes floatLogos { 0% { transform: translate(0, 0) rotate(0deg); } 100% { transform: translate(50px, 50px) rotate(15deg); } }
-        .logo-1 { top: 10%; left: 10%; animation-delay: -2s; }
-        .logo-2 { top: 20%; right: 15%; animation-delay: -5s; max-width: 70px !important; }
-        .logo-3 { bottom: 15%; left: 20%; animation-delay: -8s; }
-        .logo-4 { bottom: 10%; right: 10%; animation-delay: -1s; max-width: 80px !important; }
+        .logo-1 { top: 10%; left: 10%; animation-delay: -2s; } .logo-2 { top: 20%; right: 15%; animation-delay: -5s; max-width: 70px !important; } .logo-3 { bottom: 15%; left: 20%; animation-delay: -8s; } .logo-4 { bottom: 10%; right: 10%; animation-delay: -1s; max-width: 80px !important; }
 
         /* Ambient Glows */
         .ambient-glow { position: fixed; border-radius: 50%; filter: blur(150px); z-index: -2; opacity: 0.2; animation: floatGlow 15s infinite alternate ease-in-out; will-change: transform; transition: background 0.8s ease; }
@@ -339,21 +260,14 @@
         .glow-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: rgba(138, 43, 226, 0.05); animation-delay: -5s; }
         @keyframes floatGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(30px, 30px) scale(1.05); } }
         
-        /* SCROLLBAR DESKTOP ONLY */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--primary); }
         ::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-        /* HIDE SCROLLBAR ON MOBILE */
         @media (max-width: 768px) {
-            ::-webkit-scrollbar {
-                display: none;
-            }
-            body {
-                -ms-overflow-style: none; 
-                scrollbar-width: none;  
-            }
+            ::-webkit-scrollbar { display: none; }
+            body { -ms-overflow-style: none; scrollbar-width: none; }
         }
 
         .container { max-width: 1400px; margin: 0 auto; padding: 160px 2% 50px 2%; position: relative; z-index: 1; overflow-x: hidden; }
@@ -376,10 +290,7 @@
 
         .hanging-bulbs { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
         .bulb-group { position: absolute; top: 0; transform-origin: top center; }
-        .b1 { left: 15%; animation: swing 5.5s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate; }
-        .b2 { left: 35%; animation: swing 6.2s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate-reverse; }
-        .b3 { left: 70%; animation: swing 4.8s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate; }
-        .b4 { left: 88%; animation: swing 5.8s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate-reverse; }
+        .b1 { left: 15%; animation: swing 5.5s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate; } .b2 { left: 35%; animation: swing 6.2s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate-reverse; } .b3 { left: 70%; animation: swing 4.8s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate; } .b4 { left: 88%; animation: swing 5.8s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate-reverse; }
         .wire { width: 1.5px; background: linear-gradient(to right, #0a0a0f, #3a3a4a, #0a0a0f); margin: 0 auto; box-shadow: 0 0 2px rgba(255,255,255,0.05); }
         .b1 .wire { height: 180px; } .b2 .wire { height: 80px; } .b3 .wire { height: 130px; } .b4 .wire { height: 220px; }
         .bulb { width: 28px; height: 45px; margin: 0 auto; position: relative; border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%; background: rgba(255, 255, 255, 0.01); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); box-shadow: inset 3px 3px 8px rgba(255, 255, 255, 0.25), inset -3px -3px 12px rgba(0, 0, 0, 0.8), inset 0 -15px 15px rgba(255, 255, 255, 0.04), 0 15px 35px var(--accent-glow), 0 0 80px color-mix(in srgb, var(--accent) 30%, transparent); transition: box-shadow 0.8s ease; }
@@ -411,24 +322,21 @@
         .stat-label { color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; transition: color 0.8s ease; }
 
         @media (max-width: 992px) { .about-grid { grid-template-columns: 1fr; gap: 50px; } .about-title { font-size: 2.2rem; } .about-stats { gap: 30px; flex-wrap: wrap; } .stat-value { font-size: 2.5rem; } }
-        @media (max-width: 768px) { :root { transition: none !important; } .space-system { transform: scale(0.65); height: 300px; } .planet-wrapper { min-height: 250px; } .hanging-bulbs { opacity: 0.6; } .ambient-glow { display: none !important; } .floating-logos { display: none; } body::before { height: 100vh; height: 100dvh; } .service-card, .pricing-card, .contact-container, .custom-package-banner { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background-color: rgba(10, 15, 25, 0.98) !important; } .navbar { top: 15px; padding: 12px 25px; width: 92%; min-width: auto; justify-content: space-between; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background-color: rgba(5, 8, 15, 0.98) !important; } .navbar.scrolled { top: 10px; padding: 10px 25px; width: 95%; } .section-heading { font-size: 1.6rem; margin-left: 5%; } .brand-logo { max-width: 280px; } .mobile-menu-btn { display: flex; } .nav-links { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: rgba(5, 8, 15, 0.98); backdrop-filter: none; -webkit-backdrop-filter: none; flex-direction: column; justify-content: center; align-items: center; gap: 25px; transition: right 0.4s ease; border-left: 1px solid color-mix(in srgb, var(--accent) 10%, transparent); box-shadow: -10px 0 30px rgba(0,0,0,0.8); } .nav-links.active { right: 0; } .nav-links a { font-size: 1.3rem; padding: 15px 40px; } .mobile-menu-btn.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); } .mobile-menu-btn.active span:nth-child(2) { opacity: 0; transform: translateX(20px); } .mobile-menu-btn.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); } .banner-title { font-size: 1.3rem; } .container { padding: 160px 0 50px 0; } .about-modern-container, .services-grid, .pricing-grid, .custom-package-banner, .contact-container { padding: 0 5%; } }
-
-        /* SERVICES SECTION */
-        .services-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-bottom: 80px; padding: 0 3%; }
-        .service-card { flex: 1 1 300px; max-width: 400px; background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); border: 1px solid var(--glass-border); border-top: 1px solid rgba(255,255,255,0.1); border-left: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 40px 30px; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); box-shadow: 0 15px 30px rgba(0,0,0,0.2); transition: all 0.3s ease; text-align: center; position: relative; overflow: hidden; will-change: transform, box-shadow; transform: translateZ(0); }
-        .service-card::before { content: ''; position: absolute; top: -50px; right: -50px; width: 100px; height: 100px; background: var(--accent); filter: blur(60px); opacity: 0; transition: opacity 0.3s ease, background 0.6s ease; }
-        .service-card:hover { transform: translateY(-10px) translateZ(0); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px var(--accent-glow); }
-        .service-card:hover::before { opacity: 0.15; }
-        .service-icon { width: 50px; height: 50px; margin: 0 auto 25px auto; fill: var(--accent); transition: transform 0.3s ease, fill 0.6s ease, filter 0.6s ease; filter: drop-shadow(0 0 10px var(--accent-glow)); }
-        .service-card:hover .service-icon { transform: scale(1.15); }
-        .service-title { font-family: 'Syncopate', sans-serif; font-size: 1.1rem; color: #fff; margin-bottom: 15px; letter-spacing: 1px; }
-        .service-desc { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+        @media (max-width: 768px) { :root { transition: none !important; } .space-system { transform: scale(0.65); height: 300px; } .planet-wrapper { min-height: 250px; } .hanging-bulbs { opacity: 0.6; } .ambient-glow { display: none !important; } .floating-logos { display: none; } body::before { height: 100vh; height: 100dvh; } .service-card, .pricing-card, .contact-container, .custom-package-banner { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background-color: rgba(10, 15, 25, 0.98) !important; } .navbar { top: 15px; padding: 12px 25px; width: 92%; min-width: auto; justify-content: space-between; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; background-color: rgba(5, 8, 15, 0.98) !important; } .navbar.scrolled { top: 10px; padding: 10px 25px; width: 95%; } .section-heading { font-size: 1.6rem; margin-left: 5%; } .brand-logo { max-width: 280px; } .mobile-menu-btn { display: flex; } .nav-links { position: fixed; top: 0; right: -100%; width: 100%; height: 100vh; background: rgba(5, 8, 15, 0.98); backdrop-filter: none; -webkit-backdrop-filter: none; flex-direction: column; justify-content: center; align-items: center; gap: 25px; transition: right 0.4s ease; border-left: 1px solid color-mix(in srgb, var(--accent) 10%, transparent); box-shadow: -10px 0 30px rgba(0,0,0,0.8); } .nav-links.active { right: 0; } .nav-links a { font-size: 1.3rem; padding: 15px 40px; } .mobile-menu-btn.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); } .mobile-menu-btn.active span:nth-child(2) { opacity: 0; transform: translateX(20px); } .mobile-menu-btn.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background: var(--accent); box-shadow: 0 0 12px var(--accent-glow); } .banner-title { font-size: 1.3rem; } .container { padding: 160px 0 50px 0; } .about-modern-container, .services-grid, .pricing-grid, .custom-package-banner, .contact-container, .load-more-wrapper { padding: 0 5%; } }
 
         /* ==========================================
-           HORIZONTAL AUTOSCROLL GRID 
+           DYNAMIC MULTI-ROW AUTO SCROLL GRIDS
            ========================================== */
         .multi-row-wrapper {
-            margin-bottom: 60px;
+            margin-bottom: 20px;
+            opacity: 0; 
+            transform: translateY(30px) translateZ(0); 
+            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); 
+            will-change: transform, opacity; 
+        }
+
+        .multi-row-wrapper.visible { 
+            opacity: 1; transform: translateY(0) translateZ(0); 
         }
 
         .horizontal-grid { 
@@ -436,21 +344,15 @@
             flex-wrap: nowrap;
             overflow-x: auto; 
             gap: 20px;
-            /* Margins removed here to use inline styles for the wrapper layout */
-            opacity: 0; 
-            transform: translateY(30px) translateZ(0); 
-            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); 
-            will-change: transform, opacity; 
             scroll-behavior: auto;
             -ms-overflow-style: none; 
             scrollbar-width: none;  
             padding-left: 3%; padding-right: 3%;
+            opacity: 1; /* Always visible once appended */
         }
+        
         .horizontal-grid::-webkit-scrollbar { 
             display: none; 
-        }
-        .multi-row-wrapper.visible .horizontal-grid, .horizontal-grid.visible { 
-            opacity: 1; transform: translateY(0) translateZ(0); 
         }
 
         /* Cleaned up Image Card */
@@ -465,41 +367,18 @@
         }
         
         @media (max-width: 768px) {
-            .glass-image-card {
-                flex: 0 0 200px;
-                max-width: 200px;
-            }
+            .glass-image-card { flex: 0 0 200px; max-width: 200px; }
         }
 
-        .glass-image-card:hover { 
-            transform: translateY(-8px) translateZ(0); 
-        }
-
-        .glass-image-card:hover .img-wrapper {
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 20px color-mix(in srgb, var(--accent) 20%, transparent);
-        }
+        .glass-image-card:hover { transform: translateY(-8px) translateZ(0); }
+        .glass-image-card:hover .img-wrapper { box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 20px color-mix(in srgb, var(--accent) 20%, transparent); }
 
         .img-wrapper { 
-            width: 100%; 
-            border-radius: 12px; 
-            overflow: hidden; 
-            position: relative; 
-            display: block; 
-            background: rgba(255,255,255,0.05); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
-            min-height: 200px; 
-            transition: box-shadow 0.4s ease;
+            width: 100%; border-radius: 12px; overflow: hidden; position: relative; display: block; 
+            background: rgba(255,255,255,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.3); min-height: 200px; transition: box-shadow 0.4s ease;
         }
         
-        .img-wrapper img { 
-            width: 100%; 
-            height: auto; 
-            display: block; 
-            transition: transform 0.4s ease, filter 0.4s ease, opacity 0.4s ease; 
-            filter: brightness(0.95); 
-            opacity: 0; 
-            will-change: transform, opacity; 
-        }
+        .img-wrapper img { width: 100%; height: auto; display: block; transition: transform 0.4s ease, filter 0.4s ease, opacity 0.4s ease; filter: brightness(0.95); opacity: 0; will-change: transform, opacity; }
         .img-wrapper img.loaded { opacity: 1; }
 
         .loader-squares { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; gap: 6px; z-index: 0; transition: opacity 0.5s ease, visibility 0.5s ease; }
@@ -509,6 +388,40 @@
         .img-wrapper img.loaded + .loader-squares { opacity: 0; visibility: hidden; }
         .img-wrapper img { position: relative; z-index: 1; }
         .glass-image-card:hover .img-wrapper img { transform: scale(1.05) translateZ(0); filter: brightness(1.1); }
+
+        /* LOADING SPINNER FOR BUTTONS */
+        .loading-spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: var(--accent); animation: spinButton 0.8s ease-in-out infinite; margin-right: 10px; vertical-align: middle; transition: border-top-color 0.6s ease; }
+        @keyframes spinButton { to { transform: rotate(360deg); } }
+        .new-item-hidden { pointer-events: none; }
+
+        /* =========================================
+           ADVANCED LOAD MORE BUTTON STYLES
+           ========================================= */
+        .load-more-wrapper { text-align: center; margin-bottom: 80px; position: relative; display: flex; justify-content: center; }
+        .btn-load-more { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 18px 45px; background: rgba(5, 8, 15, 0.4); color: #fff; font-family: 'Syncopate', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 3px; border-radius: 50px; border: none; cursor: pointer; overflow: visible; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 1; box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.08); }
+        .btn-load-more::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(90deg, transparent, var(--accent), transparent, var(--accent), transparent); background-size: 200% 100%; border-radius: 50px; z-index: -2; opacity: 0.7; animation: borderFlow 3s infinite linear; transition: opacity 0.4s ease, filter 0.4s ease; }
+        .btn-load-more::after { content: ''; position: absolute; top: 2px; left: 2px; right: 2px; bottom: 2px; background: rgba(5, 8, 15, 0.95); border-radius: 50px; z-index: -1; transition: background 0.4s ease; }
+        .btn-load-more:hover { transform: translateY(-5px) translateZ(0); color: var(--accent); text-shadow: 0 0 15px var(--accent-glow); box-shadow: 0 15px 40px rgba(0,0,0,0.5), 0 0 25px color-mix(in srgb, var(--accent) 15%, transparent); }
+        .btn-load-more:hover::before { opacity: 1; filter: brightness(1.2) blur(2px); }
+        .btn-load-more:hover::after { background: rgba(2, 4, 10, 0.8); }
+        .btn-load-more svg { width: 20px; height: 20px; fill: currentColor; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); filter: drop-shadow(0 0 5px currentColor); }
+        .btn-load-more:hover svg { transform: translateY(4px); }
+        @keyframes borderFlow { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        .pulse-ring { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; border-radius: 50px; border: 1px solid var(--accent); opacity: 0; z-index: -3; pointer-events: none; }
+        .btn-load-more:hover .pulse-ring { animation: pulseRingAnim 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite; }
+        @keyframes pulseRingAnim { 0% { width: 100%; height: 100%; opacity: 0.8; border-width: 2px; } 100% { width: 120%; height: 150%; opacity: 0; border-width: 0px; } }
+        @media (max-width: 576px) { .btn-load-more { padding: 15px 30px; font-size: 0.8rem; letter-spacing: 2px; } .btn-load-more svg { width: 16px; height: 16px; } }
+
+        /* SERVICES SECTION */
+        .services-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; margin-bottom: 80px; padding: 0 3%; }
+        .service-card { flex: 1 1 300px; max-width: 400px; background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); border: 1px solid var(--glass-border); border-top: 1px solid rgba(255,255,255,0.1); border-left: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 40px 30px; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); box-shadow: 0 15px 30px rgba(0,0,0,0.2); transition: all 0.3s ease; text-align: center; position: relative; overflow: hidden; will-change: transform, box-shadow; transform: translateZ(0); }
+        .service-card::before { content: ''; position: absolute; top: -50px; right: -50px; width: 100px; height: 100px; background: var(--accent); filter: blur(60px); opacity: 0; transition: opacity 0.3s ease, background 0.6s ease; }
+        .service-card:hover { transform: translateY(-10px) translateZ(0); border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 20px var(--accent-glow); }
+        .service-card:hover::before { opacity: 0.15; }
+        .service-icon { width: 50px; height: 50px; margin: 0 auto 25px auto; fill: var(--accent); transition: transform 0.3s ease, fill 0.6s ease, filter 0.6s ease; filter: drop-shadow(0 0 10px var(--accent-glow)); }
+        .service-card:hover .service-icon { transform: scale(1.15); }
+        .service-title { font-family: 'Syncopate', sans-serif; font-size: 1.1rem; color: #fff; margin-bottom: 15px; letter-spacing: 1px; }
+        .service-desc { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
 
         /* PRICING PACKAGES */
         .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 40px; margin-bottom: 50px; padding: 0 3%; }
@@ -562,11 +475,6 @@
         .close-lightbox:hover { color: var(--accent); transform: rotate(90deg); }
 
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* LOADING SPINNER FOR BUTTONS */
-        .loading-spinner { display: inline-block; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: var(--accent); animation: spinButton 0.8s ease-in-out infinite; margin-right: 10px; vertical-align: middle; transition: border-top-color 0.6s ease; }
-        @keyframes spinButton { to { transform: rotate(360deg); } }
-        .new-item-hidden { pointer-events: none; }
 
     </style>
 </head>
@@ -634,7 +542,6 @@
 
         <!-- ABOUT SECTION -->
         <h2 id="about" class="section-heading reveal-on-scroll">The Creative Mind</h2>
-        
         <section class="about-modern-container reveal-on-scroll">
             <div class="about-grid">
                 <div class="about-visual">
@@ -667,28 +574,37 @@
             </div>
         </section>
 
-        <!-- Social Media Section (Now with 3 Rows) -->
+        <!-- SOCIAL MEDIA SECTION -->
         <h2 id="social" class="section-heading reveal-on-scroll">Social Media Post Design</h2>
-        
-        <div class="multi-row-wrapper reveal-on-scroll">
-            <!-- Row 1: Scrolls Left -->
-            <div class="horizontal-grid" id="social-grid-1" style="margin-top: 15px; margin-bottom: 15px; padding-top: 5px; padding-bottom: 5px;"></div>
-            
-            <!-- Row 2: Scrolls Right -->
-            <div class="horizontal-grid" id="social-grid-2" style="margin-top: 15px; margin-bottom: 15px; padding-top: 5px; padding-bottom: 5px;"></div>
-            
-            <!-- Row 3: Scrolls Left -->
-            <div class="horizontal-grid" id="social-grid-3" style="margin-top: 15px; margin-bottom: 15px; padding-top: 5px; padding-bottom: 5px;"></div>
+        <div class="multi-row-wrapper reveal-on-scroll" id="social-wrapper"></div>
+        <div class="load-more-wrapper reveal-on-scroll">
+            <button id="loadMoreBtn" class="btn-load-more">
+                <span>LOAD MORE DESIGNS</span>
+                <svg viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                <div class="pulse-ring"></div>
+            </button>
         </div>
 
-        <!-- Tute Cover Section (Row 1 - Scrolls Right) -->
+        <!-- TUTE COVER SECTION -->
         <h2 id="tute" class="section-heading reveal-on-scroll">Tuition Tute Cover</h2>
-        <div class="horizontal-grid reveal-on-scroll" id="tute-grid" style="margin-top: 20px;"></div>
+        <div class="multi-row-wrapper reveal-on-scroll" id="tute-wrapper"></div>
+        <div class="load-more-wrapper reveal-on-scroll">
+            <button id="loadMoreTuteBtn" class="btn-load-more">
+                <span>LOAD MORE COVERS</span>
+                <svg viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                <div class="pulse-ring"></div>
+            </button>
+        </div>
 
-        <!-- OTHERS SECTION (Row 1 - Scrolls Left) -->
-        <div id="others-section-wrapper">
-            <h2 id="other" class="section-heading reveal-on-scroll">Others</h2>
-            <div class="horizontal-grid reveal-on-scroll" id="other-grid" style="margin-top: 20px;"></div>
+        <!-- OTHERS SECTION -->
+        <h2 id="other" class="section-heading reveal-on-scroll">Others</h2>
+        <div class="multi-row-wrapper reveal-on-scroll" id="other-wrapper"></div>
+        <div class="load-more-wrapper reveal-on-scroll">
+            <button id="loadMoreOtherBtn" class="btn-load-more">
+                <span>LOAD MORE DESIGNS</span>
+                <svg viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
+                <div class="pulse-ring"></div>
+            </button>
         </div>
 
         <!-- SERVICES SECTION -->
@@ -964,21 +880,31 @@
             }
         }, focusObserverOptions);
 
-        // IMAGES 6K WITHARAI PER ROW
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.querySelector('.close-lightbox');
+
+        const closeLightboxBox = () => {
+            lightbox.classList.remove('active'); setTimeout(() => { lightboxImg.src = ''; }, 300); document.body.style.overflow = 'auto';
+        };
+
+        closeBtn.addEventListener('click', closeLightboxBox);
+        lightbox.addEventListener('click', (e) => { if(e.target !== lightboxImg) closeLightboxBox(); });
+        document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && lightbox.classList.contains('active')) closeLightboxBox(); });
+
+
+        // ==========================================
+        //  DYNAMIC ROW GENERATION & SCROLL LOGIC 
+        // ==========================================
         const imagesPerLoad = 6; 
-        
-        // Setup grids
-        const socialGrid1 = document.getElementById("social-grid-1");
-        const socialGrid2 = document.getElementById("social-grid-2");
-        const socialGrid3 = document.getElementById("social-grid-3");
 
-        const tuteGrid = document.getElementById("tute-grid");
-        let currentTuteImage = 22; 
+        // State storage for sections
+        const sectionState = {
+            social: { currentCount: 114, wrapperId: 'social-wrapper', folder: 'Social Media Post', altText: 'Social Media Post', rowCount: 0, btnId: 'loadMoreBtn' },
+            tute:   { currentCount: 22,  wrapperId: 'tute-wrapper',   folder: 'Tute Cover Design', altText: 'Tute Cover',        rowCount: 0, btnId: 'loadMoreTuteBtn' },
+            other:  { currentCount: 20,  wrapperId: 'other-wrapper',  folder: 'Other Designs',     altText: 'Other Design',      rowCount: 0, btnId: 'loadMoreOtherBtn' }
+        };
 
-        const otherGrid = document.getElementById("other-grid");
-        let currentOtherImage = 20; 
-
-        // --- SEAMLESS INFINITE LOOP AUTO-SCROLL LOGIC ---
         function startAutoScroll(gridElement, direction) {
             let scrollSpeed = 0.5; // Smooth slow speed
             let isHovered = false;
@@ -1014,53 +940,10 @@
             scroll();
         }
 
-        function loadGalleryImages(gridElement, currentImageCount, folderName, altText) {
-            if (currentImageCount < 1) return Promise.resolve();
-
-            let endImage = currentImageCount - imagesPerLoad + 1;
-            if (endImage < 1) endImage = 1;
-
-            let cardsHTML = "";
-            for (let i = currentImageCount; i >= endImage; i--) {
-                let imgNumber = String(i).padStart(4, '0');
-                cardsHTML += `
-                    <div class="glass-image-card new-item-hidden" style="opacity: 0; transform: translateY(30px);">
-                        <div class="img-wrapper">
-                            <img loading="lazy" decoding="async" src="Modern%20Pixels/${folderName}/${imgNumber}.webp" alt="${altText} ${i}">
-                            <div class="loader-squares"><div></div><div></div><div></div><div></div></div>
-                        </div>
-                    </div>
-                `;
-            }
-            
-            gridElement.insertAdjacentHTML('beforeend', cardsHTML);
-
-            const newCards = Array.from(gridElement.querySelectorAll('.new-item-hidden'));
-            const newImages = newCards.map(card => card.querySelector('img'));
-
-            return Promise.all(newImages.map(img => new Promise(resolve => {
-                if (img.complete) resolve();
-                else { img.onload = () => resolve(); img.onerror = () => resolve(); }
-            }))).then(() => {
-                newCards.forEach((card, index) => {
-                    setTimeout(() => {
-                        card.classList.remove('new-item-hidden');
-                        card.style.transition = 'opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)';
-                        card.style.opacity = '1'; card.style.transform = 'translateY(0)';
-                        card.querySelector('img').classList.add('loaded');
-                        card.classList.add('focus-observed');
-                        focusObserver.observe(card);
-                    }, index * 100); 
-                });
-            });
-        }
-
-        // Duplicate items so that wide screens don't freeze the infinite scroll
         function makeGridInfiniteReady(grid) {
             const children = Array.from(grid.children);
             children.forEach(child => {
                 const clone = child.cloneNode(true);
-                // Attach lightbox event to clones as well
                 clone.onclick = function() {
                     const img = this.querySelector('img');
                     if(img) { lightbox.classList.add('active'); lightboxImg.src = img.src; document.body.style.overflow = 'hidden'; }
@@ -1069,78 +952,145 @@
             });
         }
 
-        // Load images for all grids (Social 1, 2, 3 uses distinct start numbers)
-        Promise.all([
-            // Social Media: 1st Row starts from 114
-            loadGalleryImages(socialGrid1, 114, "Social%20Media%20Post", "Social Media Post"),
-            // Social Media: 2nd Row starts from 108
-            loadGalleryImages(socialGrid2, 108, "Social%20Media%20Post", "Social Media Post"),
-            // Social Media: 3rd Row starts from 102
-            loadGalleryImages(socialGrid3, 102, "Social%20Media%20Post", "Social Media Post"),
+        function createRow(sectionKey) {
+            return new Promise((resolve) => {
+                const sec = sectionState[sectionKey];
+                if (sec.currentCount < 1) {
+                    resolve();
+                    return;
+                }
 
-            loadGalleryImages(tuteGrid, currentTuteImage, "Tute%20Cover%20Design", "Tute Cover"),
-            loadGalleryImages(otherGrid, currentOtherImage, "Other%20Designs", "Other Design")
-        ]).then(() => {
-            setTimeout(() => {
-                attachLightboxEvents();
+                const wrapper = document.getElementById(sec.wrapperId);
+                const btn = document.getElementById(sec.btnId);
                 
-                // Clone images to ensure container overflows (Fixes missing row bug)
-                makeGridInfiniteReady(socialGrid1);
-                makeGridInfiniteReady(socialGrid2);
-                makeGridInfiniteReady(socialGrid3);
-                makeGridInfiniteReady(tuteGrid);
-                makeGridInfiniteReady(otherGrid);
+                // Button Loading State
+                if (btn) {
+                    btn.style.pointerEvents = 'none';
+                    btn.style.opacity = '0.7';
+                    if (!btn.dataset.originalHtml) btn.dataset.originalHtml = btn.innerHTML;
+                    btn.innerHTML = '<span class="loading-spinner"></span> LOADING...';
+                }
 
-                // Set initial scroll position for right-scrolling grids to prevent freeze
-                socialGrid2.scrollLeft = socialGrid2.scrollWidth / 2;
-                tuteGrid.scrollLeft = tuteGrid.scrollWidth / 2;
+                sec.rowCount++;
+                
+                // Determine direction based on row number (Row 1=left, Row 2=right, Row 3=left...)
+                const direction = (sec.rowCount % 2 === 0) ? 'right' : 'left'; 
+                
+                const newGrid = document.createElement('div');
+                newGrid.className = 'horizontal-grid'; 
+                newGrid.style.marginTop = '15px';
+                newGrid.style.marginBottom = '15px';
+                newGrid.style.paddingTop = '5px';
+                newGrid.style.paddingBottom = '5px';
 
-                // Start scrolling (Left-Right-Left for Social Media)
-                startAutoScroll(socialGrid1, 'left');
-                startAutoScroll(socialGrid2, 'right');
-                startAutoScroll(socialGrid3, 'left');
-                startAutoScroll(tuteGrid, 'right');
-                startAutoScroll(otherGrid, 'left');
-            }, 800); 
-        });
+                let endImage = sec.currentCount - imagesPerLoad + 1;
+                if (endImage < 1) endImage = 1;
 
+                let cardsHTML = "";
+                for (let i = sec.currentCount; i >= endImage; i--) {
+                    let imgNumber = String(i).padStart(4, '0');
+                    cardsHTML += `
+                        <div class="glass-image-card new-item-hidden" style="opacity: 0; transform: translateY(30px);">
+                            <div class="img-wrapper">
+                                <img loading="lazy" decoding="async" src="Modern%20Pixels/${sec.folder}/${imgNumber}.webp" alt="${sec.altText} ${i}">
+                                <div class="loader-squares"><div></div><div></div><div></div><div></div></div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                newGrid.innerHTML = cardsHTML;
+                wrapper.appendChild(newGrid);
+
+                sec.currentCount = endImage - 1;
+
+                const newCards = Array.from(newGrid.querySelectorAll('.new-item-hidden'));
+                const newImages = newCards.map(card => card.querySelector('img'));
+
+                Promise.all(newImages.map(img => new Promise(res => {
+                    if (img.complete) res();
+                    else { img.onload = () => res(); img.onerror = () => res(); }
+                }))).then(() => {
+                    newCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.remove('new-item-hidden');
+                            card.style.transition = 'opacity 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1)';
+                            card.style.opacity = '1'; 
+                            card.style.transform = 'translateY(0)';
+                            card.querySelector('img').classList.add('loaded');
+                            
+                            // Lightbox Click Event
+                            card.onclick = function() {
+                                const imgEl = this.querySelector('img');
+                                if(imgEl) { 
+                                    lightbox.classList.add('active'); 
+                                    lightboxImg.src = imgEl.src; 
+                                    document.body.style.overflow = 'hidden';
+                                }
+                            };
+                        }, index * 100); 
+                    });
+
+                    setTimeout(() => {
+                        makeGridInfiniteReady(newGrid);
+                        
+                        if (direction === 'right') {
+                            newGrid.scrollLeft = newGrid.scrollWidth / 2;
+                        }
+                        
+                        startAutoScroll(newGrid, direction);
+
+                        // Reset Button State & Hide if empty
+                        if (btn) {
+                            btn.style.pointerEvents = 'auto';
+                            btn.style.opacity = '1';
+                            btn.innerHTML = btn.dataset.originalHtml;
+                            
+                            if (sec.currentCount < 1) {
+                                btn.parentElement.style.display = 'none';
+                            }
+                        }
+                        resolve();
+                    }, 800);
+                });
+            });
+        }
+
+        // --- BUTTON EVENT LISTENERS ---
+        document.getElementById('loadMoreBtn').addEventListener('click', () => createRow('social'));
+        document.getElementById('loadMoreTuteBtn').addEventListener('click', () => createRow('tute'));
+        document.getElementById('loadMoreOtherBtn').addEventListener('click', () => createRow('other'));
+
+        // --- INITIAL LOAD ---
+        // Social: 3 rows initially
+        createRow('social');
+        setTimeout(() => createRow('social'), 300);
+        setTimeout(() => createRow('social'), 600);
+        
+        // Tute: 3 rows initially
+        createRow('tute');
+        setTimeout(() => createRow('tute'), 300);
+        setTimeout(() => createRow('tute'), 600);
+        
+        // Others: 3 rows initially
+        createRow('other');
+        setTimeout(() => createRow('other'), 300);
+        setTimeout(() => createRow('other'), 600);
+
+
+        // Observe Reveal on scroll
         const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
         const scrollObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    // We only want to reveal once, EXCEPT for the wrapper which holds the social grids
-                    if (!entry.target.classList.contains('multi-row-wrapper')) {
-                        observer.unobserve(entry.target); 
-                    }
+                    // We only want to reveal once
+                    observer.unobserve(entry.target); 
                 }
             });
         }, observerOptions);
 
         document.querySelectorAll('.reveal-on-scroll').forEach((section) => scrollObserver.observe(section));
-
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const closeBtn = document.querySelector('.close-lightbox');
-
-        function attachLightboxEvents() {
-            document.querySelectorAll('.glass-image-card').forEach(card => {
-                card.onclick = function() {
-                    const img = this.querySelector('img');
-                    if(img) { 
-                        lightbox.classList.add('active'); lightboxImg.src = img.src; document.body.style.overflow = 'hidden';
-                    }
-                };
-            });
-        }
-
-        const closeLightboxBox = () => {
-            lightbox.classList.remove('active'); setTimeout(() => { lightboxImg.src = ''; }, 300); document.body.style.overflow = 'auto';
-        };
-
-        closeBtn.addEventListener('click', closeLightboxBox);
-        lightbox.addEventListener('click', (e) => { if(e.target !== lightboxImg) closeLightboxBox(); });
-        document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && lightbox.classList.contains('active')) closeLightboxBox(); });
 
     </script>
 </body>
