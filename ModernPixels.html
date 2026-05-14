@@ -97,13 +97,32 @@
         body.light-theme .scrolling-text-group span { color: var(--accent); text-shadow: none; }
         body.light-theme .section-heading { background: linear-gradient(90deg, #0f172a, var(--accent)); -webkit-background-clip: text; -webkit-text-stroke: 1px transparent; }
         
-        body.light-theme .bulb { background: rgba(0,0,0,0.03); box-shadow: inset 3px 3px 8px rgba(255,255,255,0.6), inset -3px -3px 12px rgba(0,0,0,0.1); }
-        body.light-theme .bulb::before { background: #475569; } body.light-theme .bulb::after { background: #0f172a; }
+        /* LIGHT BULB GLOW IN LIGHT THEME */
+        body.light-theme .bulb { 
+            background: rgba(255, 255, 230, 0.9); 
+            box-shadow: 0 0 30px rgba(255, 200, 0, 0.6), 0 0 60px rgba(255, 200, 0, 0.4), inset 2px 2px 10px rgba(255, 255, 255, 1); 
+        }
+        body.light-theme .bulb::before { background: #475569; } 
+        body.light-theme .bulb::after { 
+            background: #fff; 
+            opacity: 1; 
+            box-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00; 
+            animation: corePulseLight 1.5s infinite alternate cubic-bezier(0.4, 0, 0.6, 1);
+        }
+        @keyframes corePulseLight {
+            0% { opacity: 0.8; box-shadow: 0 0 5px #fff, 0 0 10px #ffcc00; }
+            100% { opacity: 1; box-shadow: 0 0 15px #fff, 0 0 25px #ffcc00, 0 0 40px #ffcc00; }
+        }
+        
         body.light-theme .wire { background: #64748b; }
 
         body.light-theme .hero-description-container { background: rgba(255,255,255,0.9); border-color: rgba(0,0,0,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
         body.light-theme .hero-desc-text { color: #0f172a; }
         body.light-theme .hero-desc-text strong { background: linear-gradient(90deg, #0f172a, var(--accent), #0f172a); -webkit-background-clip: text; background-clip: text; text-shadow: none; }
+        
+        body.light-theme .agency-stats-container { background: rgba(255,255,255,0.9); border-color: rgba(0,0,0,0.1); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+        body.light-theme .stat-divider { background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.1), transparent); }
+        body.light-theme .stat-value { color: #0f172a; text-shadow: none; }
 
         body.light-theme .service-card { background: rgba(255,255,255,0.8); border-color: rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         body.light-theme .service-card:hover { background: #fff; border-color: var(--accent); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
@@ -139,6 +158,67 @@
         body.light-theme .site-footer img { filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1)); opacity: 0.7; }
         body.light-theme .floating-logos img { filter: grayscale(100%) opacity(0.15); }
         body.light-theme .tiny-star { opacity: 0 !important; }
+
+        /* -------------------------------------
+           REDUCED PREMIUM LIQUID GLOW HEADER
+        ---------------------------------------- */
+        .premium-liquid-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 350px;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
+        }
+
+        .liquid-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(50px);
+            opacity: 0.25;
+            animation: floatLiquid 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .liquid-1 {
+            top: -100px; left: 0%;
+            width: 400px; height: 400px;
+            background: var(--accent);
+            animation-duration: 25s;
+        }
+        
+        .liquid-2 {
+            top: -100px; right: 0%;
+            width: 450px; height: 350px;
+            background: var(--accent-alt);
+            animation-delay: -5s;
+            animation-duration: 22s;
+            animation-direction: alternate-reverse;
+        }
+        
+        .liquid-3 {
+            top: 0px; left: 30%;
+            width: 500px; height: 250px;
+            background: #00ffcc;
+            animation-delay: -10s;
+            animation-duration: 28s;
+            opacity: 0.15;
+        }
+
+        body.light-theme .liquid-blob { opacity: 0.15; }
+        body.magic-mode .liquid-blob { opacity: 0.4; filter: blur(40px); }
+        body.magic-mode .liquid-3 { background: #ffea00; } 
+
+        @keyframes floatLiquid {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            33% { transform: translate(8vw, 80px) scale(1.1) rotate(15deg); }
+            66% { transform: translate(-8vw, 40px) scale(0.9) rotate(-15deg); }
+            100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+        }
 
         /* -------------------------------------
            TINY BLINKING STARS
@@ -345,7 +425,7 @@
         @keyframes fadeRestingPro { 0%, 17.5% { opacity: 0; } 18%, 44.5% { opacity: 1; } 45%, 100% { opacity: 0; } }
 
         /* =======================================================
-           STATIC LOGO SECTION WITH ROTATING FADED GLOW
+           STATIC LOGO SECTION
            ======================================================= */
         .brand-header { 
             text-align: center; margin-bottom: 80px; padding-top: 40px;
@@ -359,17 +439,6 @@
             position: relative; width: 100%; max-width: 500px;
             display: flex; justify-content: center; align-items: center; margin-bottom: 30px;
         }
-
-        .rotating-glow {
-            position: absolute; top: 50%; left: 50%; width: 350px; height: 350px;
-            transform: translate(-50%, -50%); border-radius: 50%;
-            background: conic-gradient(from 0deg, transparent 0%, color-mix(in srgb, var(--accent) 50%, transparent) 25%, transparent 50%, color-mix(in srgb, var(--accent-alt) 50%, transparent) 75%, transparent 100%);
-            filter: blur(40px); opacity: 0.8; animation: slowSpin 10s linear infinite; z-index: -1; pointer-events: none;
-            transition: all 0.8s ease;
-        }
-
-        body.magic-mode .rotating-glow { opacity: 0.85; filter: blur(35px); background: conic-gradient(from 0deg, var(--accent) 0%, transparent 30%, var(--accent-alt) 50%, transparent 80%, var(--accent) 100%); }
-        @keyframes slowSpin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
 
         .brand-logo { max-width: 320px; width: 90%; height: auto; position: relative; z-index: 5; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8)); transition: filter 0.8s ease; }
 
@@ -443,10 +512,10 @@
         @keyframes swing { 0% { transform: rotate(2deg); } 100% { transform: rotate(-2deg); } }
 
         /* =======================================================
-           NEW HERO DESCRIPTION SECTION
+           NEW HERO DESCRIPTION SECTION & AGENCY STATS
            ======================================================= */
         .hero-description-container {
-            margin: 60px 3% 100px 3%;
+            margin: 60px 3% 40px 3%;
             padding: 60px 50px;
             background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(0,0,0,0.2));
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -507,8 +576,43 @@
             to { background-position: 200% center; }
         }
         
+        /* STANDALONE AGENCY STATS BOX */
+        .agency-stats-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            margin: 0 auto 100px auto;
+            padding: 40px 60px;
+            background: linear-gradient(145deg, rgba(5, 8, 15, 0.6), rgba(2, 4, 10, 0.8));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            max-width: 1000px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            z-index: 5;
+            position: relative;
+        }
+        .agency-stats-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .stat-divider {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.2), transparent);
+        }
+        .stat-item { display: flex; flex-direction: column; gap: 8px; text-align: center; }
+        .stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; color: #fff; letter-spacing: 4px; line-height: 1; text-shadow: 0 0 20px rgba(255,255,255,0.2); transition: all 0.8s ease; }
+        .stat-label { color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; transition: color 0.8s ease; }
+
         body.magic-mode .hero-description-container { box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 50px color-mix(in srgb, var(--accent) 20%, transparent); }
         body.magic-mode .hero-desc-text strong { text-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent-glow); }
+        body.magic-mode .agency-stats-container { box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 40px color-mix(in srgb, var(--accent) 15%, transparent); border-color: color-mix(in srgb, var(--accent) 30%, transparent); }
 
         /* MULTI-ROW GRIDS */
         .multi-row-wrapper { margin-bottom: 20px; opacity: 0; transform: translate3d(0, 40px, 0); transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, opacity; }
@@ -721,20 +825,26 @@
             .floating-logos { display: none; } 
             body::before { height: 100vh; height: 100dvh; } 
             .container { padding: 140px 0 50px 0; } 
+            .premium-liquid-header { height: 250px; } /* Adjust height for mobile */
             .hero-description-container, .services-grid, .pricing-grid, .custom-package-banner, .contact-container, .load-more-wrapper { padding: 0 5%; } 
             .section-heading { font-size: 1.6rem; margin-left: 5%; } 
             
             .logo-presentation-wrapper { max-width: 100%; margin-bottom: 20px; } 
-            .rotating-glow { width: 250px; height: 250px; filter: blur(30px); }
             .brand-logo { max-width: 240px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6)); } 
             .founder-name { font-size: 0.9rem; letter-spacing: 4px; }
             .agency-tagline { font-size: 0.7rem; letter-spacing: 2px; }
             .scrolling-text-group span { font-size: 0.75rem; letter-spacing: 2px; }
             .scrolling-text-wrapper { margin-top: 30px; padding: 12px 0; }
 
-            .hero-description-container { padding: 40px 25px; border-radius: 20px; margin: 40px 5% 80px 5%; }
+            .hero-description-container { padding: 40px 25px; border-radius: 20px; margin: 40px 5% 60px 5%; }
             .hero-desc-text { font-size: 1.1rem; line-height: 1.7; }
             .hero-desc-text strong { font-size: 0.95rem; }
+            
+            .agency-stats-container { flex-direction: column; gap: 30px; padding: 40px 20px; margin: 0 5% 80px 5%; border-radius: 20px; }
+            .stat-divider { width: 100px; height: 1px; background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent); }
+            body.light-theme .stat-divider { background: linear-gradient(to right, transparent, rgba(0,0,0,0.1), transparent); }
+            .stat-value { font-size: 3rem; }
+            .stat-label { font-size: 0.8rem; }
 
             .services-grid { gap: 15px; grid-template-columns: 1fr; margin-bottom: 50px; }
             .service-card { padding: 25px 20px; border-radius: 14px; background: rgba(10, 15, 25, 0.98); }
@@ -855,6 +965,13 @@
         <img src="Modern Pixels/MODERNPIXELS.png" alt="Figma" class="logo-4">
     </div>
 
+    <!-- PREMIUM LIQUID GLOW EFFECT AT THE TOP -->
+    <div class="premium-liquid-header">
+        <div class="liquid-blob liquid-1"></div>
+        <div class="liquid-blob liquid-2"></div>
+        <div class="liquid-blob liquid-3"></div>
+    </div>
+
     <div class="container">
         
         <div class="hanging-bulbs">
@@ -867,7 +984,6 @@
         <header class="brand-header">
             
             <div class="logo-presentation-wrapper">
-                <div class="rotating-glow"></div>
                 
                 <!-- ULTRA-REALISTIC 3D BIRDS CONTAINER -->
                 <div class="premium-birds-pro">
@@ -990,9 +1106,27 @@
         <!-- NEW HERO DESCRIPTION SECTION -->
         <section id="about" class="hero-description-container reveal-on-scroll">
             <p class="hero-desc-text">
-                "At Modern Pixels Digital Platform, we bring <strong>5+ years of industry experience</strong> with <strong>500+ successful projects</strong>, delivering creative graphic design, branding, social media marketing, web solutions, and digital innovations with quality, professionalism, and customer satisfaction."
+                "At Modern Pixels Digital Platform, our dedicated team brings <strong>5+ years of collective industry experience</strong> with <strong>500+ successful projects</strong>, delivering premium graphic design, branding, social media marketing, web solutions, and digital innovations with uncompromised quality and professionalism."
             </p>
         </section>
+
+        <!-- STANDALONE AGENCY STATS -->
+        <div class="agency-stats-container reveal-on-scroll">
+            <div class="stat-item">
+                <span class="stat-value"><span class="counter" data-target="5">0</span>+</span>
+                <span class="stat-label">Years of Excellence</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-value"><span class="counter" data-target="500">0</span>+</span>
+                <span class="stat-label">Projects Completed</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-value"><span class="counter" data-target="100">0</span>%</span>
+                <span class="stat-label">Client Satisfaction</span>
+            </div>
+        </div>
 
         <h2 id="social" class="section-heading reveal-on-scroll">Social Media Post Design</h2>
         <div class="multi-row-wrapper reveal-on-scroll" id="social-wrapper"></div>
@@ -1148,18 +1282,18 @@
         <div class="custom-package-banner reveal-on-scroll">
             <h3 class="banner-title">Need a Custom Design Package?</h3>
             <p class="banner-desc">Every brand is unique, and so are your design needs. Tell us what you are looking for, and we will build a fully customized design package tailored exactly to your requirements and budget.</p>
-            <a href="https://wa.me/94719954387?text=Hello%20Malith,%20I%20would%20like%20to%20discuss%20a%20custom%20design%20package!" target="_blank" class="back-btn banner-btn">REQUEST CUSTOM QUOTE</a>
+            <a href="https://wa.me/94719954387?text=Hello%20Modern%20Pixels%20Team,%20I%20would%20like%20to%20discuss%20a%20custom%20design%20package!" target="_blank" class="back-btn banner-btn">REQUEST CUSTOM QUOTE</a>
         </div>
 
         <h2 id="contact" class="section-heading reveal-on-scroll">Let's Work Together</h2>
         <div class="contact-container reveal-on-scroll">
-            <p class="contact-text">Looking to elevate your brand with stunning, minimalist designs? Reach out to me directly and let's turn your ideas into visual masterpieces.</p>
+            <p class="contact-text">Looking to elevate your brand with stunning, minimalist designs? Reach out to our team directly and let's turn your ideas into visual masterpieces.</p>
             
-            <a href="https://wa.me/94719954387?text=Hello%20Malith,%20I'm%20interested%20in%20your%20design%20services!" target="_blank" class="whatsapp-btn">
+            <a href="https://wa.me/94719954387?text=Hello%20Modern%20Pixels%20Team,%20I'm%20interested%20in%20your%20design%20services!" target="_blank" class="whatsapp-btn">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                     <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zM223.9 413.4c-33 0-65.4-8.9-94-25.6l-6.7-4-69.8 18.3L72 334.3l-4.4-7.1c-18.3-29.6-28-63.7-28-98.2 0-101.4 82.5-184 184-184 55.8 0 108.3 21.7 147.8 61.2s61.2 92.1 61.2 147.8c0 101.4-82.5 184-184.2 184h-.1zM324 285.6c-5.5-2.8-32.5-16.1-37.5-17.9-5-1.8-8.7-2.8-12.4 2.8-3.7 5.5-14.2 17.9-17.4 21.6-3.2 3.7-6.4 4.1-11.9 1.4-5.5-2.8-23.2-8.5-44.2-27.3-16.3-14.6-27.3-32.6-30.5-38.1-3.2-5.5-.3-8.5 2.5-11.2 2.5-2.5 5.5-6.4 8.2-9.6 2.8-3.2 3.7-5.5 5.5-9.2 1.8-3.7.9-6.9-.5-9.6-1.4-2.8-12.4-30.1-17-41.2-4.5-10.8-9.1-9.3-12.4-9.5-3.2-.2-6.9-.2-10.5-.2-3.7 0-9.6 1.4-14.6 6.9-5 5.5-19.2 18.8-19.2 45.9s19.7 53.3 22.4 57c2.8 3.7 38.9 59.4 94.2 83.3 13.1 5.7 23.4 9.1 31.4 11.6 13.2 4.2 25.2 3.6 34.7 2.2 10.6-1.5 32.5-13.3 37.1-26.1 4.6-12.8 4.6-23.8 3.2-26.1-1.4-2.3-5-3.7-10.5-6.5z"/>
                 </svg>
-                WHATSAPP ME (0719954387)
+                WHATSAPP US (0719954387)
             </a>
         </div>
 
@@ -1170,7 +1304,7 @@
 
     <footer class="site-footer reveal-on-scroll">
         <img src="Modern Pixels/MODERNPIXELS.png" alt="Modern Pixels Logo">
-        <p>&copy; 2026 Modern Pixels by Malith Eranga. All Rights Reserved.</p>
+        <p>&copy; 2026 Modern Pixels. All Rights Reserved.</p>
     </footer>
 
     <div id="lightbox" class="lightbox">
@@ -1568,6 +1702,34 @@
         }, observerOptions);
 
         document.querySelectorAll('.reveal-on-scroll').forEach((section) => scrollObserver.observe(section));
+
+        // --- NUMBER COUNTER ANIMATION (TRIGGER ON SCROLL) ---
+        const counters = document.querySelectorAll('.counter');
+        const counterObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = +counter.getAttribute('data-target');
+                    let count = 0;
+                    
+                    const updateCount = () => {
+                        const inc = target / 50; 
+                        if (count < target) {
+                            count += inc;
+                            counter.innerText = Math.ceil(count);
+                            requestAnimationFrame(updateCount);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    
+                    updateCount();
+                    observer.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 }); /* Start counting when 50% of the element is visible */
+        
+        counters.forEach(counter => counterObserver.observe(counter));
 
     </script>
 </body>
