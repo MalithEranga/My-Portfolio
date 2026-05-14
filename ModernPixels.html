@@ -97,17 +97,13 @@
         body.light-theme .scrolling-text-group span { color: var(--accent); text-shadow: none; }
         body.light-theme .section-heading { background: linear-gradient(90deg, #0f172a, var(--accent)); -webkit-background-clip: text; -webkit-text-stroke: 1px transparent; }
         
-        body.light-theme .about-title { color: #0f172a !important; }
-        body.light-theme .about-title span { background: linear-gradient(90deg, #0f172a, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        body.light-theme .about-text-content strong { color: #0f172a; }
-        body.light-theme .stat-value { color: #0f172a; text-shadow: none; }
-        
-        body.light-theme .planet-center { background: #0f172a; box-shadow: 0 0 40px rgba(0,0,0,0.1); }
-        body.light-theme .orbiting-star { background: #0f172a; box-shadow: none; }
-        body.light-theme .orbit { border-color: rgba(0,0,0,0.1); }
         body.light-theme .bulb { background: rgba(0,0,0,0.03); box-shadow: inset 3px 3px 8px rgba(255,255,255,0.6), inset -3px -3px 12px rgba(0,0,0,0.1); }
         body.light-theme .bulb::before { background: #475569; } body.light-theme .bulb::after { background: #0f172a; }
         body.light-theme .wire { background: #64748b; }
+
+        body.light-theme .hero-description-container { background: rgba(255,255,255,0.9); border-color: rgba(0,0,0,0.1); box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
+        body.light-theme .hero-desc-text { color: #0f172a; }
+        body.light-theme .hero-desc-text strong { background: linear-gradient(90deg, #0f172a, var(--accent), #0f172a); -webkit-background-clip: text; background-clip: text; text-shadow: none; }
 
         body.light-theme .service-card { background: rgba(255,255,255,0.8); border-color: rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         body.light-theme .service-card:hover { background: #fff; border-color: var(--accent); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
@@ -319,99 +315,34 @@
         @keyframes flapNear { 0% { transform: rotateX(-55deg) rotateZ(12deg); } 100% { transform: rotateX(65deg) rotateZ(-12deg); } }
         @keyframes flapFar  { 0% { transform: rotateX(55deg) rotateZ(-12deg); } 100% { transform: rotateX(-65deg) rotateZ(12deg); } }
 
-        /* -------------------------------------
-           1. Background Bird (Depth of Field)
-           ------------------------------------- */
+        /* 1. Background Bird */
         .b-bg-flyer { animation: bgFlyerX 25s linear infinite; filter: blur(2px); opacity: 0.5; z-index: 1; }
         .b-bg-flyer .b-bob { animation: bgFlyerY 6s ease-in-out infinite alternate; }
-        
-        @keyframes bgFlyerX {
-            0%   { left: 110%; transform: scale(0.4) scaleX(-1); } /* අනිත් පැත්තට යන්නේ */
-            100% { left: -20%; transform: scale(0.4) scaleX(-1); }
-        }
+        @keyframes bgFlyerX { 0% { left: 110%; transform: scale(0.4) scaleX(-1); } 100% { left: -20%; transform: scale(0.4) scaleX(-1); } }
         @keyframes bgFlyerY { 0% { top: 10%; } 100% { top: 40%; } }
 
-        /* -------------------------------------
-           2. Main Flyer (Dynamic Swoop & Bank)
-           ------------------------------------- */
+        /* 2. Main Flyer */
         .b-main-flyer { animation: mainFlyerX 14s cubic-bezier(0.25, 0.1, 0.25, 1) infinite; z-index: 5; }
         .b-main-flyer .b-bob-fast { animation: mainFlyerY 14s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
         .b-main-flyer .b-pitch-fast { animation: mainFlyerPitch 14s ease-in-out infinite; }
-        .b-main-flyer .b-bank-fast { animation: mainFlyerBank 14s ease-in-out infinite; } /* හැරෙනකොට ඇලවීම */
+        .b-main-flyer .b-bank-fast { animation: mainFlyerBank 14s ease-in-out infinite; }
+        @keyframes mainFlyerX { 0% { left: -20%; } 40% { left: 40%; } 100% { left: 120%; } }
+        @keyframes mainFlyerY { 0% { top: 10%; } 40% { top: 60%; } 100% { top: -10%; } }
+        @keyframes mainFlyerPitch { 0% { transform: rotate(20deg); } 40% { transform: rotate(-5deg); } 100% { transform: rotate(-25deg); } }
+        @keyframes mainFlyerBank { 0% { transform: rotateZ(0deg); } 35% { transform: rotateZ(-20deg); } 50% { transform: rotateZ(0deg); } 100% { transform: rotateZ(10deg); } }
 
-        @keyframes mainFlyerX {
-            0%   { left: -20%; }
-            40%  { left: 40%; }
-            100% { left: 120%; }
-        }
-        @keyframes mainFlyerY {
-            0%   { top: 10%; }
-            40%  { top: 60%; } /* පල්ලෙහාට swope වෙනවා */
-            100% { top: -10%; }
-        }
-        @keyframes mainFlyerPitch {
-            0%   { transform: rotate(20deg); } /* පල්ලෙහාට බලන් එන්නේ */
-            40%  { transform: rotate(-5deg); } /* උඩට හරවනවා */
-            100% { transform: rotate(-25deg); }
-        }
-        @keyframes mainFlyerBank {
-            0%   { transform: rotateZ(0deg); }
-            35%  { transform: rotateZ(-20deg); } /* වංගුව ගනිද්දී ඇලවෙනවා */
-            50%  { transform: rotateZ(0deg); }
-            100% { transform: rotateZ(10deg); }
-        }
+        /* 3. Lander Pro */
+        .b-lander-pro { animation: landerPosPro 20s cubic-bezier(0.4, 0, 0.2, 1) infinite; animation-delay: 3s; opacity: 0; z-index: 10; }
+        .b-lander-pro .b-pitch-lander { animation: landerPitchPro 20s cubic-bezier(0.4, 0, 0.2, 1) infinite; animation-delay: 3s; }
+        @keyframes landerPosPro { 0% { left: -20%; top: -20%; transform: scale(1.1); opacity: 0; } 5% { opacity: 1; } 15% { left: 45%; top: 25%; transform: scale(0.95); } 18% { left: 50%; top: 32%; transform: scale(0.9); } 45% { left: 50%; top: 32%; transform: scale(0.9); opacity: 1; } 52% { left: 120%; top: 10%; transform: scale(1.1); opacity: 0; } 100% { left: 120%; top: 10%; transform: scale(1.1); opacity: 0; } }
+        @keyframes landerPitchPro { 0% { transform: rotate(25deg); } 13% { transform: rotate(-20deg); } 18%, 45% { transform: rotate(-5deg); } 47% { transform: rotate(15deg); } 52%, 100% { transform: rotate(0deg); } }
 
-        /* -------------------------------------
-           3. Lander Pro (Hover -> Land -> Breathe -> Fly)
-           ------------------------------------- */
-        .b-lander-pro {
-            animation: landerPosPro 20s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-            animation-delay: 3s; opacity: 0; z-index: 10;
-        }
-        .b-lander-pro .b-pitch-lander {
-            animation: landerPitchPro 20s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-            animation-delay: 3s;
-        }
-        
-        @keyframes landerPosPro {
-            0%   { left: -20%; top: -20%; transform: scale(1.1); opacity: 0; }
-            5%   { opacity: 1; }
-            15%  { left: 45%; top: 25%; transform: scale(0.95); } /* Hover කරන්න ලං වෙනවා */
-            18%  { left: 50%; top: 32%; transform: scale(0.9); }  /* Hover කරලා හිමීට පාත් වෙනවා (Landing) */
-            45%  { left: 50%; top: 32%; transform: scale(0.9); opacity: 1; } /* වහලා ඉන්නවා */
-            52%  { left: 120%; top: 10%; transform: scale(1.1); opacity: 0; } /* පියාඹලා යයි */
-            100% { left: 120%; top: 10%; transform: scale(1.1); opacity: 0; }
-        }
-        
-        @keyframes landerPitchPro {
-            0%   { transform: rotate(25deg); } /* වේගෙන් එනවා */
-            13%  { transform: rotate(-20deg); } /* Hover කරන්න බ්‍රේක් කරනවා */
-            18%, 45%  { transform: rotate(-5deg); } /* වහලා ඉන්න විදිහ */
-            47%  { transform: rotate(15deg); } /* පියාඹන්න ready වෙනවා */
-            52%, 100% { transform: rotate(0deg); }
-        }
-
-        /* සජීවීව හුස්ම ගන්නවා වගේ (Breathing/Looking around) */
         .b-breathing { transform-origin: bottom center; animation: breatheAnim 2.5s ease-in-out infinite; }
-        @keyframes breatheAnim {
-            0%, 100% { transform: scaleY(1) rotate(0deg); }
-            50%      { transform: scaleY(1.05) rotate(2deg); } /* පපුව ඉස්සෙනවා, ඔලුව පොඩ්ඩක් හැරෙනවා */
-        }
-        
-        /* වහනකොට තටු අකුලගන්න එක */
+        @keyframes breatheAnim { 0%, 100% { transform: scaleY(1) rotate(0deg); } 50% { transform: scaleY(1.05) rotate(2deg); } }
         .state-flying { animation: fadeFlyingPro 20s infinite; animation-delay: 3s; }
         .state-resting { animation: fadeRestingPro 20s infinite; animation-delay: 3s; opacity: 0; }
-        
-        @keyframes fadeFlyingPro {
-            0%, 17.5% { opacity: 1; } /* Hover වෙනකන් තටු ගහනවා */
-            18%, 44.5% { opacity: 0; } /* වහලා ඉද්දි පේන්නේ නෑ */
-            45%, 100% { opacity: 1; }
-        }
-        @keyframes fadeRestingPro {
-            0%, 17.5% { opacity: 0; }
-            18%, 44.5% { opacity: 1; } /* වහලා ඉද්දි විතරක් තටු අකුලපු එක පේනවා */
-            45%, 100% { opacity: 0; }
-        }
+        @keyframes fadeFlyingPro { 0%, 17.5% { opacity: 1; } 18%, 44.5% { opacity: 0; } 45%, 100% { opacity: 1; } }
+        @keyframes fadeRestingPro { 0%, 17.5% { opacity: 0; } 18%, 44.5% { opacity: 1; } 45%, 100% { opacity: 0; } }
 
         /* =======================================================
            STATIC LOGO SECTION WITH ROTATING FADED GLOW
@@ -438,7 +369,6 @@
         }
 
         body.magic-mode .rotating-glow { opacity: 0.85; filter: blur(35px); background: conic-gradient(from 0deg, var(--accent) 0%, transparent 30%, var(--accent-alt) 50%, transparent 80%, var(--accent) 100%); }
-
         @keyframes slowSpin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
 
         .brand-logo { max-width: 320px; width: 90%; height: auto; position: relative; z-index: 5; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8)); transition: filter 0.8s ease; }
@@ -446,9 +376,7 @@
         .founder-name { font-size: 1.1rem; color: var(--text-muted); letter-spacing: 8px; text-transform: uppercase; font-weight: 500; background: linear-gradient(90deg, #94a3b8, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; position: relative; z-index: 2; margin-top: 10px; transition: all 0.8s ease; }
         .agency-tagline { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; color: var(--accent); letter-spacing: 4px; text-transform: uppercase; margin-top: 12px; font-weight: 400; opacity: 0.8; transition: color 0.8s ease; }
 
-        /* =======================================================
-           ADVANCED INFINITE SCROLLING MARQUEE TEXT
-           ======================================================= */
+        /* ADVANCED INFINITE SCROLLING MARQUEE TEXT */
         .scrolling-text-wrapper {
             width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); margin-top: 50px;
             padding: 20px 0; overflow: hidden; background: rgba(5, 8, 15, 0.4);
@@ -469,16 +397,40 @@
 
         @keyframes scrollTextLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
+        /* HERO IMAGE MARQUEE CSS */
+        .hero-image-marquee {
+            width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); margin-top: 30px;
+            overflow: hidden; position: relative; z-index: 2; opacity: 0; transform: translateY(20px);
+            animation: fadeInDown 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: 3.2s;
+            -webkit-mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+            mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+        }
+        .hero-marquee-track {
+            display: flex; gap: 20px; width: max-content; animation: scrollHeroMarquee 35s linear infinite; will-change: transform;
+        }
+        .hero-marquee-track:hover { animation-play-state: paused; }
+        .hero-img-card {
+            width: 240px; height: 300px; border-radius: 12px; overflow: hidden; flex-shrink: 0; position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;
+        }
+        .hero-img-card::after {
+            content: ''; position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; pointer-events: none;
+        }
+        .hero-img-card img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease, filter 0.4s ease; filter: brightness(0.95);
+        }
+        .hero-img-card:hover { transform: translateY(-8px); z-index: 10; box-shadow: 0 15px 40px color-mix(in srgb, var(--accent) 25%, transparent); }
+        .hero-img-card:hover img { transform: scale(1.08); filter: brightness(1.1); }
+        @keyframes scrollHeroMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 10px)); } }
+        
+        body.light-theme .hero-img-card { box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        body.light-theme .hero-img-card:hover { box-shadow: 0 15px 40px color-mix(in srgb, var(--accent) 20%, transparent); }
+
         .section-heading { font-family: 'Syncopate', sans-serif; font-size: 2.2rem; color: transparent; -webkit-text-stroke: 1px var(--accent); background: linear-gradient(90deg, #fff, var(--accent)); -webkit-background-clip: text; background-clip: text; margin-bottom: 40px; padding-top: 80px; margin-top: -40px; letter-spacing: 4px; display: block; position: relative; text-transform: uppercase; opacity: 0; transform: translate3d(0, 40px, 0); transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, opacity; margin-left: 3%; }
         .section-heading.visible { opacity: 1; transform: translate3d(0, 0, 0); }
         .section-heading::after { content: ''; position: absolute; bottom: -12px; left: 0; width: 40px; height: 3px; border-radius: 2px; background: var(--accent); transition: width 0.6s ease, background 0.6s ease; }
 
-        /* ABOUT SECTION */
-        .about-modern-container { margin-bottom: 120px; opacity: 0; transform: translate3d(0, 40px, 0); transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, opacity; padding: 0 3%; }
-        .about-modern-container.visible { opacity: 1; transform: translate3d(0, 0, 0); }
-        .about-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 70px; align-items: center; }
-        .about-visual { position: relative; }
-
+        /* HANGING BULBS FOR DECORATION */
         .hanging-bulbs { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
         .bulb-group { position: absolute; top: 0; transform-origin: top center; }
         .b1 { left: 15%; animation: swing 7s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate; } .b2 { left: 35%; animation: swing 8s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate-reverse; } .b3 { left: 70%; animation: swing 6.5s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate; } .b4 { left: 88%; animation: swing 7.5s infinite cubic-bezier(0.37, 0, 0.63, 1) alternate-reverse; }
@@ -489,40 +441,74 @@
         .bulb::before { content: ''; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); width: 14px; height: 14px; background: linear-gradient(90deg, #111, #444 30%, #222 60%, #050505); border-radius: 2px 2px 0 0; box-shadow: inset 0 -2px 5px rgba(0,0,0,0.8); z-index: 3; transition: all 0.8s ease; }
         .bulb::after { content: ''; position: absolute; top: 20%; left: 50%; transform: translateX(-50%); width: 3px; height: 50%; background: #fff; border-radius: 10px; opacity: 0.05; transition: all 0.8s ease; z-index: 2; }
         @keyframes swing { 0% { transform: rotate(2deg); } 100% { transform: rotate(-2deg); } }
-        
-        body.magic-mode .bulb { box-shadow: inset 3px 3px 8px rgba(255, 255, 255, 0.25), inset -3px -3px 12px rgba(0, 0, 0, 0.8), inset 0 -15px 15px rgba(255, 255, 255, 0.04), 0 20px 45px var(--accent-glow), 0 0 90px color-mix(in srgb, var(--accent) 40%, transparent); }
-        body.magic-mode .bulb::after { animation: corePulse 1.5s infinite alternate cubic-bezier(0.4, 0, 0.6, 1); } 
-        @keyframes corePulse { 0% { opacity: 0.85; box-shadow: 0 0 5px #fff, 0 0 15px var(--accent); } 100% { opacity: 1; box-shadow: 0 0 15px #fff, 0 0 35px var(--accent), 0 0 60px var(--accent); } }
-        body.magic-mode .b1 { animation-duration: 4s; } body.magic-mode .b2 { animation-duration: 4.5s; } body.magic-mode .b3 { animation-duration: 3.5s; } body.magic-mode .b4 { animation-duration: 4.2s; } 
 
-        .planet-wrapper { position: relative; width: 100%; min-height: 400px; display: flex; align-items: center; justify-content: center; z-index: 2; }
-        .space-system { position: relative; width: 100%; height: 400px; display: flex; justify-content: center; align-items: center; transition: all 0.5s ease; }
-        body.magic-mode .space-system { animation: spacePulse 3s infinite alternate; } 
-        @keyframes spacePulse { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
-
-        .planet-center { width: 90px; height: 90px; background: #ffffff; border-radius: 50%; box-shadow: 0 0 50px rgba(255, 255, 255, 0.6), inset -15px -15px 25px rgba(0, 0, 0, 0.4), inset 10px 10px 20px rgba(255, 255, 255, 0.9), 0 0 30px rgba(0, 255, 102, 0.2); z-index: 10; animation: planetPulse 6s infinite alternate ease-in-out; will-change: transform, box-shadow; transition: all 0.8s ease; }
-        body.magic-mode .planet-center { animation-duration: 3s; box-shadow: 0 0 70px rgba(255, 255, 255, 0.8), inset -15px -15px 25px rgba(0, 0, 0, 0.4), 0 0 60px var(--accent-glow); }
-        @keyframes planetPulse { 0% { transform: scale(1); box-shadow: 0 0 40px rgba(255, 255, 255, 0.5), inset -15px -15px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 255, 102, 0.15); } 100% { transform: scale(1.05); box-shadow: 0 0 70px rgba(255, 255, 255, 0.9), inset -15px -15px 25px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 255, 102, 0.25); } }
+        /* =======================================================
+           NEW HERO DESCRIPTION SECTION
+           ======================================================= */
+        .hero-description-container {
+            margin: 60px 3% 100px 3%;
+            padding: 60px 50px;
+            background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(0,0,0,0.2));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+            z-index: 5;
+            text-align: center;
+        }
+        .hero-description-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .hero-description-container::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, transparent, color-mix(in srgb, var(--accent) 30%, transparent), transparent, color-mix(in srgb, var(--accent-alt) 30%, transparent));
+            z-index: -1;
+            border-radius: 32px;
+            background-size: 300% 300%;
+            animation: borderGradient 6s ease infinite;
+            opacity: 0.5;
+        }
+        @keyframes borderGradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .hero-desc-text {
+            font-size: 1.6rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            margin: 0;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-desc-text strong {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: transparent;
+            background: linear-gradient(90deg, #fff, var(--accent), #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: shineStrong 3s linear infinite;
+            text-shadow: 0 0 20px color-mix(in srgb, var(--accent) 40%, transparent);
+        }
+        @keyframes shineStrong {
+            to { background-position: 200% center; }
+        }
         
-        .orbit { position: absolute; top: 50%; left: 50%; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.15); transform: translate(-50%, -50%); animation: orbitSpin infinite linear; will-change: transform; transition: all 0.8s ease; }
-        .orbit-1 { width: 180px; height: 180px; animation-duration: 12s; } .orbit-2 { width: 280px; height: 280px; animation-duration: 20s; animation-direction: reverse; } .orbit-3 { width: 380px; height: 380px; animation-duration: 35s; }
-        body.magic-mode .orbit-1 { animation-duration: 6s; } body.magic-mode .orbit-2 { animation-duration: 10s; } body.magic-mode .orbit-3 { animation-duration: 15s; } 
-        
-        .orbiting-star { position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; background: #ffffff; border-radius: 50%; box-shadow: 0 0 8px rgba(0, 255, 102, 0.5); transition: all 0.8s ease; }
-        .orbit-2 .orbiting-star { width: 6px; height: 6px; } .orbit-3 .orbiting-star { width: 14px; height: 14px; }
-        body.magic-mode .orbiting-star { box-shadow: 0 0 15px var(--accent), 0 0 30px var(--accent-glow); transform: translate(-50%, -50%) scale(1.5); }
-        @keyframes orbitSpin { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
-
-        .about-content { display: flex; flex-direction: column; gap: 20px; position: relative; z-index: 2; }
-        .about-subtitle { color: var(--accent); font-family: 'Syncopate', sans-serif; font-size: 0.9rem; letter-spacing: 5px; text-transform: uppercase; transition: color 0.8s ease; }
-        .about-title { font-size: 2.8rem; color: #fff; font-weight: 300; line-height: 1.2; margin-bottom: 10px; transition: color 0.8s ease; }
-        .about-title span { font-family: 'Syncopate', sans-serif; font-weight: 600; background: linear-gradient(90deg, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; transition: all 0.8s ease; }
-        .about-text-content { color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; font-weight: 300; display: flex; flex-direction: column; gap: 15px; text-align: justify; transition: color 0.8s ease; }
-        .about-text-content strong { color: #fff; font-weight: 500; letter-spacing: 1px; transition: color 0.8s ease; }
-        .about-stats { display: flex; gap: 50px; margin-top: 25px; padding-top: 35px; border-top: 1px solid rgba(255,255,255,0.08); }
-        .stat-item { display: flex; flex-direction: column; gap: 5px; }
-        .stat-value { font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem; color: #fff; letter-spacing: 3px; line-height: 1; text-shadow: 0 0 20px rgba(255,255,255,0.2); transition: all 0.8s ease; }
-        .stat-label { color: var(--accent); font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; transition: color 0.8s ease; }
+        body.magic-mode .hero-description-container { box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 50px color-mix(in srgb, var(--accent) 20%, transparent); }
+        body.magic-mode .hero-desc-text strong { text-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent-glow); }
 
         /* MULTI-ROW GRIDS */
         .multi-row-wrapper { margin-bottom: 20px; opacity: 0; transform: translate3d(0, 40px, 0); transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform, opacity; }
@@ -735,7 +721,7 @@
             .floating-logos { display: none; } 
             body::before { height: 100vh; height: 100dvh; } 
             .container { padding: 140px 0 50px 0; } 
-            .about-modern-container, .services-grid, .pricing-grid, .custom-package-banner, .contact-container, .load-more-wrapper { padding: 0 5%; } 
+            .hero-description-container, .services-grid, .pricing-grid, .custom-package-banner, .contact-container, .load-more-wrapper { padding: 0 5%; } 
             .section-heading { font-size: 1.6rem; margin-left: 5%; } 
             
             .logo-presentation-wrapper { max-width: 100%; margin-bottom: 20px; } 
@@ -746,11 +732,9 @@
             .scrolling-text-group span { font-size: 0.75rem; letter-spacing: 2px; }
             .scrolling-text-wrapper { margin-top: 30px; padding: 12px 0; }
 
-            .about-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
-            .about-title { font-size: 2.2rem; }
-            .about-text-content { font-size: 0.95rem; text-align: center; }
-            .about-stats { justify-content: center; flex-wrap: wrap; gap: 30px; }
-            .stat-value { font-size: 2.5rem; }
+            .hero-description-container { padding: 40px 25px; border-radius: 20px; margin: 40px 5% 80px 5%; }
+            .hero-desc-text { font-size: 1.1rem; line-height: 1.7; }
+            .hero-desc-text strong { font-size: 0.95rem; }
 
             .services-grid { gap: 15px; grid-template-columns: 1fr; margin-bottom: 50px; }
             .service-card { padding: 25px 20px; border-radius: 14px; background: rgba(10, 15, 25, 0.98); }
@@ -791,37 +775,6 @@
             .glass-image-card { flex: 0 0 140px; max-width: 140px; }
             .img-wrapper { min-height: 120px; border-radius: 8px; }
         }
-
-        /* HERO IMAGE MARQUEE CSS */
-        .hero-image-marquee {
-            width: 100vw; margin-left: calc(-50vw + 50%); margin-right: calc(-50vw + 50%); margin-top: 30px;
-            overflow: hidden; position: relative; z-index: 2; opacity: 0; transform: translateY(20px);
-            animation: fadeInDown 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; animation-delay: 3.2s;
-            -webkit-mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
-            mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
-        }
-        .hero-marquee-track {
-            display: flex; gap: 20px; width: max-content; animation: scrollHeroMarquee 35s linear infinite; will-change: transform;
-        }
-        .hero-marquee-track:hover { animation-play-state: paused; }
-        .hero-img-card {
-            width: 240px; height: 300px; border-radius: 12px; overflow: hidden; flex-shrink: 0; position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;
-        }
-        .hero-img-card::after {
-            content: ''; position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; pointer-events: none;
-        }
-        .hero-img-card img {
-            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease, filter 0.4s ease; filter: brightness(0.95);
-        }
-        .hero-img-card:hover { transform: translateY(-8px); z-index: 10; box-shadow: 0 15px 40px color-mix(in srgb, var(--accent) 25%, transparent); }
-        .hero-img-card:hover img { transform: scale(1.08); filter: brightness(1.1); }
-        @keyframes scrollHeroMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 10px)); } }
-        
-        body.light-theme .hero-img-card { box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        body.light-theme .hero-img-card:hover { box-shadow: 0 15px 40px color-mix(in srgb, var(--accent) 20%, transparent); }
-
-        @media (max-width: 768px) { .hero-image-marquee { margin-top: 20px; } .hero-img-card { width: 140px; height: 180px; } }
 
     </style>
 </head>
@@ -1008,7 +961,7 @@
                 </div>
             </div>
 
-            <!-- NEW MIXED HERO IMAGE MARQUEE -->
+            <!-- MIXED HERO IMAGE MARQUEE -->
             <div class="hero-image-marquee">
                 <div class="hero-marquee-track">
                     <!-- Set 1 -->
@@ -1034,36 +987,11 @@
             
         </header>
 
-        <h2 id="about" class="section-heading reveal-on-scroll">The Creative Mind</h2>
-        <section class="about-modern-container reveal-on-scroll">
-            <div class="about-grid">
-                <div class="about-visual">
-                    <div class="planet-wrapper">
-                        <div class="space-system">
-                            <div class="planet-center"></div>
-                            <div class="orbit orbit-1"><div class="orbiting-star"></div></div>
-                            <div class="orbit orbit-2"><div class="orbiting-star"></div></div>
-                            <div class="orbit orbit-3"><div class="orbiting-star"></div></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="about-content">
-                    <h3 class="about-subtitle">Welcome to Modern Pixels</h3>
-                    <h4 class="about-title">I am <span>Malith Eranga</span></h4>
-                    
-                    <div class="about-text-content">
-                        <p>A dedicated Graphic Designer blending analytical precision with digital artistry. While pursuing my studies in <strong>Chemical Technology</strong>, I discovered my true strength at the intersection of science and creative design.</p>
-                        <p>What started as a personal passion has evolved into a full-scale design agency. Today, backed by a talented team, we focus on delivering clean, modern, and impactful aesthetics that elevate brands.</p>
-                    </div>
-                    
-                    <div class="about-stats">
-                        <div class="stat-item"><span class="stat-value"><span class="counter" data-target="500">0</span>+</span><span class="stat-label">Projects Delivered</span></div>
-                        <div class="stat-item"><span class="stat-value"><span class="counter" data-target="100">0</span>%</span><span class="stat-label">Creative Passion</span></div>
-                        <div class="stat-item"><span class="stat-value"><span class="counter" data-target="5">0</span>+ Years</span><span class="stat-label">Experience</span></div>
-                    </div>
-                </div>
-            </div>
+        <!-- NEW HERO DESCRIPTION SECTION -->
+        <section id="about" class="hero-description-container reveal-on-scroll">
+            <p class="hero-desc-text">
+                "At Modern Pixels Digital Platform, we bring <strong>5+ years of industry experience</strong> with <strong>500+ successful projects</strong>, delivering creative graphic design, branding, social media marketing, web solutions, and digital innovations with quality, professionalism, and customer satisfaction."
+            </p>
         </section>
 
         <h2 id="social" class="section-heading reveal-on-scroll">Social Media Post Design</h2>
@@ -1640,34 +1568,6 @@
         }, observerOptions);
 
         document.querySelectorAll('.reveal-on-scroll').forEach((section) => scrollObserver.observe(section));
-
-        // --- NUMBER COUNTER ANIMATION ---
-        const counters = document.querySelectorAll('.counter');
-        const counterObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counter = entry.target;
-                    const target = +counter.getAttribute('data-target');
-                    let count = 0;
-                    
-                    const updateCount = () => {
-                        const inc = target / 60; 
-                        if (count < target) {
-                            count += inc;
-                            counter.innerText = Math.ceil(count);
-                            requestAnimationFrame(updateCount);
-                        } else {
-                            counter.innerText = target;
-                        }
-                    };
-                    
-                    updateCount();
-                    observer.unobserve(counter);
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        counters.forEach(counter => counterObserver.observe(counter));
 
     </script>
 </body>
