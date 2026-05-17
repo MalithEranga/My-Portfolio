@@ -245,7 +245,7 @@
 
         /* --- RESPONSIVE DESIGN FOR TABLETS & PHONES --- */
         @media (max-width: 1024px) {
-            /* Keep it as a single scrolling page on mobile, stacking the sidebar and content area */
+            /* Keep it as a single scrolling page on mobile */
             body { overflow-y: auto; }
             .app-container { flex-direction: column; padding: 15px; height: auto; min-height: 100vh; }
             
@@ -254,11 +254,11 @@
             
             /* Content area remains in normal flow, below the sidebar */
             .content-area { 
-                height: 60vh; 
+                height: 65vh; /* Gives good height for reading on mobile */
                 min-height: 450px; 
                 border-radius: 20px; 
                 margin-top: 10px;
-                display: flex; /* Always keep it visible, no fullscreen overlay */
+                display: flex; 
             }
             .pdf-watermark { font-size: 15vw; }
         }
@@ -371,6 +371,18 @@
         const searchInput = document.getElementById('search-input');
         const viewerSection = document.getElementById('viewer-section'); 
 
+        // !!! IMPORTANT FOR MOBILE EMBEDDING !!!
+        // To force Mobile Browsers to render the PDF inline (not download it/open in new tab),
+        // we use Google's free Docs viewer service for the iframe src if it's a mobile device.
+        
+        // This requires your website to be live on the internet (not localhost), 
+        // replace this with your actual website domain where the PDFs are hosted.
+        const YOUR_WEBSITE_URL = window.location.origin; // e.g. "https://modernpixels.com"
+
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
         function renderBooks() {
             pdfCollection.forEach((group, groupIndex) => {
                 const topicDiv = document.createElement('div');
@@ -407,8 +419,18 @@
                         iframeWrapper.classList.remove('loaded'); 
                         loader.style.display = 'flex'; 
 
-                        // SECURITY
-                        pdfViewer.src = `pdfs/${group.folderName}/${pdf.fileName}#toolbar=0&navpanes=0&scrollbar=0`;
+                        // Determine the file path
+                        let relativePdfPath = `pdfs/${group.folderName}/${pdf.fileName}`;
+                        
+                        // If on Mobile, use Google Docs Viewer to force inline preview
+                        if (isMobile() && YOUR_WEBSITE_URL !== "null" && YOUR_WEBSITE_URL !== "file://") {
+                            // Needs absolute URL for Google Docs Viewer
+                            let absolutePdfUrl = encodeURIComponent(`${YOUR_WEBSITE_URL}/${relativePdfPath}`);
+                            pdfViewer.src = `https://docs.google.com/viewer?url=${absolutePdfUrl}&embedded=true`;
+                        } else {
+                            // Desktop behavior (adds security params)
+                            pdfViewer.src = `${relativePdfPath}#toolbar=0&navpanes=0&scrollbar=0`;
+                        }
                         
                         setTimeout(() => pdfHeader.classList.add('visible'), 200);
 
