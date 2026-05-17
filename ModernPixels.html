@@ -179,46 +179,42 @@
         .preloader-progress { position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: rgba(255, 255, 255, 0.05); z-index: 5; transition: opacity 0.5s ease; }
         .progress-bar { height: 100%; width: 0%; background: var(--accent); transition: width 0.1s linear; }
 
-        /* ENTER BUTTON STYLES */
+        /* PREMIUM ENTER BUTTON STYLES */
         .enter-btn {
             position: absolute;
             bottom: 20%;
             left: 50%;
-            transform: translateX(-50%) scale(0.9);
-            padding: 15px 40px;
-            background: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50px;
+            transform: translateX(-50%) scale(0.95);
+            padding: 14px 45px;
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+            border-radius: 5px;
             font-family: 'Syncopate', sans-serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            letter-spacing: 4px;
+            letter-spacing: 6px;
             cursor: pointer;
             z-index: 10;
             opacity: 0;
             pointer-events: none;
-            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: all 0.5s ease;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px color-mix(in srgb, var(--accent) 10%, transparent);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
         .enter-btn.visible {
-            opacity: 1;
-            pointer-events: auto;
+            opacity: 1; 
+            pointer-events: auto; 
             transform: translateX(-50%) scale(1);
-            animation: pulseEnter 2s infinite alternate;
         }
         .enter-btn:hover {
-            background: var(--accent);
-            color: #000;
+            background: color-mix(in srgb, var(--accent) 10%, transparent);
             border-color: var(--accent);
-            box-shadow: 0 0 20px var(--accent-glow);
-            animation: none;
-            transform: translateX(-50%) scale(1.05);
-        }
-        @keyframes pulseEnter {
-            0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 40%, transparent); border-color: rgba(255, 255, 255, 0.5); }
-            100% { box-shadow: 0 0 20px 5px color-mix(in srgb, var(--accent) 20%, transparent); border-color: var(--accent); }
+            box-shadow: 0 0 25px color-mix(in srgb, var(--accent) 40%, transparent), inset 0 0 10px color-mix(in srgb, var(--accent) 20%, transparent);
+            text-shadow: 0 0 8px var(--accent);
+            letter-spacing: 8px; /* Smooth stretch effect */
         }
 
         @keyframes elegantReveal { 0% { transform: scale(0.95); opacity: 0; filter: blur(10px); letter-spacing: var(--pl-letter-space-start); } 100% { transform: scale(1); opacity: 1; filter: blur(0); letter-spacing: var(--pl-letter-space-end); } }
@@ -595,15 +591,23 @@
             .agency-tagline { font-size: 0.7rem; letter-spacing: 2px; }
             .scrolling-text-group span { font-size: 0.75rem; letter-spacing: 2px; }
             .scrolling-text-wrapper { margin-top: 30px; padding: 12px 0; }
-            .hero-description-container { padding: 40px 25px; border-radius: 20px; margin: 40px 5% 60px 5%; }
-            .hero-desc-text { font-size: 1.1rem; line-height: 1.7; }
-            .hero-desc-text strong { font-size: 0.95rem; }
-            .agency-stats-container { flex-direction: column; gap: 30px; padding: 40px 20px; margin: 0 5% 80px 5%; border-radius: 20px; }
-            .stat-divider { width: 100px; height: 1px; background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent); }
-            body.light-theme .stat-divider { background: linear-gradient(to right, transparent, rgba(0,0,0,0.1), transparent); }
-            .stat-value { font-size: 3rem; }
-            .stat-label { font-size: 0.8rem; }
             
+            /* MOBILE UPDATES FOR ABOUT SECTION */
+            .hero-description-container { padding: 25px 20px; border-radius: 16px; margin: 30px 4% 40px 4%; }
+            .hero-desc-text { font-size: 0.9rem; line-height: 1.6; }
+            .hero-desc-text strong { font-size: 0.85rem; }
+            
+            /* MOBILE UPDATES FOR STATS SECTION - 3 IN ONE ROW */
+            .agency-stats-container { flex-direction: row; gap: 5px; padding: 20px 10px; margin: 0 3% 50px 3%; border-radius: 16px; justify-content: center; }
+            .stat-item { flex: 1; padding: 0 5px; }
+            .stat-divider { width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.2), transparent); }
+            body.light-theme .stat-divider { background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.1), transparent); }
+            .stat-value { font-size: 1.6rem; letter-spacing: 1px; }
+            .stat-label { font-size: 0.5rem; letter-spacing: 1px; }
+            
+            /* MOBILE UPDATE FOR ENTER BUTTON */
+            .enter-btn { bottom: 15%; padding: 12px 30px; font-size: 0.7rem; letter-spacing: 4px; }
+
             .services-grid { gap: 10px; grid-template-columns: repeat(2, 1fr); margin-bottom: 40px; }
             .service-card { padding: 15px 12px; border-radius: 12px; background: rgba(10, 15, 25, 0.98); }
             body.light-theme .service-card { background: rgba(255,255,255,0.95); }
@@ -685,7 +689,7 @@
         </div>
         
         <!-- NEW ENTER BUTTON (Appears at 100%) -->
-        <button id="enterBtn" class="enter-btn">ENTER SITE</button>
+        <button id="enterBtn" class="enter-btn">ENTER PORTFOLIO</button>
 
         <div class="preloader-progress">
             <div class="progress-bar"></div>
