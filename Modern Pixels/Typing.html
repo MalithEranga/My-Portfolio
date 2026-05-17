@@ -210,8 +210,8 @@
         /* --- PDF WATERMARK OVERLAY --- */
         .iframe-overlay { 
             position: absolute; top: 70px; left: 0; width: 100%; height: calc(100% - 70px); 
-            z-index: 50; /* Ensure it stays above the PDF */
-            pointer-events: none; /* VERY IMPORTANT: allows scrolling and interacting with PDF beneath it */
+            z-index: 50; 
+            pointer-events: none; /* VERY IMPORTANT: allows interacting with PDF beneath */
             display: flex; justify-content: center; align-items: center;
             overflow: hidden;
         }
@@ -219,8 +219,8 @@
         .pdf-watermark {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 10vw; /* Scales with screen size */
-            color: rgba(0, 0, 0, 0.15); /* Dark transparent color suitable for white PDFs */
-            transform: rotate(-35deg); /* Diagonal angle */
+            color: rgba(0, 0, 0, 0.15); /* Dark transparent color */
+            transform: rotate(-35deg); 
             white-space: nowrap;
             letter-spacing: 15px;
             user-select: none;
@@ -243,13 +243,45 @@
         @keyframes loadingScan { 0% { transform: translateX(-100%); } 100% { transform: translateX(200%); } }
         @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
-        /* Responsive overrides */
+        /* --- RESPONSIVE DESIGN FOR TABLETS & PHONES --- */
         @media (max-width: 1024px) {
-            .app-container { flex-direction: column; padding: 15px; height: auto; min-height: 100vh; overflow-y: auto;}
-            .sidebar-wrapper { width: 100%; max-height: 50vh; perspective: none; }
+            /* Keep it as a single scrolling page on mobile, stacking the sidebar and content area */
+            body { overflow-y: auto; }
+            .app-container { flex-direction: column; padding: 15px; height: auto; min-height: 100vh; }
+            
+            .sidebar-wrapper { width: 100%; perspective: none; }
             .sidebar { transform: none !important; border-radius: 20px;}
-            .content-area { height: 70vh; min-height: 500px; border-radius: 20px; }
+            
+            /* Content area remains in normal flow, below the sidebar */
+            .content-area { 
+                height: 60vh; 
+                min-height: 450px; 
+                border-radius: 20px; 
+                margin-top: 10px;
+                display: flex; /* Always keep it visible, no fullscreen overlay */
+            }
             .pdf-watermark { font-size: 15vw; }
+        }
+
+        @media (max-width: 480px) {
+            /* Make Books and Bookshelf smaller for mobile phones */
+            .book { width: 32px; height: 105px; border-radius: 2px 4px 4px 2px; }
+            .book-title { font-size: 1.05rem; max-height: 80px; }
+            
+            .pdf-shelf { min-height: 120px; padding: 5px; gap: 4px; border-bottom-width: 3px; }
+            .pdf-shelf::after { bottom: -3px; height: 3px; }
+            
+            .nav-brand-box { font-size: 1.2rem; margin-bottom: 20px; }
+            .search-container { margin-bottom: 20px; }
+            .search-input { padding: 12px 15px 12px 40px; font-size: 0.85rem; }
+            
+            /* Adjust Watermark for very small screens */
+            .pdf-watermark { font-size: 18vw; letter-spacing: 8px; }
+            
+            /* Adjust header close button for mobile */
+            .pdf-header { padding: 0 15px; height: 60px; }
+            .iframe-wrapper { padding-top: 60px; }
+            .iframe-overlay { top: 60px; height: calc(100% - 60px); }
         }
     </style>
 </head>
@@ -325,8 +357,7 @@
                     { name: "T3", fileName: "T3.pdf" },
                     { name: "T4", fileName: "T4.pdf" }
                 ]
-            },
-            
+            }
         ];
 
         // --- RENDER UI ---
@@ -338,6 +369,7 @@
         const headerTitleText = document.getElementById('header-title-text');
         const loader = document.getElementById('viewer-loader');
         const searchInput = document.getElementById('search-input');
+        const viewerSection = document.getElementById('viewer-section'); 
 
         function renderBooks() {
             pdfCollection.forEach((group, groupIndex) => {
@@ -379,6 +411,13 @@
                         pdfViewer.src = `pdfs/${group.folderName}/${pdf.fileName}#toolbar=0&navpanes=0&scrollbar=0`;
                         
                         setTimeout(() => pdfHeader.classList.add('visible'), 200);
+
+                        // Mobile View: Scroll down nicely to the viewer when a book is clicked
+                        if(window.innerWidth <= 1024) {
+                            setTimeout(() => {
+                                viewerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }, 100);
+                        }
                     });
                     
                     shelf.appendChild(book);
@@ -433,6 +472,7 @@
                 pdfViewer.src = "";
                 loader.style.display = 'none';
                 placeholderContainer.style.display = 'flex';
+                
                 setTimeout(()=> placeholderContainer.style.opacity = '1', 50);
             }, 500); 
         });
