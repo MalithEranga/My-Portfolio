@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
+    <title>Web Development | Modern Pixels</title>
+    <link rel="icon" type="image/png" href="Modern Pixels/MODERNPIXELS1.png">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600&family=Syncopate:wght@600&display=swap" rel="stylesheet">
+    <style>
+        /* BASE THEME & VARIABLES FROM MAIN PAGE */
+        @property --accent { syntax: '<color>'; inherits: true; initial-value: #00ff66; }
+        @property --accent-glow { syntax: '<color>'; inherits: true; initial-value: rgba(0, 255, 102, 0.6); }
+
+        :root {
+            --primary: #02040a; 
+            --accent: #00ff66;
+            --accent-glow: rgba(0, 255, 102, 0.6);
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            transition: --accent 0.8s ease, --accent-glow 0.8s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* BACKGROUND */
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -4; background-image: url('Backgrounds/background3.webp'); 
+            background-size: cover; background-position: center;
+            background-color: rgba(2, 4, 10, 0.85); background-blend-mode: overlay;
+        }
+
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 120px 3% 50px 3%; position: relative; z-index: 1; }
+
+        /* HEADER STYLES */
+        .header-container { position: fixed; top: 25px; left: 3%; width: 94%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .nav-brand-box { text-decoration: none; background: rgba(5, 8, 15, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 100px; padding: 10px 25px; display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; text-transform: uppercase; color: #fff; letter-spacing: 2px; }
+        .nav-brand-box span { color: var(--accent); }
+        .back-home-btn { padding: 8px 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50px; color: #fff; text-decoration: none; font-family: 'Syncopate', sans-serif; font-size: 0.75rem; transition: all 0.3s; }
+        .back-home-btn:hover { background: var(--accent); color: #000; border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
+
+        .section-heading { font-family: 'Syncopate', sans-serif; font-size: 2.2rem; color: transparent; -webkit-text-stroke: 1px var(--accent); background: linear-gradient(90deg, #fff, var(--accent)); -webkit-background-clip: text; background-clip: text; margin-bottom: 50px; letter-spacing: 4px; display: block; position: relative; text-transform: uppercase; text-align: center; }
+        
+        /* WEB PROJECTS GRID & CARD */
+        .web-projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-bottom: 80px; }
+        
+        .web-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0.2));
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+        .web-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 20px color-mix(in srgb, var(--accent) 15%, transparent);
+            border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+        }
+
+        /* YOUTUBE VIDEO WRAPPER (16:9 Aspect Ratio & Non-clickable) */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 ratio */
+            height: 0;
+            overflow: hidden;
+            pointer-events: none; /* Prevents clicking on the video */
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            background-color: #000;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            /* Scale up slightly to hide youtube branding if any shows up */
+            transform: scale(1.02);
+        }
+
+        /* CONTENT INSIDE CARD */
+        .web-card-content { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
+        .web-title { font-family: 'Syncopate', sans-serif; font-size: 1.1rem; color: var(--accent); margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; text-shadow: 0 0 10px color-mix(in srgb, var(--accent) 30%, transparent); }
+        .web-desc { font-size: 0.9rem; line-height: 1.5; color: var(--text-muted); margin-bottom: 25px; flex-grow: 1; }
+        
+        /* VIEW PAGE BUTTON */
+        .view-page-btn {
+            display: inline-flex; justify-content: center; align-items: center; gap: 8px;
+            padding: 12px 25px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 8px;
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+        .view-page-btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 20px var(--accent-glow); border-color: var(--accent); }
+
+        @media (max-width: 768px) {
+            .section-heading { font-size: 1.5rem; }
+            .web-projects-grid { grid-template-columns: 1fr; gap: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-container">
+        <a href="index.html" class="nav-brand-box">MODERN <span>PIXELS</span></a>
+        <a href="index.html" class="back-home-btn">← Back to Home</a>
+    </header>
+
+    <div class="container">
+        <h1 class="section-heading">Web Development</h1>
+
+        <div class="web-projects-grid">
+            
+            <div class="web-card">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/xhhfzbedl0s?autoplay=1&mute=1&controls=0&loop=1&playlist=xhhfzbedl0s&modestbranding=1&rel=0&playsinline=1" 
+                            allow="autoplay; encrypted-media" 
+                            title="Project Preview" 
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="web-card-content">
+                    <h3 class="web-title">Restaurant Landing Page</h3>
+                    <p class="web-desc">A modern, fully responsive landing page designed for a restaurant with smooth scroll animations and an interactive menu.</p>
+                    
+                    <a href="" class="view-page-btn" onclick="checkWebLink(event, this.getAttribute('href'))">
+                        View Page ↗
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function checkWebLink(e, link) {
+            // Check if link is empty or just '#'
+            if (!link || link === '#' || link.trim() === '') {
+                e.preventDefault(); 
+                const btn = e.target.closest('.view-page-btn');
+                
+                if (!btn.dataset.originalText) {
+                    btn.dataset.originalText = btn.innerHTML;
+                }
+                
+                btn.innerHTML = "Not Hosted Yet 🛠️";
+                btn.style.pointerEvents = 'none';
+                btn.style.backgroundColor = 'rgba(255, 234, 0, 0.1)';
+                btn.style.color = '#ffea00';
+                btn.style.borderColor = '#ffea00';
+                btn.style.boxShadow = '0 0 15px rgba(255, 234, 0, 0.4)';
+                
+                setTimeout(() => {
+                    btn.innerHTML = btn.dataset.originalText;
+                    btn.style.pointerEvents = 'auto';
+                    btn.style.backgroundColor = '';
+                    btn.style.color = '';
+                    btn.style.borderColor = '';
+                    btn.style.boxShadow = '';
+                }, 3000);
+            } else {
+                e.preventDefault();
+                window.open(link, '_blank');
+            }
+        }
+    </script>
+</body>
+</html>
