@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Production - Modern Pixels</title>
+    <link rel="icon" type="image/png" href="Modern Pixels/MODERNPIXELS1.png">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600&family=Syncopate:wght@600&display=swap" rel="stylesheet">
+    <style>
+        /* REGISTER CSS VARIABLES FOR SMOOTH COLOR TRANSITION */
+        @property --accent { syntax: '<color>'; inherits: true; initial-value: #00bfff; }
+        @property --accent-glow { syntax: '<color>'; inherits: true; initial-value: rgba(0, 191, 255, 0.6); }
+
+        html { scroll-behavior: smooth; }
+
+        :root {
+            --primary: #02040a; 
+            --accent: #00bfff; 
+            --accent-glow: rgba(0, 191, 255, 0.6);
+            --accent-alt: #8a2be2; 
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            transition: --accent 0.8s ease, --accent-glow 0.8s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+            transition: background-color 0.8s ease, color 0.8s ease;
+        }
+
+        body.no-scroll { overflow: hidden !important; }
+
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -4; background-image: url('Backgrounds/background3.webp'); 
+            background-size: cover; background-position: center;
+            background-color: rgba(2, 4, 10, 0.85); background-blend-mode: overlay;
+            transition: background-color 0.8s ease, filter 0.8s ease;
+        }
+
+        /* LIGHT THEME OVERRIDES */
+        body.light-theme {
+            --primary: #f0f4f8; 
+            --text-light: #0f172a; 
+            --text-muted: #475569;
+            --accent: #0077b6; 
+            --accent-glow: rgba(0, 119, 182, 0.4);
+        }
+        body.light-theme::before { background-color: rgba(240, 244, 248, 0.95); background-blend-mode: screen; filter: grayscale(50%); }
+        body.light-theme .brand-logo { filter: drop-shadow(0 15px 30px rgba(0,0,0,0.15)); }
+        body.light-theme .nav-brand-box { color: #0f172a; }
+        body.light-theme .header-container.scrolled .nav-brand-box, body.light-theme .header-container.scrolled .nav-menu-bg { background: rgba(255,255,255,0.95); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        body.light-theme .nav-links a:hover { color: #0f172a; text-shadow: none; }
+        body.light-theme .back-btn { background: rgba(255,255,255,0.8); color: #0f172a; border: 1px solid rgba(0,0,0,0.1); }
+        body.light-theme .back-btn:hover { color: var(--accent); border-color: var(--accent); background: #fff; }
+        body.light-theme .video-card { background: rgba(255,255,255,0.8); border-color: rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        body.light-theme .video-card:hover { border-color: var(--accent); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        body.light-theme .section-heading { background: linear-gradient(90deg, #0f172a, var(--accent)); -webkit-background-clip: text; -webkit-text-stroke: 1px transparent; }
+
+        /* PRELOADER */
+        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 999999; display: flex; justify-content: center; align-items: center; background: #02040a; transition: opacity 0.8s ease; }
+        .preloader.loaded { opacity: 0; pointer-events: none; }
+        .loader-spinner { width: 50px; height: 50px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s infinite linear; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* PREMIUM LIQUID GLOW HEADER */
+        .premium-liquid-header {
+            position: absolute; top: 0; left: 0; width: 100%; height: 350px; z-index: 0;
+            overflow: hidden; pointer-events: none;
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
+        }
+        .liquid-blob { position: absolute; border-radius: 50%; filter: blur(50px); opacity: 0.25; animation: floatLiquid 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); will-change: transform; }
+        .liquid-1 { top: -100px; left: 0%; width: 400px; height: 400px; background: var(--accent); animation-duration: 25s; }
+        .liquid-2 { top: -100px; right: 0%; width: 450px; height: 350px; background: var(--accent-alt); animation-delay: -5s; animation-duration: 22s; animation-direction: alternate-reverse; }
+        body.light-theme .liquid-blob { opacity: 0.15; }
+        body.magic-mode .liquid-blob { opacity: 0.4; filter: blur(40px); }
+        @keyframes floatLiquid { 0% { transform: translate(0, 0) scale(1) rotate(0deg); } 33% { transform: translate(8vw, 80px) scale(1.1) rotate(15deg); } 66% { transform: translate(-8vw, 40px) scale(0.9) rotate(-15deg); } 100% { transform: translate(0, 0) scale(1) rotate(0deg); } }
+
+        /* MAGIC STARS & RAIN */
+        #magic-stars-container, #rain-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3; pointer-events: none; opacity: 0; transition: opacity 1.2s ease-in-out; overflow: hidden; }
+        body.magic-mode #magic-stars-container { opacity: 1; }
+        body.rain-mode #rain-container { opacity: 1; }
+        .tiny-star { position: absolute; background-color: #ffffff; border-radius: 50%; opacity: 0; animation: tinyBlink var(--b-dur) ease-in-out infinite var(--b-del); }
+        @keyframes tinyBlink { 0%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 0.9; transform: scale(1); box-shadow: 0 0 5px #fff; } }
+        .raindrop { position: absolute; bottom: 100%; width: 1.5px; height: 30px; background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.5)); animation: rainFall linear infinite; }
+        body.light-theme .raindrop { background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.4)); }
+        @keyframes rainFall { 0% { transform: translateY(0); } 100% { transform: translateY(120vh); } }
+
+        /* NAVBAR */
+        .header-container { position: fixed; top: 25px; left: 3%; width: 94%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .header-container.scrolled { top: 15px; }
+        .nav-brand-box { text-decoration: none; background: rgba(5, 8, 15, 0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 100px; padding: 10px 25px; display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; text-transform: uppercase; color: #fff; letter-spacing: 2px; transition: all 0.4s ease; }
+        .nav-brand-box span { color: var(--accent); }
+        .nav-menu-wrapper { position: relative; display: flex; align-items: center; gap: 20px; padding: 8px 25px; z-index: 1001; }
+        .nav-menu-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 8, 15, 0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 100px; z-index: 0; transition: all 0.4s ease; }
+        .header-container.scrolled .nav-brand-box, .header-container.scrolled .nav-menu-bg { background: rgba(2, 4, 10, 0.95); border-color: color-mix(in srgb, var(--accent) 30%, transparent); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+        .nav-links, .nav-action-group { z-index: 1; position: relative; }
+        .nav-action-group { display: flex; gap: 10px; align-items: center; }
+        .nav-links { display: flex; gap: 25px; list-style: none; margin: 0; padding: 0; }
+        .nav-links a { position: relative; color: var(--text-muted); text-decoration: none; font-size: 0.75rem; text-transform: uppercase; font-weight: 500; letter-spacing: 1.5px; padding: 5px 0; transition: color 0.3s ease; display: block; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background: var(--accent); border-radius: 2px; transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.4s ease; }
+        .nav-links a:hover { color: #fff; text-shadow: 0 0 8px rgba(255, 255, 255, 0.2); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .magic-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%; width: 34px; height: 34px; display: flex; justify-content: center; align-items: center; cursor: pointer; color: var(--text-muted); transition: all 0.3s ease; }
+        .magic-btn:hover { color: #fff; background: rgba(255, 255, 255, 0.1); }
+        .magic-btn.active { color: var(--accent) !important; border-color: var(--accent) !important; box-shadow: 0 0 10px var(--accent-glow); background: color-mix(in srgb, var(--accent) 15%, transparent) !important; }
+        .magic-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+        .mobile-menu-btn { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px; }
+        .mobile-menu-btn span { width: 24px; height: 2px; background: #fff; transition: all 0.3s ease; border-radius: 2px; }
+        body.light-theme .mobile-menu-btn span { background: #0f172a; }
+
+        /* MAIN CONTENT AREA */
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 180px 3% 50px 3%; position: relative; z-index: 1; }
+
+        .section-heading { font-family: 'Syncopate', sans-serif; font-size: 2.5rem; text-align: center; color: transparent; -webkit-text-stroke: 1px var(--accent); background: linear-gradient(90deg, #fff, var(--accent), #fff); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; margin-bottom: 20px; letter-spacing: 4px; text-transform: uppercase; animation: shineHeading 5s linear infinite; }
+        @keyframes shineHeading { to { background-position: 200% center; } }
+        .section-sub { text-align: center; color: var(--text-muted); font-size: 1.1rem; letter-spacing: 1px; margin-bottom: 60px; }
+
+        /* ============================================
+           UPDATED FB VIDEO GRID (MIXED SIZES) 
+           ============================================ */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+            align-items: start; /* Prevents short videos from stretching to match tall reels in the same row */
+        }
+
+        .video-card {
+            position: relative;
+            width: 100%;
+            background: rgba(10, 15, 25, 0.8);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Standard Landscape Videos (16:9) */
+        .video-card.landscape {
+            aspect-ratio: 16 / 9;
+        }
+
+        /* Vertical Reels (9:16) */
+        .video-card.portrait {
+            aspect-ratio: 9 / 16;
+            max-width: 350px; /* Prevents reels from getting too gigantic on wide screens */
+            margin: 0 auto; /* Centers the reel in its grid space */
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 45px color-mix(in srgb, var(--accent) 30%, transparent);
+            border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+        }
+
+        body.magic-mode .video-card:hover {
+            box-shadow: 0 20px 50px var(--accent-glow);
+        }
+
+        .video-card iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 16px;
+        }
+
+        /* BACK BUTTON */
+        .back-btn-container { text-align: center; margin-top: 60px; }
+        .back-btn { display: inline-flex; align-items: center; justify-content: center; gap: 15px; padding: 18px 45px; background: rgba(255, 255, 255, 0.02); color: #fff; text-decoration: none; font-family: 'Syncopate', sans-serif; font-size: 0.9rem; letter-spacing: 4px; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50px; transition: all 0.3s ease; position: relative; overflow: hidden; backdrop-filter: blur(8px); }
+        .back-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 30%, transparent), transparent); transition: left 0.4s ease; z-index: -1; }
+        .back-btn:hover { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 25px var(--accent-glow), inset 0 0 15px color-mix(in srgb, var(--accent) 5%, transparent); transform: translateY(-2px); }
+        .back-btn:hover::before { left: 100%; }
+
+        .site-footer { text-align: center; padding: 40px 2%; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px; background: rgba(2, 4, 10, 0.9); transition: all 0.8s ease; }
+        .site-footer p { color: var(--text-muted); font-size: 0.9rem; letter-spacing: 1px; }
+
+        @media (max-width: 992px) {
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; right: 0; background: rgba(5, 8, 15, 0.95); backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 25px; width: 250px; text-align: center; gap: 20px; }
+            .nav-links.active { display: flex; }
+            .mobile-menu-btn { display: flex; }
+            body.light-theme .nav-links { background: rgba(255, 255, 255, 0.95); border-color: rgba(0,0,0,0.1); }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding-top: 140px; }
+            .section-heading { font-size: 1.8rem; }
+            .video-grid { grid-template-columns: 1fr; gap: 30px; }
+        }
+    </style>
+</head>
+<body class="no-scroll">
+
+    <div id="magic-stars-container"></div>
+    <div id="rain-container"></div>
+
+    <div id="preloader" class="preloader">
+        <div class="loader-spinner"></div>
+    </div>
+
+    <header class="header-container" id="navbar">
+        <a href="index.html" class="nav-brand-box">MODERN <span>PIXELS</span></a>
+        
+        <nav class="nav-menu-wrapper">
+            <div class="nav-menu-bg"></div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#social">Portfolio</a></li>
+                <li><a href="index.html#packages">Packages</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+
+            <div class="nav-action-group">
+                <button id="magicToggle" class="magic-btn" title="Turn on the Magic">
+                    <svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg>
+                </button>
+                <button id="rainToggle" class="magic-btn" title="Toggle Rain Effect">
+                    <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.36 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4s1.79-4 4-4h.71C7.37 7.69 9.48 6 12 6c3.04 0 5.5 2.46 5.5 5.5v.5H19c1.66 0 3 1.34 3 3s-1.34 3-3 3z"/></svg>
+                </button>
+                <button id="themeToggle" class="magic-btn" title="Toggle Light Mode">
+                    <svg viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06z"/></svg>
+                </button>
+                <div class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="premium-liquid-header">
+        <div class="liquid-blob liquid-1"></div>
+        <div class="liquid-blob liquid-2"></div>
+    </div>
+
+    <div class="container">
+        <h1 class="section-heading">Video Post-Production</h1>
+        <p class="section-sub">A showcase of our professional video editing and motion graphics projects.</p>
+
+        <div class="video-grid">
+            
+            <div class="video-card landscape">
+                <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fv%2F1Ddu1uTPTP%2F&show_text=0&width=560" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            </div>
+
+            <div class="video-card landscape">
+                <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fv%2F1C6wSuZzFP%2F&show_text=0&width=560" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            </div>
+
+            <div class="video-card landscape">
+                <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fv%2F16xoGWAzo8%2F&show_text=0&width=560" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            </div>
+
+            <div class="video-card portrait">
+                <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fr%2F1E9WVB3roE%2F&show_text=0&width=560" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            </div>
+
+            <div class="video-card portrait">
+                <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fr%2F1EfXrNmboR%2F&show_text=0&width=560" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            </div>
+
+            <div class="video-card landscape">
+                <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fv%2F1Kx7zZ6WcR%2F&show_text=0&width=560" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            </div>
+
+            <div class="video-card portrait">
+                <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1032913056063719%2F&show_text=0&width=560" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            </div>
+
+        </div>
+
+        <div class="back-btn-container">
+            <a href="index.html" class="back-btn">← BACK TO PORTFOLIO</a>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 Modern Pixels. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // PRELOADER
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('loaded');
+                document.body.classList.remove('no-scroll');
+            }, 500);
+        });
+
+        // NAVBAR SCROLL
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        });
+
+        // MOBILE MENU
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // EFFECTS (Stars & Rain)
+        function createTinyStars() {
+            const container = document.getElementById('magic-stars-container');
+            for (let i = 0; i < 50; i++) {
+                const star = document.createElement('div');
+                star.className = 'tiny-star';
+                star.style.width = star.style.height = `${Math.random() * 2 + 1}px`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.setProperty('--b-dur', `${Math.random() * 3 + 1.5}s`);
+                star.style.setProperty('--b-del', `${Math.random() * 5}s`);
+                container.appendChild(star);
+            }
+        }
+        function createRain() {
+            const container = document.getElementById('rain-container');
+            for (let i = 0; i < 80; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'raindrop';
+                drop.style.left = `${Math.random() * 100}vw`;
+                drop.style.animationDuration = `${Math.random() * 1 + 0.5}s`;
+                drop.style.animationDelay = `${Math.random() * 2}s`;
+                container.appendChild(drop);
+            }
+        }
+        createTinyStars(); createRain();
+
+        // TOGGLE BUTTONS
+        document.getElementById('magicToggle').addEventListener('click', function() {
+            document.body.classList.toggle('magic-mode');
+            this.classList.toggle('active');
+        });
+        document.getElementById('rainToggle').addEventListener('click', function() {
+            document.body.classList.toggle('rain-mode');
+            this.classList.toggle('active');
+        });
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            document.body.classList.toggle('light-theme');
+            this.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
