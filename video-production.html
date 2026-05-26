@@ -25,14 +25,29 @@
         }
 
         body::before {
-            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -4; background-image: url('Backgrounds/background3.webp'); 
-            background-size: cover; background-position: center;
-            background-color: rgba(2, 4, 10, 0.85); background-blend-mode: overlay;
+            content: ''; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            z-index: -4; 
+            background-image: url('Backgrounds/background3.webp'); 
+            background-size: cover; 
+            background-position: center;
+            background-color: rgba(2, 4, 10, 0.85); 
+            background-blend-mode: overlay;
         }
 
         /* MAIN CONTENT AREA */
-        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 60px 3% 50px 3%; position: relative; z-index: 1; }
+        .container { 
+            width: 100%; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 60px 3% 50px 3%; 
+            position: relative; 
+            z-index: 1; 
+        }
 
         .section-heading { 
             font-family: 'Syncopate', sans-serif; 
@@ -44,9 +59,15 @@
             text-transform: uppercase; 
         }
         
-        .section-sub { text-align: center; color: var(--text-muted); font-size: 1.1rem; letter-spacing: 1px; margin-bottom: 60px; }
+        .section-sub { 
+            text-align: center; 
+            color: var(--text-muted); 
+            font-size: 1.1rem; 
+            letter-spacing: 1px; 
+            margin-bottom: 60px; 
+        }
 
-        /* VIDEO GRID (MIXED SIZES) */
+        /* VIDEO GRID */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -91,8 +112,19 @@
             border-radius: 16px;
         }
 
-        .site-footer { text-align: center; padding: 40px 2%; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px; background: rgba(2, 4, 10, 0.9); }
-        .site-footer p { color: var(--text-muted); font-size: 0.9rem; letter-spacing: 1px; }
+        .site-footer { 
+            text-align: center; 
+            padding: 40px 2%; 
+            border-top: 1px solid rgba(255,255,255,0.05); 
+            margin-top: 50px; 
+            background: rgba(2, 4, 10, 0.9); 
+        }
+        
+        .site-footer p { 
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+            letter-spacing: 1px; 
+        }
 
         @media (max-width: 768px) {
             .container { padding-top: 40px; }
@@ -109,54 +141,16 @@
 
         <div class="video-grid">
             
-            <!-- YouTube Videos (Mewa wada karanawa) -->
             <div class="video-card landscape">
-                <iframe src="https://www.youtube.com/embed/dykahvxGqeE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
-
-            <div class="video-card landscape">
-                <iframe src="https://www.youtube.com/embed/9T880GalpLc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/dykahvxGqeE" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
 
             <div class="video-card landscape">
-                <iframe src="https://www.youtube.com/embed/dykahvxGqeE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/9T880GalpLc" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
 
-            <!-- Facebook Videos -->
-            
-            <!-- METHANA OYAGE FACEBOOK EMBED CODE EKA DANNA (Video 1) -->
             <div class="video-card landscape">
-                <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fv%2F1Ddu1uTPTP%2F&show_text=0&width=560" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-            </div>
-
-            <!-- METHANA OYAGE FACEBOOK EMBED CODE EKA DANNA (Video 2) -->
-            <div class="video-card landscape">
-                <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fv%2F1C6wSuZzFP%2F&show_text=0&width=560" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-            </div>
-
-            <!-- METHANA OYAGE FACEBOOK EMBED CODE EKA DANNA (Video 3) -->
-            <div class="video-card landscape">
-                <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fv%2F16xoGWAzo8%2F&show_text=0&width=560" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-            </div>
-
-            <!-- METHANA OYAGE FACEBOOK EMBED CODE EKA DANNA (Reel 1 - Portrait) -->
-            <div class="video-card portrait">
-                <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fr%2F1E9WVB3roE%2F&show_text=0&width=560" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-            </div>
-
-            <!-- METHANA OYAGE FACEBOOK EMBED CODE EKA DANNA (Reel 2 - Portrait) -->
-            <div class="video-card portrait">
-                <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fr%2F1EfXrNmboR%2F&show_text=0&width=560" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-            </div>
-
-            <!-- METHANA OYAGE FACEBOOK EMBED CODE EKA DANNA (Video 4) -->
-            <div class="video-card landscape">
-                <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fv%2F1Kx7zZ6WcR%2F&show_text=0&width=560" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-            </div>
-
-            <!-- METHANA OYAGE FACEBOOK EMBED CODE EKA DANNA (Reel 3 - Portrait) -->
-            <div class="video-card portrait">
-                <iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1032913056063719%2F&show_text=0&width=560" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                <iframe src="https://www.facebook.com/reel/1429968928639224/?share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fv%2F1Ddu1uTPTP%2F&rdid=hd8kMBs0qsZBt6Q6" style="border:none;overflow:hidden" scrolling="no" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
             </div>
 
         </div>
