@@ -12,9 +12,8 @@
         ========================================== */
         :root {
             --primary: #02040a; 
-            --accent: #00ff66;
-            --accent-glow: rgba(0, 255, 102, 0.6);
-            --accent-alt: #8a2be2; 
+            --accent: #00d4ff; /* Default Light Blue */
+            --accent-glow: rgba(0, 212, 255, 0.6);
             --text-light: #f8fafc;
             --text-muted: #94a3b8;
             transition: --accent 0.8s ease, --accent-glow 0.8s ease;
@@ -32,7 +31,7 @@
 
         body::before {
             content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -4; background-image: url('Backgrounds/background3.webp'); /* Update path if needed */
+            z-index: -4; background-image: url('Backgrounds/background3.webp'); 
             background-size: cover; background-position: center;
             background-color: rgba(2, 4, 10, 0.85); background-blend-mode: overlay;
         }
@@ -47,20 +46,20 @@
             mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
         }
         .liquid-blob { position: absolute; border-radius: 50%; filter: blur(50px); opacity: 0.25; animation: floatLiquid 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); }
-        .liquid-1 { top: -100px; left: 0%; width: 400px; height: 400px; background: var(--accent); }
-        .liquid-2 { top: -100px; right: 0%; width: 450px; height: 350px; background: var(--accent-alt); animation-delay: -5s; }
+        .liquid-1 { top: -100px; left: 0%; width: 400px; height: 400px; background: var(--accent); transition: background 0.8s ease; }
+        .liquid-2 { top: -100px; right: 0%; width: 450px; height: 350px; background: var(--accent); opacity: 0.15; animation-delay: -5s; transition: background 0.8s ease; }
         @keyframes floatLiquid { 0% { transform: translate(0, 0) scale(1) rotate(0deg); } 33% { transform: translate(8vw, 80px) scale(1.1) rotate(15deg); } 66% { transform: translate(-8vw, 40px) scale(0.9) rotate(-15deg); } 100% { transform: translate(0, 0) scale(1) rotate(0deg); } }
 
         /* ==========================================
-           NAVBAR STYLES
+           NAVBAR
         ========================================== */
         .header-container { position: fixed; top: 25px; left: 3%; width: 94%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
         .nav-brand-box { background: rgba(5, 8, 15, 0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 100px; padding: 10px 25px; display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; text-decoration: none; color: #fff; letter-spacing: 2px; transition: all 0.4s ease; }
-        .nav-brand-box span { color: var(--accent); }
+        .nav-brand-box span { color: var(--accent); transition: color 0.8s ease;}
         .nav-brand-box:hover { background: rgba(2, 4, 10, 0.95); border-color: color-mix(in srgb, var(--accent) 30%, transparent); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
 
         /* ==========================================
-           MAIN CONTAINER & VIEW SYSTEM
+           MAIN CONTAINER & VIEW ANIMATIONS
         ========================================== */
         .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 120px 3% 50px 3%; position: relative; z-index: 1; min-height: 100vh; }
         
@@ -69,6 +68,7 @@
             -webkit-text-stroke: 1px var(--accent); background: linear-gradient(90deg, #fff, var(--accent));
             -webkit-background-clip: text; background-clip: text; margin-bottom: 50px;
             letter-spacing: 4px; text-transform: uppercase; text-align: center;
+            transition: all 0.8s ease;
         }
 
         .view-section { display: none; opacity: 0; transition: opacity 0.5s ease, transform 0.5s ease; transform: translateY(20px); }
@@ -77,69 +77,106 @@
         @keyframes fadeInDown { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         /* ==========================================
-           PREMIUM CATEGORY CARDS (NEW DESIGN)
+           1. CATEGORY CARDS (ARTICLE STYLE)
         ========================================== */
         .category-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 30px; 
+            gap: 40px; 
             padding: 20px 0;
         }
 
         .category-card {
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0.6) 0%, rgba(2, 4, 10, 0.8) 100%);
+            background: rgba(10, 15, 25, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.05); 
-            border-radius: 24px; 
-            padding: 50px 30px;
-            text-align: center; 
+            border-radius: 16px; 
             cursor: pointer; 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px);
-            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.5s ease; 
             position: relative; 
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        .card-glow {
-            position: absolute; width: 150px; height: 150px; background: var(--accent);
-            top: -50px; left: 50%; transform: translateX(-50%); border-radius: 50%; filter: blur(60px); opacity: 0.15; transition: all 0.6s ease; z-index: 0;
-        }
-
-        .category-card::before {
-            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 0%; height: 2px; background: var(--accent); transition: width 0.6s ease, box-shadow 0.6s ease; z-index: 2;
-        }
-
+        /* Hover Effect using the dynamic --cat-color defined in HTML */
         .category-card:hover {
-            background: linear-gradient(180deg, rgba(25, 35, 60, 0.8) 0%, rgba(5, 10, 20, 0.9) 100%);
-            border-color: color-mix(in srgb, var(--accent) 40%, transparent); transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 30px color-mix(in srgb, var(--accent) 15%, transparent);
+            border-color: var(--cat-color);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 25px color-mix(in srgb, var(--cat-color) 25%, transparent);
         }
-        .category-card:hover::before { width: 100%; box-shadow: 0 0 15px var(--accent); }
-        .category-card:hover .card-glow { opacity: 0.4; width: 200px; transform: translateX(-50%) translateY(20px); }
 
-        .cat-icon, .category-name, .category-sub, .explore-text { position: relative; z-index: 2; }
+        /* Top Image Area */
+        .cat-img-wrapper {
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+        .cat-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85);
+            transition: all 0.5s ease;
+        }
+        .category-card:hover .cat-img-wrapper img {
+            filter: brightness(1.1);
+            transform: scale(1.05);
+        }
 
-        .cat-icon { width: 60px; height: 60px; margin-bottom: 25px; fill: none; stroke: var(--text-light); stroke-width: 1.5; transition: all 0.5s ease; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); }
-        .category-card:hover .cat-icon { stroke: var(--accent); transform: scale(1.1) translateY(-5px); filter: drop-shadow(0 0 15px var(--accent-glow)); }
-
-        .category-name { font-family: 'Syncopate', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; transition: all 0.4s ease; }
-        .category-card:hover .category-name { color: #fff; text-shadow: 0 0 20px var(--accent-glow); }
-
-        .category-sub { font-size: 0.8rem; color: var(--text-muted); letter-spacing: 3px; text-transform: uppercase; font-weight: 500; margin-bottom: 30px; transition: color 0.4s ease; }
-        .category-card:hover .category-sub { color: #cfd9e6; }
-
-        .explore-text { font-family: 'Syncopate', sans-serif; font-size: 0.75rem; color: var(--accent); font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; display: flex; align-items: center; gap: 8px; opacity: 0.7; transition: all 0.4s ease; margin-top: auto; }
+        /* Text Area */
+        .cat-content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .category-name { 
+            font-family: 'Syncopate', sans-serif; 
+            font-size: 1.6rem; 
+            font-weight: 700; 
+            color: var(--text-light); 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            margin-bottom: 10px; 
+            transition: all 0.4s ease; 
+        }
+        .category-card:hover .category-name { 
+            color: var(--cat-color); 
+            text-shadow: 0 0 15px color-mix(in srgb, var(--cat-color) 60%, transparent); 
+        }
+        .category-sub { 
+            font-size: 0.85rem; 
+            color: var(--text-muted); 
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
+            font-weight: 500; 
+            margin-bottom: 25px; 
+        }
+        .explore-text { 
+            font-family: 'Syncopate', sans-serif; 
+            font-size: 0.75rem; 
+            color: var(--cat-color); 
+            font-weight: 600; 
+            letter-spacing: 1.5px; 
+            text-transform: uppercase; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            opacity: 0.8; 
+            transition: all 0.4s ease; 
+            margin-top: auto; 
+        }
         .explore-text span { transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
-        .category-card:hover .explore-text { opacity: 1; text-shadow: 0 0 10px var(--accent-glow); }
+        .category-card:hover .explore-text { opacity: 1; text-shadow: 0 0 10px color-mix(in srgb, var(--cat-color) 50%, transparent); }
         .category-card:hover .explore-text span { transform: translateX(8px); }
 
         /* ==========================================
-           ARTICLE LIST GRID
+           2. ARTICLE LIST CARDS
         ========================================== */
         .article-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
         .article-card {
@@ -148,32 +185,31 @@
             transition: all 0.4s ease; position: relative;
         }
         .article-card:hover { border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px color-mix(in srgb, var(--accent) 20%, transparent); transform: translateY(-5px); }
-        
-        /* Fixed 1200x627 Aspect Ratio */
+
         .article-thumb { width: 100%; aspect-ratio: 1200 / 627; object-fit: cover; filter: brightness(0.85); transition: filter 0.4s ease, transform 0.6s ease; display: block; }
         .article-card:hover .article-thumb { filter: brightness(1.1); transform: scale(1.03); }
         .img-container { overflow: hidden; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        
+
         .article-info { padding: 25px; position: relative; }
         .article-number {
             position: absolute; top: -20px; right: 20px; background: var(--accent); color: #000;
             font-family: 'Syncopate', sans-serif; font-weight: 700; width: 40px; height: 40px;
             display: flex; align-items: center; justify-content: center; border-radius: 50%;
-            box-shadow: 0 0 15px var(--accent-glow); font-size: 1.1rem;
+            box-shadow: 0 0 15px var(--accent-glow); font-size: 1.1rem; transition: background 0.8s ease, box-shadow 0.8s ease;
         }
         .article-card-title { font-size: 1.2rem; color: #fff; margin-bottom: 10px; line-height: 1.4; transition: color 0.3s; }
         .article-card:hover .article-card-title { color: var(--accent); }
         .article-card-excerpt { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
 
         /* ==========================================
-           SINGLE ARTICLE VIEW
+           3. SINGLE ARTICLE VIEW
         ========================================== */
         .single-article-container { max-width: 900px; margin: 0 auto; background: rgba(5, 8, 15, 0.7); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         
         .post-hero-image { width: 100%; aspect-ratio: 1200 / 627; object-fit: cover; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); display: block; }
         
         .post-title { font-family: 'Syncopate', sans-serif; font-size: 1.8rem; color: #fff; margin-bottom: 15px; line-height: 1.4; text-transform: uppercase; }
-        .post-meta { font-size: 0.9rem; color: var(--accent); margin-bottom: 30px; letter-spacing: 1px; font-weight: 500; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
+        .post-meta { font-size: 0.9rem; color: var(--accent); margin-bottom: 30px; letter-spacing: 1px; font-weight: 500; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; transition: color 0.8s ease; }
         
         .post-content { font-size: 1.05rem; line-height: 1.8; color: #cfd9e6; }
         .post-content h3 { color: #fff; margin: 30px 0 15px 0; font-family: 'Syncopate', sans-serif; font-size: 1.2rem; }
@@ -182,7 +218,7 @@
         .post-content li { margin-bottom: 10px; }
 
         /* ==========================================
-           BUTTONS
+           BUTTONS & MOBILE
         ========================================== */
         .back-btn {
             display: inline-flex; align-items: center; gap: 10px; padding: 12px 25px;
@@ -192,13 +228,8 @@
         }
         .back-btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 20px var(--accent-glow); border-color: var(--accent); transform: translateX(-5px); }
 
-        /* ==========================================
-           MOBILE RESPONSIVENESS
-        ========================================== */
         @media (max-width: 768px) {
             .page-title { font-size: 1.5rem; }
-            .category-card { padding: 40px 20px; }
-            .category-name { font-size: 1.4rem; }
             .single-article-container { padding: 20px; }
             .post-title { font-size: 1.3rem; }
             .post-content { font-size: 0.95rem; }
@@ -215,47 +246,52 @@
 
     <!-- NAVBAR -->
     <header class="header-container">
-        <!-- Main Portfolio එකට යන්න Link එක දීලා තියෙන්නේ -->
-        <a href="index.html" class="nav-brand-box">Malith <span>Eranga</span></a>
+        <a href="index.html" class="nav-brand-box"> Malith Eranga <span></span></a>
     </header>
 
     <div class="container">
-        
-        <!-- ==========================================
+
+        <!-- =========================================================================
              VIEW 1: CATEGORIES
-        =========================================== -->
+             ඔයාට අලුත් Category එකක් ඕනේ නම්, පල්ලෙහා තියෙන කාඩ් එකක් Copy කරලා Paste කරන්න.
+             පාට වෙනස් කරන්න ඕනේ නම්: style="--cat-color: #ඔයාගේ_පාට;" වෙනස් කරන්න.
+             Series නම වෙනස් කරන්න ඕනේ නම්: openCategory('ඔයාගේ_නම', '#ඔයාගේ_පාට') වෙනස් කරන්න.
+        ========================================================================== -->
         <div id="view-categories" class="view-section active">
-            <h1 class="page-title">Article Series</h1>
+            <h1 class="page-title">Insight Blog</h1>
             <div class="category-grid">
+
+                <!-- CATEGORY 1: ChemAZ -->
+                <div class="category-card" style="--cat-color: #00d4ff;" onclick="openCategory('ChemAZ', '#00d4ff')">
+                    <div class="cat-img-wrapper">
+                        
+                        <img src="Article/ChemAZ.jpg" alt="ChemAZ Cover">
+                    </div>
+                    <div class="cat-content">
+                        <div class="category-name">ChemAZ</div>
+                        <div class="category-sub">Basic Chemistry</div>
+                        <div class="explore-text">Explore Articles <span>→</span></div>
+                    </div>
+                </div>
+
+                <!-- CATEGORY 2: ChemPATH -->
+                <div class="category-card" style="--cat-color: #8a2be2;" onclick="openCategory('ChemPATH', '#8a2be2')">
+                    <div class="cat-img-wrapper">
+                        
+                        <img src="Article/ChemPath.png" alt="ChemPATH Cover">
+                    </div>
+                    <div class="cat-content">
+                        <div class="category-name">ChemPATH</div>
+                        <div class="category-sub">Chemistry Pathways</div>
+                        <div class="explore-text">Explore Articles <span>→</span></div>
+                    </div>
+                </div>
+
+                <!-- අලුත් Category එකක් ඕනේ නම් මේ විදිහට Copy කරලා මේ යටින් Paste කරන්න -->
                 
-                <!-- Category 1: ChemiAZ -->
-                <div class="category-card" onclick="openCategory('ChemiAZ')">
-                    <div class="card-glow"></div>
-                    <svg class="cat-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 2v2M15 2v2M12 2v6M9 10c-1.1 0-2 .9-2 2v1l-4 7c-.6 1.1.2 2.5 1.5 2.5h15c1.3 0 2.1-1.4 1.5-2.5l-4-7v-1c0-1.1-.9-2-2-2H9z" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M5.5 16h13" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <div class="category-name">ChemAZ</div>
-                    <div class="category-sub">Chemistry A to Z Series</div>
-                    <div class="explore-text">Explore Articles <span>→</span></div>
-                </div>
-
-                <!-- Category 2: ChemIndustrial -->
-                <div class="category-card" onclick="openCategory('ChemIndustrial')">
-                    <div class="card-glow" style="background: var(--accent-alt);"></div>
-                    <svg class="cat-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2 20h20M4 20V8l6-4 6 4v12M16 20V6l6-4v18" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M9 12v4M13 12v4" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M11 4a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
-                    </svg>
-                    <div class="category-name">ChemIndus</div>
-                    <div class="category-sub">Industrial Background of Chemistry</div>
-                    <!-- Inline style override to match the purple accent -->
-                    <div class="explore-text" style="color: var(--accent-alt);">Explore Articles <span>→</span></div>
-                </div>
-
             </div>
         </div>
+
 
         <!-- ==========================================
              VIEW 2: ARTICLE LIST
@@ -264,106 +300,163 @@
             <button class="back-btn" onclick="showCategories()">← BACK TO CATEGORIES</button>
             <h1 class="page-title" id="list-category-title">Category Name</h1>
             <div class="article-grid" id="article-list-container">
-                <!-- Articles injected here via JavaScript -->
+                <!-- Articles will load here -->
             </div>
         </div>
+
 
         <!-- ==========================================
              VIEW 3: SINGLE ARTICLE
         =========================================== -->
         <div id="view-article" class="view-section">
             <button class="back-btn" onclick="showList()">← BACK TO LIST</button>
-            
+
             <div class="single-article-container">
                 <img id="post-hero" src="" class="post-hero-image" alt="Article Cover">
                 <h1 id="post-title" class="post-title">Article Title</h1>
                 <div id="post-meta" class="post-meta">Category | Date</div>
-                
+
                 <div id="post-content" class="post-content">
-                    <!-- HTML content injected here -->
+                    <!-- Text will load here -->
                 </div>
             </div>
         </div>
 
     </div>
 
+
     <script>
-        /* ==========================================
-           ARTICLE DATABASE
-           ඔයාගේ අලුත් Articles මෙතනට Add කරන්න
-        ========================================== */
+        /* =========================================================================================
+           🔥🔥🔥 ARTICLE DATABASE (ඔයාගේ ARTICLES දාන තැන) 🔥🔥🔥
+           ඔයාට අලුත් Article එකක් දාන්න ඕනේ නම්, යට තියෙන එකක් ඒ විදිහටම Copy කරලා යටින් Paste කරන්න.
+        ========================================================================================= */
+        
         const articlesDB = [
-            // ChemiAZ Series
+            
+            // ================== CHEMAZ SERIES ARTICLES ==================
             {
-                id: 1,
-                category: 'ChemiAZ',
-                title: 'Introduction to Basic Chemistry Principles',
-                date: 'October 10, 2026',
-                image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1200&h=627&auto=format&fit=crop', 
-                excerpt: 'Learn the fundamentals of chemistry in this first part of the ChemiAZ series. We cover atoms, molecules, and basic reactions.',
+                id: 1, // ඔයාට අවශ්‍ය අංකය මෙතනට දෙන්න (උදා: 1)
+                category: 'ChemAZ',
+                title: 'What is Chemistry? Beyond the Lab Coats and Beakers',
+                date: 'October 1, 2026', // අදාල දවසට වෙනස් කරගන්න
+                image: 'Article/A1.png', // ඔයාගේ Image එකේ නම (උදා: Article/A1.webp)
+                excerpt: 'When most people hear the word "chemistry," they picture dimly lit laboratories and complex equations. But chemistry is not locked away—it is happening all around you every single day.',
                 content: `
-                    <p>Welcome to the first article in the ChemiAZ series. In this post, we explore the fundamental building blocks of matter.</p>
-                    <h3>What is an Atom?</h3>
-                    <p>An atom is the smallest unit of ordinary matter that forms a chemical element. Every solid, liquid, gas, and plasma is composed of neutral or ionized atoms.</p>
+                    <p>When most people hear the word "chemistry," their minds immediately jump to a very specific set of images. They picture dimly lit laboratories, scientists in pristine white lab coats, safety goggles, bubbling Erlenmeyer flasks filled with neon-colored liquids, and whiteboards covered in complex mathematical equations that look more like an alien language than anything related to daily life. Some might even feel a sudden wave of anxiety, remembering the struggle of memorizing the periodic table of elements back in high school.</p>
+                    
+                    <p>It is incredibly common to view chemistry as an intimidating, highly academic subject reserved only for those with Ph.Ds. However, this perception could not be further from the truth. Chemistry is not locked away in a laboratory. It is happening right in front of you, all around you, and even inside of you, every single second of every single day.</p>
+                    
+                    <p>Welcome to the very first installment of the ChemAZ Series. Over the upcoming weeks, we are going to embark on a journey to demystify this fascinating scientific discipline. We will strip away the heavy academic jargon, the confusing formulas, and the intimidation factor, replacing them with clear, relatable, and genuinely interesting explanations of how our universe functions. To begin this journey, we must first answer the most fundamental question of all: What exactly is chemistry?</p>
+
+                    <h3>Demystifying the Definition: What Exactly is Chemistry?</h3>
+                    <p>To truly understand what chemistry is, it helps to first look at how the experts define it, and then break that down into something we can easily digest.</p>
+                    <p>According to the Encyclopædia Britannica, the formal, academic definition of chemistry is as follows:</p>
+                    
+                    <p><em>"Chemistry is the science that deals with the properties, composition, and structure of substances (defined as elements and compounds), the transformations they undergo, and the energy that is released or absorbed during these processes."</em></p>
+                    
+                    <p>If you are not a scientist, reading that definition might make your eyes glaze over. It sounds dense, technical, and disconnected from reality. But if we peel back the layers of academic vocabulary, the core concept is surprisingly simple.</p>
+                    <p>In plain, everyday English, <strong>Chemistry is simply the study of "stuff" and how that "stuff" changes.</strong></p>
+                    <p>Scientists have a special word for this "stuff"—they call it <strong>Matter</strong>. Matter is the foundational concept of all physical sciences. It is defined as absolutely anything that possesses mass (weight) and takes up physical space (volume). The screen you are reading this on is made of matter. The coffee in your mug is made of matter. The air you are breathing, though invisible, is made of matter. You, yourself, are a highly complex, walking, talking collection of matter.</p>
+                    <p>Therefore, because chemistry is the study of matter, it is fundamentally the study of everything in the known physical universe.</p>
+
+                    <h3>The Three Fundamental Questions of Chemistry</h3>
+                    <p>Whenever a chemist looks at an object, a substance, or a phenomenon in the world, they are essentially trying to answer three fundamental questions. Understanding these three pillars will help you view the world through the lens of a scientist.</p>
+                    
                     <ul>
-                        <li>Protons (Positive charge)</li>
-                        <li>Neutrons (No charge)</li>
-                        <li>Electrons (Negative charge)</li>
+                        <li><strong>1. Composition: What is this made of?</strong> Everything in the universe is built from microscopic building blocks. If you take a drop of water and zoom in closer and closer, eventually you will stop seeing a continuous liquid and start seeing individual particles. Chemistry seeks to understand these ingredients. What atoms are present? How are they arranged? In the case of water, chemistry tells us that it is composed of two hydrogen atoms attached to one oxygen atom (H₂O). Understanding composition is like having the ultimate recipe book for the universe.</li>
+                        <li><strong>2. Properties: How does it behave?</strong> Once we know what something is made of, chemistry asks how it acts in its natural state. These are known as its properties. What color is it? Does it conduct electricity? Is it a solid, a liquid, or a gas at room temperature? At what temperature does it boil or freeze? For example, one of the properties of gold is that it is highly malleable and does not rust, which is why it has been used for jewelry and currency for thousands of years.</li>
+                        <li><strong>3. Reactions: What happens when it changes?</strong> This is where chemistry becomes truly dynamic and exciting. The universe is not static; it is constantly transforming. Chemistry studies what happens when you take one type of matter and expose it to another type of matter, or to changes in energy (like extreme heat or cold). If I mix substance A with substance B, will they ignore each other, will they combine to form a brand-new substance C, or will they explode? Understanding reactions allows us to predict the future behavior of matter and harness it to create new technologies, medicines, and materials.</li>
                     </ul>
-                    <p>Understanding these basic concepts is crucial for moving forward in the ChemiAZ series. Stay tuned for the next article where we discuss chemical bonds!</p>
-                `
-            },
-            {
-                id: 2,
-                category: 'ChemiAZ',
-                title: 'Understanding Chemical Bonding',
-                date: 'October 15, 2026',
-                image: 'https://images.unsplash.com/photo-1603126857599-f6e157824fce?q=80&w=1200&h=627&auto=format&fit=crop',
-                excerpt: 'Dive deep into covalent, ionic, and metallic bonds and how they hold the universe together.',
-                content: `
-                    <p>Following up on our introduction, today we look at how atoms interact with each other to form bonds.</p>
-                    <h3>Types of Bonds</h3>
-                    <p>There are three main types of chemical bonds you need to know:</p>
+
+                    <h3>The Chemistry of Everyday Life (You Are Already a Chemist)</h3>
+                    <p>You might not wear a lab coat, but you are performing complex chemical experiments every single day without even realizing it. Once you understand the basic definition of chemistry, you begin to see its fingerprints everywhere.</p>
+                    
+                    <p><strong>Culinary Chemistry: Science in the Kitchen</strong><br>
+                    The kitchen is arguably the most active chemical laboratory in any home. Cooking is entirely based on chemical reactions and phase changes.</p>
                     <ul>
-                        <li><strong>Ionic Bonds:</strong> Formed when one atom gives up one or more electrons to another atom.</li>
-                        <li><strong>Covalent Bonds:</strong> Formed when two atoms share electrons.</li>
-                        <li><strong>Metallic Bonds:</strong> Formed by the attraction between metal ions and delocalized, or "free" electrons.</li>
+                        <li><strong>Frying an Egg:</strong> When you crack a raw egg into a hot pan, the clear, gooey egg white rapidly turns solid and opaque. This is not magic; it is thermal denaturation. The heat energy from the stove breaks the weak bonds holding the egg's proteins together, causing them to unfold and tangle with each other to form a solid mass.</li>
+                        <li><strong>Baking Bread:</strong> The fluffy texture of bread is the result of a chemical reaction. Yeast (a living organism) consumes sugars in the dough and releases carbon dioxide gas. This gas gets trapped in the stretchy gluten network of the dough, creating bubbles that make the bread rise.</li>
+                        <li><strong>The Perfect Steak:</strong> That delicious brown crust on a seared steak or the golden-brown color of toasted bread is the result of the Maillard reaction—a complex chemical reaction between amino acids and reducing sugars under heat that creates hundreds of brand-new flavor compounds.</li>
                     </ul>
-                    <p>Each bond dictates the physical properties of the resulting compound.</p>
+
+                    <p><strong>Biological Chemistry: Science Inside You</strong><br>
+                    Your body is essentially a highly advanced, self-regulating chemical reactor. Every physiological process keeping you alive right now is driven by chemical reactions.</p>
+                    <ul>
+                        <li><strong>Breathing:</strong> Respiration is a chemical exchange. You inhale oxygen (O₂), which your red blood cells transport to your tissues. Inside your cells, a chemical reaction uses that oxygen to break down glucose (sugar) to create energy, producing carbon dioxide (CO₂) as a waste product, which you then exhale.</li>
+                        <li><strong>Digestion:</strong> When you eat, mechanical chewing is only the first step. Powerful stomach acids (like hydrochloric acid) and specialized chemical proteins called enzymes immediately go to work, breaking down complex carbohydrates, fats, and proteins into their basic molecular building blocks so your body can absorb them.</li>
+                    </ul>
+
+                    <p><strong>Emotional Chemistry: The Science of Feelings</strong><br>
+                    We often think of our emotions as purely abstract, psychological experiences. In reality, your feelings are deeply rooted in chemistry.</p>
+                    <ul>
+                        <li><strong>Happiness and Love:</strong> That warm, joyful feeling you get when you see a loved one, achieve a goal, or eat a delicious meal? That is the result of chemical messengers—neurotransmitters like dopamine, serotonin, and oxytocin—flooding your brain's synapses.</li>
+                        <li><strong>Stress and Fear:</strong> The sudden spike of energy and racing heartbeat you feel when you are frightened or stressed is triggered by the rapid release of adrenaline and cortisol, chemicals designed to prepare your body for a "fight or flight" response.</li>
+                    </ul>
+
+                    <p><strong>Environmental Chemistry: Science in the World Around Us</strong><br>
+                    Step outside, and chemistry is shaping the environment.</p>
+                    <ul>
+                        <li><strong>Changing Seasons:</strong> The beautiful red, orange, and yellow leaves of autumn are the result of chemical changes. As days get shorter and colder, trees stop producing chlorophyll (the green pigment used in photosynthesis). As the green chemical breaks down, it reveals the other chemical pigments (anthocyanins and carotenoids) that were hidden underneath all along.</li>
+                        <li><strong>Rusting Metal:</strong> An old bicycle left out in the rain slowly turning orange is undergoing oxidation. The iron in the metal is reacting chemically with oxygen and moisture in the air to create iron oxide (rust).</li>
+                    </ul>
+
+                    <h3>Why Does Chemistry Matter to You?</h3>
+                    <p>You might be wondering, "Why should I care about all of this? I am not a scientist."</p>
+                    <p>Understanding the absolute basics of chemistry empowers you as a consumer, a citizen, and a human being. We live in a world heavily driven by chemical products—from the ingredients in our skincare and the preservatives in our food, to the batteries powering our electric vehicles and the medications we take when we are sick.</p>
+                    <p>When you understand the basic language of chemistry, you are no longer at the mercy of marketing buzzwords. You can read a product label and actually understand what you are putting on your skin or into your body. You can better comprehend global challenges like climate change, pollution, and the search for sustainable energy sources, all of which are fundamentally chemical problems requiring chemical solutions.</p>
+                    <p>Most importantly, understanding chemistry gives you a profound sense of wonder. It transforms the mundane world into a marvel of interactions. It makes you realize that the universe is incredibly interconnected.</p>
+
+                    <h3>What to Expect in the ChemAZ Series</h3>
+                    <p>This is just the beginning. The goal of the ChemAZ Series is to build your scientific literacy one step at a time, completely from scratch.</p>
+                    <p>In our upcoming articles, we will dive deeper into the building blocks of the universe. We will explore:</p>
+                    <ul>
+                        <li><strong>Atoms and Molecules:</strong> The microscopic Lego bricks that build our reality.</li>
+                        <li><strong>The Periodic Table:</strong> Not as a tool for memorization, but as the ultimate map of ingredients.</li>
+                        <li><strong>Chemical Bonds:</strong> The invisible forces that hold the universe together.</li>
+                        <li><strong>Acids and Bases:</strong> Why lemons are sour and soap is slippery.</li>
+                    </ul>
+                    <p>We will keep the focus on clarity, real-world examples, and the sheer fascination of how things work.</p>
+                    
+                    <p>The universe is an incredible place, and chemistry is the key to unlocking its secrets. I am thrilled to have you join me on this educational journey. If you have any specific everyday phenomena you have always wanted the scientific explanation for, drop a comment below. Your curiosity might just inspire a future article in the ChemAZ Series!</p>
                 `
             },
             
 
-            // ChemIndustrial Series
+            // ================== CHEMPATH SERIES ARTICLES ==================
             {
                 id: 3,
-                category: 'ChemIndustrial',
+                category: 'ChemPATH',
                 title: 'Industrial Scale Polymer Synthesis',
                 date: 'November 01, 2026',
-                image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&h=627&auto=format&fit=crop',
+                image: 'Article/A3.webp', 
                 excerpt: 'How are plastics and polymers made on a massive industrial scale? A detailed look into the reactors.',
+                
                 content: `
-                    <p>The ChemIndustrial series focuses on how chemistry is applied in massive factories. Today, we talk about polymers.</p>
+                    <p>The ChemPATH series focuses on how chemistry is applied in massive factories. Today, we talk about polymers.</p>
+                    
                     <h3>The Polymerization Process</h3>
                     <p>Industrial polymerization requires high heat, pressure, and specific catalysts. The process usually takes place in massive stainless steel reactors.</p>
+                    
                     <p>Safety is the number one priority in these chemical plants due to the volatile nature of the monomers used. Our next post will cover safety protocols in chemical manufacturing.</p>
                 `
             }
+            
+            // අලුත් එකක් දානවා නම් මෙතනින් යටින් Paste කරන්න!
         ];
 
-        /* ==========================================
-           SPA NAVIGATION LOGIC
-        ========================================== */
-        
+
+        /* =========================================================================
+           SPA NAVIGATION & COLOR LOGIC (මෙතනින් පල්ලෙහා වෙනස් කරන්න ඕනේ නෑ)
+        ========================================================================= */
+
         const viewCategories = document.getElementById('view-categories');
         const viewList = document.getElementById('view-list');
         const viewArticle = document.getElementById('view-article');
-        
         const listContainer = document.getElementById('article-list-container');
         const listCategoryTitle = document.getElementById('list-category-title');
-        
+
         let currentCategory = ''; 
-        let currentThemeColor = '#00ff66';
+        let currentThemeColor = '#00d4ff';
 
         function hideAllViews() {
             viewCategories.classList.remove('active');
@@ -372,35 +465,31 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Show Categories View
+        // Show Categories View (Home)
         function showCategories() {
             hideAllViews();
-            document.documentElement.style.setProperty('--accent', '#00ff66'); // Reset accent to green
-            document.documentElement.style.setProperty('--accent-glow', 'rgba(0, 255, 102, 0.6)');
+            document.documentElement.style.setProperty('--accent', '#00d4ff'); 
+            document.documentElement.style.setProperty('--accent-glow', 'rgba(0, 212, 255, 0.6)');
             setTimeout(() => { viewCategories.classList.add('active'); }, 200);
         }
 
-        // Show List View
-        function openCategory(categoryName) {
+        // Show List View & Change Colors Dynamically
+        function openCategory(categoryName, themeColor) {
             currentCategory = categoryName;
+            currentThemeColor = themeColor;
+
+            // Update entire page CSS variables to match the clicked category
+            document.documentElement.style.setProperty('--accent', themeColor);
             
-            // Dynamic theme coloring based on category
-            if(categoryName === 'ChemiAZ') {
-                currentThemeColor = '#00ff66';
-                document.documentElement.style.setProperty('--accent', currentThemeColor);
-                document.documentElement.style.setProperty('--accent-glow', 'rgba(0, 255, 102, 0.6)');
-            } else if(categoryName === 'ChemIndustrial') {
-                currentThemeColor = '#8a2be2';
-                document.documentElement.style.setProperty('--accent', currentThemeColor);
-                document.documentElement.style.setProperty('--accent-glow', 'rgba(138, 43, 226, 0.6)');
-            } else if(categoryName === 'TechDesign') {
-                currentThemeColor = '#00bfff';
-                document.documentElement.style.setProperty('--accent', currentThemeColor);
-                document.documentElement.style.setProperty('--accent-glow', 'rgba(0, 191, 255, 0.6)');
-            }
+            // Convert Hex to RGBA for glow effect
+            let hex = themeColor.replace('#', '');
+            let r = parseInt(hex.substring(0, 2), 16);
+            let g = parseInt(hex.substring(2, 4), 16);
+            let b = parseInt(hex.substring(4, 6), 16);
+            document.documentElement.style.setProperty('--accent-glow', `rgba(${r}, ${g}, ${b}, 0.6)`);
 
             hideAllViews();
-            
+
             const filteredArticles = articlesDB.filter(art => art.category === categoryName);
             listCategoryTitle.innerText = categoryName + " SERIES";
             listContainer.innerHTML = '';
@@ -415,7 +504,7 @@
                                 <img src="${article.image}" alt="${article.title}" class="article-thumb">
                             </div>
                             <div class="article-info">
-                                <div class="article-number" style="background: ${currentThemeColor}; box-shadow: 0 0 15px ${currentThemeColor}80;">${index + 1}</div>
+                                <div class="article-number">${index + 1}</div>
                                 <h3 class="article-card-title">${article.title}</h3>
                                 <p class="article-card-excerpt">${article.excerpt}</p>
                             </div>
@@ -436,9 +525,8 @@
         // Show Single Article View
         function openArticle(articleId) {
             hideAllViews();
-            
             const article = articlesDB.find(a => a.id === articleId);
-            
+
             if (article) {
                 document.getElementById('post-hero').src = article.image;
                 document.getElementById('post-title').innerText = article.title;
@@ -448,7 +536,6 @@
 
             setTimeout(() => { viewArticle.classList.add('active'); }, 200);
         }
-
     </script>
 </body>
 </html>
