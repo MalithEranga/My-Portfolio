@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Series | Modern Pixels</title>
+    <link rel="icon" type="image/png" href="Modern Pixels/MODERNPIXELS1.png">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600&family=Syncopate:wght@600&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================
+           BASE VARIABLES & SETUP
+        ========================================== */
+        :root {
+            --primary: #02040a; 
+            --accent: #00ff66;
+            --accent-glow: rgba(0, 255, 102, 0.6);
+            --accent-alt: #8a2be2; 
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            transition: --accent 0.8s ease, --accent-glow 0.8s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -4; background-image: url('Backgrounds/background3.webp'); /* Update path if needed */
+            background-size: cover; background-position: center;
+            background-color: rgba(2, 4, 10, 0.85); background-blend-mode: overlay;
+        }
+
+        /* ==========================================
+           BACKGROUND EFFECTS
+        ========================================== */
+        .premium-liquid-header {
+            position: absolute; top: 0; left: 0; width: 100%; height: 350px; z-index: -1;
+            overflow: hidden; pointer-events: none;
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 10%, rgba(0,0,0,0) 100%);
+        }
+        .liquid-blob { position: absolute; border-radius: 50%; filter: blur(50px); opacity: 0.25; animation: floatLiquid 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); }
+        .liquid-1 { top: -100px; left: 0%; width: 400px; height: 400px; background: var(--accent); }
+        .liquid-2 { top: -100px; right: 0%; width: 450px; height: 350px; background: var(--accent-alt); animation-delay: -5s; }
+        @keyframes floatLiquid { 0% { transform: translate(0, 0) scale(1) rotate(0deg); } 33% { transform: translate(8vw, 80px) scale(1.1) rotate(15deg); } 66% { transform: translate(-8vw, 40px) scale(0.9) rotate(-15deg); } 100% { transform: translate(0, 0) scale(1) rotate(0deg); } }
+
+        /* ==========================================
+           NAVBAR STYLES
+        ========================================== */
+        .header-container { position: fixed; top: 25px; left: 3%; width: 94%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .nav-brand-box { background: rgba(5, 8, 15, 0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 100px; padding: 10px 25px; display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; text-decoration: none; color: #fff; letter-spacing: 2px; transition: all 0.4s ease; }
+        .nav-brand-box span { color: var(--accent); }
+        .nav-brand-box:hover { background: rgba(2, 4, 10, 0.95); border-color: color-mix(in srgb, var(--accent) 30%, transparent); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); }
+
+        /* ==========================================
+           MAIN CONTAINER & VIEW SYSTEM
+        ========================================== */
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 120px 3% 50px 3%; position: relative; z-index: 1; min-height: 100vh; }
+        
+        .page-title {
+            font-family: 'Syncopate', sans-serif; font-size: 2.2rem; color: transparent;
+            -webkit-text-stroke: 1px var(--accent); background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text; background-clip: text; margin-bottom: 50px;
+            letter-spacing: 4px; text-transform: uppercase; text-align: center;
+        }
+
+        .view-section { display: none; opacity: 0; transition: opacity 0.5s ease, transform 0.5s ease; transform: translateY(20px); }
+        .view-section.active { display: block; opacity: 1; transform: translateY(0); animation: fadeInDown 0.8s ease forwards; }
+
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ==========================================
+           PREMIUM CATEGORY CARDS (NEW DESIGN)
+        ========================================== */
+        .category-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 30px; 
+            padding: 20px 0;
+        }
+
+        .category-card {
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.6) 0%, rgba(2, 4, 10, 0.8) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            border-radius: 24px; 
+            padding: 50px 30px;
+            text-align: center; 
+            cursor: pointer; 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); 
+            position: relative; 
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .card-glow {
+            position: absolute; width: 150px; height: 150px; background: var(--accent);
+            top: -50px; left: 50%; transform: translateX(-50%); border-radius: 50%; filter: blur(60px); opacity: 0.15; transition: all 0.6s ease; z-index: 0;
+        }
+
+        .category-card::before {
+            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 0%; height: 2px; background: var(--accent); transition: width 0.6s ease, box-shadow 0.6s ease; z-index: 2;
+        }
+
+        .category-card:hover {
+            background: linear-gradient(180deg, rgba(25, 35, 60, 0.8) 0%, rgba(5, 10, 20, 0.9) 100%);
+            border-color: color-mix(in srgb, var(--accent) 40%, transparent); transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 30px color-mix(in srgb, var(--accent) 15%, transparent);
+        }
+        .category-card:hover::before { width: 100%; box-shadow: 0 0 15px var(--accent); }
+        .category-card:hover .card-glow { opacity: 0.4; width: 200px; transform: translateX(-50%) translateY(20px); }
+
+        .cat-icon, .category-name, .category-sub, .explore-text { position: relative; z-index: 2; }
+
+        .cat-icon { width: 60px; height: 60px; margin-bottom: 25px; fill: none; stroke: var(--text-light); stroke-width: 1.5; transition: all 0.5s ease; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); }
+        .category-card:hover .cat-icon { stroke: var(--accent); transform: scale(1.1) translateY(-5px); filter: drop-shadow(0 0 15px var(--accent-glow)); }
+
+        .category-name { font-family: 'Syncopate', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--text-light); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; transition: all 0.4s ease; }
+        .category-card:hover .category-name { color: #fff; text-shadow: 0 0 20px var(--accent-glow); }
+
+        .category-sub { font-size: 0.8rem; color: var(--text-muted); letter-spacing: 3px; text-transform: uppercase; font-weight: 500; margin-bottom: 30px; transition: color 0.4s ease; }
+        .category-card:hover .category-sub { color: #cfd9e6; }
+
+        .explore-text { font-family: 'Syncopate', sans-serif; font-size: 0.75rem; color: var(--accent); font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; display: flex; align-items: center; gap: 8px; opacity: 0.7; transition: all 0.4s ease; margin-top: auto; }
+        .explore-text span { transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .category-card:hover .explore-text { opacity: 1; text-shadow: 0 0 10px var(--accent-glow); }
+        .category-card:hover .explore-text span { transform: translateX(8px); }
+
+        /* ==========================================
+           ARTICLE LIST GRID
+        ========================================== */
+        .article-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        .article-card {
+            background: rgba(10, 15, 25, 0.6); border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px; overflow: hidden; cursor: pointer; backdrop-filter: blur(10px);
+            transition: all 0.4s ease; position: relative;
+        }
+        .article-card:hover { border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 20px color-mix(in srgb, var(--accent) 20%, transparent); transform: translateY(-5px); }
+        
+        /* Fixed 1200x627 Aspect Ratio */
+        .article-thumb { width: 100%; aspect-ratio: 1200 / 627; object-fit: cover; filter: brightness(0.85); transition: filter 0.4s ease, transform 0.6s ease; display: block; }
+        .article-card:hover .article-thumb { filter: brightness(1.1); transform: scale(1.03); }
+        .img-container { overflow: hidden; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        
+        .article-info { padding: 25px; position: relative; }
+        .article-number {
+            position: absolute; top: -20px; right: 20px; background: var(--accent); color: #000;
+            font-family: 'Syncopate', sans-serif; font-weight: 700; width: 40px; height: 40px;
+            display: flex; align-items: center; justify-content: center; border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent-glow); font-size: 1.1rem;
+        }
+        .article-card-title { font-size: 1.2rem; color: #fff; margin-bottom: 10px; line-height: 1.4; transition: color 0.3s; }
+        .article-card:hover .article-card-title { color: var(--accent); }
+        .article-card-excerpt { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+
+        /* ==========================================
+           SINGLE ARTICLE VIEW
+        ========================================== */
+        .single-article-container { max-width: 900px; margin: 0 auto; background: rgba(5, 8, 15, 0.7); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        
+        .post-hero-image { width: 100%; aspect-ratio: 1200 / 627; object-fit: cover; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); display: block; }
+        
+        .post-title { font-family: 'Syncopate', sans-serif; font-size: 1.8rem; color: #fff; margin-bottom: 15px; line-height: 1.4; text-transform: uppercase; }
+        .post-meta { font-size: 0.9rem; color: var(--accent); margin-bottom: 30px; letter-spacing: 1px; font-weight: 500; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
+        
+        .post-content { font-size: 1.05rem; line-height: 1.8; color: #cfd9e6; }
+        .post-content h3 { color: #fff; margin: 30px 0 15px 0; font-family: 'Syncopate', sans-serif; font-size: 1.2rem; }
+        .post-content p { margin-bottom: 20px; }
+        .post-content ul { margin-left: 20px; margin-bottom: 20px; }
+        .post-content li { margin-bottom: 10px; }
+
+        /* ==========================================
+           BUTTONS
+        ========================================== */
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 10px; padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px; font-family: 'Syncopate', sans-serif; font-size: 0.8rem; cursor: pointer;
+            transition: all 0.3s ease; margin-bottom: 30px;
+        }
+        .back-btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 20px var(--accent-glow); border-color: var(--accent); transform: translateX(-5px); }
+
+        /* ==========================================
+           MOBILE RESPONSIVENESS
+        ========================================== */
+        @media (max-width: 768px) {
+            .page-title { font-size: 1.5rem; }
+            .category-card { padding: 40px 20px; }
+            .category-name { font-size: 1.4rem; }
+            .single-article-container { padding: 20px; }
+            .post-title { font-size: 1.3rem; }
+            .post-content { font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- LIQUID HEADER EFFECT -->
+    <div class="premium-liquid-header">
+        <div class="liquid-blob liquid-1"></div>
+        <div class="liquid-blob liquid-2"></div>
+    </div>
+
+    <!-- NAVBAR -->
+    <header class="header-container">
+        <!-- Main Portfolio එකට යන්න Link එක දීලා තියෙන්නේ -->
+        <a href="index.html" class="nav-brand-box">MODERN <span>PIXELS</span></a>
+    </header>
+
+    <div class="container">
+        
+        <!-- ==========================================
+             VIEW 1: CATEGORIES
+        =========================================== -->
+        <div id="view-categories" class="view-section active">
+            <h1 class="page-title">Article Series</h1>
+            <div class="category-grid">
+                
+                <!-- Category 1: ChemiAZ -->
+                <div class="category-card" onclick="openCategory('ChemiAZ')">
+                    <div class="card-glow"></div>
+                    <svg class="cat-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 2v2M15 2v2M12 2v6M9 10c-1.1 0-2 .9-2 2v1l-4 7c-.6 1.1.2 2.5 1.5 2.5h15c1.3 0 2.1-1.4 1.5-2.5l-4-7v-1c0-1.1-.9-2-2-2H9z" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5.5 16h13" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="category-name">ChemAZ</div>
+                    <div class="category-sub">Chemistry A to Z Series</div>
+                    <div class="explore-text">Explore Articles <span>→</span></div>
+                </div>
+
+                <!-- Category 2: ChemIndustrial -->
+                <div class="category-card" onclick="openCategory('ChemIndustrial')">
+                    <div class="card-glow" style="background: var(--accent-alt);"></div>
+                    <svg class="cat-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 20h20M4 20V8l6-4 6 4v12M16 20V6l6-4v18" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 12v4M13 12v4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M11 4a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                    </svg>
+                    <div class="category-name">ChemIndus</div>
+                    <div class="category-sub">Industrial Background of Chemistry</div>
+                    <!-- Inline style override to match the purple accent -->
+                    <div class="explore-text" style="color: var(--accent-alt);">Explore Articles <span>→</span></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ==========================================
+             VIEW 2: ARTICLE LIST
+        =========================================== -->
+        <div id="view-list" class="view-section">
+            <button class="back-btn" onclick="showCategories()">← BACK TO CATEGORIES</button>
+            <h1 class="page-title" id="list-category-title">Category Name</h1>
+            <div class="article-grid" id="article-list-container">
+                <!-- Articles injected here via JavaScript -->
+            </div>
+        </div>
+
+        <!-- ==========================================
+             VIEW 3: SINGLE ARTICLE
+        =========================================== -->
+        <div id="view-article" class="view-section">
+            <button class="back-btn" onclick="showList()">← BACK TO LIST</button>
+            
+            <div class="single-article-container">
+                <img id="post-hero" src="" class="post-hero-image" alt="Article Cover">
+                <h1 id="post-title" class="post-title">Article Title</h1>
+                <div id="post-meta" class="post-meta">Category | Date</div>
+                
+                <div id="post-content" class="post-content">
+                    <!-- HTML content injected here -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        /* ==========================================
+           ARTICLE DATABASE
+           ඔයාගේ අලුත් Articles මෙතනට Add කරන්න
+        ========================================== */
+        const articlesDB = [
+            // ChemiAZ Series
+            {
+                id: 1,
+                category: 'ChemiAZ',
+                title: 'Introduction to Basic Chemistry Principles',
+                date: 'October 10, 2026',
+                image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=1200&h=627&auto=format&fit=crop', 
+                excerpt: 'Learn the fundamentals of chemistry in this first part of the ChemiAZ series. We cover atoms, molecules, and basic reactions.',
+                content: `
+                    <p>Welcome to the first article in the ChemiAZ series. In this post, we explore the fundamental building blocks of matter.</p>
+                    <h3>What is an Atom?</h3>
+                    <p>An atom is the smallest unit of ordinary matter that forms a chemical element. Every solid, liquid, gas, and plasma is composed of neutral or ionized atoms.</p>
+                    <ul>
+                        <li>Protons (Positive charge)</li>
+                        <li>Neutrons (No charge)</li>
+                        <li>Electrons (Negative charge)</li>
+                    </ul>
+                    <p>Understanding these basic concepts is crucial for moving forward in the ChemiAZ series. Stay tuned for the next article where we discuss chemical bonds!</p>
+                `
+            },
+            {
+                id: 2,
+                category: 'ChemiAZ',
+                title: 'Understanding Chemical Bonding',
+                date: 'October 15, 2026',
+                image: 'https://images.unsplash.com/photo-1603126857599-f6e157824fce?q=80&w=1200&h=627&auto=format&fit=crop',
+                excerpt: 'Dive deep into covalent, ionic, and metallic bonds and how they hold the universe together.',
+                content: `
+                    <p>Following up on our introduction, today we look at how atoms interact with each other to form bonds.</p>
+                    <h3>Types of Bonds</h3>
+                    <p>There are three main types of chemical bonds you need to know:</p>
+                    <ul>
+                        <li><strong>Ionic Bonds:</strong> Formed when one atom gives up one or more electrons to another atom.</li>
+                        <li><strong>Covalent Bonds:</strong> Formed when two atoms share electrons.</li>
+                        <li><strong>Metallic Bonds:</strong> Formed by the attraction between metal ions and delocalized, or "free" electrons.</li>
+                    </ul>
+                    <p>Each bond dictates the physical properties of the resulting compound.</p>
+                `
+            },
+            
+            // ChemIndustrial Series
+            {
+                id: 3,
+                category: 'ChemIndustrial',
+                title: 'Industrial Scale Polymer Synthesis',
+                date: 'November 01, 2026',
+                image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&h=627&auto=format&fit=crop',
+                excerpt: 'How are plastics and polymers made on a massive industrial scale? A detailed look into the reactors.',
+                content: `
+                    <p>The ChemIndustrial series focuses on how chemistry is applied in massive factories. Today, we talk about polymers.</p>
+                    <h3>The Polymerization Process</h3>
+                    <p>Industrial polymerization requires high heat, pressure, and specific catalysts. The process usually takes place in massive stainless steel reactors.</p>
+                    <p>Safety is the number one priority in these chemical plants due to the volatile nature of the monomers used. Our next post will cover safety protocols in chemical manufacturing.</p>
+                `
+            }
+        ];
+
+        /* ==========================================
+           SPA NAVIGATION LOGIC
+        ========================================== */
+        
+        const viewCategories = document.getElementById('view-categories');
+        const viewList = document.getElementById('view-list');
+        const viewArticle = document.getElementById('view-article');
+        
+        const listContainer = document.getElementById('article-list-container');
+        const listCategoryTitle = document.getElementById('list-category-title');
+        
+        let currentCategory = ''; 
+        let currentThemeColor = '#00ff66';
+
+        function hideAllViews() {
+            viewCategories.classList.remove('active');
+            viewList.classList.remove('active');
+            viewArticle.classList.remove('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Show Categories View
+        function showCategories() {
+            hideAllViews();
+            document.documentElement.style.setProperty('--accent', '#00ff66'); // Reset accent to green
+            document.documentElement.style.setProperty('--accent-glow', 'rgba(0, 255, 102, 0.6)');
+            setTimeout(() => { viewCategories.classList.add('active'); }, 200);
+        }
+
+        // Show List View
+        function openCategory(categoryName) {
+            currentCategory = categoryName;
+            
+            // Dynamic theme coloring based on category
+            if(categoryName === 'ChemiAZ') {
+                currentThemeColor = '#00ff66';
+                document.documentElement.style.setProperty('--accent', currentThemeColor);
+                document.documentElement.style.setProperty('--accent-glow', 'rgba(0, 255, 102, 0.6)');
+            } else if(categoryName === 'ChemIndustrial') {
+                currentThemeColor = '#8a2be2';
+                document.documentElement.style.setProperty('--accent', currentThemeColor);
+                document.documentElement.style.setProperty('--accent-glow', 'rgba(138, 43, 226, 0.6)');
+            } else if(categoryName === 'TechDesign') {
+                currentThemeColor = '#00bfff';
+                document.documentElement.style.setProperty('--accent', currentThemeColor);
+                document.documentElement.style.setProperty('--accent-glow', 'rgba(0, 191, 255, 0.6)');
+            }
+
+            hideAllViews();
+            
+            const filteredArticles = articlesDB.filter(art => art.category === categoryName);
+            listCategoryTitle.innerText = categoryName + " SERIES";
+            listContainer.innerHTML = '';
+
+            if (filteredArticles.length === 0) {
+                listContainer.innerHTML = `<p style="color:var(--text-muted); text-align:center; grid-column:1/-1;">No articles published in this series yet. Stay tuned!</p>`;
+            } else {
+                filteredArticles.forEach((article, index) => {
+                    const cardHTML = `
+                        <div class="article-card" onclick="openArticle(${article.id})">
+                            <div class="img-container">
+                                <img src="${article.image}" alt="${article.title}" class="article-thumb">
+                            </div>
+                            <div class="article-info">
+                                <div class="article-number" style="background: ${currentThemeColor}; box-shadow: 0 0 15px ${currentThemeColor}80;">${index + 1}</div>
+                                <h3 class="article-card-title">${article.title}</h3>
+                                <p class="article-card-excerpt">${article.excerpt}</p>
+                            </div>
+                        </div>
+                    `;
+                    listContainer.innerHTML += cardHTML;
+                });
+            }
+
+            setTimeout(() => { viewList.classList.add('active'); }, 200);
+        }
+
+        function showList() {
+            hideAllViews();
+            setTimeout(() => { viewList.classList.add('active'); }, 200);
+        }
+
+        // Show Single Article View
+        function openArticle(articleId) {
+            hideAllViews();
+            
+            const article = articlesDB.find(a => a.id === articleId);
+            
+            if (article) {
+                document.getElementById('post-hero').src = article.image;
+                document.getElementById('post-title').innerText = article.title;
+                document.getElementById('post-meta').innerText = `${article.category} Series | ${article.date}`;
+                document.getElementById('post-content').innerHTML = article.content;
+            }
+
+            setTimeout(() => { viewArticle.classList.add('active'); }, 200);
+        }
+
+    </script>
+</body>
+</html>
