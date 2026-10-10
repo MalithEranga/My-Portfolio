@@ -696,6 +696,60 @@
             85% { opacity: calc(var(--max-opacity) * 0.9); } 
             100% { transform: translate(var(--sway-3), -120vh) scale(1.5); opacity: 0; } 
         }
+
+        /* ==========================================
+            --- VIDEO MODAL CSS ---
+            ========================================== */
+            .video-modal {
+                display: none;
+                position: fixed;
+                z-index: 99999;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(4, 8, 18, 0.9);
+                backdrop-filter: blur(10px);
+                align-items: center;
+                justify-content: center;
+            }
+
+            .modal-content {
+                position: relative;
+                width: 90%;
+                max-width: 900px;
+                aspect-ratio: 16 / 9;
+                background: #000;
+                border-radius: 16px;
+                border: 1px solid var(--secondary);
+                box-shadow: 0 0 40px rgba(0, 255, 204, 0.3);
+            }
+
+            .modal-content iframe {
+                width: 100%;
+                height: 100%;
+                border-radius: 16px;
+            }
+
+            .close-modal {
+                position: absolute;
+                top: -45px;
+                right: 0;
+                color: var(--secondary);
+                font-size: 40px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                line-height: 1;
+            }
+
+            .close-modal:hover {
+                color: #fff;
+                transform: scale(1.1);
+                text-shadow: 0 0 10px #00ffcc;
+            }
+
+
     </style>
 </head>
 <body>
@@ -748,7 +802,7 @@
                     </a>
 
                 <!-- 3. Safe Heaven Pet Care (Campus Project) -->
-                <a href="web-development.html" class="project-card" style="text-decoration: none; color: inherit; cursor: pointer;">
+                <a href="javascript:void(0);" onclick="openVideoModal('xhhfzbedl0s')" class="project-card" style="text-decoration: none; color: inherit; cursor: pointer;">
                     <div class="project-image">
                         <img src="Showcase/showcase3.png" alt="Safe Heaven Pet Care Image">
                     </div>
@@ -814,6 +868,15 @@
             </div>
         </div>
     </div>
+
+    <!-- Video Player Modal -->
+        <div id="videoModal" class="video-modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeVideoModal()">&times;</span>
+                <!-- YouTube Iframe -->
+                <iframe id="youtubeIframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
 
     <script>
         const dino = document.getElementById("dino");
@@ -1337,6 +1400,31 @@
         }
         
         createAdvancedFireBubbles();
+
+            // --- Video Modal Functions ---
+            function openVideoModal(videoId) {
+                const modal = document.getElementById("videoModal");
+                const iframe = document.getElementById("youtubeIframe");
+                // Autoplay එක්ක Video එක ලෝඩ් කරනවා
+                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+                modal.style.display = "flex";
+            }
+
+            function closeVideoModal() {
+                const modal = document.getElementById("videoModal");
+                const iframe = document.getElementById("youtubeIframe");
+                // Close කරද්දි Video එක නවත්තන්න src එක හිස් කරනවා
+                iframe.src = ""; 
+                modal.style.display = "none";
+            }
+
+            // Background එකේ (කළු පාට හරියේ) ක්ලික් කරත් Video එක Close වෙන්න
+            document.getElementById('videoModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeVideoModal();
+                }
+            });
+
     </script>
 
     <script>
