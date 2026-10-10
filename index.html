@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=1280">
     <title>Malith Eranga | Modern Pixels</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <!-- අලුත් Orbitron font එක එකතු කර ඇත -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #00ffcc;
@@ -24,7 +25,6 @@
             overflow: hidden;
             font-family: 'Space Grotesk', sans-serif;
             color: white;
-            /* Prevent mobile pull-to-refresh and swipe navigation */
             touch-action: none; 
         }
 
@@ -40,7 +40,6 @@
             transition: opacity 0.8s cubic-bezier(0.8, 0, 0.2, 1);
         }
 
-        /* --- Advanced Benzene Loader CSS --- */
         #benzene-svg {
             width: 180px;
             height: 180px;
@@ -97,19 +96,19 @@
             z-index: 10;
             text-align: center;
             pointer-events: none;
-            padding: 0 15px; /* Added for mobile safety */
+            padding: 0 15px; 
         }
 
+        /* --- අලුත් Orbitron font එක යෙදූ තැන --- */
         .glitch-name {
-            font-family: 'Agency FB', 'Syncopate', sans-serif;
+            font-family: 'Orbitron', sans-serif;
             font-size: clamp(2.5rem, 8vw, 8.5rem);
-            font-weight: 700;
+            font-weight: 900;
             text-transform: uppercase;
             position: relative;
             letter-spacing: clamp(5px, 1.5vw, 12px);
             margin: 0;
             color: #ffffff;
-           
         }
 
         .subtitle {
@@ -149,9 +148,45 @@
             animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
         }
 
-        /* --- Advanced Cyberpunk Button --- */
+        /* --- Buttons Layout & Styling --- */
+        .buttons-container {
+            margin-top: 50px;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s 2.5s forwards;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .secondary-buttons-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .btn-desc {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        /* Main Button */
         #enter-btn {
-            margin-top: 70px;
             padding: 18px 54px;
             font-family: 'Space Grotesk', sans-serif;
             font-size: 0.95rem;
@@ -161,16 +196,11 @@
             border: 1px solid hsla(147, 87%, 21%, 0.4);
             cursor: pointer;
             position: relative;
-            z-index: 10;
             letter-spacing: 5px;
             text-transform: uppercase;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 1s 2.5s forwards;
             backdrop-filter: blur(8px);
             clip-path: polygon(15px 0%, 100% 0%, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0% 100%, 0% 15px);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            /* Make tap target more reliable on mobile */
             -webkit-tap-highlight-color: transparent; 
         }
 
@@ -196,6 +226,31 @@
 
         #enter-btn:hover::before, #enter-btn:active::before { left: 200%; }
 
+        /* Secondary Buttons (Modern Pixels & Blog) */
+        .secondary-btn {
+            padding: 12px 30px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: rgba(0, 255, 204, 0.7);
+            background: transparent;
+            border: 1px solid rgba(0, 255, 204, 0.2);
+            cursor: pointer;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            backdrop-filter: blur(5px);
+            clip-path: polygon(10px 0%, 100% 0%, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0% 100%, 0% 10px);
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .secondary-btn:hover, .secondary-btn:active {
+            color: #00ffcc;
+            border-color: rgba(0, 255, 204, 0.5);
+            background: rgba(0, 255, 204, 0.05);
+            transform: translateY(-3px);
+        }
+
         @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
         @keyframes glitch-anim-1 {
@@ -214,13 +269,10 @@
             12% { clip-path: inset(70% 0 10% 0); transform: translate(-1px, -2px); }
         }
 
-        /* --- Advanced Realistic Waterfall Transition Effect --- */
+        /* --- Waterfall Transition Effect --- */
         #waterfall-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 130vh;
+            top: 0; left: 0; width: 100%; height: 130vh;
             z-index: 9999;
             display: flex;
             flex-direction: column;
@@ -234,24 +286,17 @@
             pointer-events: all;
         }
 
-        .water-fill {
-            flex: 1;
-            background: #000000;
-        }
+        .water-fill { flex: 1; background: #000000; }
 
         .waves {
             position: relative;
-            width: 100%;
-            height: 15vh;
-            min-height: 120px;
-            max-height: 200px;
+            width: 100%; height: 15vh;
+            min-height: 120px; max-height: 200px;
             transform: rotate(180deg);
             margin-bottom: -2px;
         }
 
-        .parallax > use {
-            animation: move-forever 2s cubic-bezier(.55,.5,.45,.5) infinite;
-        }
+        .parallax > use { animation: move-forever 2s cubic-bezier(.55,.5,.45,.5) infinite; }
         .parallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 4s; }
         .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 6s; }
         .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 8s; }
@@ -293,11 +338,36 @@
 
     <div id="main-scene">
         <canvas id="particleCanvas"></canvas>
+        
         <div class="text-wrapper">
             <h1 class="glitch-name" data-text="MALITH ERANGA">MALITH ERANGA</h1>
             <div class="subtitle">Chemical Technology Undergraduate | BSc (Hons) <br> <span class="highlight">Sabaragamuwa University of Sri Lanka</span></div>
         </div>
-        <button id="enter-btn">View My Portfolio</button>
+
+        <!-- අලුත් Buttons සහ හැඳින්වීම් Section එක -->
+        <div class="buttons-container">
+            
+            <!-- Main Portfolio Button -->
+            <div class="button-group">
+                <button id="enter-btn" class="nav-trigger" data-target="main.html">View My Portfolio</button>
+                <div class="btn-desc">Explore academic & personal projects</div>
+            </div>
+
+            <!-- Secondary Buttons Row -->
+            <div class="secondary-buttons-row">
+                
+                <div class="button-group">
+                    <button class="secondary-btn nav-trigger" data-target="modernpixels.html">Modern Pixels</button>
+                    <div class="btn-desc">Freelance Agency & Designs</div>
+                </div>
+
+                <div class="button-group">
+                    <button class="secondary-btn nav-trigger" data-target="Article.html">Insights Blog</button>
+                    <div class="btn-desc">Articles on Tech & Science</div>
+                </div>
+
+            </div>
+        </div>
     </div>
 
     <script>
@@ -328,13 +398,9 @@
                 }, 500);
             }
             
-            // Update Text
             progressText.innerText = loadProgress.toString().padStart(2, '0');
-            
-            // Update Benzene Molecule SVG Path (Draw Effect)
             progressHex.style.strokeDashoffset = 100 - loadProgress;
             progressCircle.style.strokeDashoffset = 100 - loadProgress;
-
         }, 60);
 
         // --- Shared Canvas Setup ---
@@ -348,11 +414,9 @@
         }
         resizeCanvas();
 
-        // Mouse Events
         window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
         window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
         
-        // Mobile Touch Events (ADDED FOR MOBILE OPTIMIZATION)
         window.addEventListener('touchmove', (e) => {
             mouse.x = e.touches[0].clientX;
             mouse.y = e.touches[0].clientY;
@@ -360,9 +424,7 @@
         window.addEventListener('touchstart', (e) => {
             mouse.x = e.touches[0].clientX;
             mouse.y = e.touches[0].clientY;
-            
-            // Fish color toggle on touch (avoiding buttons)
-            if(e.target.id === 'enter-btn') return;
+            if(e.target.tagName === 'BUTTON') return;
             currentColorIndex = (currentColorIndex + 1) % fishColors.length;
         }, {passive: true});
         window.addEventListener('touchend', () => {
@@ -414,7 +476,6 @@
                 if (this.y < -50) this.y = canvas.height + 50;
                 if (this.y > canvas.height + 50) this.y = -50;
                 
-                // Mouse & Touch interaction
                 if (mouse.x != null) {
                     let dx = mouse.x - this.x; let dy = mouse.y - this.y;
                     let distance = Math.sqrt(dx * dx + dy * dy);
@@ -430,21 +491,18 @@
 
         function initParticles() {
             particlesArray = [];
-            // Dynamically scale particles based on screen size (good for mobile performance)
             let numberOfParticles = Math.min((canvas.width * canvas.height) / 18000, 50); 
             for (let i = 0; i < numberOfParticles; i++) {
                 particlesArray.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
             }
         }
 
-        // ==========================================
         // --- FISH COLOR LOGIC ---
-        // ==========================================
         const fishColors = [
-            { r: 0, g: 200, b: 255 },   // Cyan / Blue 
-            { r: 0, g: 255, b: 100 },   // Neon Green
-            { r: 255, g: 0, b: 200 },   // Cyber Pink
-            { r: 255, g: 150, b: 0 }    // Golden Orange
+            { r: 0, g: 200, b: 255 },   
+            { r: 0, g: 255, b: 100 },  
+            { r: 255, g: 0, b: 200 },   
+            { r: 255, g: 150, b: 0 }    
         ];
         
         let currentColorIndex = 0;
@@ -453,14 +511,14 @@
         let currentB = fishColors[0].b;
 
         window.addEventListener('mousedown', (e) => {
-            if(e.target.id === 'enter-btn') return;
+            if(e.target.tagName === 'BUTTON') return;
             currentColorIndex = (currentColorIndex + 1) % fishColors.length;
         });
 
         function getBrighter(c, amount) { return Math.min(255, Math.round(c + amount)); }
         function getDarker(c, factor) { return Math.round(c * factor); }
 
-        // --- Procedural Wireframe/Network Tech Fish Logic ---
+        // --- Procedural Wireframe Fish ---
         const numNodes = 25;
         const segmentLength = 10;
         const fishNodes = [];
@@ -477,39 +535,24 @@
         function drawPolyFin(baseIndex, length, baseAngleOffset, spread, pointsCount, sway) {
             let baseNode = fishNodes[baseIndex];
             let baseNext = fishNodes[Math.min(baseIndex + 2, numNodes - 1)]; 
-            
             let tipAngle = baseNode.angle + baseAngleOffset + sway;
-            
             let tips = [];
             for(let i=0; i<pointsCount; i++) {
                 let pSpread = -spread + (spread * 2 * (i/(pointsCount-1 || 1)));
                 let r = length * (0.6 + (i%2)*0.4);
-                tips.push({
-                    x: baseNode.x + Math.cos(tipAngle + pSpread) * r,
-                    y: baseNode.y + Math.sin(tipAngle + pSpread) * r
-                });
+                tips.push({ x: baseNode.x + Math.cos(tipAngle + pSpread) * r, y: baseNode.y + Math.sin(tipAngle + pSpread) * r });
             }
-
             ctx.strokeStyle = `rgba(${Math.round(currentR)}, ${Math.round(currentG)}, ${Math.round(currentB)}, 0.5)`;
             ctx.lineWidth = 1;
             ctx.beginPath();
-            
             tips.forEach((tip, i) => {
-                ctx.moveTo(baseNode.x, baseNode.y);
-                ctx.lineTo(tip.x, tip.y);
-                ctx.moveTo(baseNext.x, baseNext.y);
-                ctx.lineTo(tip.x, tip.y);
-                if (i > 0) {
-                    ctx.moveTo(tips[i-1].x, tips[i-1].y);
-                    ctx.lineTo(tip.x, tip.y);
-                }
+                ctx.moveTo(baseNode.x, baseNode.y); ctx.lineTo(tip.x, tip.y);
+                ctx.moveTo(baseNext.x, baseNext.y); ctx.lineTo(tip.x, tip.y);
+                if (i > 0) { ctx.moveTo(tips[i-1].x, tips[i-1].y); ctx.lineTo(tip.x, tip.y); }
             });
             ctx.stroke();
-
             ctx.fillStyle = `rgba(${getBrighter(currentR, 100)}, ${getBrighter(currentG, 55)}, ${getBrighter(currentB, 55)}, 0.9)`;
-            tips.forEach(tip => {
-                ctx.beginPath(); ctx.arc(tip.x, tip.y, 1.5, 0, Math.PI*2); ctx.fill();
-            });
+            tips.forEach(tip => { ctx.beginPath(); ctx.arc(tip.x, tip.y, 1.5, 0, Math.PI*2); ctx.fill(); });
         }
 
         function updateAndDrawFish() {
@@ -518,7 +561,6 @@
             currentG += (targetColor.g - currentG) * 0.05;
             currentB += (targetColor.b - currentB) * 0.05;
 
-            // Target defaults to center if mouse/touch is released
             let targetX = mouse.x || canvas.width/2;
             let targetY = mouse.y || canvas.height/2;
             headTarget.x += (targetX - headTarget.x) * 0.05; 
@@ -539,7 +581,6 @@
 
             ctx.save();
             let t = Date.now() * 0.003;
-            
             drawPolyFin(4, 55, -Math.PI/2, 0.4, 6, Math.sin(t)*0.2);
             drawPolyFin(7, 65, Math.PI/2, 0.3, 5, -Math.sin(t)*0.2);
             drawPolyFin(3, 40, -1.2, 0.2, 3, Math.sin(t)*0.3);
@@ -550,49 +591,34 @@
 
             let vertices = [];
             for(let i=0; i<numNodes; i++) {
-                let r = fishThickness[i];
-                let angle = fishNodes[i].angle;
+                let r = fishThickness[i]; let angle = fishNodes[i].angle;
                 let spine = {x: fishNodes[i].x, y: fishNodes[i].y};
-                let top = {
-                    x: fishNodes[i].x + Math.cos(angle - Math.PI/2) * r,
-                    y: fishNodes[i].y + Math.sin(angle - Math.PI/2) * r
-                };
-                let bottom = {
-                    x: fishNodes[i].x + Math.cos(angle + Math.PI/2) * r,
-                    y: fishNodes[i].y + Math.sin(angle + Math.PI/2) * r
-                };
+                let top = { x: fishNodes[i].x + Math.cos(angle - Math.PI/2) * r, y: fishNodes[i].y + Math.sin(angle - Math.PI/2) * r };
+                let bottom = { x: fishNodes[i].x + Math.cos(angle + Math.PI/2) * r, y: fishNodes[i].y + Math.sin(angle + Math.PI/2) * r };
                 vertices.push({spine, top, bottom});
             }
 
             ctx.shadowBlur = 15;
             ctx.shadowColor = `rgba(${Math.round(currentR)}, ${Math.round(currentG)}, ${Math.round(currentB)}, 0.9)`;
-            
             ctx.fillStyle = `rgba(${getDarker(currentR, 0.2)}, ${getDarker(currentG, 0.25)}, ${getDarker(currentB, 0.4)}, 0.15)`;
             ctx.beginPath();
             for(let i=0; i<numNodes; i++) {
                 if(i===0) ctx.moveTo(vertices[i].top.x, vertices[i].top.y);
                 else ctx.lineTo(vertices[i].top.x, vertices[i].top.y);
             }
-            for(let i=numNodes-1; i>=0; i--) {
-                ctx.lineTo(vertices[i].bottom.x, vertices[i].bottom.y);
-            }
-            ctx.closePath();
-            ctx.fill();
+            for(let i=numNodes-1; i>=0; i--) ctx.lineTo(vertices[i].bottom.x, vertices[i].bottom.y);
+            ctx.closePath(); ctx.fill();
 
             ctx.strokeStyle = `rgba(${Math.round(currentR)}, ${Math.round(currentG)}, ${Math.round(currentB)}, 0.6)`;
             ctx.lineWidth = 1.2;
             ctx.beginPath();
             for(let i=1; i<numNodes; i++) {
-                let v1 = vertices[i-1];
-                let v2 = vertices[i];
-                
+                let v1 = vertices[i-1]; let v2 = vertices[i];
                 ctx.moveTo(v1.top.x, v1.top.y); ctx.lineTo(v2.top.x, v2.top.y);
                 ctx.moveTo(v1.bottom.x, v1.bottom.y); ctx.lineTo(v2.bottom.x, v2.bottom.y);
                 ctx.moveTo(v1.spine.x, v1.spine.y); ctx.lineTo(v2.spine.x, v2.spine.y);
-                
                 ctx.moveTo(v1.spine.x, v1.spine.y); ctx.lineTo(v2.top.x, v2.top.y);
                 ctx.moveTo(v1.spine.x, v1.spine.y); ctx.lineTo(v2.bottom.x, v2.bottom.y);
-                
                 if (i % 2 === 0) {
                     ctx.moveTo(v1.top.x, v1.top.y); ctx.lineTo(v2.spine.x, v2.spine.y);
                     ctx.moveTo(v1.bottom.x, v1.bottom.y); ctx.lineTo(v2.spine.x, v2.spine.y);
@@ -670,22 +696,27 @@
             if(mainScene.classList.contains('active')) {
                 updateAndDrawFish();
             }
-
             requestAnimationFrame(animate);
         }
         
         animate(); 
 
-        const enterBtn = document.getElementById('enter-btn');
+        // --- Navigation Logic (All buttons use the waterfall effect) ---
+        const navButtons = document.querySelectorAll('.nav-trigger');
         const waterfallOverlay = document.getElementById('waterfall-overlay');
 
-        enterBtn.addEventListener('click', () => {
-            waterfallOverlay.classList.add('active'); 
-            
-            setTimeout(() => { 
-                window.location.href = 'main.html'; 
-            }, 1600);
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const targetPage = e.target.getAttribute('data-target');
+                waterfallOverlay.classList.add('active'); 
+                
+                setTimeout(() => { 
+                    // Link to the respective page
+                    window.location.href = targetPage; 
+                }, 1600);
+            });
         });
+
     </script>
 </body>
 </html>
