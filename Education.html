@@ -46,7 +46,7 @@
         /* Main Wrapper */
         .wrapper { 
             position: relative; 
-            padding: 80px 5% 60px 5%; 
+            padding: 80px 5% 20px 5%; /* 60px wenuwata 20px danna */
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -139,7 +139,7 @@
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
             gap: 24px; 
-            margin-bottom: 60px; 
+            margin-bottom: 30px; /* 60px wenuwata 30px danna */
         }
 
         .glass-card { 
@@ -193,14 +193,346 @@
             color: var(--secondary); 
             font-weight: 500; 
         }
+
+        /* --- Degree Curriculum & Modules Styling --- */
+        .degree-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 204, 0, 0.1);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            color: var(--secondary);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--secondary);
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .curriculum-toggle-btn {
+            margin-top: 25px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .curriculum-toggle-btn:hover {
+            background: rgba(255, 204, 0, 0.1);
+            border-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .curriculum-toggle-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--secondary);
+            transition: transform 0.4s ease;
+        }
+
+        .curriculum-toggle-btn.active svg {
+            transform: rotate(180deg);
+        }
+
+        .curriculum-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease, margin-top 0.4s ease;
+            opacity: 0;
+        }
+
+        .curriculum-wrapper.open {
+            max-height: 6000px;
+            opacity: 1;
+            margin-top: 35px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .curriculum-category-header {
+            margin-bottom: 25px;
+        }
+
+        .curriculum-category-title {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1rem;
+            color: #fff;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 6px;
+        }
+
+        .curriculum-category-title span {
+            color: var(--secondary);
+        }
+
+        .curriculum-category-note {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .semester-block {
+            margin-bottom: 30px;
+        }
+
+        .semester-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .semester-label::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(59, 130, 246, 0.3), transparent);
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 14px;
+        }
+
+        .chem-module-item {
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 10px;
+            position: relative;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .chem-module-item:hover {
+            background: rgba(255, 204, 0, 0.05);
+            border-color: rgba(255, 204, 0, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+        }
+
+        .module-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .module-code {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--secondary);
+            background: rgba(255, 204, 0, 0.1);
+            padding: 3px 9px;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .portal-badge {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .portal-badge.live {
+            background: rgba(34, 197, 94, 0.12);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .portal-badge.dev {
+            background: rgba(255, 255, 255, 0.05);
+            color: #94a3b8;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .module-name {
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: #f8fafc;
+            line-height: 1.4;
+        }
+
+        .module-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 2px;
+        }
+
+        .module-arrow {
+            color: var(--secondary);
+            opacity: 0.6;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .chem-module-item:hover .module-arrow {
+            transform: translateX(4px);
+            opacity: 1;
+        }
+
+        /* Non-Chemistry Modules Section */
+        .other-modules-divider {
+            margin: 45px 0 30px;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+
+        .other-module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 12px;
+        }
+
+        .other-module-item {
+            background: rgba(255, 255, 255, 0.015);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            padding: 13px 15px;
+            transition: border-color 0.3s ease, background 0.3s ease;
+        }
+
+        .other-module-item:hover {
+            border-color: rgba(59, 130, 246, 0.35);
+            background: rgba(59, 130, 246, 0.04);
+        }
+
+        .other-module-code {
+            font-size: 0.7rem;
+            color: var(--primary);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .other-module-name {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.35;
+        }
+
+        /* Toast Notification for Unlinked Modules */
+        .portal-toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(10, 15, 30, 0.92);
+            border: 1px solid var(--secondary);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            color: #fff;
+            padding: 16px 22px;
+            border-radius: 14px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 204, 0, 0.15);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            max-width: 380px;
+            transform: translateY(120%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+        }
+
+        .portal-toast.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(255, 204, 0, 0.12);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--secondary);
+        }
+
+        .toast-text h4 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.75rem;
+            color: var(--secondary);
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .toast-text p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
         
         /* Modernized Timeline */
         .timeline { 
-            position: relative; 
-            width: 100%; 
-            margin: 0 auto; 
-            padding-bottom: 40px;
-        }
+        position: relative; 
+        width: 100%; 
+        margin: 0 auto; 
+        padding-bottom: 10px; /* 40px wenuwata 10px danna */
+    }
 
         .timeline::after { 
             content: ''; 
@@ -261,25 +593,36 @@
             }
             .container::after { left: 23px; top: 32px;}
             .right { left: 0; }
+            .portal-toast {
+                left: 20px;
+                right: 20px;
+                bottom: 20px;
+                max-width: none;
+            }
         }
 
         /* Certificate Gallery */
-       
         .cert-gallery { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
             gap: 24px; 
-            align-items: start; /* Me line eka add karanna - container eka wena ewa ekka diga wenawa wenuwata, image eke size ekatama nawathinawa */
+            align-items: start;
         }
 
-        /* ... .cert-container classes ehemmama thiyaganna ... */
+        .cert-container {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
         .cert-container img { 
             width: 100%; 
-            height: auto; /* Me line eka add karanna */
+            height: auto;
             border-radius: 10px; 
             display: block; 
-            /* object-fit: cover; <- Me line eka ain karanna (remove) */
         }
 
         /* Hover Overlay for Certificates */
@@ -308,13 +651,6 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.6);
         }
 
-        .cert-container img { 
-            width: 100%; 
-            border-radius: 10px; 
-            display: block; 
-            object-fit: cover;
-        }
-
         /* Scroll Animations Classes */
         .animate-on-scroll {
             opacity: 0;
@@ -330,7 +666,7 @@
         /* Premium Lightbox Modal */
         .modal { 
             display: none; 
-            position: fixed; /* Changed to fixed for better scrolling behavior */
+            position: fixed;
             z-index: 999; 
             left: 0; top: 0; 
             width: 100vw; height: 100vh; 
@@ -380,10 +716,848 @@
 
             <div class="glass-grid">
                 <div class="glass-card animate-on-scroll" style="grid-column: 1 / -1;">
-                    <h3>BSc (Hons) Chemical Technology</h3>
-                    <p>Sabaragamuwa University of Sri Lanka (SUSL).<br>
-                    <span class="highlight">Department of Physical Sciences and Technology.</span></p>
-                    <p style="margin-top: 10px; font-size: 0.85rem;">Focusing on organic/physical chemistry, analytical methodologies, and process optimization.</p>
+                    <div class="degree-top-bar">
+                        <div>
+                            <h3>BSc (Hons) Chemical Technology</h3>
+                            <p>Sabaragamuwa University of Sri Lanka (SUSL).<br>
+                            <span class="highlight">Department of Physical Sciences and Technology | Faculty of Applied Sciences</span></p>
+                        </div>
+                        <div class="status-pill">
+                            <span class="status-dot"></span>
+                            Undergraduate (Reading)
+                        </div>
+                    </div>
+                    <p style="margin-top: 10px; font-size: 0.85rem;">Focusing on organic/physical chemistry, analytical methodologies, industrial chemical technology, and process optimization.</p>
+
+                    <!-- Button to Expand/Collapse Full Degree Curriculum -->
+                    <button class="curriculum-toggle-btn" id="toggleCurriculumBtn" onclick="toggleCurriculum()">
+                        <span>Explore Degree Curriculum & Modules</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+
+                    <!-- Collapsible Modules Container -->
+                    <div class="curriculum-wrapper" id="curriculumWrapper">
+                        
+                        <!-- PART 1: CHEMISTRY & CHEMICAL TECHNOLOGY MODULES (INTERACTIVE) -->
+                        <div class="curriculum-category-header">
+                            <div class="curriculum-category-title">
+                                <span>01.</span> Core Chemistry & Chemical Technology Modules
+                            </div>
+                            <p class="curriculum-category-note">Click on any module card below to explore its dedicated digital learning & project portal.</p>
+                        </div>
+
+                        <!-- Year 1 Semester 1 -->
+                        <div class="semester-block">
+                            <div class="semester-label">Year 01 — Semester 01</div>
+                            <div class="module-grid">
+                                <div class="chem-module-item" data-link="Learn/GeneralChemistry.html" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 11204</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">General Chemistry</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 11205</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Fundamentals of Organic Chemistry</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 11106</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Inorganic Chemistry Laboratory I</div>
+                                    <div class="module-footer">
+                                        <span>1 Credit • Practical</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Year 1 Semester 2 -->
+                        <div class="semester-block">
+                            <div class="semester-label">Year 01 — Semester 02</div>
+                            <div class="module-grid">
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 12205</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Fundamentals of Physical Chemistry</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 12206</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Fundamentals of Analytical Chemistry</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 12107</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Organic Chemistry Laboratory I</div>
+                                    <div class="module-footer">
+                                        <span>1 Credit • Practical</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Year 2 Semester 1 -->
+                        <div class="semester-block">
+                            <div class="semester-label">Year 02 — Semester 01</div>
+                            <div class="module-grid">
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 21204</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Organic Chemistry</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 21205</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Industrial Chemistry and Technology I (Organic)</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 21106</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Organic Chemistry Laboratory II</div>
+                                    <div class="module-footer">
+                                        <span>1 Credit • Practical</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 21111</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Physical Chemistry Laboratory I</div>
+                                    <div class="module-footer">
+                                        <span>1 Credit • Practical</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Year 2 Semester 2 -->
+                        <div class="semester-block">
+                            <div class="semester-label">Year 02 — Semester 02</div>
+                            <div class="module-grid">
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 22204</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Chemistry of Elements</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 22205</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Physical Chemistry</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 22106</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Inorganic Chemistry Laboratory II</div>
+                                    <div class="module-footer">
+                                        <span>1 Credit • Practical</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 22107</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Analytical Chemistry Laboratory I</div>
+                                    <div class="module-footer">
+                                        <span>1 Credit • Practical</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 22219</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Molecular Spectroscopy</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Year 3 Semester 1 -->
+                        <div class="semester-block">
+                            <div class="semester-label">Year 03 — Semester 01</div>
+                            <div class="module-grid">
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 31216</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Biochemistry - I</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 31217</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Electroanalytical Techniques</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 31218</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Industrial Chemistry & Technology - II (Inorganic)</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 31219</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Environmental Chemistry</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 31120</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Coordination Chemistry</div>
+                                    <div class="module-footer">
+                                        <span>1 Credit • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 31121</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Laboratory Quality Control and Assurance</div>
+                                    <div class="module-footer">
+                                        <span>1 Credit • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 31122</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Physical Chemistry Laboratory II</div>
+                                    <div class="module-footer">
+                                        <span>1 Credit • Practical</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 31123</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Analytical Chemistry Laboratory II</div>
+                                    <div class="module-footer">
+                                        <span>1 Credit • Practical</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 31107</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Introduction to Nanotechnology</div>
+                                    <div class="module-footer">
+                                        <span>1 Credit • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 31014</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Industrial Visits</div>
+                                    <div class="module-footer">
+                                        <span>Field Excursion</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Year 3 Semester 2 -->
+                        <div class="semester-block">
+                            <div class="semester-label">Year 03 — Semester 02</div>
+                            <div class="module-grid">
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 32214</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Chemistry of Drug Design and Drug Action</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 32215</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Polymer Chemistry & Technology</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 32216</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Surface and Colloid Chemistry</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 32217</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Biochemistry II</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 32118</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Advanced Organic Chemistry</div>
+                                    <div class="module-footer">
+                                        <span>1 Credit • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 32219</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Introduction to Organic Electronics</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 32220</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Structures and Properties of Solids</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 32121</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Advanced Inorganic Chemistry Laboratory</div>
+                                    <div class="module-footer">
+                                        <span>1 Credit • Practical</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 32122</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Biochemistry Laboratory</div>
+                                    <div class="module-footer">
+                                        <span>1 Credit • Practical</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 32223</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Organometallic Chemistry</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 32213</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Resource Efficient & Cleaner Production</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Year 4 Semester 1 -->
+                        <div class="semester-block">
+                            <div class="semester-label">Year 04 — Semester 01</div>
+                            <div class="module-grid">
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 41217</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Natural Products Chemistry</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 41218</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Biotechnology</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 41219</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Advanced Solid-State Chemistry</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 41120</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Bioinorganic Chemistry</div>
+                                    <div class="module-footer">
+                                        <span>1 Credit • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 41221</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Instrumental Analysis</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 41222</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Applied Molecular Modelling</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 41223</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">States of Matter</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 41207</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Advanced Nanotechnology</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 41212</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Electrochemical Power Conversion</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 41226</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Computer Applications in Instrumentation</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Theory</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 41124</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Literature Search in Chemistry</div>
+                                    <div class="module-footer">
+                                        <span>1 Credit • Seminar</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 41225</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Independent Research / Project in Chemical Technology</div>
+                                    <div class="module-footer">
+                                        <span>2 Credits • Research</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Year 4 Semester 2 -->
+                        <div class="semester-block">
+                            <div class="semester-label">Year 04 — Semester 02</div>
+                            <div class="module-grid">
+                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                    <div class="module-top">
+                                        <span class="module-code">PST 42804</span>
+                                        <span class="portal-badge"></span>
+                                    </div>
+                                    <div class="module-name">Project Work (Industrial Exposure): BSc Thesis in Chemical Technology</div>
+                                    <div class="module-footer">
+                                        <span>8 Credits • Final Thesis</span>
+                                        <span class="module-arrow">→</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="other-modules-divider">
+
+                        <!-- PART 2: INTERDISCIPLINARY & SUPPORTING MODULES (NON-CHEMISTRY) -->
+                        <div class="curriculum-category-header">
+                            <div class="curriculum-category-title">
+                                <span>02.</span> Interdisciplinary & Supporting Modules Completed
+                            </div>
+                            <p class="curriculum-category-note">Physics, Computing, Mathematics, Statistics, Management & Communication modules completed under the degree program.</p>
+                        </div>
+
+                        <!-- Physics & Electronics -->
+                        <div class="semester-block">
+                            <div class="semester-label">Physics & Electronics</div>
+                            <div class="other-module-grid">
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 11201</span>
+                                    <div class="other-module-name">Mechanics and Properties of Matter</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 11202</span>
+                                    <div class="other-module-name">Introduction to Electricity and Magnetism</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 11103</span>
+                                    <div class="other-module-name">Physics Laboratory 1-I</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 12201</span>
+                                    <div class="other-module-name">Physics of Heat and Waves</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 12102</span>
+                                    <div class="other-module-name">Semi-Conductor Physics</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 12103</span>
+                                    <div class="other-module-name">AC Theory & Circuits</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 12104</span>
+                                    <div class="other-module-name">Physics Laboratory 1-II</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 21201</span>
+                                    <div class="other-module-name">Electronics</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 21202</span>
+                                    <div class="other-module-name">Geometrical and Physical Optics</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 21103</span>
+                                    <div class="other-module-name">Physics Laboratory 2-I</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 22201</span>
+                                    <div class="other-module-name">Physics of Electromagnetic Radiation & Intro to Laser</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 22202</span>
+                                    <div class="other-module-name">Quantum Physics, Atomic & Nuclear Physics</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 22103</span>
+                                    <div class="other-module-name">Physics Laboratory 2-II</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 22217</span>
+                                    <div class="other-module-name">Industrial Metrology</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Computing & Information Technology -->
+                        <div class="semester-block">
+                            <div class="semester-label">Computer Science & Programming</div>
+                            <div class="other-module-grid">
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 11107</span>
+                                    <div class="other-module-name">Structured Programming</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 11208</span>
+                                    <div class="other-module-name">Computer Hardware and Software</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 11109</span>
+                                    <div class="other-module-name">Computer Laboratory 1-I (C Programming)</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 12108</span>
+                                    <div class="other-module-name">Object Oriented Programming</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 12110</span>
+                                    <div class="other-module-name">Computer Laboratory 1-II (Java)</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 12211</span>
+                                    <div class="other-module-name">Database Management Systems</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 21207</span>
+                                    <div class="other-module-name">Data Structures & Algorithms</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 21208</span>
+                                    <div class="other-module-name">Computer Architecture and Assembly Language</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 21110</span>
+                                    <div class="other-module-name">Computer Laboratory 2-I (Web Development)</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 22208</span>
+                                    <div class="other-module-name">Software Engineering</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 22110</span>
+                                    <div class="other-module-name">Computer Laboratory 2-II (C# & .NET)</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 22211</span>
+                                    <div class="other-module-name">Operating Systems</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mathematics & Statistics -->
+                        <div class="semester-block">
+                            <div class="semester-label">Mathematics & Statistics</div>
+                            <div class="other-module-grid">
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 11210</span>
+                                    <div class="other-module-name">Calculus and Differential Equations</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 12209</span>
+                                    <div class="other-module-name">Fundamentals of Statistics</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 21209</span>
+                                    <div class="other-module-name">Statistics for Experimental Analysis</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 22209</span>
+                                    <div class="other-module-name">Statistical Methodology</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 31211</span>
+                                    <div class="other-module-name">Mathematical Programming</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 31212</span>
+                                    <div class="other-module-name">Numerical Methods</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 32210</span>
+                                    <div class="other-module-name">Statistics in Quality Control</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Management, Research & English -->
+                        <div class="semester-block" style="margin-bottom: 10px;">
+                            <div class="semester-label">Management, Research & Communication</div>
+                            <div class="other-module-grid">
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 41201</span>
+                                    <div class="other-module-name">Research Methodology & Scientific Communication</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 31213</span>
+                                    <div class="other-module-name">Economics</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 32109</span>
+                                    <div class="other-module-name">Human Resource Management</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 41215</span>
+                                    <div class="other-module-name">Industrial Management</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 41235</span>
+                                    <div class="other-module-name">Critical Thinking</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 22112</span>
+                                    <div class="other-module-name">Leadership and Communication</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 22213</span>
+                                    <div class="other-module-name">Biology for Physical Sciences</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST 22114</span>
+                                    <div class="other-module-name">Soft Skill Development</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST-EGP-1101 / 1201</span>
+                                    <div class="other-module-name">General English I & II</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST-EAP-2101 / 2201</span>
+                                    <div class="other-module-name">Academic English I & II</div>
+                                </div>
+                                <div class="other-module-item">
+                                    <span class="other-module-code">PST-EBP-3101</span>
+                                    <div class="other-module-name">Business English</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
                 
                 <div class="glass-card animate-on-scroll">
@@ -468,9 +1642,25 @@
         </div>
     </div>
 
+    <!-- Lightbox Modal for Certificates -->
     <div id="imageModal" class="modal">
         <span class="close">&times;</span>
         <img class="modal-content" id="modalImg">
+    </div>
+
+    <!-- Custom Toast Notification for Unlinked Chemistry Modules -->
+    <div id="portalToast" class="portal-toast">
+        <div class="toast-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+        </div>
+        <div class="toast-text">
+            <h4 id="toastTitle">Portal In Progress</h4>
+            <p id="toastMessage">Digital module portal is currently under development and will be published soon.</p>
+        </div>
     </div>
 
     <script>
@@ -536,7 +1726,66 @@
             }
         });
 
-        // --- 4. Iframe Resizer ---
+        // --- 4. Curriculum Toggle & Module Portal Navigation ---
+        function toggleCurriculum() {
+            const wrapper = document.getElementById('curriculumWrapper');
+            const btn = document.getElementById('toggleCurriculumBtn');
+            const btnText = btn.querySelector('span');
+
+            wrapper.classList.toggle('open');
+            btn.classList.toggle('active');
+
+            if (wrapper.classList.contains('open')) {
+                btnText.textContent = 'Hide Degree Curriculum & Modules';
+            } else {
+                btnText.textContent = 'Explore Degree Curriculum & Modules';
+            }
+
+            // Update parent iframe height smoothly during transition
+            setTimeout(sendHeightToParent, 350);
+            setTimeout(sendHeightToParent, 750);
+        }
+
+        // Automatically set badges ("Live Portal" vs "In Progress") based on whether data-link has a URL
+        document.querySelectorAll('.chem-module-item').forEach(item => {
+            const link = item.getAttribute('data-link');
+            const badge = item.querySelector('.portal-badge');
+            if (link && link.trim() !== "") {
+                badge.textContent = "Live Portal";
+                badge.classList.add('live');
+            } else {
+                badge.textContent = "In Progress";
+                badge.classList.add('dev');
+            }
+        });
+
+        let toastTimeout;
+        function openModuleSite(element) {
+            const link = element.getAttribute('data-link');
+            const moduleCode = element.querySelector('.module-code').textContent;
+            const moduleName = element.querySelector('.module-name').textContent;
+
+            if (link && link.trim() !== "") {
+                // Aluth tab eke open wenna me peliya danna
+                window.open(link.trim(), '_blank');
+            } else {
+                // Show professional status notification if link is not yet added
+                const toast = document.getElementById('portalToast');
+                const toastTitle = document.getElementById('toastTitle');
+                const toastMessage = document.getElementById('toastMessage');
+
+                toastTitle.textContent = `${moduleCode} • In Development`;
+                toastMessage.textContent = `The interactive web portal for "${moduleName}" is currently being curated and will be available soon.`;
+
+                toast.classList.add('active');
+                clearTimeout(toastTimeout);
+                toastTimeout = setTimeout(() => {
+                    toast.classList.remove('active');
+                }, 3800);
+            }
+        }
+
+        // --- 5. Iframe Resizer ---
         function sendHeightToParent() {
             const bodyHeight = document.documentElement.scrollHeight;
             window.parent.postMessage({

@@ -2,283 +2,619 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1280">
-    <title>Malith Eranga | Modern Pixels</title>
-    <!-- අලුත් Orbitron font එක එකතු කර ඇත -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malith Eranga | Modern Pixels & Chemical Technology</title>
+    
+    <!-- Bebas Neue + Space Grotesk + JetBrains Mono Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --primary: #00ffcc;
-            --primary-glow: #00ffcc;
-            --glitch-red: #ff003c;
-            --glitch-blue: #00ffcc;
-            --bg-dark: #020614; 
-            --bg-lighter: #0f0f13;
+            --secondary: #00b4d8;
+            --accent: #ff6b35;
+            --bg-abyss: #01040a;
+            --bg-deep: #040d1a;
+            --glass-bg: rgba(6, 18, 34, 0.55);
+            --glass-border: rgba(0, 255, 204, 0.18);
+            --text-light: #f8fafc;
+            --text-dim: #94a3b8;
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
 
         body, html {
-            margin: 0; padding: 0;
-            width: 100%; height: 100%;
-            background-color: var(--bg-dark);
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-abyss);
             overflow: hidden;
             font-family: 'Space Grotesk', sans-serif;
-            color: white;
-            touch-action: none; 
+            color: var(--text-light);
+            touch-action: none;
+            -webkit-font-smoothing: antialiased;
         }
 
+        /* ==========================================
+           1. ULTRA-ADVANCED QUANTUM BENZENE LOADER
+        ========================================== */
         #loader {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg-dark);
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, #071930 0%, #02060d 65%, #000205 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 50;
-            transition: opacity 0.8s cubic-bezier(0.8, 0, 0.2, 1);
+            z-index: 500;
+            transition: opacity 0.9s cubic-bezier(0.85, 0, 0.15, 1),
+                        transform 1.1s cubic-bezier(0.85, 0, 0.15, 1),
+                        visibility 0.9s;
+        }
+
+        #loader.complete {
+            opacity: 0;
+            transform: scale(1.18);
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Subtle HUD Grid in Loader */
+        .loader-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
+            background-size: 45px 45px;
+            mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+            pointer-events: none;
+        }
+
+        .quantum-core {
+            position: relative;
+            width: 240px;
+            height: 240px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        /* 3D Rotating Orbital Rings */
+        .orbit-ring {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 255, 204, 0.15);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.05) inset;
+        }
+
+        .orbit-ring.r1 {
+            animation: orbit3D-1 6s linear infinite;
+            border-top-color: var(--primary);
+            border-bottom-color: rgba(0, 180, 216, 0.4);
+        }
+
+        .orbit-ring.r2 {
+            inset: 18px;
+            animation: orbit3D-2 8s linear infinite;
+            border-left-color: var(--secondary);
+            border-right-color: rgba(0, 255, 204, 0.4);
+        }
+
+        .orbit-ring.r3 {
+            inset: -14px;
+            border: 1px dashed rgba(0, 255, 204, 0.22);
+            animation: spinFlat 20s linear infinite;
+        }
+
+        @keyframes orbit3D-1 {
+            0% { transform: rotateX(65deg) rotateY(15deg) rotateZ(0deg); }
+            100% { transform: rotateX(65deg) rotateY(15deg) rotateZ(360deg); }
+        }
+
+        @keyframes orbit3D-2 {
+            0% { transform: rotateX(25deg) rotateY(65deg) rotateZ(360deg); }
+            100% { transform: rotateX(25deg) rotateY(65deg) rotateZ(0deg); }
+        }
+
+        @keyframes spinFlat {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         #benzene-svg {
-            width: 180px;
-            height: 180px;
-            margin-bottom: 40px;
-            filter: drop-shadow(0 0 15px var(--primary-glow));
-            animation: slow-spin 8s linear infinite;
+            width: 155px;
+            height: 155px;
+            filter: drop-shadow(0 0 18px rgba(0, 255, 204, 0.45));
+            animation: pulseCore 3s ease-in-out infinite;
         }
 
-        @keyframes slow-spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        @keyframes pulseCore {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.05) rotate(6deg); }
         }
 
         #progress-hex, #progress-circle {
             stroke-dasharray: 100;
             stroke-dashoffset: 100;
-            transition: stroke-dashoffset 0.1s ease-out;
+            transition: stroke-dashoffset 0.1s linear;
             stroke-linecap: round;
             stroke-linejoin: round;
         }
 
-        .loading-text {
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 10px;
-            color: var(--primary);
-            font-weight: 600;
-            text-shadow: 0 0 10px var(--primary-glow);
+        .carbon-node {
+            fill: var(--bg-abyss);
+            stroke: var(--primary);
+            stroke-width: 1.8;
+            transition: all 0.3s ease;
         }
 
+        .carbon-node.lit {
+            fill: var(--primary);
+            filter: drop-shadow(0 0 6px var(--primary));
+        }
+
+        .loader-percent-big {
+            position: absolute;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.3rem;
+            letter-spacing: 3px;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+        }
+
+        /* Loader Telemetry & Progress Bar */
+        .loader-hud {
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .hud-row {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        .hud-bar-bg {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(0, 255, 204, 0.15);
+        }
+
+        #hud-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary), var(--primary), #ffffff);
+            box-shadow: 0 0 15px var(--primary);
+            transition: width 0.08s linear;
+        }
+
+        #telemetry-status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--text-dim);
+            text-align: center;
+            letter-spacing: 1.5px;
+            height: 16px;
+        }
+
+        /* ==========================================
+           2. MAIN SCENE & BEBAS NEUE HERO TYPOGRAPHY
+        ========================================== */
         #main-scene {
             position: relative;
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             opacity: 0;
-            transform: scale(0.95);
-            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.5s ease-out;
+            transition: opacity 1.2s ease-out;
         }
 
-        #main-scene.active { opacity: 1; transform: scale(1); }
+        #main-scene.active {
+            opacity: 1;
+        }
 
         canvas {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            inset: 0;
+            width: 100%;
+            height: 100%;
             z-index: 1;
         }
 
+        /* Top HUD Bar */
+        .top-hud {
+            position: fixed;
+            top: 28px;
+            left: 40px;
+            right: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 20;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 1s 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #main-scene.active .top-hud {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hud-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 18px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(12px);
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            text-transform: uppercase;
+            clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+            animation: blink 1.8s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.35; transform: scale(0.8); }
+        }
+
+        /* Center Hero Text Wrapper */
         .text-wrapper {
             position: relative;
             z-index: 10;
             text-align: center;
             pointer-events: none;
-            padding: 0 15px; 
-        }
-
-        /* --- අලුත් Orbitron font එක යෙදූ තැන --- */
-        .glitch-name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(2.5rem, 8vw, 8.5rem);
-            font-weight: 900;
-            text-transform: uppercase;
-            position: relative;
-            letter-spacing: clamp(5px, 1.5vw, 12px);
-            margin: 0;
-            color: #ffffff;
-        }
-
-        .subtitle {
-            font-size: clamp(0.85rem, 1.5vw, 1.1rem);
-            letter-spacing: 8px;
-            text-transform: uppercase;
-            margin-top: 20px;
-            color: #a0aec0;
-            font-weight: 300;
-            opacity: 0;
-            line-height: 1.5;
-            transform: translateY(15px);
-            animation: fadeUp 1s 1.5s forwards cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .highlight { color: var(--primary); font-weight: 600; text-shadow: 0 0 5px rgba(0, 255, 204, 0.2); }
-
-        .glitch-name::before, .glitch-name::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            opacity: 0.8;
-            mix-blend-mode: screen;
-        }
-
-        .glitch-name::before {
-            color: var(--glitch-red);
-            z-index: -1;
-            transform: translateX(-3px);
-            animation: glitch-anim-1 3s infinite linear alternate-reverse;
-        }
-
-        .glitch-name::after {
-            color: var(--glitch-blue);
-            z-index: -2;
-            transform: translateX(3px);
-            animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
-        }
-
-        /* --- Buttons Layout & Styling --- */
-        .buttons-container {
-            margin-top: 50px;
-            position: relative;
-            z-index: 10;
+            padding: 0 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px;
+        }
+
+        .role-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(0.7rem, 1vw, 0.82rem);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--primary);
+            background: rgba(0, 255, 204, 0.07);
+            border: 1px solid rgba(0, 255, 204, 0.28);
+            padding: 6px 20px;
+            margin-bottom: 14px;
+            backdrop-filter: blur(6px);
+            clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #main-scene.active .role-tag {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* BEBAS NEUE HERO TITLE */
+        .bebas-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4.2rem, 12.5vw, 11.5rem);
+            font-weight: 400;
+            line-height: 0.92;
+            letter-spacing: clamp(6px, 1.8vw, 22px);
+            text-transform: uppercase;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.25em;
+            perspective: 1000px;
+            filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.85));
+        }
+
+        .word-box {
+            display: inline-flex;
+        }
+
+        .b-char {
+            display: inline-block;
+            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 45%, #94a3b8 85%, #00ffcc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            transform: translateY(70px) rotateX(-65deg) scale(0.85);
+            transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+                        opacity 0.85s ease;
+            position: relative;
+        }
+
+        #main-scene.active .b-char {
+            opacity: 1;
+            transform: translateY(0) rotateX(0deg) scale(1);
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(0.88rem, 1.4vw, 1.15rem);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-top: 18px;
+            color: #cbd5e1;
+            font-weight: 400;
+            line-height: 1.65;
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeUp 1s 2.5s forwards;
+            transition: all 0.9s 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+        }
+
+        #main-scene.active .subtitle {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+            text-shadow: 0 0 14px rgba(0, 255, 204, 0.45);
+        }
+
+        /* ==========================================
+           3. CYBER-GLASS NAVIGATION BUTTONS
+        ========================================== */
+        .buttons-container {
+            margin-top: 42px;
+            position: relative;
+            z-index: 15;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            opacity: 0;
+            transform: translateY(25px);
+            transition: all 0.9s 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #main-scene.active .buttons-container {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .button-group {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .secondary-buttons-row {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-top: 10px;
-        }
-
-        .btn-desc {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.5);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-align: center;
-        }
-
-        /* Main Button */
+        /* Primary Button with Bebas Neue Accent */
         #enter-btn {
-            padding: 18px 54px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--primary);
-            background: rgba(0, 255, 204, 0.05);
-            border: 1px solid hsla(147, 87%, 21%, 0.4);
+            padding: 16px 56px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.45rem;
+            letter-spacing: 6px;
+            color: #020813;
+            background: linear-gradient(135deg, #00ffcc 0%, #00b4d8 100%);
+            border: none;
             cursor: pointer;
             position: relative;
-            letter-spacing: 5px;
             text-transform: uppercase;
-            backdrop-filter: blur(8px);
-            clip-path: polygon(15px 0%, 100% 0%, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0% 100%, 0% 15px);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            -webkit-tap-highlight-color: transparent; 
+            clip-path: polygon(16px 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 16px);
+            box-shadow: 0 0 35px rgba(0, 255, 204, 0.4);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            overflow: hidden;
         }
 
         #enter-btn::before {
             content: '';
             position: absolute;
-            top: 0; left: -100%; 
-            width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            top: 0;
+            left: -120%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
             transform: skewX(-25deg);
-            transition: all 0.6s ease;
-            z-index: -1;
+            transition: left 0.6s ease;
         }
 
-        #enter-btn:hover, #enter-btn:active {
-            color: var(--bg-dark); 
-            background: var(--primary); 
-            border-color: var(--primary);
-            box-shadow: 0 0 30px #00ffcc;
-            letter-spacing: 8px; 
-            transform: scale(1.05); 
+        #enter-btn:hover {
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 0 50px rgba(0, 255, 204, 0.75);
+            letter-spacing: 8px;
         }
 
-        #enter-btn:hover::before, #enter-btn:active::before { left: 200%; }
+        #enter-btn:hover::before {
+            left: 160%;
+        }
 
-        /* Secondary Buttons (Modern Pixels & Blog) */
+        .secondary-buttons-row {
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
         .secondary-btn {
-            padding: 12px 30px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 400;
-            color: rgba(0, 255, 204, 0.7);
-            background: transparent;
-            border: 1px solid rgba(0, 255, 204, 0.2);
+            padding: 13px 34px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.15rem;
+            letter-spacing: 4.5px;
+            color: var(--text-light);
+            background: rgba(6, 20, 38, 0.6);
+            border: 1px solid rgba(0, 255, 204, 0.3);
             cursor: pointer;
-            letter-spacing: 3px;
             text-transform: uppercase;
-            backdrop-filter: blur(5px);
-            clip-path: polygon(10px 0%, 100% 0%, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0% 100%, 0% 10px);
+            backdrop-filter: blur(12px);
+            clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
             transition: all 0.3s ease;
-            -webkit-tap-highlight-color: transparent;
         }
 
-        .secondary-btn:hover, .secondary-btn:active {
-            color: #00ffcc;
-            border-color: rgba(0, 255, 204, 0.5);
-            background: rgba(0, 255, 204, 0.05);
+        .secondary-btn:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            background: rgba(0, 255, 204, 0.12);
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.25);
             transform: translateY(-3px);
+            letter-spacing: 6px;
         }
 
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-
-        @keyframes glitch-anim-1 {
-            0%, 10%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
-            2% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
-            4% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
-            6% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
-            8% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+        .btn-desc {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: rgba(203, 213, 225, 0.6);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        @keyframes glitch-anim-2 {
-            0%, 15%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
-            3% { clip-path: inset(10% 0 60% 0); transform: translate(2px, -1px); }
-            6% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 2px); }
-            9% { clip-path: inset(30% 0 20% 0); transform: translate(2px, 1px); }
-            12% { clip-path: inset(70% 0 10% 0); transform: translate(-1px, -2px); }
+        /* ==========================================
+           4. INTERACTIVE KOI SPEED CONTROLLER HUD
+        ========================================== */
+        .fish-controls-hud {
+            position: fixed;
+            bottom: 24px;
+            right: 32px;
+            z-index: 25;
+            background: rgba(5, 15, 30, 0.7);
+            border: 1px solid rgba(0, 255, 204, 0.22);
+            backdrop-filter: blur(14px);
+            padding: 12px 18px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-light);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
         }
 
-        /* --- Waterfall Transition Effect --- */
+        #main-scene.active .fish-controls-hud {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .speed-label {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .speed-label span:first-child {
+            color: var(--primary);
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        .speed-label span:last-child {
+            font-size: 0.62rem;
+            color: var(--text-dim);
+        }
+
+        #speed-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 110px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        #speed-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #speed-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.25);
+        }
+
+        #boost-btn {
+            padding: 6px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: #020813;
+            background: var(--primary);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        #boost-btn:hover {
+            box-shadow: 0 0 15px var(--primary);
+            transform: scale(1.05);
+        }
+
+        /* ==========================================
+           5. WATERFALL PAGE TRANSITION
+        ========================================== */
         #waterfall-overlay {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 130vh;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 130vh;
             z-index: 9999;
             display: flex;
             flex-direction: column;
             pointer-events: none;
             transform: translateY(-100%);
-            transition: transform 1.8s cubic-bezier(0.45, 0.05, 0.22, 0.95); 
+            transition: transform 1.6s cubic-bezier(0.65, 0, 0.35, 1);
         }
 
         #waterfall-overlay.active {
@@ -286,30 +622,55 @@
             pointer-events: all;
         }
 
-        .water-fill { flex: 1; background: #000000; }
+        .water-fill {
+            flex: 1;
+            background: #01040a;
+        }
 
         .waves {
             position: relative;
-            width: 100%; height: 15vh;
-            min-height: 120px; max-height: 200px;
+            width: 100%;
+            height: 15vh;
+            min-height: 120px;
+            max-height: 200px;
             transform: rotate(180deg);
             margin-bottom: -2px;
         }
 
-        .parallax > use { animation: move-forever 2s cubic-bezier(.55,.5,.45,.5) infinite; }
+        .parallax > use {
+            animation: move-forever 2.2s cubic-bezier(.55,.5,.45,.5) infinite;
+        }
         .parallax > use:nth-child(1) { animation-delay: -2s; animation-duration: 4s; }
         .parallax > use:nth-child(2) { animation-delay: -3s; animation-duration: 6s; }
         .parallax > use:nth-child(3) { animation-delay: -4s; animation-duration: 8s; }
-        .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 12s; }
+        .parallax > use:nth-child(4) { animation-delay: -5s; animation-duration: 11s; }
 
         @keyframes move-forever {
             0% { transform: translate3d(-90px,0,0); }
             100% { transform: translate3d(85px,0,0); }
         }
+
+        @media (max-width: 768px) {
+            .top-hud {
+                top: 16px;
+                left: 16px;
+                right: 16px;
+            }
+            .hud-badge.hide-mobile {
+                display: none;
+            }
+            .fish-controls-hud {
+                right: 16px;
+                left: 16px;
+                bottom: 14px;
+                justify-content: space-between;
+            }
+        }
     </style>
 </head>
 <body>
 
+    <!-- Waterfall Transition -->
     <div id="waterfall-overlay">
         <div class="water-fill"></div>
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
@@ -317,96 +678,201 @@
                 <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
             </defs>
             <g class="parallax">
-                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0, 150, 255, 0.2)" />
-                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(4, 15, 30, 0.6)" />
-                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(2, 6, 20, 0.9)" />
-                <use xlink:href="#gentle-wave" x="48" y="7" fill="#000000" />
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0, 255, 204, 0.25)" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(0, 180, 216, 0.45)" />
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(4, 13, 26, 0.9)" />
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="#01040a" />
             </g>
         </svg>
     </div>
 
+    <!-- Advanced Quantum Benzene Preloader -->
     <div id="loader">
-        <svg id="benzene-svg" viewBox="0 0 100 100">
-            <polygon class="bg-hex" points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" fill="none" stroke="rgba(0, 255, 204, 0.1)" stroke-width="2"/>
-            <circle class="bg-circle" cx="50" cy="50" r="22" fill="none" stroke="rgba(0, 255, 204, 0.1)" stroke-width="2"/>
-            
-            <polygon id="progress-hex" points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" fill="none" stroke="var(--primary)" stroke-width="3" pathLength="100"/>
-            <circle id="progress-circle" cx="50" cy="50" r="22" fill="none" stroke="var(--primary)" stroke-width="3" pathLength="100"/>
-        </svg>
-        <div class="loading-text">LOADING <span id="percent">0</span>%</div>
-    </div>
+        <div class="loader-grid"></div>
+        <div class="quantum-core">
+            <div class="orbit-ring r1"></div>
+            <div class="orbit-ring r2"></div>
+            <div class="orbit-ring r3"></div>
 
-    <div id="main-scene">
-        <canvas id="particleCanvas"></canvas>
-        
-        <div class="text-wrapper">
-            <h1 class="glitch-name" data-text="MALITH ERANGA">MALITH ERANGA</h1>
-            <div class="subtitle">Chemical Technology Undergraduate | BSc (Hons) <br> <span class="highlight">Sabaragamuwa University of Sri Lanka</span></div>
+            <svg id="benzene-svg" viewBox="0 0 100 100">
+                <!-- Background faint structure -->
+                <polygon points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" fill="none" stroke="rgba(0, 255, 204, 0.12)" stroke-width="2"/>
+                <circle cx="50" cy="50" r="22" fill="none" stroke="rgba(0, 180, 216, 0.15)" stroke-width="1.8" stroke-dasharray="4 3"/>
+
+                <!-- Animated progress strokes -->
+                <polygon id="progress-hex" points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" fill="none" stroke="var(--primary)" stroke-width="2.8" pathLength="100"/>
+                <circle id="progress-circle" cx="50" cy="50" r="22" fill="none" stroke="var(--secondary)" stroke-width="2.2" pathLength="100"/>
+
+                <!-- 6 Carbon Atom Nodes -->
+                <circle class="carbon-node" cx="50" cy="10" r="3.2"/>
+                <circle class="carbon-node" cx="84.6" cy="30" r="3.2"/>
+                <circle class="carbon-node" cx="84.6" cy="70" r="3.2"/>
+                <circle class="carbon-node" cx="50" cy="90" r="3.2"/>
+                <circle class="carbon-node" cx="15.4" cy="70" r="3.2"/>
+                <circle class="carbon-node" cx="15.4" cy="30" r="3.2"/>
+            </svg>
+
+            <div class="loader-percent-big"><span id="percent">00</span>%</div>
         </div>
 
-        <!-- අලුත් Buttons සහ හැඳින්වීම් Section එක -->
+        <div class="loader-hud">
+            <div class="hud-row">
+                <span>C6H6 // AROMATIC CORE</span>
+                <span id="loader-state">SYNTHESIZING</span>
+            </div>
+            <div class="hud-bar-bg">
+                <div id="hud-bar-fill"></div>
+            </div>
+            <div id="telemetry-status">Initializing molecular dynamics...</div>
+        </div>
+    </div>
+
+    <!-- Main Interactive Scene -->
+    <div id="main-scene">
+        <canvas id="particleCanvas"></canvas>
+
+        <!-- Top Status Bar -->
+        <div class="top-hud">
+            <div class="hud-badge">
+                <span class="live-dot"></span>
+                <span>MALITH ERANGA // PORTFOLIO</span>
+            </div>
+            <div class="hud-badge hide-mobile">
+                <span>CLICK WATER OR PRESS [SPACE] FOR KOI SPEED BOOST &amp; COLOR SHIFT</span>
+            </div>
+        </div>
+
+        <!-- Center Bebas Neue Hero Title -->
+        <div class="text-wrapper">
+            <div class="role-tag">CHEMICAL TECHNOLOGY &times; MODERN PIXELS</div>
+            <h1 class="bebas-title" id="bebas-heading" aria-label="MALITH ERANGA"></h1>
+            <div class="subtitle">
+                Chemical Technology Undergraduate | BSc (Hons) <br>
+                <span class="highlight">Sabaragamuwa University of Sri Lanka</span>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
         <div class="buttons-container">
-            
-            <!-- Main Portfolio Button -->
             <div class="button-group">
-                <button id="enter-btn" class="nav-trigger" data-target="main.html">View My Portfolio</button>
-                <div class="btn-desc">Explore academic & personal projects</div>
+                <button id="enter-btn" class="nav-trigger" data-target="main.html">
+                    <span>View My Portfolio</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </button>
+                <div class="btn-desc">Explore academic &amp; personal projects</div>
             </div>
 
-            <!-- Secondary Buttons Row -->
             <div class="secondary-buttons-row">
-                
                 <div class="button-group">
                     <button class="secondary-btn nav-trigger" data-target="modernpixels.html">Modern Pixels</button>
-                    <div class="btn-desc">Freelance Agency & Designs</div>
+                    <div class="btn-desc">Freelance Agency &amp; Designs</div>
                 </div>
 
                 <div class="button-group">
                     <button class="secondary-btn nav-trigger" data-target="Article.html">Insights Blog</button>
-                    <div class="btn-desc">Articles on Tech & Science</div>
+                    <div class="btn-desc">Articles on Tech &amp; Science</div>
                 </div>
-
             </div>
+        </div>
+
+        <!-- Live Koi Fish Speed Controller HUD -->
+        <div class="fish-controls-hud">
+            <div class="speed-label">
+                <span>KOI VELOCITY: <strong id="speed-readout">1.0x</strong></span>
+                <span id="fish-mode-text">MODE: NATURAL GLIDE</span>
+            </div>
+            <input type="range" id="speed-slider" min="0.4" max="2.5" step="0.1" value="1.0" aria-label="Koi Fish Speed">
+            <button id="boost-btn" type="button">DASH ⚡</button>
         </div>
     </div>
 
     <script>
-        // --- Bootup Logic ---
+        /* ==========================================================
+           1. BEBAS NEUE STAGGERED 3D CHARACTER ANIMATION
+        ========================================================== */
+        const headingEl = document.getElementById('bebas-heading');
+        const titleWords = ["MALITH", "ERANGA"];
+        let globalCharCount = 0;
+
+        titleWords.forEach(word => {
+            const wBox = document.createElement('span');
+            wBox.className = 'word-box';
+            for (let ch of word) {
+                const cSpan = document.createElement('span');
+                cSpan.className = 'b-char';
+                cSpan.textContent = ch;
+                cSpan.style.transitionDelay = `${0.2 + globalCharCount * 0.045}s`;
+                wBox.appendChild(cSpan);
+                globalCharCount++;
+            }
+            headingEl.appendChild(wBox);
+        });
+
+        /* ==========================================================
+           2. ADVANCED QUANTUM BENZENE PRELOADER
+        ========================================================== */
         let loadProgress = 0;
-        const progressText = document.getElementById('percent');
+        const percentEl = document.getElementById('percent');
+        const hudBarFill = document.getElementById('hud-bar-fill');
+        const telemetryEl = document.getElementById('telemetry-status');
+        const loaderStateEl = document.getElementById('loader-state');
         const loader = document.getElementById('loader');
         const mainScene = document.getElementById('main-scene');
         const progressHex = document.getElementById('progress-hex');
         const progressCircle = document.getElementById('progress-circle');
-        
-        let loadingInterval = setInterval(() => {
-            let increment = Math.random() > 0.5 ? Math.floor(Math.random() * 10) + 2 : 1;
-            loadProgress += increment;
-            
-            if(loadProgress >= 100) {
-                loadProgress = 100;
-                clearInterval(loadingInterval);
-                
-                setTimeout(() => {
-                    loader.style.opacity = '0';
-                    setTimeout(() => {
-                        loader.style.display = 'none';
-                        mainScene.classList.add('active');
-                        initParticles(); 
-                        initFish(); 
-                    }, 800);
-                }, 500);
-            }
-            
-            progressText.innerText = loadProgress.toString().padStart(2, '0');
+        const carbonNodes = document.querySelectorAll('.carbon-node');
+
+        const telemetryLogs = [
+            "Calibrating aromatic pi-electron cloud...",
+            "Synthesizing procedural hydro-dynamics...",
+            "Loading Imperial Koi inverse kinematics...",
+            "Compiling bioluminescent shader nodes...",
+            "System ready. Launching experience..."
+        ];
+
+        const loadingTimer = setInterval(() => {
+            let step = Math.random() > 0.35 ? Math.floor(Math.random() * 8) + 2 : 1;
+            loadProgress = Math.min(100, loadProgress + step);
+
+            percentEl.textContent = loadProgress.toString().padStart(2, '0');
+            hudBarFill.style.width = `${loadProgress}%`;
             progressHex.style.strokeDashoffset = 100 - loadProgress;
             progressCircle.style.strokeDashoffset = 100 - loadProgress;
-        }, 60);
 
-        // --- Shared Canvas Setup ---
+            // Light up carbon atoms progressively
+            const litCount = Math.floor((loadProgress / 100) * carbonNodes.length);
+            carbonNodes.forEach((node, idx) => {
+                if (idx < litCount) node.classList.add('lit');
+            });
+
+            const logIdx = Math.min(telemetryLogs.length - 1, Math.floor((loadProgress / 100) * telemetryLogs.length));
+            telemetryEl.textContent = telemetryLogs[logIdx];
+
+            if (loadProgress >= 100) {
+                clearInterval(loadingTimer);
+                loaderStateEl.textContent = "COMPLETE";
+                setTimeout(() => {
+                    loader.classList.add('complete');
+                    mainScene.classList.add('active');
+                }, 450);
+            }
+        }, 42);
+
+        /* ==========================================================
+           3. CANVAS & ENVIRONMENT (BENZENE + RIPPLES + BUBBLES)
+        ========================================================== */
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
-        let mouse = { x: null, y: null, radius: 250 };
+
+        let mouse = {
+            x: window.innerWidth * 0.7,
+            y: window.innerHeight * 0.3,
+            active: false,
+            lastMove: 0
+        };
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -414,309 +880,954 @@
         }
         resizeCanvas();
 
-        window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
-        window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
-        
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+            mouse.active = true;
+            mouse.lastMove = performance.now();
+        });
+        window.addEventListener('mouseout', () => { mouse.active = false; });
         window.addEventListener('touchmove', (e) => {
             mouse.x = e.touches[0].clientX;
             mouse.y = e.touches[0].clientY;
-        }, {passive: true});
-        window.addEventListener('touchstart', (e) => {
-            mouse.x = e.touches[0].clientX;
-            mouse.y = e.touches[0].clientY;
-            if(e.target.tagName === 'BUTTON') return;
-            currentColorIndex = (currentColorIndex + 1) % fishColors.length;
-        }, {passive: true});
-        window.addEventListener('touchend', () => {
-            mouse.x = null; mouse.y = null;
-        });
+            mouse.active = true;
+            mouse.lastMove = performance.now();
+        }, { passive: true });
 
-        window.addEventListener('resize', () => { resizeCanvas(); initParticles(); initFish(); });
-
-        // --- Benzene Particle System ---
         let particlesArray = [];
-        class Particle {
-            constructor(x, y) {
-                this.x = x; this.y = y;
-                this.z_index = Math.random(); 
-                this.size = (Math.random() * 8 + 4) * (this.z_index + 0.5); 
-                this.baseX = this.x; this.baseY = this.y;
-                this.density = (Math.random() * 30) + 10;
-                this.speedX = (Math.random() - 0.5) * 0.8;
-                this.speedY = (Math.random() - 0.5) * 0.8;
-                this.rotation = Math.random() * Math.PI * 2;
-                this.baseRotationSpeed = (Math.random() - 0.5) * 0.015;
-                this.rotationSpeed = this.baseRotationSpeed;
-                this.opacity = this.z_index * 0.7 + 0.1; 
-            }
-            draw() {
-                ctx.save();
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.rotation);
-                ctx.shadowBlur = 4;
-                ctx.shadowColor = `rgba(0, 255, 204, ${this.opacity * 0.8})`;
-                ctx.strokeStyle = `rgba(0, 255, 204, ${this.opacity})`; 
-                ctx.lineWidth = 0.5; 
-                ctx.beginPath();
-                for (let i = 0; i < 6; i++) {
-                    let angle = (i * Math.PI) / 3;
-                    let px = this.size * Math.cos(angle);
-                    let py = this.size * Math.sin(angle);
-                    if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-                }
-                ctx.closePath(); ctx.stroke();
-                ctx.beginPath(); ctx.arc(0, 0, this.size * 0.55, 0, Math.PI * 2); ctx.stroke();
-                ctx.restore();
+        let waterRipples = [];
+        let wakeBubbles = [];
+
+        class WaterRipple {
+            constructor(x, y, maxR = 120, speed = 2.0, color = '0, 255, 204') {
+                this.x = x;
+                this.y = y;
+                this.r = 5;
+                this.maxR = maxR;
+                this.speed = speed;
+                this.color = color;
+                this.alpha = 0.6;
             }
             update() {
-                this.x += this.speedX; this.y += this.speedY;
-                this.rotation += this.rotationSpeed;
+                this.r += this.speed;
+                this.alpha = Math.max(0, (1 - this.r / this.maxR) * 0.55);
+            }
+            draw() {
+                if (this.alpha <= 0.01) return;
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(${this.color}, ${this.alpha})`;
+                ctx.lineWidth = 1.3;
+                ctx.stroke();
+                ctx.restore();
+            }
+        }
+
+        class BenzeneMolecule {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.z = Math.random() * 0.8 + 0.2;
+                this.size = (Math.random() * 8 + 5) * this.z;
+                this.vx = (Math.random() - 0.5) * 0.55 * this.z;
+                this.vy = (Math.random() - 0.5) * 0.55 * this.z;
+                this.rot = Math.random() * Math.PI * 2;
+                this.rotSpeed = (Math.random() - 0.5) * 0.01;
+                this.opacity = this.z * 0.35 + 0.08;
+            }
+            update(fishHead) {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.rot += this.rotSpeed;
+
                 if (this.x < -50) this.x = canvas.width + 50;
                 if (this.x > canvas.width + 50) this.x = -50;
                 if (this.y < -50) this.y = canvas.height + 50;
                 if (this.y > canvas.height + 50) this.y = -50;
-                
-                if (mouse.x != null) {
-                    let dx = mouse.x - this.x; let dy = mouse.y - this.y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < mouse.radius) {
-                        let force = (mouse.radius - distance) / mouse.radius;
-                        this.x -= (dx / distance) * force * this.density * 0.5;
-                        this.y -= (dy / distance) * force * this.density * 0.5;
-                        this.rotationSpeed += (this.rotationSpeed > 0 ? 0.005 : -0.005) * force;
-                    } else { this.rotationSpeed = this.rotationSpeed * 0.95 + this.baseRotationSpeed * 0.05; }
+
+                // React to swimming fish wake
+                if (fishHead) {
+                    const dx = this.x - fishHead.x;
+                    const dy = this.y - fishHead.y;
+                    const d = Math.hypot(dx, dy);
+                    if (d < 180 && d > 1) {
+                        const force = (180 - d) / 180;
+                        this.x += (dx / d) * force * 2.8 * this.z;
+                        this.y += (dy / d) * force * 2.8 * this.z;
+                        this.rot += force * 0.03;
+                    }
                 }
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rot);
+                ctx.strokeStyle = `rgba(0, 255, 204, ${this.opacity})`;
+                ctx.lineWidth = 0.7;
+                ctx.beginPath();
+                for (let i = 0; i < 6; i++) {
+                    const a = (i * Math.PI) / 3;
+                    const px = Math.cos(a) * this.size;
+                    const py = Math.sin(a) * this.size;
+                    if (i === 0) ctx.moveTo(px, py);
+                    else ctx.lineTo(px, py);
+                }
+                ctx.closePath();
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.arc(0, 0, this.size * 0.55, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.restore();
             }
         }
 
         function initParticles() {
             particlesArray = [];
-            let numberOfParticles = Math.min((canvas.width * canvas.height) / 18000, 50); 
-            for (let i = 0; i < numberOfParticles; i++) {
-                particlesArray.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
+            const count = Math.min(Math.floor((canvas.width * canvas.height) / 22000), 45);
+            for (let i = 0; i < count; i++) {
+                particlesArray.push(new BenzeneMolecule());
             }
         }
+        initParticles();
 
-        // --- FISH COLOR LOGIC ---
-        const fishColors = [
-            { r: 0, g: 200, b: 255 },   
-            { r: 0, g: 255, b: 100 },  
-            { r: 255, g: 0, b: 200 },   
-            { r: 255, g: 150, b: 0 }    
+        /* ==========================================================
+           4. HYPER-REALISTIC BUTTERFLY KOI ENGINE & SPEED PHYSICS
+        ========================================================== */
+        const koiPalettes = [
+            // 1. Imperial Tancho Kohaku (Ivory White, Vermilion Red-Orange & Gold)
+            {
+                base1: [255, 248, 240],
+                base2: [255, 90, 35],
+                tail: [255, 150, 50],
+                fin: [255, 235, 215],
+                patch: [255, 55, 20],
+                glow: [255, 110, 50]
+            },
+            // 2. Bioluminescent Neon Aqua (Electric Cyan, Deep Cerulean & Mint)
+            {
+                base1: [220, 255, 250],
+                base2: [0, 245, 212],
+                tail: [0, 180, 216],
+                fin: [165, 243, 252],
+                patch: [14, 165, 233],
+                glow: [0, 255, 204]
+            },
+            // 3. Yamabuki Ogon (Metallic Platinum Gold, Amber & Pearl)
+            {
+                base1: [255, 252, 220],
+                base2: [250, 190, 20],
+                tail: [245, 130, 10],
+                fin: [254, 240, 150],
+                patch: [234, 88, 12],
+                glow: [250, 204, 21]
+            },
+            // 4. Showa Crimson & Violet (Ruby Magenta, Royal Violet & Silk Pink)
+            {
+                base1: [255, 235, 245],
+                base2: [244, 63, 94],
+                tail: [168, 85, 247],
+                fin: [253, 164, 175],
+                patch: [190, 18, 60],
+                glow: [244, 63, 94]
+            }
         ];
-        
-        let currentColorIndex = 0;
-        let currentR = fishColors[0].r;
-        let currentG = fishColors[0].g;
-        let currentB = fishColors[0].b;
 
-        window.addEventListener('mousedown', (e) => {
-            if(e.target.tagName === 'BUTTON') return;
-            currentColorIndex = (currentColorIndex + 1) % fishColors.length;
+        let paletteIdx = 0;
+        let curPal = JSON.parse(JSON.stringify(koiPalettes[0]));
+
+        function lerpArr(a, b, t) {
+            for (let i = 0; i < 3; i++) a[i] += (b[i] - a[i]) * t;
+        }
+
+        function updateColors() {
+            const target = koiPalettes[paletteIdx];
+            lerpArr(curPal.base1, target.base1, 0.05);
+            lerpArr(curPal.base2, target.base2, 0.05);
+            lerpArr(curPal.tail, target.tail, 0.05);
+            lerpArr(curPal.fin, target.fin, 0.05);
+            lerpArr(curPal.patch, target.patch, 0.05);
+            lerpArr(curPal.glow, target.glow, 0.05);
+        }
+
+        function rgba(arr, alpha = 1) {
+            return `rgba(${Math.round(arr[0])}, ${Math.round(arr[1])}, ${Math.round(arr[2])}, ${alpha})`;
+        }
+
+        function normAngle(a) {
+            while (a > Math.PI) a -= Math.PI * 2;
+            while (a < -Math.PI) a += Math.PI * 2;
+            return a;
+        }
+
+        function drawCatmullClosed(ctx, pts) {
+            if (pts.length < 3) return;
+            ctx.beginPath();
+            ctx.moveTo(pts[0].x, pts[0].y);
+            for (let i = 0; i < pts.length; i++) {
+                const p0 = pts[(i - 1 + pts.length) % pts.length];
+                const p1 = pts[i];
+                const p2 = pts[(i + 1) % pts.length];
+                const p3 = pts[(i + 2) % pts.length];
+                ctx.bezierCurveTo(
+                    p1.x + (p2.x - p0.x) / 6,
+                    p1.y + (p2.y - p0.y) / 6,
+                    p2.x - (p3.x - p1.x) / 6,
+                    p2.y - (p3.y - p1.y) / 6,
+                    p2.x,
+                    p2.y
+                );
+            }
+            ctx.closePath();
+        }
+
+        // Speed Multiplier Controlled by Slider & Boost
+        let userSpeedMultiplier = 1.0;
+        const speedSlider = document.getElementById('speed-slider');
+        const speedReadout = document.getElementById('speed-readout');
+        const fishModeText = document.getElementById('fish-mode-text');
+        const boostBtn = document.getElementById('boost-btn');
+
+        speedSlider.addEventListener('input', (e) => {
+            userSpeedMultiplier = parseFloat(e.target.value);
+            speedReadout.textContent = `${userSpeedMultiplier.toFixed(1)}x`;
         });
 
-        function getBrighter(c, amount) { return Math.min(255, Math.round(c + amount)); }
-        function getDarker(c, factor) { return Math.round(c * factor); }
+        class HyperRealisticKoi {
+            constructor() {
+                this.numSegs = 30;
+                this.segLen = 7.4;
+                // True anatomical Koi width profile
+                this.profile = [
+                    8.5, 16, 23, 28.5, 32, 34, 34.5, 33.5, 31.8, 29.5,
+                    27, 24.2, 21.5, 18.8, 16.2, 13.8, 11.6, 9.6, 8.0, 6.6,
+                    5.5, 4.6, 3.8, 3.2, 2.6, 2.1, 1.6, 1.2, 0.8, 0.4
+                ];
 
-        // --- Procedural Wireframe Fish ---
-        const numNodes = 25;
-        const segmentLength = 10;
-        const fishNodes = [];
-        const fishThickness = [8, 16, 24, 29, 31, 30, 27, 23, 19, 16, 13, 11, 9, 8, 7, 6, 5, 4, 3, 2, 2, 1, 1, 1, 1];
-        let headTarget = { x: window.innerWidth/2, y: window.innerHeight/2 };
+                this.spine = [];
+                this.x = canvas.width * 0.65;
+                this.y = canvas.height * 0.35;
+                this.angle = Math.PI;
 
-        function initFish() {
-            fishNodes.length = 0;
-            for(let i=0; i<numNodes; i++) {
-                fishNodes.push({ x: canvas.width/2, y: canvas.height/2, angle: 0 });
-            }
-        }
+                // Dynamic Velocity & Burst-and-Glide state
+                this.velocity = 3.0;
+                this.boostImpulse = 0;
+                this.swimCycle = 0;
+                this.finCycle = 0;
+                this.waypoint = { x: canvas.width * 0.3, y: canvas.height * 0.6 };
+                this.waypointTimer = 0;
 
-        function drawPolyFin(baseIndex, length, baseAngleOffset, spread, pointsCount, sway) {
-            let baseNode = fishNodes[baseIndex];
-            let baseNext = fishNodes[Math.min(baseIndex + 2, numNodes - 1)]; 
-            let tipAngle = baseNode.angle + baseAngleOffset + sway;
-            let tips = [];
-            for(let i=0; i<pointsCount; i++) {
-                let pSpread = -spread + (spread * 2 * (i/(pointsCount-1 || 1)));
-                let r = length * (0.6 + (i%2)*0.4);
-                tips.push({ x: baseNode.x + Math.cos(tipAngle + pSpread) * r, y: baseNode.y + Math.sin(tipAngle + pSpread) * r });
-            }
-            ctx.strokeStyle = `rgba(${Math.round(currentR)}, ${Math.round(currentG)}, ${Math.round(currentB)}, 0.5)`;
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            tips.forEach((tip, i) => {
-                ctx.moveTo(baseNode.x, baseNode.y); ctx.lineTo(tip.x, tip.y);
-                ctx.moveTo(baseNext.x, baseNext.y); ctx.lineTo(tip.x, tip.y);
-                if (i > 0) { ctx.moveTo(tips[i-1].x, tips[i-1].y); ctx.lineTo(tip.x, tip.y); }
-            });
-            ctx.stroke();
-            ctx.fillStyle = `rgba(${getBrighter(currentR, 100)}, ${getBrighter(currentG, 55)}, ${getBrighter(currentB, 55)}, 0.9)`;
-            tips.forEach(tip => { ctx.beginPath(); ctx.arc(tip.x, tip.y, 1.5, 0, Math.PI*2); ctx.fill(); });
-        }
+                // Kohaku Dorsal Markings (head crown + body patches)
+                this.patches = [
+                    { seg: 1, sideOffset: 0.0, rx: 14, ry: 12 },   // Classic Tancho head spot
+                    { seg: 6, sideOffset: 0.18, rx: 24, ry: 18 },
+                    { seg: 12, sideOffset: -0.2, rx: 20, ry: 15 },
+                    { seg: 18, sideOffset: 0.12, rx: 14, ry: 10 }
+                ];
 
-        function updateAndDrawFish() {
-            let targetColor = fishColors[currentColorIndex];
-            currentR += (targetColor.r - currentR) * 0.05;
-            currentG += (targetColor.g - currentG) * 0.05;
-            currentB += (targetColor.b - currentB) * 0.05;
-
-            let targetX = mouse.x || canvas.width/2;
-            let targetY = mouse.y || canvas.height/2;
-            headTarget.x += (targetX - headTarget.x) * 0.05; 
-            headTarget.y += (targetY - headTarget.y) * 0.05;
-
-            let wiggle = Math.sin(Date.now() * 0.005) * 2; 
-            fishNodes[0].x = headTarget.x;
-            fishNodes[0].y = headTarget.y + wiggle;
-
-            for(let i = 1; i < numNodes; i++) {
-                let dx = fishNodes[i-1].x - fishNodes[i].x;
-                let dy = fishNodes[i-1].y - fishNodes[i].y;
-                let angle = Math.atan2(dy, dx);
-                fishNodes[i].angle = angle;
-                fishNodes[i].x = fishNodes[i-1].x - Math.cos(angle) * segmentLength;
-                fishNodes[i].y = fishNodes[i-1].y - Math.sin(angle) * segmentLength;
-            }
-
-            ctx.save();
-            let t = Date.now() * 0.003;
-            drawPolyFin(4, 55, -Math.PI/2, 0.4, 6, Math.sin(t)*0.2);
-            drawPolyFin(7, 65, Math.PI/2, 0.3, 5, -Math.sin(t)*0.2);
-            drawPolyFin(3, 40, -1.2, 0.2, 3, Math.sin(t)*0.3);
-            drawPolyFin(3, 40, 1.2, 0.2, 3, -Math.sin(t)*0.3);
-            drawPolyFin(numNodes-3, 90, Math.PI - 0.35, 0.3, 5, Math.sin(t*1.2)*0.4);
-            drawPolyFin(numNodes-3, 90, Math.PI + 0.35, 0.3, 5, Math.sin(t*1.2)*0.4);
-            drawPolyFin(numNodes-2, 110, Math.PI, 0.4, 6, Math.sin(t*1.2)*0.5);
-
-            let vertices = [];
-            for(let i=0; i<numNodes; i++) {
-                let r = fishThickness[i]; let angle = fishNodes[i].angle;
-                let spine = {x: fishNodes[i].x, y: fishNodes[i].y};
-                let top = { x: fishNodes[i].x + Math.cos(angle - Math.PI/2) * r, y: fishNodes[i].y + Math.sin(angle - Math.PI/2) * r };
-                let bottom = { x: fishNodes[i].x + Math.cos(angle + Math.PI/2) * r, y: fishNodes[i].y + Math.sin(angle + Math.PI/2) * r };
-                vertices.push({spine, top, bottom});
-            }
-
-            ctx.shadowBlur = 15;
-            ctx.shadowColor = `rgba(${Math.round(currentR)}, ${Math.round(currentG)}, ${Math.round(currentB)}, 0.9)`;
-            ctx.fillStyle = `rgba(${getDarker(currentR, 0.2)}, ${getDarker(currentG, 0.25)}, ${getDarker(currentB, 0.4)}, 0.15)`;
-            ctx.beginPath();
-            for(let i=0; i<numNodes; i++) {
-                if(i===0) ctx.moveTo(vertices[i].top.x, vertices[i].top.y);
-                else ctx.lineTo(vertices[i].top.x, vertices[i].top.y);
-            }
-            for(let i=numNodes-1; i>=0; i--) ctx.lineTo(vertices[i].bottom.x, vertices[i].bottom.y);
-            ctx.closePath(); ctx.fill();
-
-            ctx.strokeStyle = `rgba(${Math.round(currentR)}, ${Math.round(currentG)}, ${Math.round(currentB)}, 0.6)`;
-            ctx.lineWidth = 1.2;
-            ctx.beginPath();
-            for(let i=1; i<numNodes; i++) {
-                let v1 = vertices[i-1]; let v2 = vertices[i];
-                ctx.moveTo(v1.top.x, v1.top.y); ctx.lineTo(v2.top.x, v2.top.y);
-                ctx.moveTo(v1.bottom.x, v1.bottom.y); ctx.lineTo(v2.bottom.x, v2.bottom.y);
-                ctx.moveTo(v1.spine.x, v1.spine.y); ctx.lineTo(v2.spine.x, v2.spine.y);
-                ctx.moveTo(v1.spine.x, v1.spine.y); ctx.lineTo(v2.top.x, v2.top.y);
-                ctx.moveTo(v1.spine.x, v1.spine.y); ctx.lineTo(v2.bottom.x, v2.bottom.y);
-                if (i % 2 === 0) {
-                    ctx.moveTo(v1.top.x, v1.top.y); ctx.lineTo(v2.spine.x, v2.spine.y);
-                    ctx.moveTo(v1.bottom.x, v1.bottom.y); ctx.lineTo(v2.spine.x, v2.spine.y);
+                for (let i = 0; i < this.numSegs; i++) {
+                    this.spine.push({
+                        x: this.x + i * this.segLen,
+                        y: this.y,
+                        angle: this.angle
+                    });
                 }
             }
-            ctx.stroke();
 
-            ctx.fillStyle = `rgba(${getBrighter(currentR, 150)}, ${getBrighter(currentG, 55)}, ${getBrighter(currentB, 0)}, 1)`;
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = `rgba(${Math.round(currentR)}, ${Math.round(currentG)}, ${Math.round(currentB)}, 1)`;
-            vertices.forEach((v, i) => {
-                if (i % 2 === 0 || i === 0 || i === numNodes - 1) {
-                    ctx.beginPath(); ctx.arc(v.spine.x, v.spine.y, 2, 0, Math.PI*2); ctx.fill();
-                    ctx.beginPath(); ctx.arc(v.top.x, v.top.y, 1.5, 0, Math.PI*2); ctx.fill();
-                    ctx.beginPath(); ctx.arc(v.bottom.x, v.bottom.y, 1.5, 0, Math.PI*2); ctx.fill();
+            triggerDash() {
+                this.boostImpulse = 9.5;
+                fishModeText.textContent = "MODE: RAPID DASH ⚡";
+                const g = curPal.glow;
+                waterRipples.push(new WaterRipple(this.x, this.y, 160, 3.0, `${Math.round(g[0])}, ${Math.round(g[1])}, ${Math.round(g[2])}`));
+                for (let i = 0; i < 14; i++) {
+                    const tail = this.spine[this.numSegs - 3];
+                    wakeBubbles.push({
+                        x: tail.x + (Math.random() - 0.5) * 24,
+                        y: tail.y + (Math.random() - 0.5) * 24,
+                        vx: (Math.random() - 0.5) * 2.2,
+                        vy: (Math.random() - 0.5) * 2.2,
+                        r: Math.random() * 3.5 + 1.2,
+                        alpha: 0.9,
+                        color: [...curPal.glow]
+                    });
                 }
-            });
+            }
 
-            let eye1X = vertices[1].spine.x + Math.cos(fishNodes[1].angle - 1.0) * 10;
-            let eye1Y = vertices[1].spine.y + Math.sin(fishNodes[1].angle - 1.0) * 10;
-            let eye2X = vertices[1].spine.x + Math.cos(fishNodes[1].angle + 1.0) * 10;
-            let eye2Y = vertices[1].spine.y + Math.sin(fishNodes[1].angle + 1.0) * 10;
+            update(time) {
+                const now = performance.now();
+                const cursorActive = mouse.active && (now - mouse.lastMove < 3200);
 
-            ctx.fillStyle = '#fff';
-            ctx.beginPath(); ctx.arc(eye1X, eye1Y, 3, 0, Math.PI*2); ctx.fill();
-            ctx.beginPath(); ctx.arc(eye2X, eye2Y, 3, 0, Math.PI*2); ctx.fill();
-            
-            ctx.strokeStyle = `rgba(${getBrighter(currentR, 150)}, ${getBrighter(currentG, 150)}, ${getBrighter(currentB, 150)}, 0.8)`;
-            ctx.beginPath();
-            ctx.moveTo(eye1X, eye1Y); ctx.lineTo(vertices[1].spine.x, vertices[1].spine.y);
-            ctx.moveTo(eye2X, eye2Y); ctx.lineTo(vertices[1].spine.x, vertices[1].spine.y);
-            ctx.stroke();
+                let tx = mouse.x;
+                let ty = mouse.y;
 
-            ctx.restore();
-        }
+                // Autonomous natural pond exploration when cursor is idle or very close
+                const distToCursor = Math.hypot(tx - this.x, ty - this.y);
+                if (!cursorActive || distToCursor < 70) {
+                    this.waypointTimer--;
+                    const distToWP = Math.hypot(this.waypoint.x - this.x, this.waypoint.y - this.y);
+                    if (this.waypointTimer <= 0 || distToWP < 90) {
+                        const margin = 140;
+                        this.waypoint.x = margin + Math.random() * (canvas.width - margin * 2);
+                        this.waypoint.y = margin + Math.random() * (canvas.height - margin * 2);
+                        this.waypointTimer = 180 + Math.random() * 160;
+                        // Natural slight burst when choosing a new direction
+                        if (Math.random() < 0.5) this.boostImpulse = Math.max(this.boostImpulse, 3.2);
+                    }
+                    tx = this.waypoint.x;
+                    ty = this.waypoint.y;
+                }
 
-        function animate() {
-            let time = Date.now() * 0.0003;
-            let gradX1 = (canvas.width / 2) + Math.cos(time) * (canvas.width / 2);
-            let gradY1 = (canvas.height / 2) + Math.sin(time) * (canvas.height / 2);
-            let gradX2 = (canvas.width / 2) - Math.cos(time) * (canvas.width / 2);
-            let gradY2 = (canvas.height / 2) - Math.sin(time) * (canvas.height / 2);
+                const dx = tx - this.x;
+                const dy = ty - this.y;
+                const dist = Math.hypot(dx, dy);
 
-            let bgGradient = ctx.createLinearGradient(gradX1, gradY1, gradX2, gradY2);
-            bgGradient.addColorStop(0, 'rgba(4, 15, 30, 0.4)'); 
-            bgGradient.addColorStop(0.5, 'rgba(10, 30, 50, 0.4)');
-            bgGradient.addColorStop(1, 'rgba(2, 8, 15, 0.4)');
+                const desiredAngle = Math.atan2(dy, dx);
+                let angleDiff = normAngle(desiredAngle - this.angle);
 
-            ctx.fillStyle = bgGradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            let lightGradient = ctx.createRadialGradient(canvas.width/2 + Math.sin(time*1.5)*200, 0, 0, canvas.width/2, 0, canvas.height);
-            lightGradient.addColorStop(0, 'rgba(40, 120, 180, 0.05)');
-            lightGradient.addColorStop(1, 'transparent');
-            ctx.fillStyle = lightGradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-                for (let j = i; j < particlesArray.length; j++) {
-                    let dx = particlesArray[i].x - particlesArray[j].x;
-                    let dy = particlesArray[i].y - particlesArray[j].y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 180) {
+                // Agile turning when fast, sweeping graceful turns when gliding
+                const turnAgility = 0.055 + Math.min(0.04, this.velocity * 0.005);
+                const turnStep = Math.max(-turnAgility, Math.min(turnAgility, angleDiff * 0.14));
+                this.angle = normAngle(this.angle + turnStep);
+
+                // Sharp turns naturally generate a tail flick impulse
+                if (Math.abs(angleDiff) > 0.9 && this.boostImpulse < 2.0) {
+                    this.boostImpulse = 2.8;
+                }
+
+                // Decay boost impulse smoothly (Water drag)
+                this.boostImpulse *= 0.94;
+                if (this.boostImpulse < 0.05) this.boostImpulse = 0;
+
+                // Dynamic Speed Calculation (accelerates when far, glides slowly when near)
+                let baseTargetSpeed;
+                if (cursorActive) {
+                    if (dist > 280) {
+                        baseTargetSpeed = Math.min(7.8, 3.2 + (dist - 280) * 0.014);
+                        if (this.boostImpulse < 1) fishModeText.textContent = "MODE: CRUISING";
+                    } else if (dist > 95) {
+                        baseTargetSpeed = 2.2 + (dist / 280) * 1.5;
+                        if (this.boostImpulse < 1) fishModeText.textContent = "MODE: NATURAL GLIDE";
+                    } else {
+                        baseTargetSpeed = 1.35; // Slow hover near cursor
+                        if (this.boostImpulse < 1) fishModeText.textContent = "MODE: GENTLE HOVER";
+                    }
+                } else {
+                    // Autonomous natural rhythm (alternating burst & glide)
+                    const rhythm = Math.sin(time * 1.1) * 0.5 + 0.5;
+                    baseTargetSpeed = 1.8 + rhythm * 2.4;
+                    if (this.boostImpulse < 1) fishModeText.textContent = "MODE: FREE ROAMING";
+                }
+
+                const finalTargetSpeed = (baseTargetSpeed + this.boostImpulse) * userSpeedMultiplier;
+                this.velocity += (finalTargetSpeed - this.velocity) * 0.08;
+
+                // Tail & Fin oscillation frequency directly linked to swimming speed
+                this.swimCycle += 0.065 + this.velocity * 0.032;
+                this.finCycle += 0.055 + this.velocity * 0.022;
+
+                // Subtle head yaw from tail thrust
+                const headYaw = Math.sin(this.swimCycle) * 0.04 * Math.min(1.5, this.velocity / 3);
+                const moveAngle = this.angle + headYaw;
+
+                this.x += Math.cos(moveAngle) * this.velocity;
+                this.y += Math.sin(moveAngle) * this.velocity;
+
+                this.spine[0].x = this.x;
+                this.spine[0].y = this.y;
+                this.spine[0].angle = moveAngle;
+
+                // Spine Inverse Kinematics + Traveling Muscular Wave
+                for (let i = 1; i < this.numSegs; i++) {
+                    const prev = this.spine[i - 1];
+                    const curr = this.spine[i];
+
+                    const sdx = prev.x - curr.x;
+                    const sdy = prev.y - curr.y;
+                    let segAngle = Math.atan2(sdy, sdx);
+
+                    // Progressive S-wave down the body
+                    const ratio = i / this.numSegs;
+                    const waveEnvelope = Math.pow(ratio, 1.45) * 0.115 * (0.55 + this.velocity * 0.11);
+                    const muscularOffset = Math.sin(this.swimCycle - i * 0.32) * waveEnvelope;
+
+                    segAngle += muscularOffset;
+
+                    // Anatomical joint constraint
+                    let rel = normAngle(segAngle - prev.angle);
+                    const maxJointBend = 0.24;
+                    if (rel > maxJointBend) segAngle = prev.angle + maxJointBend;
+                    if (rel < -maxJointBend) segAngle = prev.angle - maxJointBend;
+
+                    curr.angle = segAngle;
+                    curr.x = prev.x - Math.cos(segAngle) * this.segLen;
+                    curr.y = prev.y - Math.sin(segAngle) * this.segLen;
+                }
+
+                // Wake bubbles & ripples proportional to speed
+                if (Math.random() < 0.12 + this.velocity * 0.03) {
+                    const tail = this.spine[this.numSegs - 3];
+                    wakeBubbles.push({
+                        x: tail.x + (Math.random() - 0.5) * 14,
+                        y: tail.y + (Math.random() - 0.5) * 14,
+                        vx: (Math.random() - 0.5) * 0.7,
+                        vy: (Math.random() - 0.5) * 0.7,
+                        r: Math.random() * 2.3 + 0.7,
+                        alpha: 0.7,
+                        color: [...curPal.glow]
+                    });
+                }
+                if (Math.random() < 0.035 * (this.velocity / 3)) {
+                    const g = curPal.glow;
+                    waterRipples.push(new WaterRipple(this.x, this.y, 65 + this.velocity * 8, 1.2, `${Math.round(g[0])}, ${Math.round(g[1])}, ${Math.round(g[2])}`));
+                }
+            }
+
+            drawSilkPectoralFin(segIdx, side) {
+                const joint = this.spine[segIdx];
+                const perp = joint.angle + side * (Math.PI / 2);
+                const ax = joint.x + Math.cos(perp) * (this.profile[segIdx] * 0.78);
+                const ay = joint.y + Math.sin(perp) * (this.profile[segIdx] * 0.78);
+
+                // Fins tuck back slightly when dashing fast, spread wide when gliding slowly
+                const speedTuck = Math.min(0.35, this.velocity * 0.035);
+                const featherWave = Math.sin(this.finCycle - side * 0.5) * (0.26 - speedTuck * 0.3);
+                const finAng = joint.angle + side * (1.75 + speedTuck + featherWave);
+
+                ctx.save();
+                ctx.translate(ax, ay);
+                ctx.rotate(finAng);
+                ctx.scale(1, side);
+
+                const fLen = 68;
+                const fWid = 38;
+
+                const grad = ctx.createRadialGradient(0, 0, 4, fLen * 0.5, fWid * 0.2, fLen * 1.05);
+                grad.addColorStop(0, rgba(curPal.base2, 0.85));
+                grad.addColorStop(0.4, rgba(curPal.fin, 0.55));
+                grad.addColorStop(0.8, rgba(curPal.tail, 0.22));
+                grad.addColorStop(1, rgba(curPal.fin, 0));
+
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                // S-curved Butterfly Koi pectoral edge
+                ctx.bezierCurveTo(fLen * 0.35, -fWid * 0.45, fLen * 0.8, -fWid * 0.25, fLen, fWid * 0.12);
+                ctx.bezierCurveTo(fLen * 0.82, fWid * 0.85, fLen * 0.35, fWid * 1.05, 0, 6);
+                ctx.closePath();
+                ctx.fill();
+
+                // Realistic branching cartilage rays
+                ctx.strokeStyle = rgba(curPal.base1, 0.32);
+                ctx.lineWidth = 0.85;
+                for (let r = 0; r < 9; r++) {
+                    const t = r / 8;
+                    const rayWave = Math.sin(this.finCycle * 1.2 + r * 0.4) * 3;
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.quadraticCurveTo(
+                        fLen * 0.48,
+                        -fWid * 0.18 + t * fWid * 0.65,
+                        fLen * (0.98 - t * 0.28),
+                        -fWid * 0.05 + t * fWid * 0.92 + rayWave
+                    );
+                    ctx.stroke();
+                }
+
+                // Bright leading bone edge
+                ctx.strokeStyle = rgba(curPal.base1, 0.75);
+                ctx.lineWidth = 1.6;
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(fLen * 0.35, -fWid * 0.45, fLen * 0.8, -fWid * 0.25, fLen, fWid * 0.12);
+                ctx.stroke();
+
+                ctx.restore();
+            }
+
+            drawPelvicFin(segIdx, side) {
+                const joint = this.spine[segIdx];
+                const perp = joint.angle + side * (Math.PI / 2);
+                const ax = joint.x + Math.cos(perp) * (this.profile[segIdx] * 0.72);
+                const ay = joint.y + Math.sin(perp) * (this.profile[segIdx] * 0.72);
+
+                const wave = Math.sin(this.finCycle - 1.4) * 0.22;
+                const ang = joint.angle + side * (2.05 + wave);
+
+                ctx.save();
+                ctx.translate(ax, ay);
+                ctx.rotate(ang);
+                ctx.scale(1, side);
+
+                const fLen = 40;
+                const fWid = 20;
+                const grad = ctx.createRadialGradient(0, 0, 2, fLen * 0.5, 0, fLen);
+                grad.addColorStop(0, rgba(curPal.base2, 0.7));
+                grad.addColorStop(0.55, rgba(curPal.fin, 0.38));
+                grad.addColorStop(1, rgba(curPal.fin, 0));
+
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.quadraticCurveTo(fLen * 0.6, -fWid * 0.35, fLen, fWid * 0.15);
+                ctx.quadraticCurveTo(fLen * 0.5, fWid * 0.9, 0, 4);
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+
+            drawButterflyVeilTail() {
+                const base = this.spine[this.numSegs - 7];
+                const mid = this.spine[this.numSegs - 4];
+                const tip = this.spine[this.numSegs - 1];
+
+                const tailDir = tip.angle + Math.PI;
+                const perp = tailDir + Math.PI / 2;
+
+                // Delayed fluid cloth whip
+                const whip1 = Math.sin(this.swimCycle - 2.7) * (32 + this.velocity * 2.5);
+                const whip2 = Math.cos(this.swimCycle - 3.2) * (36 + this.velocity * 2.5);
+
+                const tailLen = 96;
+
+                const topLobe = {
+                    x: tip.x + Math.cos(tailDir + 0.44) * tailLen + Math.cos(perp) * whip1,
+                    y: tip.y + Math.sin(tailDir + 0.44) * tailLen + Math.sin(perp) * whip1
+                };
+                const botLobe = {
+                    x: tip.x + Math.cos(tailDir - 0.44) * tailLen + Math.cos(perp) * whip2,
+                    y: tip.y + Math.sin(tailDir - 0.44) * tailLen + Math.sin(perp) * whip2
+                };
+                const innerFork = {
+                    x: tip.x + Math.cos(tailDir) * (tailLen * 0.64) + Math.cos(perp) * ((whip1 + whip2) * 0.5),
+                    y: tip.y + Math.sin(tailDir) * (tailLen * 0.64) + Math.sin(perp) * ((whip1 + whip2) * 0.5)
+                };
+
+                ctx.save();
+                const tGrad = ctx.createRadialGradient(base.x, base.y, 6, tip.x, tip.y, tailLen * 1.2);
+                tGrad.addColorStop(0, rgba(curPal.base2, 0.85));
+                tGrad.addColorStop(0.35, rgba(curPal.tail, 0.58));
+                tGrad.addColorStop(0.75, rgba(curPal.fin, 0.28));
+                tGrad.addColorStop(1, rgba(curPal.fin, 0));
+
+                ctx.fillStyle = tGrad;
+                ctx.beginPath();
+                ctx.moveTo(base.x, base.y);
+                ctx.bezierCurveTo(
+                    mid.x + Math.cos(perp) * 22, mid.y + Math.sin(perp) * 22,
+                    tip.x + Math.cos(perp) * 35, tip.y + Math.sin(perp) * 35,
+                    topLobe.x, topLobe.y
+                );
+                ctx.quadraticCurveTo(innerFork.x, innerFork.y, botLobe.x, botLobe.y);
+                ctx.bezierCurveTo(
+                    tip.x - Math.cos(perp) * 35, tip.y - Math.sin(perp) * 35,
+                    mid.x - Math.cos(perp) * 22, mid.y - Math.sin(perp) * 22,
+                    base.x, base.y
+                );
+                ctx.closePath();
+                ctx.fill();
+
+                // Flowing silk rays in the tail
+                ctx.strokeStyle = rgba(curPal.base1, 0.3);
+                ctx.lineWidth = 0.9;
+                const numRays = 14;
+                for (let i = 0; i <= numRays; i++) {
+                    const t = i / numRays;
+                    const rx = topLobe.x * (1 - t) + botLobe.x * t;
+                    const ry = topLobe.y * (1 - t) + botLobe.y * t;
+                    ctx.beginPath();
+                    ctx.moveTo(base.x, base.y);
+                    ctx.quadraticCurveTo(innerFork.x * 0.45 + tip.x * 0.55, innerFork.y * 0.45 + tip.y * 0.55, rx, ry);
+                    ctx.stroke();
+                }
+                ctx.restore();
+            }
+
+            drawFlowingDorsalFin() {
+                const start = 5;
+                const end = 22;
+                ctx.save();
+
+                const pStart = this.spine[start];
+                const pEnd = this.spine[end];
+                const dGrad = ctx.createLinearGradient(pStart.x, pStart.y, pEnd.x, pEnd.y);
+                dGrad.addColorStop(0, rgba(curPal.base1, 0.78));
+                dGrad.addColorStop(0.5, rgba(curPal.fin, 0.52));
+                dGrad.addColorStop(1, rgba(curPal.tail, 0.08));
+
+                ctx.fillStyle = dGrad;
+                ctx.strokeStyle = rgba(curPal.base1, 0.55);
+                ctx.lineWidth = 1.2;
+
+                const crestPoints = [];
+                ctx.beginPath();
+                for (let i = start; i <= end; i++) {
+                    const s = this.spine[i];
+                    if (i === start) ctx.moveTo(s.x, s.y);
+                    else ctx.lineTo(s.x, s.y);
+                }
+                for (let i = end; i >= start; i--) {
+                    const s = this.spine[i];
+                    const norm = (i - start) / (end - start);
+                    const height = Math.sin(norm * Math.PI) * 30;
+                    const sway = Math.sin(this.swimCycle - i * 0.42) * height;
+                    const perp = s.angle + Math.PI / 2;
+                    const cx = s.x + Math.cos(perp) * sway;
+                    const cy = s.y + Math.sin(perp) * sway;
+                    crestPoints.push({ sx: s.x, sy: s.y, cx, cy });
+                    ctx.lineTo(cx, cy);
+                }
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+
+                // Dorsal fin rays
+                ctx.strokeStyle = rgba(curPal.base1, 0.25);
+                ctx.lineWidth = 0.75;
+                crestPoints.forEach((pt, idx) => {
+                    if (idx % 2 === 0) {
                         ctx.beginPath();
-                        let opacity = Math.pow(1 - distance/180, 2); 
-                        ctx.strokeStyle = `rgba(0, 255, 204, ${opacity * 0.25})`;
-                        ctx.lineWidth = 0.4; ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y); ctx.stroke();
+                        ctx.moveTo(pt.sx, pt.sy);
+                        ctx.lineTo(pt.cx, pt.cy);
+                        ctx.stroke();
+                    }
+                });
+
+                ctx.restore();
+            }
+
+            draw() {
+                updateColors();
+                ctx.save();
+
+                // 1. Deep 3D Underwater Shadow
+                ctx.save();
+                ctx.translate(16, 28);
+                const shPts = [];
+                for (let i = 0; i < this.numSegs; i++) {
+                    const s = this.spine[i];
+                    const p = s.angle - Math.PI / 2;
+                    shPts.push({ x: s.x + Math.cos(p) * this.profile[i], y: s.y + Math.sin(p) * this.profile[i] });
+                }
+                for (let i = this.numSegs - 1; i >= 0; i--) {
+                    const s = this.spine[i];
+                    const p = s.angle + Math.PI / 2;
+                    shPts.push({ x: s.x + Math.cos(p) * this.profile[i], y: s.y + Math.sin(p) * this.profile[i] });
+                }
+                drawCatmullClosed(ctx, shPts);
+                ctx.fillStyle = 'rgba(0, 3, 10, 0.55)';
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.75)';
+                ctx.shadowBlur = 32;
+                ctx.fill();
+                ctx.restore();
+
+                // 2. Underneath Fins (Pectorals, Pelvics & Veil Tail)
+                this.drawSilkPectoralFin(4, -1);
+                this.drawSilkPectoralFin(4, 1);
+                this.drawPelvicFin(12, -1);
+                this.drawPelvicFin(12, 1);
+                this.drawButterflyVeilTail();
+
+                // 3. Construct Smooth Anatomical Body Contour
+                const leftSide = [];
+                const rightSide = [];
+                for (let i = 0; i < this.numSegs; i++) {
+                    const s = this.spine[i];
+                    const w = this.profile[i];
+                    leftSide.push({
+                        x: s.x + Math.cos(s.angle - Math.PI / 2) * w,
+                        y: s.y + Math.sin(s.angle - Math.PI / 2) * w
+                    });
+                    rightSide.push({
+                        x: s.x + Math.cos(s.angle + Math.PI / 2) * w,
+                        y: s.y + Math.sin(s.angle + Math.PI / 2) * w
+                    });
+                }
+
+                const head = this.spine[0];
+                const snout = {
+                    x: head.x + Math.cos(head.angle) * 11,
+                    y: head.y + Math.sin(head.angle) * 11
+                };
+
+                const contour = [snout, ...rightSide, ...leftSide.reverse()];
+
+                // 4. Fill Body Base + Clip for Markings, 3D Cylindrical Shading & Diamond Scales
+                ctx.save();
+                drawCatmullClosed(ctx, contour);
+
+                const tailEnd = this.spine[this.numSegs - 1];
+                const bodyGrad = ctx.createLinearGradient(snout.x, snout.y, tailEnd.x, tailEnd.y);
+                bodyGrad.addColorStop(0, rgba(curPal.base1, 0.98));
+                bodyGrad.addColorStop(0.35, rgba(curPal.base1, 0.95));
+                bodyGrad.addColorStop(0.75, rgba(curPal.base2, 0.92));
+                bodyGrad.addColorStop(1, rgba(curPal.tail, 0.4));
+
+                ctx.shadowColor = rgba(curPal.glow, 0.4);
+                ctx.shadowBlur = 24;
+                ctx.fillStyle = bodyGrad;
+                ctx.fill();
+
+                // Clip interior of fish body
+                ctx.clip();
+                ctx.shadowBlur = 0;
+
+                // 4A. Organic Kohaku Red/Orange/Cyan Patches
+                this.patches.forEach(p => {
+                    const s = this.spine[p.seg];
+                    const perp = s.angle + Math.PI / 2;
+                    const px = s.x + Math.cos(perp) * (this.profile[p.seg] * p.sideOffset);
+                    const py = s.y + Math.sin(perp) * (this.profile[p.seg] * p.sideOffset);
+
+                    ctx.save();
+                    ctx.translate(px, py);
+                    ctx.rotate(s.angle);
+                    const pGrad = ctx.createRadialGradient(0, 0, p.rx * 0.15, 0, 0, p.rx);
+                    pGrad.addColorStop(0, rgba(curPal.patch, 0.92));
+                    pGrad.addColorStop(0.75, rgba(curPal.patch, 0.65));
+                    pGrad.addColorStop(1, rgba(curPal.patch, 0));
+                    ctx.fillStyle = pGrad;
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, p.rx, p.ry, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                });
+
+                // 4B. Iridescent Diamond Scale Mesh
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.22)';
+                ctx.lineWidth = 0.85;
+                for (let i = 3; i < this.numSegs - 5; i++) {
+                    const s = this.spine[i];
+                    const w = this.profile[i];
+                    const perp = s.angle + Math.PI / 2;
+                    const cols = i < 14 ? 3 : 2;
+                    for (let c = -cols + 1; c < cols; c++) {
+                        const off = (c / cols) * w * 0.65 + ((i % 2) * 2.8 - 1.4);
+                        const sx = s.x + Math.cos(perp) * off;
+                        const sy = s.y + Math.sin(perp) * off;
+                        const sr = Math.max(2.6, w * 0.21);
+                        ctx.beginPath();
+                        ctx.arc(sx, sy, sr, s.angle + Math.PI - 0.82, s.angle + Math.PI + 0.82);
+                        ctx.stroke();
+                    }
+                }
+
+                // 4C. 3D Cylindrical Side Rim Shading (gives true roundness to the body)
+                ctx.strokeStyle = 'rgba(2, 8, 22, 0.42)';
+                ctx.lineWidth = 7;
+                drawCatmullClosed(ctx, contour);
+                ctx.stroke();
+
+                // 4D. Glossy Wet Dorsal Spine Highlight
+                ctx.beginPath();
+                for (let i = 1; i < this.numSegs - 7; i++) {
+                    const s = this.spine[i];
+                    if (i === 1) ctx.moveTo(s.x, s.y);
+                    else ctx.lineTo(s.x, s.y);
+                }
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+                ctx.lineWidth = 7;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+
+                // 4E. Breathing Gill Covers (Operculum)
+                const gillSeg = this.spine[2];
+                const breathOpen = Math.sin(this.finCycle * 1.5) * 1.2;
+                [-1, 1].forEach(side => {
+                    const gPerp = gillSeg.angle + side * (Math.PI / 2);
+                    const gx = gillSeg.x + Math.cos(gPerp) * (this.profile[2] * 0.62 + breathOpen);
+                    const gy = gillSeg.y + Math.sin(gPerp) * (this.profile[2] * 0.62 + breathOpen);
+                    ctx.strokeStyle = 'rgba(10, 20, 35, 0.45)';
+                    ctx.lineWidth = 1.8;
+                    ctx.beginPath();
+                    ctx.arc(gx, gy, 8.5, gillSeg.angle + Math.PI - 0.65, gillSeg.angle + Math.PI + 0.65);
+                    ctx.stroke();
+                });
+
+                ctx.restore(); // End Body Clip
+
+                // 5. Sensory Koi Barbels (Whiskers) at the Mouth
+                [-1, 1].forEach(side => {
+                    const bPerp = head.angle + side * (Math.PI / 2);
+                    const bx = snout.x - Math.cos(head.angle) * 3 + Math.cos(bPerp) * 6;
+                    const by = snout.y - Math.sin(head.angle) * 3 + Math.sin(bPerp) * 6;
+                    const bSway = Math.sin(this.swimCycle - side) * 0.25;
+                    const bAng = head.angle + side * (0.62 + bSway);
+                    ctx.strokeStyle = rgba(curPal.base2, 0.9);
+                    ctx.lineWidth = 1.6;
+                    ctx.lineCap = 'round';
+                    ctx.beginPath();
+                    ctx.moveTo(bx, by);
+                    ctx.quadraticCurveTo(
+                        bx + Math.cos(head.angle + side * 0.25) * 10,
+                        by + Math.sin(head.angle + side * 0.25) * 10,
+                        bx + Math.cos(bAng) * 18,
+                        by + Math.sin(bAng) * 18
+                    );
+                    ctx.stroke();
+                });
+
+                // 6. Realistic 3D Eyes (Sclera, Metallic Iris, Pupil & Cornea Reflection)
+                const eyeSeg = this.spine[1];
+                [-1, 1].forEach(side => {
+                    const ePerp = eyeSeg.angle + side * (Math.PI / 2);
+                    const ex = eyeSeg.x + Math.cos(ePerp) * (this.profile[1] * 0.78);
+                    const ey = eyeSeg.y + Math.sin(ePerp) * (this.profile[1] * 0.78);
+
+                    // Golden/Cyan Metallic Iris
+                    ctx.fillStyle = '#fde047';
+                    ctx.beginPath();
+                    ctx.arc(ex, ey, 4.0, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Deep Pupil
+                    ctx.fillStyle = '#020617';
+                    ctx.beginPath();
+                    ctx.arc(ex + Math.cos(eyeSeg.angle) * 0.7, ey + Math.sin(eyeSeg.angle) * 0.7, 2.5, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Dual Specular Cornea Glint
+                    ctx.fillStyle = '#ffffff';
+                    ctx.beginPath();
+                    ctx.arc(ex + Math.cos(eyeSeg.angle - 0.5) * 1.3, ey + Math.sin(eyeSeg.angle - 0.5) * 1.3, 1.1, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+
+                // 7. Top Flowing Dorsal Ribbon Fin
+                this.drawFlowingDorsalFin();
+
+                ctx.restore();
+            }
+        }
+
+        const koi = new HyperRealisticKoi();
+
+        // Click on Water or Press Spacebar / Boost Button to Dash & Shift Color
+        window.addEventListener('pointerdown', (e) => {
+            if (e.target.closest('.nav-trigger') || e.target.closest('.fish-controls-hud')) return;
+            paletteIdx = (paletteIdx + 1) % koiPalettes.length;
+            koi.triggerDash();
+        });
+
+        boostBtn.addEventListener('click', () => {
+            paletteIdx = (paletteIdx + 1) % koiPalettes.length;
+            koi.triggerDash();
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                paletteIdx = (paletteIdx + 1) % koiPalettes.length;
+                koi.triggerDash();
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+
+        /* ==========================================================
+           5. MAIN RENDER LOOP
+        ========================================================== */
+        function animate(timestamp) {
+            const time = timestamp * 0.001;
+
+            // Deep aquatic abyss background gradient
+            const bgGrad = ctx.createRadialGradient(
+                canvas.width * 0.5 + Math.cos(time * 0.35) * 140,
+                canvas.height * 0.4 + Math.sin(time * 0.25) * 90,
+                30,
+                canvas.width * 0.5,
+                canvas.height * 0.5,
+                Math.max(canvas.width, canvas.height) * 0.9
+            );
+            bgGrad.addColorStop(0, '#071b34');
+            bgGrad.addColorStop(0.55, '#030b18');
+            bgGrad.addColorStop(1, '#01040a');
+
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Dynamic underwater spotlight following cursor
+            const spotGrad = ctx.createRadialGradient(mouse.x, mouse.y, 10, mouse.x, mouse.y, 400);
+            spotGrad.addColorStop(0, rgba(curPal.glow, 0.075));
+            spotGrad.addColorStop(1, 'transparent');
+            ctx.fillStyle = spotGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Benzene Chemical Network
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update(koi.spine[0]);
+                particlesArray[i].draw();
+
+                for (let j = i + 1; j < particlesArray.length; j++) {
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+                    const dist = Math.hypot(dx, dy);
+                    if (dist < 170) {
+                        const alpha = Math.pow(1 - dist / 170, 2) * 0.2;
+                        ctx.strokeStyle = `rgba(0, 255, 204, ${alpha})`;
+                        ctx.lineWidth = 0.45;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
                     }
                 }
             }
 
-            if(mainScene.classList.contains('active')) {
-                updateAndDrawFish();
+            // Water Ripples
+            for (let i = waterRipples.length - 1; i >= 0; i--) {
+                waterRipples[i].update();
+                waterRipples[i].draw();
+                if (waterRipples[i].alpha <= 0.01) waterRipples.splice(i, 1);
             }
+
+            // Wake Bioluminescent Bubbles
+            for (let i = wakeBubbles.length - 1; i >= 0; i--) {
+                const b = wakeBubbles[i];
+                b.x += b.vx;
+                b.y += b.vy;
+                b.alpha -= 0.016;
+                if (b.alpha <= 0) {
+                    wakeBubbles.splice(i, 1);
+                    continue;
+                }
+                ctx.save();
+                ctx.fillStyle = rgba(b.color, b.alpha);
+                ctx.shadowColor = rgba(b.color, b.alpha);
+                ctx.shadowBlur = 8;
+                ctx.beginPath();
+                ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            // Update & Draw Hyper-Realistic Koi
+            if (mainScene.classList.contains('active')) {
+                koi.update(time);
+                koi.draw();
+            }
+
             requestAnimationFrame(animate);
         }
-        
-        animate(); 
 
-        // --- Navigation Logic (All buttons use the waterfall effect) ---
+        requestAnimationFrame(animate);
+
+        /* ==========================================================
+           6. WATERFALL NAVIGATION TRIGGER
+        ========================================================== */
         const navButtons = document.querySelectorAll('.nav-trigger');
         const waterfallOverlay = document.getElementById('waterfall-overlay');
 
         navButtons.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const targetPage = e.target.getAttribute('data-target');
-                waterfallOverlay.classList.add('active'); 
-                
-                setTimeout(() => { 
-                    // Link to the respective page
-                    window.location.href = targetPage; 
-                }, 1600);
+            btn.addEventListener('click', () => {
+                const targetPage = btn.getAttribute('data-target');
+                waterfallOverlay.classList.add('active');
+                setTimeout(() => {
+                    window.location.href = targetPage;
+                }, 1500);
             });
         });
-
     </script>
 </body>
 </html>

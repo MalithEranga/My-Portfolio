@@ -1,0 +1,2336 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PST 11204 | General Chemistry — Malith Eranga Kumarasekara</title>
+  <!-- Google Fonts: Outfit, Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- MathJax for crisp LaTeX Chemical & Mathematical Equations -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    :root, [data-theme="dark"] {
+      --bg-primary: #090d16;
+      --bg-secondary: #111827;
+      --bg-card: rgba(17, 24, 39, 0.78);
+      --bg-elevated: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #06b6d4;
+      --accent-secondary: #6366f1;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --border-color: rgba(148, 163, 184, 0.14);
+      --glass-blur: blur(16px);
+      --reading-width: 100%;
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-card: rgba(255, 255, 255, 0.92);
+      --bg-elevated: #f1f5f9;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --accent: #0284c7;
+      --accent-secondary: #4f46e5;
+      --accent-emerald: #059669;
+      --accent-amber: #d97706;
+      --border-color: rgba(15, 23, 42, 0.1);
+    }
+
+    [data-theme="reading"] {
+      --bg-primary: #f4ecd8;
+      --bg-secondary: #fbf6e9;
+      --bg-card: rgba(251, 246, 233, 0.96);
+      --bg-elevated: #ece1c6;
+      --text-primary: #2c221e;
+      --text-secondary: #5c4b43;
+      --text-muted: #857267;
+      --accent: #b45309;
+      --accent-secondary: #92400e;
+      --accent-emerald: #15803d;
+      --accent-amber: #b45309;
+      --border-color: rgba(44, 34, 30, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: background-color 0.25s ease, color 0.25s ease;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Outfit', sans-serif;
+    }
+
+    code, pre, .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .bento-card {
+      background: var(--bg-card);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--border-color);
+      border-radius: 1rem;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .bento-card:hover {
+      border-color: rgba(6, 182, 212, 0.35);
+    }
+
+    .unit-badge {
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      color: #ffffff;
+    }
+
+    .worked-example {
+      border-left: 4px solid var(--accent);
+      background: var(--bg-elevated);
+      border-radius: 0 0.75rem 0.75rem 0;
+    }
+
+    .formula-box {
+      background: rgba(6, 182, 212, 0.08);
+      border: 1px solid rgba(6, 182, 212, 0.28);
+      border-radius: 0.75rem;
+      padding: 0.85rem 1.2rem;
+    }
+
+    /* Custom Tables */
+    .chem-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.9rem;
+    }
+    .chem-table th {
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .chem-table td {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
+    .chem-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--text-muted);
+      border-radius: 3px;
+    }
+
+    .nav-link.active {
+      background: rgba(6, 182, 212, 0.14);
+      color: var(--accent);
+      border-left: 3px solid var(--accent);
+      font-weight: 600;
+    }
+
+    mjx-container {
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-cyan-500 selection:text-white">
+
+  <!-- TOP SCROLL PROGRESS BAR -->
+  <div class="fixed top-0 left-0 right-0 h-1 z-50 bg-slate-800/40">
+    <div id="scroll-progress" class="h-full bg-gradient-to-r from-cyan-400 via-indigo-500 to-emerald-400 w-0 transition-all duration-75"></div>
+  </div>
+
+  <!-- FIXED TOP NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-opacity-85 border-b" style="background-color: var(--bg-card); border-color: var(--border-color);">
+    <div class="max-w-[1600px] mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2">
+      
+      <!-- Left: Mobile Menu Button + Module Identity -->
+      <div class="flex items-center gap-2.5 min-w-0">
+        <button id="mobile-menu-btn" onclick="toggleMobileSidebar()" class="lg:hidden p-2 rounded-lg border hover:bg-slate-500/10 focus:outline-none" style="border-color: var(--border-color);" aria-label="Toggle Menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+
+        <div class="flex items-center gap-2.5 min-w-0">
+          <span class="px-2.5 py-1 text-xs font-mono font-bold rounded-md unit-badge shrink-0">PST 11204</span>
+          <div class="truncate">
+            <h1 class="text-sm sm:text-base font-bold tracking-tight truncate">General Chemistry</h1>
+            <p class="text-[11px] hidden sm:block truncate" style="color: var(--text-secondary);">BSc (Hons) in Chemical Technology • SUSL</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center: Quick Unit Search -->
+      <div class="hidden md:flex items-center flex-1 max-w-md mx-4">
+        <div class="relative w-full">
+          <svg class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <input id="topic-search" type="text" placeholder="Filter units, formulas, or examples (e.g., Nernst, VSEPR, Bohr)..." oninput="filterUnits(this.value)"
+            class="w-full pl-9 pr-4 py-1.5 text-xs rounded-full border focus:outline-none focus:ring-2 focus:ring-cyan-500/50 transition"
+            style="background-color: var(--bg-elevated); border-color: var(--border-color); color: var(--text-primary);" />
+        </div>
+      </div>
+
+      <!-- Right: Theme Switcher + Author Profile with 32x32 Circular Image Tag -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <!-- Theme Toggle Pill -->
+        <div class="flex items-center p-1 rounded-full border text-xs" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+          <button onclick="setTheme('dark')" id="btn-dark" class="px-2.5 py-1 rounded-full font-medium transition">Dark</button>
+          <button onclick="setTheme('light')" id="btn-light" class="px-2.5 py-1 rounded-full font-medium transition">Light</button>
+          <button onclick="setTheme('reading')" id="btn-reading" class="px-2.5 py-1 rounded-full font-medium transition">Reading</button>
+        </div>
+
+        <!-- Personal Identity Badge (Malith Eranga Kumarasekara) -->
+        <div class="flex items-center gap-2 pl-2 border-l min-w-0" style="border-color: var(--border-color);">
+          <!-- Replace src="" below with your personal image link! Automatically styled to 32x32 circle -->
+          <img 
+            id="user-profile-img"
+            src="" 
+            alt="Malith Eranga Kumarasekara"
+            onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%2306b6d4%22/><text x=%2250%22 y=%2255%22 font-family=%22Arial%22 font-size=%2242%22 font-weight=%22bold%22 fill=%22white%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22>MK</text></svg>'"
+            class="w-8 h-8 rounded-full object-cover border border-cyan-400/60 shrink-0 bg-cyan-600"
+          />
+          <div class="min-w-0 max-w-[115px] sm:max-w-[190px] md:max-w-none">
+            <p class="text-xs font-semibold leading-tight truncate">Malith Eranga Kumarasekara</p>
+            <p class="text-[10px] font-mono truncate" style="color: var(--text-secondary);">ChemTech Undergrad</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN WORKSPACE LAYOUT -->
+  <div class="max-w-[1600px] w-full mx-auto flex-1 flex relative">
+
+    <!-- LEFT SIDEBAR NAVIGATION (21 UNITS) -->
+    <aside id="sidebar" class="fixed lg:sticky top-16 left-0 z-30 w-72 h-[calc(100vh-4rem)] overflow-y-auto border-r p-4 transition-transform duration-300 -translate-x-full lg:translate-x-0 shrink-0" style="background-color: var(--bg-secondary); border-color: var(--border-color);">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-mono uppercase tracking-wider font-semibold" style="color: var(--text-muted);">Syllabus Units (01–21)</span>
+        <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400">Page 102</span>
+      </div>
+
+      <!-- Mobile Search inside Drawer -->
+      <div class="mb-3 md:hidden">
+        <input type="text" placeholder="Search unit or topic..." oninput="filterUnits(this.value)"
+          class="w-full px-3 py-1.5 text-xs rounded-lg border"
+          style="background-color: var(--bg-elevated); border-color: var(--border-color); color: var(--text-primary);" />
+      </div>
+
+      <nav id="unit-nav" class="space-y-1 text-xs">
+        <a href="#overview" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">00. Course Overview & Tools</a>
+        <a href="#unit-01" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">01. Intro to Atoms & Molecules</a>
+        <a href="#unit-02" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">02. Subatomic Particles & Structure</a>
+        <a href="#unit-03" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">03. Development of Atomic Theory</a>
+        <a href="#unit-04" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">04. Quantum Theory & Orbitals</a>
+        <a href="#unit-05" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">05. Electronic Configurations</a>
+        <a href="#unit-06" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">06. Atomic Spectra</a>
+        <a href="#unit-07" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">07. Bonding & Intermolecular Forces</a>
+        <a href="#unit-08" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">08. Lewis Theory & Structures</a>
+        <a href="#unit-09" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">09. Valence Bond Theory (VBT)</a>
+        <a href="#unit-10" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">10. Molecular Orbital Theory (MOT)</a>
+        <a href="#unit-11" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">11. VSEPR & Molecular Shapes</a>
+        <a href="#unit-12" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">12. Hybridisation</a>
+        <a href="#unit-13" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">13. Size & Energy Factors</a>
+        <a href="#unit-14" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">14. Born–Haber Cycle</a>
+        <a href="#unit-15" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">15. Oxidation & Reduction</a>
+        <a href="#unit-16" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">16. Concepts of Acids & Bases</a>
+        <a href="#unit-17" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">17. Balancing Equations & Redox</a>
+        <a href="#unit-18" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">18. Electrochemical Cells & E°</a>
+        <a href="#unit-19" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">19. Nernst Equation</a>
+        <a href="#unit-20" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">20. Electrode Potential Applications</a>
+        <a href="#unit-21" class="nav-link block px-3 py-2 rounded-lg transition hover:bg-slate-500/10">21. Formula Sheet, Practice & Checklist</a>
+      </nav>
+
+      <!-- Study Pomodoro Widget inside Sidebar -->
+      <div class="mt-6 p-3.5 rounded-xl border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-semibold flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Study Timer
+          </span>
+          <span id="pomo-status" class="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400">Focus</span>
+        </div>
+        <div id="pomo-display" class="text-2xl font-mono font-bold text-center my-2">25:00</div>
+        <div class="flex gap-1.5">
+          <button onclick="togglePomodoro()" id="pomo-btn" class="flex-1 py-1 text-xs font-semibold rounded bg-cyan-500 text-white hover:bg-cyan-600 transition">Start</button>
+          <button onclick="resetPomodoro()" class="px-2.5 py-1 text-xs rounded border hover:bg-slate-500/10 transition" style="border-color: var(--border-color);">Reset</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MOBILE BACKDROP -->
+    <div id="sidebar-backdrop" onclick="toggleMobileSidebar()" class="fixed inset-0 bg-black/60 z-20 hidden lg:hidden"></div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-1 min-w-0 p-4 sm:p-6 lg:p-10 space-y-12">
+
+      <!-- HERO SECTION & COURSE SYLLABUS TABLE -->
+      <section id="overview" class="space-y-6">
+        <div class="bento-card p-6 sm:p-8 relative overflow-hidden">
+          <div class="absolute -right-16 -top-16 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div class="flex flex-wrap items-center gap-2 mb-3">
+            <span class="px-3 py-1 text-xs font-mono font-semibold rounded-full bg-cyan-500/15 text-cyan-400 border border-cyan-500/30">PST 11204</span>
+            <span class="px-3 py-1 text-xs font-mono rounded-full border" style="border-color: var(--border-color); color: var(--text-secondary);">2022/2023 Students' Handbook • Page 102</span>
+            <span class="px-3 py-1 text-xs font-mono rounded-full bg-indigo-500/15 text-indigo-400">21 Complete Units</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-3">GENERAL CHEMISTRY</h1>
+          <p class="text-base sm:text-lg font-medium mb-4" style="color: var(--text-secondary);">
+            Complete Undergraduate Learning Notes • Sabaragamuwa University of Sri Lanka<br>
+            <span class="text-sm">Faculty of Applied Sciences • Department of Physical Sciences and Technology • BSc (Hons) in Chemical Technology</span>
+          </p>
+          <p class="text-sm leading-relaxed max-w-4xl" style="color: var(--text-secondary);">
+            The following material follows the handbook syllabus and expands each topic into undergraduate-level learning notes. Supporting topics such as electron configurations, ionic bonding, periodic trends, pH calculations, and electrochemical cells are included to explain the listed syllabus. Curated and structured for <strong>Malith Eranga Kumarasekara</strong>.
+          </p>
+
+          <!-- Collapsible Syllabus Directory -->
+          <details class="mt-6 group border rounded-xl overflow-hidden" style="border-color: var(--border-color); background-color: var(--bg-elevated);">
+            <summary class="px-4 py-3 cursor-pointer font-semibold text-sm flex items-center justify-between select-none">
+              <span>View Complete 21-Unit Course Syllabus Directory</span>
+              <svg class="w-4 h-4 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="p-4 border-t overflow-x-auto" style="border-color: var(--border-color);">
+              <table class="chem-table">
+                <thead>
+                  <tr><th>Unit</th><th>Main Topic</th><th>Unit</th><th>Main Topic</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td class="font-mono font-bold text-cyan-400">01</td><td><a href="#unit-01" class="hover:underline">Introduction to Atoms and Molecules</a></td><td class="font-mono font-bold text-cyan-400">12</td><td><a href="#unit-12" class="hover:underline">Hybridisation</a></td></tr>
+                  <tr><td class="font-mono font-bold text-cyan-400">02</td><td><a href="#unit-02" class="hover:underline">Subatomic Particles and Atomic Structure</a></td><td class="font-mono font-bold text-cyan-400">13</td><td><a href="#unit-13" class="hover:underline">Size and Energy Factors in Chemistry</a></td></tr>
+                  <tr><td class="font-mono font-bold text-cyan-400">03</td><td><a href="#unit-03" class="hover:underline">Development of Atomic Theory</a></td><td class="font-mono font-bold text-cyan-400">14</td><td><a href="#unit-14" class="hover:underline">Born–Haber Cycle</a></td></tr>
+                  <tr><td class="font-mono font-bold text-cyan-400">04</td><td><a href="#unit-04" class="hover:underline">Quantum Theory and Atomic Orbitals</a></td><td class="font-mono font-bold text-cyan-400">15</td><td><a href="#unit-15" class="hover:underline">Oxidation and Reduction Reactions</a></td></tr>
+                  <tr><td class="font-mono font-bold text-cyan-400">05</td><td><a href="#unit-05" class="hover:underline">Electronic Configurations</a></td><td class="font-mono font-bold text-cyan-400">16</td><td><a href="#unit-16" class="hover:underline">Acid–Base Concepts</a></td></tr>
+                  <tr><td class="font-mono font-bold text-cyan-400">06</td><td><a href="#unit-06" class="hover:underline">Atomic Spectra</a></td><td class="font-mono font-bold text-cyan-400">17</td><td><a href="#unit-17" class="hover:underline">Balancing Chemical Equations and Half-Reactions</a></td></tr>
+                  <tr><td class="font-mono font-bold text-cyan-400">07</td><td><a href="#unit-07" class="hover:underline">Chemical Bonding and Intermolecular Forces</a></td><td class="font-mono font-bold text-cyan-400">18</td><td><a href="#unit-18" class="hover:underline">Electrochemical Cells and Electrode Potentials</a></td></tr>
+                  <tr><td class="font-mono font-bold text-cyan-400">08</td><td><a href="#unit-08" class="hover:underline">Lewis Theory and Lewis Structures</a></td><td class="font-mono font-bold text-cyan-400">19</td><td><a href="#unit-19" class="hover:underline">Nernst Equation</a></td></tr>
+                  <tr><td class="font-mono font-bold text-cyan-400">09</td><td><a href="#unit-09" class="hover:underline">Valence Bond Theory</a></td><td class="font-mono font-bold text-cyan-400">20</td><td><a href="#unit-20" class="hover:underline">Applications of Electrode Potential Data</a></td></tr>
+                  <tr><td class="font-mono font-bold text-cyan-400">10</td><td><a href="#unit-10" class="hover:underline">Molecular Orbital Theory</a></td><td class="font-mono font-bold text-cyan-400">21</td><td><a href="#unit-21" class="hover:underline">Formula Sheet, Practice Problems and Answers</a></td></tr>
+                  <tr><td class="font-mono font-bold text-cyan-400">11</td><td><a href="#unit-11" class="hover:underline">VSEPR Theory and Molecular Shapes</a></td><td></td><td></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           UNIT 01 — INTRODUCTION TO ATOMS AND MOLECULES
+      ====================================================================== -->
+      <section id="unit-01" class="unit-section space-y-6 scroll-mt-20">
+        <div class="flex items-center gap-3 border-b pb-3" style="border-color: var(--border-color);">
+          <span class="px-3 py-1 rounded-lg font-mono text-sm font-bold unit-badge">UNIT 01</span>
+          <h2 class="text-2xl sm:text-3xl font-bold">INTRODUCTION TO ATOMS AND MOLECULES</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bento-card p-6 space-y-4">
+            <h3 class="text-lg font-bold text-cyan-400">1.1 What is Chemistry?</h3>
+            <p class="text-sm leading-relaxed" style="color: var(--text-secondary);">
+              Chemistry is the branch of science that studies matter, its composition, structure, properties, and the changes that matter undergoes. Chemistry explains:
+            </p>
+            <ul class="list-disc list-inside text-sm space-y-1.5" style="color: var(--text-secondary);">
+              <li>What substances are made of.</li>
+              <li>How atoms combine to form molecules and compounds.</li>
+              <li>Why chemical reactions occur.</li>
+              <li>How energy changes during chemical reactions.</li>
+              <li>How the arrangement of electrons affects chemical properties.</li>
+              <li>How chemical reactions are used in laboratories, industries, medicine, and environmental protection.</li>
+            </ul>
+
+            <h3 class="text-lg font-bold text-cyan-400 pt-2">1.3 Classification of Matter</h3>
+            <p class="text-sm" style="color: var(--text-secondary);">Matter can be divided into <strong>pure substances</strong> and <strong>mixtures</strong>.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div class="p-3 rounded-lg border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+                <p class="font-bold text-emerald-400 mb-1">Pure Substances (Fixed Composition)</p>
+                <p style="color: var(--text-secondary);">• <strong>Elements:</strong> Contain only one type of chemical element.<br>• <strong>Compounds:</strong> Two or more elements chemically combined in fixed proportions.</p>
+              </div>
+              <div class="p-3 rounded-lg border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+                <p class="font-bold text-amber-400 mb-1">Mixtures (Physically Combined)</p>
+                <p style="color: var(--text-secondary);">• <strong>Homogeneous:</strong> Uniform composition (e.g., saltwater).<br>• <strong>Heterogeneous:</strong> Non-uniform composition (e.g., sand mixed with water).</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bento-card p-6 space-y-4">
+            <h3 class="text-lg font-bold text-cyan-400">1.2 Matter & States of Matter</h3>
+            <p class="text-sm" style="color: var(--text-secondary);">
+              <strong>Matter</strong> is anything that has mass and occupies space. Examples: water, oxygen, iron, carbon dioxide, and sodium chloride. Matter exists mainly in three familiar physical states: solid, liquid, and gas. Plasma is another important state.
+            </p>
+            <div class="overflow-x-auto">
+              <table class="chem-table">
+                <thead>
+                  <tr><th>State</th><th>Particle arrangement</th><th>Main properties</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td class="font-semibold">Solid</td><td>Closely packed, usually ordered or fixed in position</td><td>Definite shape and volume</td></tr>
+                  <tr><td class="font-semibold">Liquid</td><td>Close together but able to move</td><td>Definite volume, variable shape</td></tr>
+                  <tr><td class="font-semibold">Gas</td><td>Far apart and moving freely</td><td>Variable shape and volume</td></tr>
+                  <tr><td class="font-semibold">Plasma</td><td>Contains ions and free electrons</td><td>Conducts electricity; affected by electromagnetic fields</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bento-card p-6 space-y-4">
+            <h3 class="text-lg font-bold text-cyan-400">1.4 Atom & 1.5 Molecule</h3>
+            <p class="text-sm" style="color: var(--text-secondary);">
+              <strong>Atom Definition:</strong> An atom is the smallest unit of a chemical element that retains the chemical identity of that element. An atom consists of:
+            </p>
+            <ol class="list-decimal list-inside text-sm space-y-1" style="color: var(--text-secondary);">
+              <li>A central nucleus containing protons and usually neutrons.</li>
+              <li>Electrons occupying quantum states in the region surrounding the nucleus.</li>
+            </ol>
+            <p class="text-xs" style="color: var(--text-muted);">Most of the volume of an atom is occupied by its electron cloud. Examples of elements are H, O, Na, Mg, Cl, and Fe.</p>
+
+            <p class="text-sm pt-2" style="color: var(--text-secondary);">
+              <strong>Molecule Definition:</strong> A molecule is an electrically neutral group of two or more atoms held together by chemical bonds and acting as a distinct unit.
+            </p>
+            <div class="overflow-x-auto">
+              <table class="chem-table">
+                <thead><tr><th>Molecule</th><th>Formula</th><th>Number of atoms</th></tr></thead>
+                <tbody>
+                  <tr><td>Hydrogen</td><td class="font-mono">H₂</td><td>2</td></tr>
+                  <tr><td>Oxygen</td><td class="font-mono">O₂</td><td>2</td></tr>
+                  <tr><td>Water</td><td class="font-mono">H₂O</td><td>3</td></tr>
+                  <tr><td>Carbon dioxide</td><td class="font-mono">CO₂</td><td>3</td></tr>
+                  <tr><td>Ammonia</td><td class="font-mono">NH₃</td><td>4</td></tr>
+                  <tr><td>Methane</td><td class="font-mono">CH₄</td><td>5</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">
+              • <strong>Diatomic molecule:</strong> Contains two atoms (O₂, H₂, N₂, HCl).<br>
+              • <strong>Polyatomic molecule:</strong> Contains more than two atoms (H₂O, NH₃, CH₄).<br>
+              • Not every compound consists of separate molecules. Sodium chloride, for example, forms an extended ionic crystal lattice.
+            </p>
+          </div>
+
+          <div class="bento-card p-6 space-y-4">
+            <h3 class="text-lg font-bold text-cyan-400">1.6 Important Chemical Terms</h3>
+            <div class="overflow-x-auto">
+              <table class="chem-table">
+                <thead><tr><th>Term</th><th>Definition</th><th>Example</th></tr></thead>
+                <tbody>
+                  <tr><td class="font-semibold">Element</td><td>A substance consisting of atoms with the same proton number</td><td>Oxygen</td></tr>
+                  <tr><td class="font-semibold">Compound</td><td>A substance containing two or more chemically combined elements</td><td>NaCl</td></tr>
+                  <tr><td class="font-semibold">Ion</td><td>An atom or group of atoms with a net electric charge</td><td>Na⁺</td></tr>
+                  <tr><td class="font-semibold">Cation</td><td>A positively charged ion</td><td>Ca²⁺</td></tr>
+                  <tr><td class="font-semibold">Anion</td><td>A negatively charged ion</td><td>Cl⁻</td></tr>
+                  <tr><td class="font-semibold">Isotope</td><td>Atoms of the same element with different neutron numbers</td><td>¹²C and ¹⁴C</td></tr>
+                  <tr><td class="font-semibold">Formula unit</td><td>Simplest whole-number ratio of ions in an ionic compound</td><td>NaCl</td></tr>
+                  <tr><td class="font-semibold">Atomic number</td><td>Number of protons in a nucleus</td><td>6 for carbon</td></tr>
+                  <tr><td class="font-semibold">Mass number</td><td>Total number of protons and neutrons</td><td>12 for carbon-12</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1.7, 1.8, 1.9 -->
+        <div class="bento-card p-6 space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- 1.7 -->
+            <div class="space-y-3">
+              <h3 class="text-lg font-bold text-cyan-400">1.7 Atomic Number & Mass Number</h3>
+              <p class="text-sm" style="color: var(--text-secondary);">The general nuclear symbol is:</p>
+              <div class="formula-box text-center">
+                \[ {}^{A}_{Z}X \quad \implies \quad Z = \text{Protons}, \quad A = \text{Protons} + \text{Neutrons} \]
+                \[ \boxed{\text{Neutrons} = A - Z} \]
+              </div>
+              <p class="text-xs" style="color: var(--text-secondary);">For a neutral atom, \(\text{Electrons} = Z\). For an ion, the electron number changes according to the ionic charge.</p>
+              <div class="worked-example p-4 space-y-1.5 text-xs">
+                <p class="font-bold text-cyan-400">Worked Example 1: Number of Subatomic Particles</p>
+                <p style="color: var(--text-secondary);">Find the number of protons, neutrons, and electrons in \({}^{27}_{13}\mathrm{Al}^{3+}\).</p>
+                <p>• Step 1 — Protons: \(p = 13\)</p>
+                <p>• Step 2 — Neutrons: \(n = 27 - 13 = 14\)</p>
+                <p>• Step 3 — Electrons: The \(3+\) ion has lost three electrons: \(e = 13 - 3 = 10\)</p>
+                <p class="font-semibold text-emerald-400">Answer: 13 protons, 14 neutrons, and 10 electrons.</p>
+              </div>
+            </div>
+
+            <!-- 1.8 -->
+            <div class="space-y-3">
+              <h3 class="text-lg font-bold text-cyan-400">1.8 Isotopes & Relative Atomic Mass</h3>
+              <p class="text-xs" style="color: var(--text-secondary);">Isotopes are atoms of the same element with the same number of protons but different numbers of neutrons. Chemical properties are often very similar because isotopes have the same electronic configuration.</p>
+              <table class="chem-table">
+                <thead><tr><th>Isotope</th><th>Symbol</th><th>Protons</th><th>Neutrons</th></tr></thead>
+                <tbody>
+                  <tr><td>Protium</td><td>¹H</td><td>1</td><td>0</td></tr>
+                  <tr><td>Deuterium</td><td>²H</td><td>1</td><td>1</td></tr>
+                  <tr><td>Tritium</td><td>³H</td><td>1</td><td>2</td></tr>
+                </tbody>
+              </table>
+              <div class="formula-box text-center text-xs">
+                \[ A_r = \sum_i(m_i f_i) \]
+              </div>
+              <div class="worked-example p-4 space-y-1 text-xs">
+                <p class="font-bold text-cyan-400">Worked Example 2: Average Atomic Mass</p>
+                <p style="color: var(--text-secondary);">Chlorine contains 75% chlorine-35 and 25% chlorine-37.</p>
+                <p>\[ A_r = (35 \times 0.75) + (37 \times 0.25) = 26.25 + 9.25 = \boxed{35.50} \]</p>
+              </div>
+            </div>
+
+            <!-- 1.9 -->
+            <div class="space-y-3">
+              <h3 class="text-lg font-bold text-cyan-400">1.9 Mole Concept</h3>
+              <p class="text-xs" style="color: var(--text-secondary);">One mole is the amount of substance containing exactly \(6.02214076\times10^{23}\) specified elementary entities (Avogadro constant \(N_A\)).</p>
+              <div class="formula-box text-center text-xs">
+                \[ N_A = 6.02214076\times10^{23}\ \mathrm{mol^{-1}} \]
+                \[ n = \frac{m}{M} \qquad N = nN_A \]
+              </div>
+              <div class="worked-example p-4 space-y-1 text-xs">
+                <p class="font-bold text-cyan-400">Worked Example 3: Water Molecules</p>
+                <p style="color: var(--text-secondary);">Find the number of water molecules in 9.0 g of water (\(M \approx 18.0\ \mathrm{g\ mol^{-1}}\)).</p>
+                <p>\[ n = \frac{9.0}{18.0} = 0.50\ \mathrm{mol} \]</p>
+                <p>\[ N = 0.50(6.022\times10^{23}) = \boxed{3.011\times10^{23}\text{ molecules}} \]</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           UNIT 02 — SUBATOMIC PARTICLES AND ATOMIC STRUCTURE
+      ====================================================================== -->
+      <section id="unit-02" class="unit-section space-y-6 scroll-mt-20">
+        <div class="flex items-center gap-3 border-b pb-3" style="border-color: var(--border-color);">
+          <span class="px-3 py-1 rounded-lg font-mono text-sm font-bold unit-badge">UNIT 02</span>
+          <h2 class="text-2xl sm:text-3xl font-bold">SUBATOMIC PARTICLES AND ATOMIC STRUCTURE</h2>
+        </div>
+
+        <div class="bento-card p-6 space-y-4">
+          <h3 class="text-lg font-bold text-cyan-400">2.1 Fundamental Subatomic Particles</h3>
+          <p class="text-sm" style="color: var(--text-secondary);">The three main particles used to describe ordinary atomic structure are protons, neutrons, and electrons. The electron is an elementary particle. Protons and neutrons are composite particles made of quarks.</p>
+          <div class="overflow-x-auto">
+            <table class="chem-table">
+              <thead>
+                <tr><th>Property</th><th>Proton</th><th>Neutron</th><th>Electron</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="font-semibold">Symbol</td><td class="font-mono">p⁺</td><td class="font-mono">n</td><td class="font-mono">e⁻</td></tr>
+                <tr><td class="font-semibold">Charge</td><td>+1</td><td>0</td><td>−1</td></tr>
+                <tr><td class="font-semibold">Charge in coulombs</td><td>+1.602 × 10⁻¹⁹ C</td><td>0</td><td>−1.602 × 10⁻¹⁹ C</td></tr>
+                <tr><td class="font-semibold">Approximate mass</td><td>1.673 × 10⁻²⁷ kg</td><td>1.675 × 10⁻²⁷ kg</td><td>9.109 × 10⁻³¹ kg</td></tr>
+                <tr><td class="font-semibold">Relative mass</td><td>≈ 1</td><td>≈ 1</td><td>≈ 1/1836</td></tr>
+                <tr><td class="font-semibold">Location</td><td>Nucleus</td><td>Nucleus</td><td>Electron cloud</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bento-card p-6 space-y-3">
+            <h3 class="text-base font-bold text-cyan-400">2.2 Discovery of the Electron (J. J. Thomson)</h3>
+            <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">Thomson studied cathode rays using a discharge tube. Important observations:</p>
+            <ol class="list-decimal list-inside text-xs space-y-1" style="color: var(--text-secondary);">
+              <li>Cathode rays travelled from the negative electrode toward the positive electrode.</li>
+              <li>They were deflected by electric and magnetic fields.</li>
+              <li>Their behavior showed that they contained negatively charged particles.</li>
+              <li>Similar charge-to-mass ratios were obtained using different electrode materials.</li>
+            </ol>
+            <div class="formula-box text-xs">
+              \[ \left|\frac{e}{m_e}\right| \approx 1.759\times10^{11}\ \mathrm{C\,kg^{-1}} \]
+            </div>
+            <h4 class="text-sm font-bold text-cyan-400 pt-2">2.3 Millikan's Oil Drop Experiment</h4>
+            <p class="text-xs" style="color: var(--text-secondary);">Robert Millikan measured the elementary electric charge by observing charged oil droplets in an electric field:</p>
+            <div class="formula-box text-xs">
+              \[ e = 1.602176634\times10^{-19}\ \mathrm{C} \quad \implies \quad m_e = \frac{e}{|e/m_e|} \]
+            </div>
+          </div>
+
+          <div class="bento-card p-6 space-y-3">
+            <h3 class="text-base font-bold text-cyan-400">2.4 Discovery of the Atomic Nucleus (Rutherford)</h3>
+            <p class="text-xs" style="color: var(--text-secondary);">Rutherford's gold foil experiment involved directing alpha particles toward very thin gold foil.</p>
+            <p class="text-xs font-semibold">Observations:</p>
+            <ul class="list-disc list-inside text-xs space-y-1" style="color: var(--text-secondary);">
+              <li>Most alpha particles passed through the foil.</li>
+              <li>Some were deflected; a very small number experienced large deflections.</li>
+            </ul>
+            <p class="text-xs font-semibold">Conclusions (Disproved Plum Pudding Model):</p>
+            <ol class="list-decimal list-inside text-xs space-y-1" style="color: var(--text-secondary);">
+              <li>Most atomic volume is relatively empty.</li>
+              <li>Most atomic mass is concentrated in a small nucleus.</li>
+              <li>The nucleus has a positive electric charge.</li>
+              <li>Electrons occupy the region around the nucleus.</li>
+            </ol>
+          </div>
+
+          <div class="bento-card p-6 space-y-3">
+            <h3 class="text-base font-bold text-cyan-400">2.5 Neutron, 2.6 Stability & 2.7 Ions</h3>
+            <p class="text-xs" style="color: var(--text-secondary);"><strong>2.5 Neutron:</strong> James Chadwick discovered the neutron in 1932. It has no net electrical charge and a mass slightly greater than a proton, explaining why atoms of the same element can have different mass numbers.</p>
+            <p class="text-xs" style="color: var(--text-secondary);"><strong>2.6 Nuclear Stability:</strong> The strong nuclear interaction holds protons and neutrons together at very short distances against electrostatic repulsion. Stability depends on the proton-to-neutron ratio and nuclear binding energy. Unstable nuclei undergo radioactive decay.</p>
+            <p class="text-xs" style="color: var(--text-secondary);"><strong>2.7 Ions & Electron Transfer:</strong> The nucleus does not change during ordinary chemical ion formation.</p>
+            <div class="formula-box text-xs">
+              \[ \mathrm{Na \rightarrow Na^+ + e^-} \quad (\text{Cation}) \]
+              \[ \mathrm{Cl + e^- \rightarrow Cl^-} \quad (\text{Anion}) \]
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           UNIT 03 — DEVELOPMENT OF ATOMIC THEORY + BOHR SIMULATOR
+      ====================================================================== -->
+      <section id="unit-03" class="unit-section space-y-6 scroll-mt-20">
+        <div class="flex items-center gap-3 border-b pb-3" style="border-color: var(--border-color);">
+          <span class="px-3 py-1 rounded-lg font-mono text-sm font-bold unit-badge">UNIT 03</span>
+          <h2 class="text-2xl sm:text-3xl font-bold">DEVELOPMENT OF ATOMIC THEORY</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bento-card p-6 space-y-4">
+            <h3 class="text-lg font-bold text-cyan-400">3.1 Dalton's Atomic Theory & 3.2 Classical Laws</h3>
+            <ol class="list-decimal list-inside text-xs space-y-1" style="color: var(--text-secondary);">
+              <li>Matter consists of atoms.</li>
+              <li>Atoms of a particular element were considered identical.</li>
+              <li>Atoms of different elements have different properties.</li>
+              <li>Compounds form when atoms combine in simple whole-number ratios.</li>
+              <li>Chemical reactions rearrange atoms.</li>
+            </ol>
+            <p class="text-xs" style="color: var(--text-muted);"><strong>Limitations:</strong> Atoms contain subatomic particles; isotopes have different masses; atoms can change in nuclear reactions; some solids have non-molecular extended lattices.</p>
+
+            <div class="space-y-2 pt-2 text-xs">
+              <div class="p-3 rounded-lg border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+                <p class="font-bold text-cyan-400">Law of Conservation of Mass</p>
+                <p style="color: var(--text-secondary);">In a closed system, total mass of reactants equals total mass of products: \(2H_2 + O_2 \rightarrow 2H_2O\).</p>
+              </div>
+              <div class="p-3 rounded-lg border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+                <p class="font-bold text-cyan-400">Law of Definite Proportions</p>
+                <p style="color: var(--text-secondary);">A pure chemical compound contains its constituent elements in a fixed proportion by mass (e.g., H₂O always has H:O mass ratio ≈ 1:8).</p>
+              </div>
+              <div class="p-3 rounded-lg border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+                <p class="font-bold text-cyan-400">Law of Multiple Proportions</p>
+                <p style="color: var(--text-secondary);">CO has 16 g O per 12 g C; CO₂ has 32 g O per 12 g C (1:2 small whole-number ratio).</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bento-card p-6 space-y-4">
+            <h3 class="text-lg font-bold text-cyan-400">3.3 Thomson, 3.4 Rutherford & 3.5 Bohr's Atomic Model</h3>
+            <p class="text-xs" style="color: var(--text-secondary);">
+              • <strong>3.3 Thomson's Model:</strong> Negative electrons embedded in a positively charged sphere (plum pudding). Failed to explain alpha scattering.<br>
+              • <strong>3.4 Rutherford's Model:</strong> Dense positive nucleus surrounded by electrons. Classical physics predicted orbiting electrons should radiate energy and spiral inward; couldn't explain discrete emission spectra.
+            </p>
+            <h4 class="text-sm font-bold text-emerald-400">3.5 Bohr's Postulates & Energy Formula</h4>
+            <ol class="list-decimal list-inside text-xs space-y-1" style="color: var(--text-secondary);">
+              <li>Electrons occupy permitted stationary states without radiating energy continuously.</li>
+              <li>Energy is emitted or absorbed during transitions between allowed states (\(\Delta E = E_{\mathrm{final}} - E_{\mathrm{initial}}\)).</li>
+            </ol>
+            <div class="formula-box text-center text-xs">
+              \[ E_n = -\frac{2.1799\times10^{-18}Z^2}{n^2}\ \mathrm{J} \]
+            </div>
+            <div class="worked-example p-3.5 text-xs space-y-1">
+              <p class="font-bold text-cyan-400">Worked Example 4: Energy of Hydrogen Electron (n = 3)</p>
+              <p>\[ E_3 = -\frac{2.1799\times10^{-18}}{3^2} = -\frac{2.1799\times10^{-18}}{9} = \boxed{-2.422\times10^{-19}\ \mathrm{J}} \]</p>
+            </div>
+            <p class="text-xs" style="color: var(--text-muted);"><strong>3.6 Limitations of Bohr's Model:</strong> Only works for 1-electron species; fails for multi-electron spectra, fine structure, line intensities, and uses classical definite paths instead of quantum wavefunctions.</p>
+          </div>
+        </div>
+
+        <!-- INTERACTIVE BOHR ATOM TRANSITION ANIMATION WITH CONTROLS -->
+        <div class="bento-card p-6">
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+            <div>
+              <span class="text-xs font-mono uppercase text-cyan-400 font-bold">Interactive Physics Lab</span>
+              <h3 class="text-lg font-bold">Bohr Hydrogen Quantum Transition & Photon Simulator</h3>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="setBohrLevel(1)" class="bohr-btn px-3 py-1 text-xs font-mono rounded border hover:bg-cyan-500/20" style="border-color: var(--border-color);">n = 1</button>
+              <button onclick="setBohrLevel(2)" class="bohr-btn px-3 py-1 text-xs font-mono rounded border bg-cyan-500/20 text-cyan-400" style="border-color: var(--border-color);">n = 2</button>
+              <button onclick="setBohrLevel(3)" class="bohr-btn px-3 py-1 text-xs font-mono rounded border hover:bg-cyan-500/20" style="border-color: var(--border-color);">n = 3</button>
+              <button onclick="setBohrLevel(4)" class="bohr-btn px-3 py-1 text-xs font-mono rounded border hover:bg-cyan-500/20" style="border-color: var(--border-color);">n = 4</button>
+              <button onclick="toggleBohrAnim()" id="bohr-play-btn" class="px-3 py-1 text-xs font-semibold rounded bg-emerald-500 text-white">Pause</button>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+            <div class="md:col-span-2 flex justify-center bg-slate-950/60 rounded-xl p-4 border" style="border-color: var(--border-color);">
+              <canvas id="bohrCanvas" width="460" height="260" class="max-w-full"></canvas>
+            </div>
+            <div class="space-y-3 text-xs">
+              <div class="p-3 rounded-lg border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+                <p class="text-slate-400">Current Principal Quantum State</p>
+                <p id="bohr-state-readout" class="text-lg font-mono font-bold text-cyan-400">n = 2 (First Excited State)</p>
+              </div>
+              <div class="p-3 rounded-lg border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+                <p class="text-slate-400">Calculated State Energy (\(E_n\))</p>
+                <p id="bohr-energy-readout" class="text-base font-mono font-bold text-emerald-400">-5.450 × 10⁻¹⁹ J</p>
+              </div>
+              <div class="p-3 rounded-lg border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+                <p class="text-slate-400">Last Transition Photon</p>
+                <p id="bohr-photon-readout" class="text-xs font-mono text-amber-400">Click another n-level button above to trigger photon absorption or emission!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           UNIT 04 — QUANTUM THEORY AND ATOMIC ORBITALS
+      ====================================================================== -->
+      <section id="unit-04" class="unit-section space-y-6 scroll-mt-20">
+        <div class="flex items-center gap-3 border-b pb-3" style="border-color: var(--border-color);">
+          <span class="px-3 py-1 rounded-lg font-mono text-sm font-bold unit-badge">UNIT 04</span>
+          <h2 class="text-2xl sm:text-3xl font-bold">QUANTUM THEORY AND ATOMIC ORBITALS</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bento-card p-6 space-y-4">
+            <h3 class="text-lg font-bold text-cyan-400">4.1–4.3 Electromagnetic Radiation & Planck's Quantum Theory</h3>
+            <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">
+              Quantum theory explains discrete atomic energy levels, atomic spectra, electron wave behavior, orbital shapes, and electron configurations. Electromagnetic radiation (radio, microwave, IR, visible, UV, X-ray, gamma) travels in vacuum at the speed of light:
+            </p>
+            <div class="formula-box text-xs text-center">
+              \[ \boxed{c = \lambda\nu} \quad (c = 2.99792458\times10^8\ \mathrm{m\,s^{-1}}) \]
+              \[ \boxed{E = h\nu = \frac{hc}{\lambda}} \quad (h = 6.62607015\times10^{-34}\ \mathrm{J\,s}) \]
+            </div>
+            <div class="worked-example p-4 text-xs space-y-1">
+              <p class="font-bold text-cyan-400">Worked Example 5: Photon Energy (λ = 500 nm)</p>
+              <p>Convert to metres: \(500\ \mathrm{nm} = 5.00\times10^{-7}\ \mathrm{m}\)</p>
+              <p>\[ E = \frac{(6.626\times10^{-34})(3.00\times10^8)}{5.00\times10^{-7}} = \boxed{3.98\times10^{-19}\ \mathrm{J}} \]</p>
+              <p>Energy per mole: \(E_{\mathrm{mol}} = E N_A \approx \boxed{240\ \mathrm{kJ\,mol^{-1}}}\)</p>
+            </div>
+          </div>
+
+          <div class="bento-card p-6 space-y-4">
+            <h3 class="text-lg font-bold text-cyan-400">4.4–4.6 De Broglie Duality & Heisenberg's Uncertainty Principle</h3>
+            <div class="formula-box text-xs text-center">
+              \[ \text{De Broglie: } \boxed{\lambda = \frac{h}{p} = \frac{h}{mv}} \qquad \text{Heisenberg: } \boxed{\Delta x\,\Delta p_x \geq \frac{h}{4\pi}} \implies \boxed{\Delta x\,\Delta v_x \geq \frac{h}{4\pi m}} \]
+            </div>
+            <div class="worked-example p-3.5 text-xs space-y-1">
+              <p class="font-bold text-cyan-400">Worked Example 6: Electron Wavelength (\(v = 1.00\times10^6\ \mathrm{m\,s^{-1}}\))</p>
+              <p>\[ \lambda = \frac{6.626\times10^{-34}}{(9.109\times10^{-31})(1.00\times10^6)} = \boxed{7.27\times10^{-10}\ \mathrm{m} = 0.727\ \mathrm{nm}} \]</p>
+            </div>
+            <div class="worked-example p-3.5 text-xs space-y-1">
+              <p class="font-bold text-cyan-400">Worked Example 7: Minimum Velocity Uncertainty (\(\Delta x = 1.00\times10^{-10}\ \mathrm{m}\))</p>
+              <p>\[ \Delta v_x \geq \frac{6.626\times10^{-34}}{4\pi(9.109\times10^{-31})(1.00\times10^{-10})} \implies \boxed{\Delta v_x \geq 5.79\times10^5\ \mathrm{m\,s^{-1}}} \]</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4.7, 4.8, 4.9 -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bento-card p-6 space-y-4">
+            <h3 class="text-lg font-bold text-cyan-400">4.7 Schrödinger Equation & 4.8 Atomic Orbitals</h3>
+            <div class="formula-box text-xs text-center">
+              \[ \boxed{\hat{H}\psi = E\psi} \qquad -\frac{\hbar^2}{2m}\nabla^2\psi + V\psi = E\psi \qquad \int |\psi|^2\,d\tau = 1 \]
+            </div>
+            <ul class="text-xs space-y-1.5" style="color: var(--text-secondary);">
+              <li>• <strong>Wavefunction (\(\psi\)):</strong> Mathematical function describing the quantum state.</li>
+              <li>• <strong>Probability density (\(|\psi|^2\)):</strong> Probability per unit volume of finding the electron near a point.</li>
+              <li>• <strong>Atomic Orbital:</strong> A one-electron wavefunction describing an electron state in an atom (not a fixed circular path).</li>
+            </ul>
+            <h4 class="text-sm font-bold text-cyan-400 pt-2">4.11 Pauli Exclusion Principle & 4.12 Shell Capacity</h4>
+            <p class="text-xs" style="color: var(--text-secondary);"><strong>Pauli Exclusion Principle:</strong> No two electrons in the same atom can have the same set of all four quantum numbers. Max 2 electrons per orbital with opposite spins: <code>1s [↑↓] Allowed</code> vs <code>1s [↑↑] Not allowed</code>.</p>
+            <p class="text-xs" style="color: var(--text-secondary);"><strong>Shell Capacity:</strong> Orbitals in shell \(n = n^2\). Max electrons = \(\boxed{2n^2}\) (K=2, L=8, M=18, N=32).</p>
+          </div>
+
+          <div class="bento-card p-6 space-y-4">
+            <h3 class="text-lg font-bold text-cyan-400">4.9 The Four Quantum Numbers</h3>
+            <div class="overflow-x-auto">
+              <table class="chem-table">
+                <thead><tr><th>Quantum number</th><th>Symbol</th><th>Meaning</th><th>Allowed values</th></tr></thead>
+                <tbody>
+                  <tr><td class="font-semibold">Principal</td><td>\(n\)</td><td>Main energy level & size</td><td>1, 2, 3, ...</td></tr>
+                  <tr><td class="font-semibold">Azimuthal</td><td>\(l\)</td><td>Subshell & angular momentum</td><td>0 to \(n-1\) (0=s, 1=p, 2=d, 3=f)</td></tr>
+                  <tr><td class="font-semibold">Magnetic</td><td>\(m_l\)</td><td>Orientation (\(2l+1\) orbitals)</td><td>\(-l\) to \(+l\)</td></tr>
+                  <tr><td class="font-semibold">Spin</td><td>\(m_s\)</td><td>Electron spin component</td><td>\(+1/2, -1/2\)</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <h4 class="text-sm font-bold text-cyan-400">Orbital Nodes (\(\text{Total} = n-1,\ \text{Angular} = l,\ \text{Radial} = n-l-1\))</h4>
+            <div class="overflow-x-auto">
+              <table class="chem-table">
+                <thead><tr><th>Orbital</th><th>Total nodes</th><th>Angular</th><th>Radial</th><th>Max e⁻ in Subshell</th></tr></thead>
+                <tbody>
+                  <tr><td>1s / 2s / 3s</td><td>0 / 1 / 2</td><td>0</td><td>0 / 1 / 2</td><td>s = 2 (1 orbital)</td></tr>
+                  <tr><td>2p / 3p</td><td>1 / 2</td><td>1</td><td>0 / 1</td><td>p = 6 (3 orbitals)</td></tr>
+                  <tr><td>3d / 4f</td><td>2 / 3</td><td>2 / 3</td><td>0 / 0</td><td>d = 10 (5), f = 14 (7)</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4.10 CUSTOM HIGH-PRECISION SCIENTIFIC SVG GALLERY FOR ORBITAL SHAPES -->
+        <div class="bento-card p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-xs font-mono uppercase text-cyan-400 font-bold">4.10 Visual Atlas</span>
+              <h3 class="text-lg font-bold">3D Atomic Orbital Probability Distributions (s, p, d, f)</h3>
+            </div>
+            <span class="text-xs font-mono px-2.5 py-1 rounded bg-cyan-500/10 text-cyan-400">High-Contrast Vector Diagrams</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- s orbital SVG -->
+            <div class="p-4 rounded-xl border text-center space-y-2" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <svg viewBox="0 0 160 140" class="w-full h-32 mx-auto">
+                <defs>
+                  <radialGradient id="sOrb" cx="38%" cy="35%" r="60%">
+                    <stop offset="0%" stop-color="#67e8f9"/>
+                    <stop offset="55%" stop-color="#06b6d4"/>
+                    <stop offset="100%" stop-color="#0e7490" stop-opacity="0.25"/>
+                  </radialGradient>
+                </defs>
+                <line x1="20" y1="70" x2="140" y2="70" stroke="#64748b" stroke-dasharray="3 3"/>
+                <line x1="80" y1="15" x2="80" y2="125" stroke="#64748b" stroke-dasharray="3 3"/>
+                <circle cx="80" cy="70" r="42" fill="url(#sOrb)" stroke="#22d3ee" stroke-width="1.2"/>
+                <text x="132" y="65" fill="#94a3b8" font-size="10" font-family="monospace">x</text>
+                <text x="85" y="22" fill="#94a3b8" font-size="10" font-family="monospace">z</text>
+              </svg>
+              <p class="font-bold text-sm text-cyan-400">s Orbital (\(l = 0\))</p>
+              <p class="text-xs" style="color: var(--text-secondary);">Spherical electron probability distribution around the nucleus.</p>
+            </div>
+
+            <!-- p orbital SVG -->
+            <div class="p-4 rounded-xl border text-center space-y-2" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <svg viewBox="0 0 160 140" class="w-full h-32 mx-auto">
+                <line x1="15" y1="70" x2="145" y2="70" stroke="#64748b" stroke-dasharray="3 3"/>
+                <line x1="80" y1="12" x2="80" y2="128" stroke="#64748b" stroke-dasharray="3 3"/>
+                <!-- Two lobes along z axis -->
+                <ellipse cx="80" cy="40" rx="20" ry="27" fill="rgba(6,182,212,0.55)" stroke="#22d3ee" stroke-width="1.5"/>
+                <ellipse cx="80" cy="100" rx="20" ry="27" fill="rgba(99,102,241,0.55)" stroke="#818cf8" stroke-width="1.5"/>
+                <text x="76" y="43" fill="#fff" font-size="11" font-family="monospace">+</text>
+                <text x="76" y="103" fill="#fff" font-size="11" font-family="monospace">−</text>
+              </svg>
+              <p class="font-bold text-sm text-cyan-400">p Orbital (\(l = 1\))</p>
+              <p class="text-xs" style="color: var(--text-secondary);">Two main lobes (\(p_x, p_y, p_z\)) separated by a planar angular node.</p>
+            </div>
+
+            <!-- d orbital SVG -->
+            <div class="p-4 rounded-xl border text-center space-y-2" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <svg viewBox="0 0 160 140" class="w-full h-32 mx-auto">
+                <line x1="15" y1="70" x2="145" y2="70" stroke="#64748b" stroke-dasharray="3 3"/>
+                <line x1="80" y1="12" x2="80" y2="128" stroke="#64748b" stroke-dasharray="3 3"/>
+                <g transform="translate(80,70)">
+                  <ellipse cx="22" cy="-22" rx="24" ry="11" transform="rotate(-45 22 -22)" fill="rgba(6,182,212,0.55)" stroke="#22d3ee"/>
+                  <ellipse cx="-22" cy="22" rx="24" ry="11" transform="rotate(-45 -22 22)" fill="rgba(6,182,212,0.55)" stroke="#22d3ee"/>
+                  <ellipse cx="-22" cy="-22" rx="24" ry="11" transform="rotate(45 -22 -22)" fill="rgba(99,102,241,0.55)" stroke="#818cf8"/>
+                  <ellipse cx="22" cy="22" rx="24" ry="11" transform="rotate(45 22 22)" fill="rgba(99,102,241,0.55)" stroke="#818cf8"/>
+                </g>
+              </svg>
+              <p class="font-bold text-sm text-cyan-400">d Orbitals (\(l = 2\))</p>
+              <p class="text-xs" style="color: var(--text-secondary);">Five orbitals: four-lobed cloverleaf shapes (\(d_{xy}, d_{xz}, d_{yz}, d_{x^2-y^2}\)) & \(d_{z^2}\) torus.</p>
+            </div>
+
+            <!-- f orbital SVG -->
+            <div class="p-4 rounded-xl border text-center space-y-2" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <svg viewBox="0 0 160 140" class="w-full h-32 mx-auto">
+                <line x1="15" y1="70" x2="145" y2="70" stroke="#64748b" stroke-dasharray="3 3"/>
+                <line x1="80" y1="12" x2="80" y2="128" stroke="#64748b" stroke-dasharray="3 3"/>
+                <g transform="translate(80,70)">
+                  <ellipse cx="0" cy="-32" rx="11" ry="20" fill="rgba(16,185,129,0.5)" stroke="#34d399"/>
+                  <ellipse cx="0" cy="32" rx="11" ry="20" fill="rgba(245,158,11,0.5)" stroke="#fbbf24"/>
+                  <ellipse cx="26" cy="-16" rx="18" ry="8" transform="rotate(-30 26 -16)" fill="rgba(6,182,212,0.5)" stroke="#22d3ee"/>
+                  <ellipse cx="-26" cy="-16" rx="18" ry="8" transform="rotate(30 -26 -16)" fill="rgba(6,182,212,0.5)" stroke="#22d3ee"/>
+                  <ellipse cx="26" cy="16" rx="18" ry="8" transform="rotate(30 26 16)" fill="rgba(99,102,241,0.5)" stroke="#818cf8"/>
+                  <ellipse cx="-26" cy="16" rx="18" ry="8" transform="rotate(-30 -26 16)" fill="rgba(99,102,241,0.5)" stroke="#818cf8"/>
+                </g>
+              </svg>
+              <p class="font-bold text-sm text-cyan-400">f Orbitals (\(l = 3\))</p>
+              <p class="text-xs" style="color: var(--text-secondary);">Seven orbitals with multi-lobed complex angular shapes and three nodal planes.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           UNIT 05 — ELECTRONIC CONFIGURATIONS
+      ====================================================================== -->
+      <section id="unit-05" class="unit-section space-y-6 scroll-mt-20">
+        <div class="flex items-center gap-3 border-b pb-3" style="border-color: var(--border-color);">
+          <span class="px-3 py-1 rounded-lg font-mono text-sm font-bold unit-badge">UNIT 05</span>
+          <h2 class="text-2xl sm:text-3xl font-bold">ELECTRONIC CONFIGURATIONS</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="bento-card p-6 space-y-3">
+            <h3 class="text-base font-bold text-cyan-400">5.1–5.4 Aufbau, (n+l) Rule & Hund's Rule</h3>
+            <p class="text-xs" style="color: var(--text-secondary);"><strong>Aufbau Principle:</strong> Electrons generally occupy lowest-energy orbitals first: <code>1s → 2s → 2p → 3s → 3p → 4s → 3d → 4p → 5s → 4d → 5p → 6s → 4f → 5d → 6p → 7s</code>.</p>
+            <p class="text-xs" style="color: var(--text-secondary);"><strong>The \(n+l\) Rule:</strong> Lower \(n+l\) fills first; if equal, lower \(n\) fills first. For 4s (\(4+0=4\)) vs 3d (\(3+2=5\)), 4s fills before 3d.</p>
+            <p class="text-xs" style="color: var(--text-secondary);"><strong>Hund's Rule:</strong> Electrons occupy degenerate orbitals singly with parallel spins before pairing occurs (e.g., Nitrogen 2p):</p>
+            <pre class="p-2.5 rounded bg-slate-950 text-emerald-400 text-xs font-mono">Correct 2p:   [↑] [↑] [↑]
+Incorrect 2p: [↑↓] [↑] [ ]</pre>
+            <p class="text-xs" style="color: var(--text-secondary);"><strong>5.8 Paramagnetism vs Diamagnetism:</strong><br>• <strong>Paramagnetic:</strong> Has ≥1 unpaired electrons; attracted to magnetic field (Fe³⁺, O atom, N atom).<br>• <strong>Diamagnetic:</strong> No unpaired electrons; weakly repelled (Zn²⁺).</p>
+          </div>
+
+          <div class="bento-card p-6 space-y-3">
+            <h3 class="text-base font-bold text-cyan-400">5.5 First 20 Elements (Z = 1 to 20)</h3>
+            <div class="max-h-72 overflow-y-auto pr-1">
+              <table class="chem-table text-xs">
+                <thead><tr><th>Elem</th><th>Z</th><th>Configuration</th></tr></thead>
+                <tbody>
+                  <tr><td>H / He</td><td>1 / 2</td><td class="font-mono">1s¹ / 1s²</td></tr>
+                  <tr><td>Li / Be</td><td>3 / 4</td><td class="font-mono">1s² 2s¹ / 1s² 2s²</td></tr>
+                  <tr><td>B / C</td><td>5 / 6</td><td class="font-mono">1s² 2s² 2p¹ / 1s² 2s² 2p²</td></tr>
+                  <tr><td>N / O</td><td>7 / 8</td><td class="font-mono">1s² 2s² 2p³ / 1s² 2s² 2p⁴</td></tr>
+                  <tr><td>F / Ne</td><td>9 / 10</td><td class="font-mono">1s² 2s² 2p⁵ / 1s² 2s² 2p⁶</td></tr>
+                  <tr><td>Na / Mg</td><td>11 / 12</td><td class="font-mono">[Ne] 3s¹ / [Ne] 3s²</td></tr>
+                  <tr><td>Al / Si</td><td>13 / 14</td><td class="font-mono">[Ne] 3s² 3p¹ / [Ne] 3s² 3p²</td></tr>
+                  <tr><td>P / S</td><td>15 / 16</td><td class="font-mono">[Ne] 3s² 3p³ / [Ne] 3s² 3p⁴</td></tr>
+                  <tr><td>Cl / Ar</td><td>17 / 18</td><td class="font-mono">[Ne] 3s² 3p⁵ / [Ne] 3s² 3p⁶</td></tr>
+                  <tr><td>K / Ca</td><td>19 / 20</td><td class="font-mono">[Ar] 4s¹ / [Ar] 4s²</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="bento-card p-6 space-y-3">
+            <h3 class="text-base font-bold text-cyan-400">5.6 Transition Metals & 5.7 Ions</h3>
+            <div class="max-h-48 overflow-y-auto">
+              <table class="chem-table text-xs">
+                <thead><tr><th>Element</th><th>Configuration</th></tr></thead>
+                <tbody>
+                  <tr><td>Sc / Ti / V</td><td class="font-mono">[Ar] 3d¹4s² / 3d²4s² / 3d³4s²</td></tr>
+                  <tr class="text-amber-400 font-semibold"><td>Cr (Exception)</td><td class="font-mono">[Ar] 3d⁵ 4s¹</td></tr>
+                  <tr><td>Mn / Fe / Co / Ni</td><td class="font-mono">[Ar] 3d⁵4s² / 3d⁶4s² / 3d⁷4s² / 3d⁸4s²</td></tr>
+                  <tr class="text-amber-400 font-semibold"><td>Cu (Exception)</td><td class="font-mono">[Ar] 3d¹⁰ 4s¹</td></tr>
+                  <tr><td>Zn</td><td class="font-mono">[Ar] 3d¹⁰ 4s²</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-xs" style="color: var(--text-secondary);"><strong>5.7 Ions:</strong> Transition-metal cations remove outer \(ns\) electrons before \((n-1)d\):<br>
+            \(\mathrm{Fe}: [Ar]\,3d^6\,4s^2 \rightarrow \mathrm{Fe^{2+}}: [Ar]\,3d^6 \rightarrow \mathrm{Fe^{3+}}: [Ar]\,3d^5\).</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           UNIT 06 — ATOMIC SPECTRA
+      ====================================================================== -->
+      <section id="unit-06" class="unit-section space-y-6 scroll-mt-20">
+        <div class="flex items-center gap-3 border-b pb-3" style="border-color: var(--border-color);">
+          <span class="px-3 py-1 rounded-lg font-mono text-sm font-bold unit-badge">UNIT 06</span>
+          <h2 class="text-2xl sm:text-3xl font-bold">ATOMIC SPECTRA</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bento-card p-6 space-y-4">
+            <h3 class="text-lg font-bold text-cyan-400">6.1–6.5 Spectra Types, Rydberg Formula & Hydrogen Series</h3>
+            <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">
+              • <strong>Continuous Spectrum:</strong> Uninterrupted range of wavelengths (ideal blackbody).<br>
+              • <strong>Emission Line Spectrum:</strong> Excited atoms return to lower states emitting specific photon wavelengths (\(h\nu = E_{\mathrm{upper}} - E_{\mathrm{lower}}\)).<br>
+              • <strong>Absorption Line Spectrum:</strong> Atoms absorb specific photon energies, creating dark lines in a continuous spectrum.
+            </p>
+            <div class="formula-box text-center text-xs">
+              \[ \boxed{\frac{1}{\lambda} = R_\infty Z^2 \left(\frac{1}{n_1^2} - \frac{1}{n_2^2}\right)} \quad (R_\infty \approx 1.09737\times10^7\ \mathrm{m^{-1}},\ n_2 > n_1) \]
+            </div>
+            <table class="chem-table text-xs">
+              <thead><tr><th>Series</th><th>Final Level (\(n_1\))</th><th>Main Spectral Region</th></tr></thead>
+              <tbody>
+                <tr><td>Lyman</td><td>\(n = 1\)</td><td>Ultraviolet</td></tr>
+                <tr><td>Balmer</td><td>\(n = 2\)</td><td>Visible and near-ultraviolet</td></tr>
+                <tr><td>Paschen / Brackett / Pfund / Humphreys</td><td>\(n = 3 / 4 / 5 / 6\)</td><td>Infrared</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="bento-card p-6 space-y-4">
+            <h3 class="text-lg font-bold text-cyan-400">6.6–6.9 H-Alpha Worked Example, Ionization & Applications</h3>
+            <div class="worked-example p-4 text-xs space-y-1">
+              <p class="font-bold text-cyan-400">Worked Example 8: Wavelength of H Transition (\(n=3 \rightarrow n=2\))</p>
+              <p>\[ \frac{1}{\lambda} = 1.09737\times10^7\left(\frac{1}{2^2} - \frac{1}{3^2}\right) = 1.09737\times10^7\times\frac{5}{36} \]</p>
+              <p>\[ \lambda \approx 6.56\times10^{-7}\ \mathrm{m} \implies \boxed{\lambda \approx 656\ \mathrm{nm}\ (\text{Red H-}\alpha\text{ line})} \]</p>
+            </div>
+            <p class="text-xs" style="color: var(--text-secondary);">
+              <strong>6.8 Ionization Energy of Ground-State Hydrogen:</strong> \(\mathrm{H(g) \rightarrow H^+(g) + e^-}\) requires \(2.18\times10^{-18}\ \mathrm{J}\) per atom:
+              \[ E_{\mathrm{mol}} = (2.18\times10^{-18})(6.022\times10^{23}) \approx \boxed{1312\ \mathrm{kJ\,mol^{-1}}} \]
+            </p>
+            <p class="text-xs" style="color: var(--text-secondary);">
+              <strong>6.9 Applications:</strong> Element identification, flame emission analysis, AAS, ICP-OES, trace metal analysis, stellar composition.
+            </p>
+
+            <!-- Custom Hydrogen Energy Level Diagram SVG -->
+            <svg viewBox="0 0 400 135" class="w-full rounded-lg border bg-slate-950/70 p-2" style="border-color: var(--border-color);">
+              <line x1="40" y1="18" x2="360" y2="18" stroke="#64748b" stroke-width="1"/>
+              <text x="10" y="21" fill="#94a3b8" font-size="9" font-family="monospace">n=∞</text>
+              <line x1="40" y1="32" x2="360" y2="32" stroke="#94a3b8" stroke-width="1.2"/>
+              <text x="10" y="35" fill="#94a3b8" font-size="9" font-family="monospace">n=4</text>
+              <line x1="40" y1="50" x2="360" y2="50" stroke="#94a3b8" stroke-width="1.2"/>
+              <text x="10" y="53" fill="#94a3b8" font-size="9" font-family="monospace">n=3</text>
+              <line x1="40" y1="78" x2="360" y2="78" stroke="#38bdf8" stroke-width="1.5"/>
+              <text x="10" y="81" fill="#38bdf8" font-size="9" font-family="monospace">n=2</text>
+              <line x1="40" y1="120" x2="360" y2="120" stroke="#a855f7" stroke-width="1.8"/>
+              <text x="10" y="123" fill="#a855f7" font-size="9" font-family="monospace">n=1</text>
+              <!-- Lyman arrows -->
+              <line x1="90" y1="78" x2="90" y2="118" stroke="#a855f7" stroke-width="1.5"/>
+              <line x1="115" y1="50" x2="115" y2="118" stroke="#a855f7" stroke-width="1.5"/>
+              <text x="78" y="131" fill="#c084fc" font-size="9" font-family="monospace">Lyman (UV)</text>
+              <!-- Balmer arrows -->
+              <line x1="210" y1="50" x2="210" y2="76" stroke="#ef4444" stroke-width="2"/>
+              <line x1="235" y1="32" x2="235" y2="76" stroke="#06b6d4" stroke-width="2"/>
+              <text x="190" y="92" fill="#38bdf8" font-size="9" font-family="monospace">Balmer (656nm Hα)</text>
+              <!-- Paschen -->
+              <line x1="320" y1="32" x2="320" y2="48" stroke="#f59e0b" stroke-width="1.5"/>
+              <text x="295" y="63" fill="#fbbf24" font-size="9" font-family="monospace">Paschen (IR)</text>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           UNIT 07 — CHEMICAL BONDING AND INTERMOLECULAR FORCES
+      ====================================================================== -->
+      <section id="unit-07" class="unit-section space-y-6 scroll-mt-20">
+        <div class="flex items-center gap-3 border-b pb-3" style="border-color: var(--border-color);">
+          <span class="px-3 py-1 rounded-lg font-mono text-sm font-bold unit-badge">UNIT 07</span>
+          <h2 class="text-2xl sm:text-3xl font-bold">CHEMICAL BONDING AND INTERMOLECULAR FORCES</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="bento-card p-6 space-y-3">
+            <h3 class="text-base font-bold text-cyan-400">7.1–7.7 Covalent Bonds, Polarity & Dipole Moment</h3>
+            <p class="text-xs" style="color: var(--text-secondary);">Higher bond order means a shorter and stronger bond: <code>C–C (154 pm) > C=C (134 pm) > C≡C (120 pm)</code>.</p>
+            <table class="chem-table text-xs">
+              <thead><tr><th>\(\Delta\chi = |\chi_A - \chi_B|\)</th><th>Approximate Description</th></tr></thead>
+              <tbody>
+                <tr><td>0–0.4</td><td>Mainly nonpolar covalent</td></tr>
+                <tr><td>0.5–1.7</td><td>Mainly polar covalent (\(H^{\delta+}-Cl^{\delta-}\))</td></tr>
+                <tr><td>Above 1.7</td><td>Often strongly ionic</td></tr>
+              </tbody>
+            </table>
+            <div class="formula-box text-xs text-center">
+              \[ \boxed{\mu = qr} \quad (1\ \mathrm{D} = 3.33564\times10^{-30}\ \mathrm{C\,m}) \]
+            </div>
+            <p class="text-xs" style="color: var(--text-secondary);"><strong>Molecular Polarity:</strong> H₂O and NH₃ are polar (dipoles do not cancel); CO₂ (linear) and CCl₄ (tetrahedral) are nonpolar because symmetrical bond dipoles cancel.</p>
+          </div>
+
+          <div class="bento-card p-6 space-y-3">
+            <h3 class="text-base font-bold text-cyan-400">7.8–7.12 Ionic, Coulomb's Law, Fajans' Rules & Metallic</h3>
+            <p class="text-xs" style="color: var(--text-secondary);"><strong>Ionic Lattice:</strong> In rock-salt NaCl, each Na⁺ has 6 nearest Cl⁻ neighbors and vice versa (6:6 coordination).</p>
+            <div class="formula-box text-xs text-center">
+              \[ \boxed{F = \frac{1}{4\pi\varepsilon_0}\frac{|q_1 q_2|}{r^2}} \]
+            </div>
+            <p class="text-xs" style="color: var(--text-secondary);"><strong>7.11 Fajans' Rules (Polarization & Covalent Character):</strong> Covalent character increases when the <strong>cation is small and highly charged</strong> (e.g., Al³⁺ in AlCl₃) and the <strong>anion is large and highly polarizable</strong> (e.g., LiI > LiF).</p>
+            <p class="text-xs" style="color: var(--text-secondary);"><strong>7.12 Metallic Bonding:</strong> Delocalized electrons explain electrical/thermal conductivity, malleability, ductility, and luster.</p>
+          </div>
+
+          <div class="bento-card p-6 space-y-3">
+            <h3 class="text-base font-bold text-cyan-400">7.13–7.21 Intermolecular Forces (IMFs)</h3>
+            <table class="chem-table text-xs">
+              <thead><tr><th>Interaction</th><th>Particles</th><th>Example</th></tr></thead>
+              <tbody>
+                <tr><td>London dispersion</td><td>All atoms/molecules</td><td>I₂–I₂</td></tr>
+                <tr><td>Dipole–dipole</td><td>Polar molecules</td><td>HCl–HCl</td></tr>
+                <tr><td>Hydrogen bonding</td><td>H bonded to N, O, F</td><td>H₂O–H₂O</td></tr>
+                <tr><td>Ion–dipole</td><td>Ion + polar molecule</td><td>Na⁺–H₂O</td></tr>
+                <tr><td>Dipole–induced</td><td>Polar + polarizable</td><td>H₂O–O₂</td></tr>
+              </tbody>
+            </table>
+            <p class="text-xs" style="color: var(--text-secondary);">Stronger IMFs increase boiling point, viscosity, and surface tension, and lower vapor pressure. H₂O has a much higher boiling point than H₂S due to its extensive H-bonding network.</p>
+          </div>
+        </div>
+
+        <div class="bento-card p-6">
+          <h3 class="text-base font-bold text-cyan-400 mb-2">7.22 Bond Enthalpy Calculations & Worked Example 9</h3>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+            <div class="formula-box text-center text-sm">
+              \[ \boxed{\Delta H_{\mathrm{rxn}} \approx \sum D_{\mathrm{bonds\ broken}} - \sum D_{\mathrm{bonds\ formed}}} \]
+            </div>
+            <div class="worked-example p-4 text-xs space-y-1">
+              <p class="font-bold text-cyan-400">Worked Example 9: Methane Combustion (\(\mathrm{CH_4 + 2O_2 \rightarrow CO_2 + 2H_2O(g)}\))</p>
+              <p style="color: var(--text-secondary);">Given (kJ mol⁻¹): C–H = 413, O=O = 498, C=O (in CO₂) = 799, O–H = 463.</p>
+              <p>• Bonds broken: \(4(413) + 2(498) = 2648\ \mathrm{kJ\,mol^{-1}}\)</p>
+              <p>• Bonds formed: \(2(799) + 4(463) = 3450\ \mathrm{kJ\,mol^{-1}}\)</p>
+              <p>\[ \Delta H \approx 2648 - 3450 = \boxed{-802\ \mathrm{kJ\,mol^{-1}}\ (\text{Exothermic})} \]</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           UNIT 08 — LEWIS THEORY AND LEWIS STRUCTURES
+      ====================================================================== -->
+      <section id="unit-08" class="unit-section space-y-6 scroll-mt-20">
+        <div class="flex items-center gap-3 border-b pb-3" style="border-color: var(--border-color);">
+          <span class="px-3 py-1 rounded-lg font-mono text-sm font-bold unit-badge">UNIT 08</span>
+          <h2 class="text-2xl sm:text-3xl font-bold">LEWIS THEORY AND LEWIS STRUCTURES</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bento-card p-6 space-y-3">
+            <h3 class="text-lg font-bold text-cyan-400">8.1–8.7 Octet Rule & Drawing Lewis Structures</h3>
+            <ol class="list-decimal list-inside text-xs space-y-1" style="color: var(--text-secondary);">
+              <li>Calculate total valence electrons (add for negative charge, subtract for positive charge).</li>
+              <li>Choose central atom (usually less electronegative, never H).</li>
+              <li>Connect terminal atoms with single bonds and complete terminal octets.</li>
+              <li>Place remaining electrons on central atom; form multiple bonds if needed.</li>
+            </ol>
+            <div class="grid grid-cols-3 gap-2 pt-2 text-center font-mono text-xs">
+              <div class="p-3 rounded border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+                <p class="text-cyan-400 font-bold">H₂O (8 e⁻)</p>
+                <pre class="mt-1">  ..
+H–O–H
+  ..</pre>
+              </div>
+              <div class="p-3 rounded border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+                <p class="text-cyan-400 font-bold">CO₂ (16 e⁻)</p>
+                <pre class="mt-2">:O=C=O:</pre>
+              </div>
+              <div class="p-3 rounded border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+                <p class="text-cyan-400 font-bold">NH₃ (8 e⁻)</p>
+                <pre class="mt-1">  ..
+H–N–H
+  |
+  H</pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="bento-card p-6 space-y-3">
+            <h3 class="text-lg font-bold text-cyan-400">8.8 Formal Charge, 8.9 Resonance & 8.10 Octet Exceptions</h3>
+            <div class="formula-box text-center text-xs">
+              \[ \boxed{FC = V - N - \frac{B}{2} = V - N - \text{Bond lines}} \]
+            </div>
+            <div class="worked-example p-3 text-xs space-y-1">
+              <p class="font-bold text-cyan-400">Worked Example 10: Formal Charge of \(\mathrm{NH_4^+}\)</p>
+              <p>\(FC(\mathrm{N}) = 5 - 0 - 4 = +1\), \(FC(\mathrm{H}) = 1 - 0 - 1 = 0\). Total charge = \(\boxed{+1}\).</p>
+            </div>
+            <p class="text-xs" style="color: var(--text-secondary);">
+              <strong>8.9 Resonance:</strong> Delocalized electrons across multiple valid structures (O₃, CO₃²⁻, NO₃⁻, C₆H₆). For \(\mathrm{CO_3^{2-}}\), average bond order = \(\frac{2+1+1}{3} = \boxed{1.33}\).<br>
+              <strong>8.10 Exceptions:</strong> Incomplete octet (BF₃, BeCl₂), Odd-electron radicals (NO, NO₂), Hypervalent period ≥3 species (PCl₅, SF₆, XeF₄).<br>
+              <strong>8.11 Coordinate Covalent Bond:</strong> Both shared electrons come from one atom (\(\mathrm{NH_3 + H^+ \rightarrow NH_4^+}\)).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           UNIT 09 & UNIT 10 — VALENCE BOND THEORY & MOLECULAR ORBITAL THEORY
+      ====================================================================== -->
+      <section id="unit-09" class="unit-section space-y-6 scroll-mt-20">
+        <div class="flex items-center gap-3 border-b pb-3" style="border-color: var(--border-color);">
+          <span class="px-3 py-1 rounded-lg font-mono text-sm font-bold unit-badge">UNIT 09 & 10</span>
+          <h2 class="text-2xl sm:text-3xl font-bold">VALENCE BOND THEORY (VBT) & MOLECULAR ORBITAL THEORY (MOT)</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Unit 09 -->
+          <div class="bento-card p-6 space-y-4">
+            <h3 class="text-lg font-bold text-cyan-400">Unit 09: Valence Bond Theory (σ & π Bonds)</h3>
+            <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">
+              VBT explains covalent bonding via overlap of atomic orbitals.
+              <br>• <strong>Sigma (σ) bond:</strong> Electron density concentrated along the internuclear axis with cylindrical symmetry (s–s, s–p, end-on p–p, or hybrid overlap).
+              <br>• <strong>Pi (π) bond:</strong> Sideways overlap of parallel p orbitals with electron density above and below the nodal internuclear axis. Restricted rotation around C=C double bonds occurs because rotating breaks sideways π overlap.
+            </p>
+            <table class="chem-table text-xs">
+              <thead><tr><th>Bond Type</th><th>Sigma (σ) bonds</th><th>Pi (π) bonds</th><th>Example</th></tr></thead>
+              <tbody>
+                <tr><td>Single</td><td>1</td><td>0</td><td>Ethane (\(\mathrm{C_2H_6}\))</td></tr>
+                <tr><td>Double</td><td>1</td><td>1</td><td>Ethene (\(\mathrm{C_2H_4}\))</td></tr>
+                <tr><td>Triple</td><td>1</td><td>2</td><td>Ethyne (\(\mathrm{C_2H_2}\))</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Unit 10 -->
+          <div id="unit-10" class="bento-card p-6 space-y-4 scroll-mt-20">
+            <h3 class="text-lg font-bold text-cyan-400">Unit 10: Molecular Orbital Theory (LCAO & Bond Order)</h3>
+            <div class="formula-box text-center text-xs">
+              \[ \psi_+ = \psi_A + \psi_B\ (\text{Bonding }\sigma,\pi) \qquad \psi_- = \psi_A - \psi_B\ (\text{Antibonding }\sigma^*,\pi^*) \]
+              \[ \boxed{\text{Bond Order (BO)} = \frac{N_b - N_a}{2}} \]
+            </div>
+            <p class="text-xs" style="color: var(--text-secondary);">
+              • <strong>B₂, C₂, N₂ ordering (2s–2p mixing):</strong> \(\sigma_{2s} < \sigma^*_{2s} < \pi_{2p} < \sigma_{2p} < \pi^*_{2p} < \sigma^*_{2p}\)<br>
+              • <strong>O₂, F₂ ordering:</strong> \(\sigma_{2s} < \sigma^*_{2s} < \sigma_{2p} < \pi_{2p} < \pi^*_{2p} < \sigma^*_{2p}\)
+            </p>
+            <div class="worked-example p-3.5 text-xs space-y-1">
+              <p class="font-bold text-cyan-400">Worked Example 11: Bond Order of \(\mathrm{O_2^+}\) & Paramagnetism of \(\mathrm{O_2}\)</p>
+              <p>• \(\mathrm{O_2}\) has 12 valence e⁻: \((\sigma_{2s})^2(\sigma^*_{2s})^2(\sigma_{2p})^2(\pi_{2p})^4(\pi^*_{2p})^2 \implies BO = \frac{8-4}{2} = 2\). Two unpaired electrons in degenerate \(\pi^*_{2p}\) orbitals make <strong>O₂ paramagnetic</strong>!</p>
+              <p>• Removing one \(\pi^*\) electron gives \(\mathrm{O_2^+}\): \(N_b=8, N_a=3 \implies \boxed{BO = \frac{8-3}{2} = 2.5}\).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- MO Table + SVG Diagram -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bento-card p-6">
+            <h4 class="text-sm font-bold text-cyan-400 mb-3">10.12 Bond Order & Magnetic Behavior of Diatomic Species</h4>
+            <div class="overflow-x-auto">
+              <table class="chem-table text-xs">
+                <thead><tr><th>Species</th><th>Bond Order</th><th>Magnetic Behavior</th></tr></thead>
+                <tbody>
+                  <tr><td>\(\mathrm{H_2}\) / \(\mathrm{H_2^+}\) / \(\mathrm{He_2}\)</td><td>1 / 0.5 / 0</td><td>Diamagnetic / Paramagnetic / Diamagnetic</td></tr>
+                  <tr><td>\(\mathrm{B_2}\) / \(\mathrm{C_2}\) / \(\mathrm{N_2}\)</td><td>1 / 2 / 3</td><td>Paramagnetic / Diamagnetic / Diamagnetic</td></tr>
+                  <tr><td>\(\mathrm{O_2}\) / \(\mathrm{O_2^+}\)</td><td>2 / 2.5</td><td>Paramagnetic / Paramagnetic</td></tr>
+                  <tr><td>\(\mathrm{O_2^-}\) / \(\mathrm{O_2^{2-}}\)</td><td>1.5 / 1</td><td>Paramagnetic / Diamagnetic</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="bento-card p-6 flex flex-col justify-between">
+            <h4 class="text-sm font-bold text-cyan-400 mb-2">Molecular Orbital Diagram for \(\mathrm{O_2}\) (Showing Unpaired \(\pi^*_{2p}\) Spin)</h4>
+            <svg viewBox="0 0 380 165" class="w-full rounded-lg border bg-slate-950/70 p-2" style="border-color: var(--border-color);">
+              <!-- Left and Right 2p AO -->
+              <line x1="30" y1="75" x2="85" y2="75" stroke="#94a3b8" stroke-width="1.5"/>
+              <text x="32" y="68" fill="#94a3b8" font-size="9" font-family="monospace">O (2p⁴)</text>
+              <line x1="295" y1="75" x2="350" y2="75" stroke="#94a3b8" stroke-width="1.5"/>
+              <text x="300" y="68" fill="#94a3b8" font-size="9" font-family="monospace">O (2p⁴)</text>
+              <!-- Center MOs -->
+              <line x1="165" y1="22" x2="215" y2="22" stroke="#f43f5e" stroke-width="1.5"/>
+              <text x="222" y="25" fill="#f43f5e" font-size="9" font-family="monospace">σ*2p</text>
+              <line x1="145" y1="52" x2="185" y2="52" stroke="#fbbf24" stroke-width="2"/>
+              <line x1="195" y1="52" x2="235" y2="52" stroke="#fbbf24" stroke-width="2"/>
+              <text x="160" y="48" fill="#fbbf24" font-size="11" font-family="monospace">↑</text>
+              <text x="210" y="48" fill="#fbbf24" font-size="11" font-family="monospace">↑</text>
+              <text x="242" y="55" fill="#fbbf24" font-size="9" font-family="monospace">π*2p (Paramagnetic!)</text>
+              <line x1="145" y1="98" x2="185" y2="98" stroke="#38bdf8" stroke-width="2"/>
+              <line x1="195" y1="98" x2="235" y2="98" stroke="#38bdf8" stroke-width="2"/>
+              <text x="157" y="94" fill="#38bdf8" font-size="10" font-family="monospace">↑↓</text>
+              <text x="207" y="94" fill="#38bdf8" font-size="10" font-family="monospace">↑↓</text>
+              <text x="242" y="101" fill="#38bdf8" font-size="9" font-family="monospace">π2p</text>
+              <line x1="165" y1="132" x2="215" y2="132" stroke="#10b981" stroke-width="2"/>
+              <text x="182" y="128" fill="#10b981" font-size="10" font-family="monospace">↑↓</text>
+              <text x="222" y="135" fill="#10b981" font-size="9" font-family="monospace">σ2p</text>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           UNIT 11 & UNIT 12 — VSEPR THEORY, SHAPES & HYBRIDISATION + 3D CANVAS
+      ====================================================================== -->
+      <section id="unit-11" class="unit-section space-y-6 scroll-mt-20">
+        <div class="flex items-center gap-3 border-b pb-3" style="border-color: var(--border-color);">
+          <span class="px-3 py-1 rounded-lg font-mono text-sm font-bold unit-badge">UNIT 11 & 12</span>
+          <h2 class="text-2xl sm:text-3xl font-bold">VSEPR THEORY, MOLECULAR SHAPES & HYBRIDISATION</h2>
+        </div>
+
+        <!-- Complete VSEPR Reference Table -->
+        <div class="bento-card p-6 space-y-4">
+          <div class="flex flex-wrap justify-between items-center gap-2">
+            <h3 class="text-lg font-bold text-cyan-400">11.1–11.19 Complete VSEPR & Unit 12 Hybridisation Master Table</h3>
+            <span class="text-xs font-mono px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-400">Repulsion Order: LP–LP > LP–BP > BP–BP</span>
+          </div>
+          <p class="text-xs" style="color: var(--text-secondary);">
+            Because lone pairs occupy more angular space near the central atom: \(\mathrm{CH_4\ (AX_4)} = 109.5^\circ > \mathrm{NH_3\ (AX_3E)} \approx 107^\circ > \mathrm{H_2O\ (AX_2E_2)} \approx 104.5^\circ\). In 5-domain trigonal bipyramidal systems, lone pairs occupy <strong>equatorial</strong> positions to minimize 90° interactions.
+          </p>
+          <div class="overflow-x-auto">
+            <table class="chem-table text-xs">
+              <thead>
+                <tr><th>AXE</th><th>Domains</th><th>Intro Hybridisation</th><th>Electron-Domain Geometry</th><th>Molecular Shape</th><th>Ideal Angles</th><th>Examples</th></tr>
+              </thead>
+              <tbody>
+                <tr><td class="font-mono font-bold text-cyan-400">AX₂</td><td>2</td><td class="font-mono">sp</td><td>Linear</td><td>Linear</td><td>180°</td><td>CO₂, BeCl₂, C₂H₂</td></tr>
+                <tr><td class="font-mono font-bold text-cyan-400">AX₃</td><td>3</td><td class="font-mono">sp²</td><td>Trigonal planar</td><td>Trigonal planar</td><td>120°</td><td>BF₃, C₂H₄</td></tr>
+                <tr><td class="font-mono font-bold text-cyan-400">AX₂E</td><td>3</td><td class="font-mono">sp²</td><td>Trigonal planar</td><td>Bent</td><td>&lt;120°</td><td>SO₂</td></tr>
+                <tr><td class="font-mono font-bold text-cyan-400">AX₄</td><td>4</td><td class="font-mono">sp³</td><td>Tetrahedral</td><td>Tetrahedral</td><td>109.5°</td><td>CH₄, NH₄⁺</td></tr>
+                <tr><td class="font-mono font-bold text-cyan-400">AX₃E</td><td>4</td><td class="font-mono">sp³</td><td>Tetrahedral</td><td>Trigonal pyramidal</td><td>≈107°</td><td>NH₃</td></tr>
+                <tr><td class="font-mono font-bold text-cyan-400">AX₂E₂</td><td>4</td><td class="font-mono">sp³</td><td>Tetrahedral</td><td>Bent</td><td>≈104.5°</td><td>H₂O</td></tr>
+                <tr><td class="font-mono font-bold text-cyan-400">AX₅</td><td>5</td><td class="font-mono">sp³d</td><td>Trigonal bipyramidal</td><td>Trigonal bipyramidal</td><td>90°, 120°, 180°</td><td>PCl₅</td></tr>
+                <tr><td class="font-mono font-bold text-cyan-400">AX₄E</td><td>5</td><td class="font-mono">sp³d</td><td>Trigonal bipyramidal</td><td>Seesaw</td><td>&lt;90°, &lt;120°</td><td>SF₄</td></tr>
+                <tr><td class="font-mono font-bold text-cyan-400">AX₃E₂</td><td>5</td><td class="font-mono">sp³d</td><td>Trigonal bipyramidal</td><td>T-shaped</td><td>&lt;90°</td><td>ClF₃</td></tr>
+                <tr><td class="font-mono font-bold text-cyan-400">AX₂E₃</td><td>5</td><td class="font-mono">sp³d</td><td>Trigonal bipyramidal</td><td>Linear</td><td>180°</td><td>XeF₂</td></tr>
+                <tr><td class="font-mono font-bold text-cyan-400">AX₆</td><td>6</td><td class="font-mono">sp³d²</td><td>Octahedral</td><td>Octahedral</td><td>90°, 180°</td><td>SF₆</td></tr>
+                <tr><td class="font-mono font-bold text-cyan-400">AX₅E</td><td>6</td><td class="font-mono">sp³d²</td><td>Octahedral</td><td>Square pyramidal</td><td>&lt;90°</td><td>BrF₅</td></tr>
+                <tr><td class="font-mono font-bold text-cyan-400">AX₄E₂</td><td>6</td><td class="font-mono">sp³d²</td><td>Octahedral</td><td>Square planar</td><td>90°</td><td>XeF₄</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- INTERACTIVE VSEPR 3D MOLECULAR GEOMETRY EXPLORER (Replacing static text from notes) -->
+        <div id="unit-12" class="bento-card p-6 scroll-mt-20">
+          <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+            <div>
+              <span class="text-xs font-mono uppercase text-cyan-400 font-bold">Interactive 3D VSEPR & Hybridisation Studio</span>
+              <h3 class="text-lg font-bold">Select Bonded Atoms (X) and Lone Pairs (E) — Drag Canvas to Rotate</h3>
+            </div>
+            <div class="flex flex-wrap items-center gap-4 text-xs">
+              <div class="flex items-center gap-1.5">
+                <span class="font-semibold">Bonded Atoms (X):</span>
+                <button onclick="updateVSEPR(2, null)" class="vsepr-x px-2.5 py-1 rounded border font-mono" data-x="2">2</button>
+                <button onclick="updateVSEPR(3, null)" class="vsepr-x px-2.5 py-1 rounded border font-mono" data-x="3">3</button>
+                <button onclick="updateVSEPR(4, null)" class="vsepr-x px-2.5 py-1 rounded border font-mono" data-x="4">4</button>
+                <button onclick="updateVSEPR(5, null)" class="vsepr-x px-2.5 py-1 rounded border font-mono" data-x="5">5</button>
+                <button onclick="updateVSEPR(6, null)" class="vsepr-x px-2.5 py-1 rounded border font-mono" data-x="6">6</button>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="font-semibold">Lone Pairs (E):</span>
+                <button onclick="updateVSEPR(null, 0)" class="vsepr-e px-2.5 py-1 rounded border font-mono" data-e="0">0</button>
+                <button onclick="updateVSEPR(null, 1)" class="vsepr-e px-2.5 py-1 rounded border font-mono" data-e="1">1</button>
+                <button onclick="updateVSEPR(null, 2)" class="vsepr-e px-2.5 py-1 rounded border font-mono" data-e="2">2</button>
+                <button onclick="updateVSEPR(null, 3)" class="vsepr-e px-2.5 py-1 rounded border font-mono" data-e="3">3</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+            <div class="md:col-span-2 flex justify-center bg-slate-950/60 rounded-xl p-4 border relative" style="border-color: var(--border-color);">
+              <canvas id="vseprCanvas" width="460" height="270" class="cursor-grab active:cursor-grabbing max-w-full"></canvas>
+              <div class="absolute bottom-3 left-4 flex gap-4 text-[11px] font-mono">
+                <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-cyan-400 inline-block"></span> Bonded Atom (X)</span>
+                <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-400 inline-block"></span> Lone Pair (E)</span>
+              </div>
+            </div>
+            <div class="space-y-3 text-xs">
+              <div class="p-3.5 rounded-lg border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+                <p class="text-slate-400">AXE Notation & Hybridisation</p>
+                <p id="vsepr-axe" class="text-xl font-mono font-bold text-cyan-400">AX₂E₂ • sp³</p>
+              </div>
+              <div class="p-3.5 rounded-lg border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+                <p class="text-slate-400">Electron-Domain vs Molecular Geometry</p>
+                <p id="vsepr-geom" class="text-sm font-bold text-emerald-400">Electron: Tetrahedral | Shape: Bent</p>
+              </div>
+              <div class="p-3.5 rounded-lg border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+                <p class="text-slate-400">Bond Angles & Prototype Example</p>
+                <p id="vsepr-example" class="text-xs font-mono text-amber-400">≈104.5° • Example: H₂O</p>
+              </div>
+              <div class="worked-example p-3 text-xs">
+                <p class="font-bold text-cyan-400">12.9 σ and π Counting:</p>
+                <p>• \(\mathrm{C_2H_6}\): 7 σ, 0 π<br>• \(\mathrm{C_2H_4}\): 5 σ, 1 π<br>• \(\mathrm{C_2H_2}\): 3 σ, 2 π</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           UNIT 13 & UNIT 14 — SIZE/ENERGY FACTORS & BORN-HABER CYCLE
+      ====================================================================== -->
+      <section id="unit-13" class="unit-section space-y-6 scroll-mt-20">
+        <div class="flex items-center gap-3 border-b pb-3" style="border-color: var(--border-color);">
+          <span class="px-3 py-1 rounded-lg font-mono text-sm font-bold unit-badge">UNIT 13 & 14</span>
+          <h2 class="text-2xl sm:text-3xl font-bold">SIZE AND ENERGY FACTORS & BORN–HABER CYCLE</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bento-card p-6 space-y-4">
+            <h3 class="text-lg font-bold text-cyan-400">13.1–13.18 Periodic Size & Energy Trends</h3>
+            <div class="formula-box text-xs text-center">
+              \[ \boxed{Z_{\mathrm{eff}} = Z - S} \qquad \text{Penetration: } s > p > d > f \qquad \boxed{\Delta G = \Delta H - T\Delta S} \]
+            </div>
+            <p class="text-xs leading-relaxed" style="color: var(--text-secondary);">
+              • <strong>Isoelectronic Series (10 e⁻):</strong> \(\mathrm{N^{3-} > O^{2-} > F^- > Ne > Na^+ > Mg^{2+} > Al^{3+}}\) (size decreases as nuclear charge \(Z\) increases).<br>
+              • <strong>IE₁ Exceptions:</strong> \(\mathrm{B < Be}\) (2p electron in B is higher energy than filled 2s² in Be); \(\mathrm{O < N}\) (paired 2p⁴ electron repulsion in O vs half-filled 2p³ in N).<br>
+              • <strong>Electron Affinity:</strong> Cl has a more exothermic first electron-gain enthalpy than F due to compact 2p electron–electron repulsion in F.
+            </p>
+            <table class="chem-table text-xs">
+              <thead><tr><th>Property</th><th>Across a Period (L → R)</th><th>Down a Group (Top → Bottom)</th></tr></thead>
+              <tbody>
+                <tr><td>Atomic radius</td><td>Decreases</td><td>Increases (\(\mathrm{Li < Na < K < Rb}\))</td></tr>
+                <tr><td>First ionization energy</td><td>Increases</td><td>Decreases</td></tr>
+                <tr><td>Electronegativity & \(Z_{\mathrm{eff}}\)</td><td>Increases</td><td>Decreases (EN)</td></tr>
+                <tr><td>Metallic character</td><td>Decreases</td><td>Increases</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div id="unit-14" class="bento-card p-6 space-y-4 scroll-mt-20">
+            <h3 class="text-lg font-bold text-cyan-400">Unit 14: Born–Haber Cycle & Hess's Law (\(\Delta H_{\mathrm{overall}} = \sum \Delta H_{\mathrm{steps}}\))</h3>
+            <div class="formula-box text-xs text-center">
+              \[ \boxed{\Delta H_{\mathrm{latt,form}} = \Delta H_f^\circ - \Delta H_{\mathrm{atom,Na}} - IE_1 - \frac{1}{2}D_{\mathrm{Cl-Cl}} - \Delta H_{\mathrm{eg,Cl}}} \]
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div class="worked-example p-3 space-y-1">
+                <p class="font-bold text-cyan-400">Worked Example 14: NaCl Lattice Enthalpy</p>
+                <p style="color: var(--text-secondary);">\(\Delta H_f^\circ = -411\), \(\Delta H_{\mathrm{atom,Na}} = +108\), \(IE_1 = +496\), \(\frac{1}{2}D_{\mathrm{Cl_2}} = +121\), \(\Delta H_{\mathrm{eg,Cl}} = -349\ \mathrm{kJ\,mol^{-1}}\).</p>
+                <p>\[ -411 = (108 + 496 + 121 - 349) + U \]</p>
+                <p>\[ -411 = 376 + U \implies \boxed{U = -787\ \mathrm{kJ\,mol^{-1}}} \]</p>
+              </div>
+              <div class="worked-example p-3 space-y-1">
+                <p class="font-bold text-cyan-400">Worked Example 15: MgO Lattice Enthalpy</p>
+                <p style="color: var(--text-secondary);">\(\Delta H_f^\circ = -602\), Atom Mg = +148, \(IE_1 = +738\), \(IE_2 = +1451\), Atom O = +249, \(EA_1 = -141\), \(EA_2 = +744\).</p>
+                <p>\[ -602 = 3189 + U \]</p>
+                <p>\[ \boxed{U = -3791\ \mathrm{kJ\,mol^{-1}}} \]</p>
+              </div>
+            </div>
+
+            <!-- Custom Born-Haber Cycle Vector Diagram -->
+            <svg viewBox="0 0 420 140" class="w-full rounded-lg border bg-slate-950/70 p-2" style="border-color: var(--border-color);">
+              <text x="15" y="24" fill="#38bdf8" font-size="9.5" font-family="monospace">Na⁺(g) + e⁻ + Cl(g) [725 kJ]</text>
+              <line x1="15" y1="28" x2="180" y2="28" stroke="#38bdf8" stroke-width="1.5"/>
+              <text x="220" y="45" fill="#10b981" font-size="9.5" font-family="monospace">Na⁺(g) + Cl⁻(g) (+376 kJ)</text>
+              <line x1="215" y1="50" x2="380" y2="50" stroke="#10b981" stroke-width="1.5"/>
+              <text x="15" y="85" fill="#94a3b8" font-size="9.5" font-family="monospace">Na(s) + ½Cl₂(g) [0 kJ Std State]</text>
+              <line x1="15" y1="90" x2="185" y2="90" stroke="#94a3b8" stroke-width="1.5"/>
+              <text x="175" y="130" fill="#fbbf24" font-size="10" font-weight="bold" font-family="monospace">NaCl(s) [ΔHf° = -411 kJ mol⁻¹]</text>
+              <line x1="165" y1="118" x2="380" y2="118" stroke="#fbbf24" stroke-width="2"/>
+              <!-- Arrows -->
+              <line x1="90" y1="88" x2="90" y2="32" stroke="#38bdf8" stroke-width="1.5"/>
+              <line x1="320" y1="52" x2="320" y2="115" stroke="#f43f5e" stroke-width="2"/>
+              <text x="328" y="88" fill="#f43f5e" font-size="9.5" font-family="monospace">U = -787 kJ</text>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           UNIT 15 & UNIT 17 — REDOX REACTIONS & BALANCING EQUATIONS
+      ====================================================================== -->
+      <section id="unit-15" class="unit-section space-y-6 scroll-mt-20">
+        <div class="flex items-center gap-3 border-b pb-3" style="border-color: var(--border-color);">
+          <span class="px-3 py-1 rounded-lg font-mono text-sm font-bold unit-badge">UNIT 15 & 17</span>
+          <h2 class="text-2xl sm:text-3xl font-bold">OXIDATION–REDUCTION & BALANCING CHEMICAL EQUATIONS</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bento-card p-6 space-y-3">
+            <h3 class="text-lg font-bold text-cyan-400">15.1–15.15 Oxidation Numbers & Redox Types</h3>
+            <p class="text-xs" style="color: var(--text-secondary);">
+              • <strong>OIL RIG / LEO GER:</strong> Oxidation Is Loss of e⁻ (increase in ON); Reduction Is Gain of e⁻ (decrease in ON).<br>
+              • <strong>Oxidizing Agent:</strong> Causes oxidation and is itself reduced (\(\mathrm{O_2, Cl_2, KMnO_4, K_2Cr_2O_7}\)).<br>
+              • <strong>Reducing Agent:</strong> Causes reduction and is itself oxidized (\(\mathrm{Zn, Fe^{2+}, CO, H_2, I^-}\)).
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+              <div class="worked-example p-3">
+                <p class="font-bold text-cyan-400">Ex 16: Mn in \(\mathrm{KMnO_4}\)</p>
+                <p>\(+1 + x + 4(-2) = 0 \implies \boxed{x = +7}\)</p>
+              </div>
+              <div class="worked-example p-3">
+                <p class="font-bold text-cyan-400">Ex 17: Cr in \(\mathrm{Cr_2O_7^{2-}}\) & S in \(\mathrm{H_2SO_4}\)</p>
+                <p>\(2x + 7(-2) = -2 \implies \boxed{x = +6}\)<br>\(\mathrm{H_2SO_4}: 2(+1)+x-8=0 \implies \boxed{+6}\)</p>
+              </div>
+            </div>
+            <p class="text-xs" style="color: var(--text-secondary);">
+              • <strong>Disproportionation:</strong> Same element is both oxidized and reduced (\(\mathrm{Cl_2 + 2OH^- \rightarrow Cl^- + ClO^- + H_2O}\), Cl goes from 0 to −1 and +1).<br>
+              • <strong>Comproportionation:</strong> Two oxidation states form an intermediate state (\(\mathrm{Fe + 2Fe^{3+} \rightarrow 3Fe^{2+}}\)).<br>
+              • <strong>Non-Redox:</strong> Acid–base neutralization (\(\mathrm{HCl + NaOH \rightarrow NaCl + H_2O}\)) has no change in oxidation numbers.
+            </p>
+          </div>
+
+          <div id="unit-17" class="bento-card p-6 space-y-3 scroll-mt-20">
+            <h3 class="text-lg font-bold text-cyan-400">Unit 17: Balancing Equations & Redox Half-Reactions</h3>
+            <div class="worked-example p-3 text-xs space-y-1">
+              <p class="font-bold text-cyan-400">Ex 22 (Combustion) & Algebra Balancing (\(\mathrm{Fe_2O_3 + CO}\))</p>
+              <p>• Ethane: \(\boxed{\mathrm{2C_2H_6 + 7O_2 \rightarrow 4CO_2 + 6H_2O}}\)<br>• Iron(III) oxide: \(\boxed{\mathrm{Fe_2O_3 + 3CO \rightarrow 2Fe + 3CO_2}}\)<br>• Net Ionic (removing \(\mathrm{Na^+, NO_3^-}\) spectator ions): \(\boxed{\mathrm{Ag^+ + Cl^- \rightarrow AgCl(s)}}\)</p>
+            </div>
+            <div class="worked-example p-3 text-xs space-y-1">
+              <p class="font-bold text-cyan-400">Ex 23 & 26: Permanganate + Iron(II) in Acidic Medium</p>
+              <p>\[ \boxed{\mathrm{MnO_4^- + 5Fe^{2+} + 8H^+ \rightarrow Mn^{2+} + 5Fe^{3+} + 4H_2O}} \quad (\text{Charge: }+17 = +17) \]</p>
+              <p><strong>Ex 26 Stoichiometry:</strong> \(0.020\ \mathrm{mol\ MnO_4^-}\) reacts with \(5(0.020) = \boxed{0.100\ \mathrm{mol\ Fe^{2+}}}\).</p>
+            </div>
+            <div class="worked-example p-3 text-xs space-y-1">
+              <p class="font-bold text-cyan-400">Ex 24 (Dichromate Acidic) & Ex 25 (Permanganate Basic)</p>
+              <p>• Acidic: \(\boxed{\mathrm{Cr_2O_7^{2-} + 14H^+ + 6Fe^{2+} \rightarrow 2Cr^{3+} + 7H_2O + 6Fe^{3+}}}\)</p>
+              <p>• Basic: \(\boxed{\mathrm{2MnO_4^- + I^- + H_2O \rightarrow 2MnO_2 + IO_3^- + 2OH^-}}\)</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           UNIT 16 — CONCEPTS OF ACIDS AND BASES
+      ====================================================================== -->
+      <section id="unit-16" class="unit-section space-y-6 scroll-mt-20">
+        <div class="flex items-center gap-3 border-b pb-3" style="border-color: var(--border-color);">
+          <span class="px-3 py-1 rounded-lg font-mono text-sm font-bold unit-badge">UNIT 16</span>
+          <h2 class="text-2xl sm:text-3xl font-bold">CONCEPTS OF ACIDS AND BASES</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bento-card p-6 space-y-4">
+            <h3 class="text-lg font-bold text-cyan-400">16.1–16.17 Acid–Base Theories, Conjugates & Ionization</h3>
+            <table class="chem-table text-xs">
+              <thead><tr><th>Theory</th><th>Acid Definition</th><th>Base Definition</th></tr></thead>
+              <tbody>
+                <tr><td>Arrhenius</td><td>Increases \(\mathrm{H_3O^+}\) in water (\(\mathrm{HCl}\))</td><td>Increases \(\mathrm{OH^-}\) in water (\(\mathrm{NaOH}\))</td></tr>
+                <tr><td>Brønsted–Lowry</td><td>Proton (\(\mathrm{H^+}\)) donor</td><td>Proton (\(\mathrm{H^+}\)) acceptor (\(\mathrm{NH_3}\))</td></tr>
+                <tr><td>Lewis</td><td>Electron-pair acceptor (\(\mathrm{BF_3, AlCl_3}\))</td><td>Electron-pair donor (\(\mathrm{NH_3, OH^-}\))</td></tr>
+              </tbody>
+            </table>
+            <p class="text-xs" style="color: var(--text-secondary);">
+              • <strong>Amphiprotic Substances:</strong> Can donate or accept a proton (\(\mathrm{H_2O, HCO_3^-, H_2PO_4^-}\)).<br>
+              • <strong>Acid Strength Trends:</strong> Binary halides: \(\mathrm{HF < HCl < HBr < HI}\). Chlorine oxoacids: \(\mathrm{HClO < HClO_2 < HClO_3 < HClO_4}\). Polyprotic: \(K_{a1} > K_{a2} > K_{a3}\).
+            </p>
+            <div class="formula-box text-xs text-center">
+              \[ K_a = \frac{[\mathrm{H_3O^+}][\mathrm{A^-}]}{[\mathrm{HA}]} \qquad K_a K_b = K_w = 1.0\times10^{-14} \qquad \boxed{pH + pOH = 14.00\ (25^\circ\mathrm{C})} \]
+              \[ \text{Henderson–Hasselbalch: } \boxed{pH = pK_a + \log_{10}\left(\frac{[\mathrm{A^-}]}{[\mathrm{HA}]}\right)} \]
+            </div>
+          </div>
+
+          <div class="bento-card p-6 space-y-3">
+            <h3 class="text-lg font-bold text-cyan-400">16.18–16.31 Acid–Base Worked Examples & Indicators</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div class="worked-example p-3">
+                <p class="font-bold text-cyan-400">Ex 18: Strong Acid (0.0010 M HCl)</p>
+                <p>\(pH = -\log_{10}(1.0\times10^{-3}) = \boxed{3.00}\)</p>
+              </div>
+              <div class="worked-example p-3">
+                <p class="font-bold text-cyan-400">Ex 19: Strong Base (0.010 M NaOH)</p>
+                <p>\(pOH = 2.00 \implies pH = 14 - 2 = \boxed{12.00}\)</p>
+              </div>
+              <div class="worked-example p-3">
+                <p class="font-bold text-cyan-400">Ex 20: Weak Acid (0.10 M Acetic Acid)</p>
+                <p>\([\mathrm{H_3O^+}] \approx \sqrt{(1.8\times10^{-5})(0.10)} = 1.34\times10^{-3}\ \mathrm{M}\)</p>
+                <p>\(\boxed{pH \approx 2.87}\) (\(\%\text{ ion} = 1.34\%\))</p>
+              </div>
+              <div class="worked-example p-3">
+                <p class="font-bold text-cyan-400">Ex 21: Buffer (0.20M HA / 0.10M A⁻)</p>
+                <p>\(pH = 4.74 + \log_{10}(0.10/0.20)\)</p>
+                <p>\(pH = 4.74 - 0.301 = \boxed{4.44}\)</p>
+              </div>
+            </div>
+            <table class="chem-table text-xs">
+              <thead><tr><th>Indicator</th><th>Transition pH Range</th><th>Titration Type</th><th>Eq. Point pH (25 °C)</th></tr></thead>
+              <tbody>
+                <tr><td>Methyl orange</td><td>pH 3.1–4.4</td><td>Strong Acid + Strong Base</td><td>≈ 7.00</td></tr>
+                <tr><td>Methyl red</td><td>pH 4.4–6.2</td><td>Weak Acid + Strong Base</td><td>Above 7</td></tr>
+                <tr><td>Bromothymol blue</td><td>pH 6.0–7.6</td><td>Strong Acid + Weak Base</td><td>Below 7</td></tr>
+                <tr><td>Phenolphthalein</td><td>pH 8.2–10.0</td><td>Weak Acid + Weak Base</td><td>Depends on \(K_a, K_b\)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           UNIT 18, 19, 20 — ELECTROCHEMISTRY, NERNST EQUATION & APPLICATIONS
+      ====================================================================== -->
+      <section id="unit-18" class="unit-section space-y-6 scroll-mt-20">
+        <div class="flex items-center gap-3 border-b pb-3" style="border-color: var(--border-color);">
+          <span class="px-3 py-1 rounded-lg font-mono text-sm font-bold unit-badge">UNIT 18, 19 & 20</span>
+          <h2 class="text-2xl sm:text-3xl font-bold">ELECTROCHEMICAL CELLS, NERNST EQUATION & APPLICATIONS</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bento-card p-6 space-y-4">
+            <h3 class="text-lg font-bold text-cyan-400">Unit 18: Galvanic vs Electrolytic Cells & Standard Potentials</h3>
+            <p class="text-xs" style="color: var(--text-secondary);">
+              Daniell Cell Notation: \(\mathrm{Zn(s)|Zn^{2+}(aq)||Cu^{2+}(aq)|Cu(s)}\). Oxidation always occurs at the <strong>Anode</strong>; Reduction always occurs at the <strong>Cathode</strong>.
+            </p>
+            <table class="chem-table text-xs">
+              <thead><tr><th>Property</th><th>Galvanic Cell</th><th>Electrolytic Cell</th></tr></thead>
+              <tbody>
+                <tr><td>Anode / Cathode Sign</td><td>Anode (−) / Cathode (+)</td><td>Anode (+) / Cathode (−)</td></tr>
+                <tr><td>Spontaneity & Energy</td><td>Spontaneous (\(\Delta G < 0\), Chem → Elec)</td><td>Nonspontaneous (\(\Delta G > 0\), Elec → Chem)</td></tr>
+              </tbody>
+            </table>
+            <div class="formula-box text-xs text-center">
+              \[ \boxed{E^\circ_{\mathrm{cell}} = E^\circ_{\mathrm{cathode}} - E^\circ_{\mathrm{anode}}} \qquad \boxed{\Delta G^\circ = -nFE^\circ_{\mathrm{cell}}} \quad (F \approx 96485\ \mathrm{C\,mol^{-1}}) \]
+            </div>
+            <div class="worked-example p-3 text-xs space-y-1">
+              <p class="font-bold text-cyan-400">Worked Examples 27, 28, 34 & 35: Daniell Cell & Spontaneity</p>
+              <p>• \(E^\circ(\mathrm{Cu^{2+}/Cu}) = +0.34\ \mathrm{V}\), \(E^\circ(\mathrm{Zn^{2+}/Zn}) = -0.76\ \mathrm{V}\).</p>
+              <p>• \(E^\circ_{\mathrm{cell}} = 0.34 - (-0.76) = \boxed{+1.10\ \mathrm{V}}\) (Spontaneous; Zn displaces Cu²⁺, reverse is −1.10 V).</p>
+              <p>• \(\Delta G^\circ = -(2)(96485)(1.10) = -212267\ \mathrm{J\,mol^{-1}} \approx \boxed{-212\ \mathrm{kJ\,mol^{-1}}}\).</p>
+            </div>
+          </div>
+
+          <div class="bento-card p-6 space-y-4">
+            <h3 class="text-lg font-bold text-cyan-400">Standard Reduction Potentials Table (25 °C, SHE = 0.000 V)</h3>
+            <div class="max-h-52 overflow-y-auto">
+              <table class="chem-table text-xs">
+                <thead><tr><th>Reduction Half-Reaction</th><th>\(E^\circ\) (V)</th></tr></thead>
+                <tbody>
+                  <tr><td>\(\mathrm{Li^+ + e^- \rightarrow Li}\) / \(\mathrm{Mg^{2+} + 2e^- \rightarrow Mg}\)</td><td>−3.04 / −2.37</td></tr>
+                  <tr><td>\(\mathrm{Al^{3+} + 3e^- \rightarrow Al}\) / \(\mathrm{Zn^{2+} + 2e^- \rightarrow Zn}\)</td><td>−1.66 / −0.76</td></tr>
+                  <tr><td>\(\mathrm{Fe^{2+} + 2e^- \rightarrow Fe}\) / \(\mathrm{2H^+ + 2e^- \rightarrow H_2}\)</td><td>−0.44 / 0.00</td></tr>
+                  <tr><td>\(\mathrm{Cu^{2+} + 2e^- \rightarrow Cu}\) / \(\mathrm{I_2 + 2e^- \rightarrow 2I^-}\)</td><td>+0.34 / +0.54</td></tr>
+                  <tr><td>\(\mathrm{Fe^{3+} + e^- \rightarrow Fe^{2+}}\) / \(\mathrm{Ag^+ + e^- \rightarrow Ag}\)</td><td>+0.77 / +0.80</td></tr>
+                  <tr><td>\(\mathrm{Cl_2 + 2e^- \rightarrow 2Cl^-}\)</td><td>+1.36</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Daniell Cell SVG Diagram -->
+            <svg viewBox="0 0 420 135" class="w-full rounded-lg border bg-slate-950/70 p-2" style="border-color: var(--border-color);">
+              <!-- Beakers -->
+              <rect x="35" y="45" width="110" height="80" fill="rgba(6,182,212,0.12)" stroke="#64748b"/>
+              <rect x="275" y="45" width="110" height="80" fill="rgba(59,130,246,0.22)" stroke="#64748b"/>
+              <!-- Electrodes -->
+              <rect x="55" y="25" width="22" height="85" fill="#94a3b8"/>
+              <rect x="340" y="25" width="22" height="85" fill="#d97706"/>
+              <!-- Wire & Voltmeter -->
+              <path d="M66 25 L66 12 L351 12 L351 25" fill="none" stroke="#eab308" stroke-width="2"/>
+              <circle cx="210" cy="12" r="11" fill="#090d16" stroke="#eab308" stroke-width="1.5"/>
+              <text x="195" y="15" fill="#fde047" font-size="8" font-family="monospace">1.10V</text>
+              <!-- Salt Bridge -->
+              <path d="M120 75 L120 35 L300 35 L300 75" fill="none" stroke="#a855f7" stroke-width="8" stroke-linecap="round"/>
+              <text x="172" y="32" fill="#e9d5ff" font-size="8.5" font-family="monospace">Salt Bridge</text>
+              <text x="42" y="120" fill="#cbd5e1" font-size="9" font-family="monospace">Zn Anode (-)</text>
+              <text x="285" y="120" fill="#fbbf24" font-size="9" font-family="monospace">Cu Cathode (+)</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- UNIT 19: NERNST EQUATION INTERACTIVE SIMULATOR & WORKED EXAMPLES -->
+        <div id="unit-19" class="bento-card p-6 space-y-6 scroll-mt-20">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <span class="text-xs font-mono uppercase text-cyan-400 font-bold">Unit 19 • Interactive Electrochemistry Engine</span>
+              <h3 class="text-xl font-bold">Nernst Equation Calculator & Live Potential Plotter (25 °C)</h3>
+            </div>
+            <div class="formula-box text-xs font-mono">
+              \(E = E^\circ - \frac{RT}{nF}\ln Q = E^\circ - \frac{0.05916}{n}\log_{10}Q\)
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+            <div class="space-y-4 text-xs">
+              <div>
+                <label class="flex justify-between font-semibold mb-1">
+                  <span>\(\log_{10} Q\) (Reaction Quotient):</span>
+                  <span id="nernst-q-label" class="font-mono text-cyan-400">0.0 (Q = 1)</span>
+                </label>
+                <input id="nernst-q-slider" type="range" min="-4" max="4" step="0.2" value="0" oninput="updateNernst()" class="w-full accent-cyan-400" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Transferred Electrons (\(n\)):</label>
+                <div class="flex gap-2">
+                  <button onclick="setNernstN(1)" class="nernst-n-btn flex-1 py-1.5 rounded border font-mono" data-n="1">n = 1</button>
+                  <button onclick="setNernstN(2)" class="nernst-n-btn flex-1 py-1.5 rounded border font-mono bg-cyan-500/20 text-cyan-400" data-n="2">n = 2</button>
+                  <button onclick="setNernstN(3)" class="nernst-n-btn flex-1 py-1.5 rounded border font-mono" data-n="3">n = 3</button>
+                  <button onclick="setNernstN(4)" class="nernst-n-btn flex-1 py-1.5 rounded border font-mono" data-n="4">n = 4</button>
+                </div>
+              </div>
+              <div class="p-4 rounded-xl border space-y-1" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+                <p class="text-slate-400">Live Cell Potential (\(E_{\mathrm{cell}}\) for \(E^\circ = 1.100\ \mathrm{V}\))</p>
+                <p id="nernst-e-readout" class="text-2xl font-mono font-bold text-emerald-400">1.100 V</p>
+                <p id="nernst-note" class="text-[11px] font-mono text-amber-400">Standard State (Q = 1): E = E°</p>
+              </div>
+            </div>
+
+            <div class="lg:col-span-2 bg-slate-950/60 rounded-xl p-4 border" style="border-color: var(--border-color);">
+              <canvas id="nernstCanvas" width="540" height="220" class="w-full"></canvas>
+            </div>
+          </div>
+
+          <!-- Worked Examples 29 to 33 -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs pt-2">
+            <div class="worked-example p-3.5 space-y-1">
+              <p class="font-bold text-cyan-400">Ex 29 & 30: Nonstandard Daniell Cell</p>
+              <p>• <strong>Ex 29:</strong> \([\mathrm{Zn^{2+}}]=0.10, [\mathrm{Cu^{2+}}]=1.00 \implies Q=0.10\). \(E = 1.10 - \frac{0.05916}{2}(-1) = \boxed{1.13\ \mathrm{V}}\).</p>
+              <p>• <strong>Ex 30:</strong> \([\mathrm{Zn^{2+}}]=1.00, [\mathrm{Cu^{2+}}]=0.010 \implies Q=100\). \(E = 1.10 - 0.02958(2) = \boxed{1.04\ \mathrm{V}}\).</p>
+            </div>
+            <div class="worked-example p-3.5 space-y-1">
+              <p class="font-bold text-cyan-400">Ex 31 & 32: Half-Cell & Concentration Cell</p>
+              <p>• <strong>Ex 31 (\(\mathrm{Cu^{2+}}=0.010\ \mathrm{M}\)):</strong> \(E = 0.34 + \frac{0.05916}{2}\log_{10}(0.010) = \boxed{0.281\ \mathrm{V}}\).</p>
+              <p>• <strong>Ex 32 (Cu Conc. Cell 1.00M / 0.010M):</strong> \(E = \frac{0.05916}{2}\log_{10}(100) = \boxed{0.0592\ \mathrm{V}}\).</p>
+            </div>
+            <div class="worked-example p-3.5 space-y-1">
+              <p class="font-bold text-cyan-400">Ex 33: Equilibrium Constant (\(E_{\mathrm{cell}}=0\))</p>
+              <p>\(\log_{10}K = \frac{nE^\circ}{0.05916} = \frac{2(1.10)}{0.05916} \approx 37.19\)</p>
+              <p>\(K = 10^{37.19} \implies \boxed{K \approx 1.6\times10^{37}}\).<br>For SHE: \(E = -0.05916\,\mathrm{pH}\).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- UNIT 20: APPLICATIONS OF ELECTRODE POTENTIAL DATA -->
+        <div id="unit-20" class="bento-card p-6 space-y-4 scroll-mt-20">
+          <h3 class="text-lg font-bold text-cyan-400">Unit 20: Applications of Electrode Potentials, Corrosion & Faraday's Law</h3>
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 text-xs">
+            <div class="worked-example p-4 space-y-1">
+              <p class="font-bold text-cyan-400">Worked Example 36: \(\mathrm{2Fe^{3+} + 2I^- \rightarrow 2Fe^{2+} + I_2}\)</p>
+              <p>\(E^\circ(\mathrm{Fe^{3+}/Fe^{2+}}) = +0.771\ \mathrm{V}\), \(E^\circ(\mathrm{I_2/I^-}) = +0.535\ \mathrm{V}\).</p>
+              <p>\[ E^\circ_{\mathrm{cell}} = 0.771 - 0.535 = \boxed{+0.236\ \mathrm{V}} \]</p>
+              <p>\[ \log_{10}K = \frac{2(0.236)}{0.05916} \approx 7.98 \implies \boxed{K \approx 9.5\times10^7} \]</p>
+            </div>
+
+            <div class="space-y-2">
+              <p class="font-bold text-emerald-400">20.6–20.8 Corrosion & Prevention</p>
+              <p style="color: var(--text-secondary);">Iron oxidation: \(\mathrm{Fe \rightarrow Fe^{2+} + 2e^-}\); Oxygen reduction: \(\mathrm{O_2 + 2H_2O + 4e^- \rightarrow 4OH^-}\). Prevented by coatings, galvanizing (Zn), sacrificial anodes (Zn/Mg), and cathodic protection.</p>
+              <p class="font-bold text-emerald-400 pt-1">20.12–20.16 Batteries, Potentiometry & Kinetics</p>
+              <p style="color: var(--text-secondary);">Primary (non-rechargeable) vs Secondary (Lead-acid, Li-ion, NiMH). Positive \(E^\circ\) predicts thermodynamic spontaneity, NOT reaction rate (high activation energy or passivation can make reactions slow).</p>
+            </div>
+
+            <div class="worked-example p-4 space-y-1">
+              <p class="font-bold text-cyan-400">20.10 Faraday's Law & Ex 37: Cu Electroplating</p>
+              <p>\[ Q = It \qquad \boxed{m = \frac{MIt}{zF}} \]</p>
+              <p style="color: var(--text-secondary);">Given \(I = 2.00\ \mathrm{A}\), \(t = 1930\ \mathrm{s}\), \(M(\mathrm{Cu}) = 63.55\ \mathrm{g\,mol^{-1}}\), \(z = 2\):</p>
+              <p>\(Q = (2.00)(1930) = 3860\ \mathrm{C}\)</p>
+              <p>\[ m = \frac{(63.55)(3860)}{2(96485)} = \boxed{1.27\ \mathrm{g\ Cu}} \]</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           UNIT 21 — FORMULA SHEET, PRACTICE PROBLEMS & REVISION CHECKLIST
+      ====================================================================== -->
+      <section id="unit-21" class="unit-section space-y-6 scroll-mt-20">
+        <div class="flex items-center gap-3 border-b pb-3" style="border-color: var(--border-color);">
+          <span class="px-3 py-1 rounded-lg font-mono text-sm font-bold unit-badge">UNIT 21</span>
+          <h2 class="text-2xl sm:text-3xl font-bold">COMPLETE FORMULA SHEET, PRACTICE & REVISION CHECKLIST</h2>
+        </div>
+
+        <!-- 21.1 to 21.5 Master Formula & Constants Bento Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bento-card p-5 space-y-3">
+            <h3 class="text-base font-bold text-cyan-400">21.1 Atomic Structure & 21.2 Bonding Formulas</h3>
+            <table class="chem-table text-xs">
+              <thead><tr><th>Formula</th><th>Application</th></tr></thead>
+              <tbody>
+                <tr><td>\(A = Z + N\) | \(n = m/M\) | \(N = nN_A\)</td><td>Mass number, Moles, Particles</td></tr>
+                <tr><td>\(c = \lambda\nu\) | \(E = h\nu = hc/\lambda\)</td><td>EM Waves & Photon Energy</td></tr>
+                <tr><td>\(\lambda = h/p = h/(mv)\) | \(\Delta x\Delta p_x \geq h/(4\pi)\)</td><td>De Broglie & Uncertainty</td></tr>
+                <tr><td>\(E_n = -2.1799\times10^{-18}Z^2/n^2\)</td><td>Hydrogen-like energy level</td></tr>
+                <tr><td>Shell e⁻ = \(2n^2\) | Subshell orb = \(2l+1\)</td><td>Radial nodes = \(n-l-1\), Total = \(n-1\)</td></tr>
+                <tr><td>\(FC = V - N - B/2\) | \(BO = (N_b - N_a)/2\)</td><td>Formal Charge & MO Bond Order</td></tr>
+                <tr><td>\(\mu = qr\) | \(F = \frac{|q_1q_2|}{4\pi\varepsilon_0 r^2}\)</td><td>Dipole Moment & Coulomb Force</td></tr>
+                <tr><td>\(\Delta H_{\mathrm{rxn}} \approx \Sigma D_{\mathrm{broken}} - \Sigma D_{\mathrm{formed}}\)</td><td>Bond Enthalpy & \(\Delta G = \Delta H - T\Delta S\)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="bento-card p-5 space-y-3">
+            <h3 class="text-base font-bold text-cyan-400">21.3 Acid–Base, 21.4 Electrochemistry & 21.5 Constants</h3>
+            <table class="chem-table text-xs">
+              <thead><tr><th>Formula / Constant</th><th>Value / Application</th></tr></thead>
+              <tbody>
+                <tr><td>\(pH = -\log_{10}[\mathrm{H_3O^+}]\) | \(pH + pOH = 14.00\)</td><td>\(pH = pK_a + \log_{10}([\mathrm{A^-}]/[\mathrm{HA}])\)</td></tr>
+                <tr><td>\(E^\circ_{\mathrm{cell}} = E^\circ_c - E^\circ_a\) | \(\Delta G = -nFE\)</td><td>\(E = E^\circ - \frac{0.05916}{n}\log_{10}Q\)</td></tr>
+                <tr><td>\(\log_{10}K = nE^\circ/0.05916\) | \(m = MIt/(zF)\)</td><td>Equilibrium Constant & Electrolysis</td></tr>
+                <tr><td>Avogadro (\(N_A\)) / Planck (\(h\))</td><td>\(6.02214076\times10^{23}\ \mathrm{mol^{-1}}\) / \(6.626\times10^{-34}\ \mathrm{J\,s}\)</td></tr>
+                <tr><td>Speed of light (\(c\)) / Charge (\(e\))</td><td>\(2.9979\times10^8\ \mathrm{m\,s^{-1}}\) / \(1.6022\times10^{-19}\ \mathrm{C}\)</td></tr>
+                <tr><td>Electron mass (\(m_e\)) / Rydberg (\(R_\infty\))</td><td>\(9.109\times10^{-31}\ \mathrm{kg}\) / \(1.09737\times10^7\ \mathrm{m^{-1}}\)</td></tr>
+                <tr><td>Gas const (\(R\)) / Faraday (\(F\))</td><td>\(8.314\ \mathrm{J\,mol^{-1}K^{-1}}\) / \(96485\ \mathrm{C\,mol^{-1}}\)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 21.6 Conceptual Practice Questions (15 Interactive Accordion Cards) -->
+        <div class="bento-card p-6 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 class="text-lg font-bold text-cyan-400">21.6 Concept Check — 15 Questions</h3>
+              <p class="text-xs" style="color: var(--text-secondary);">Try answering these before clicking or toggling "Show All Answers".</p>
+            </div>
+            <button onclick="toggleAllConceptAnswers()" id="toggle-concepts-btn" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-cyan-500 text-white hover:bg-cyan-600 transition">Show All Answers</button>
+          </div>
+          <div id="concept-questions-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+            <!-- Populated by JS below for clean interaction -->
+          </div>
+        </div>
+
+        <!-- 21.7 Numerical Practice Problems (1 to 15 with Step-by-Step Solutions) -->
+        <div class="bento-card p-6 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 class="text-lg font-bold text-cyan-400">21.7 Numerical Practice Problems with Worked Answers (Problems 1–15)</h3>
+              <p class="text-xs" style="color: var(--text-secondary);">Click any problem card to reveal the step-by-step mathematical solution.</p>
+            </div>
+            <button onclick="toggleAllNumericalSolutions()" class="px-3.5 py-1.5 text-xs font-semibold rounded-lg border hover:bg-slate-500/10 transition" style="border-color: var(--border-color);">Expand / Collapse All</button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+            <details class="num-prob p-3.5 rounded-xl border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <summary class="font-bold cursor-pointer text-cyan-400">Problem 1 — Atomic Particles (\({}^{56}_{26}\mathrm{Fe}^{3+}\))</summary>
+              <div class="mt-2 pt-2 border-t space-y-1" style="border-color: var(--border-color);">
+                <p>\(p = 26\), \(n = 56 - 26 = 30\), \(e = 26 - 3 = 23\).</p>
+                <p class="font-bold text-emerald-400">Answer: 26 protons, 30 neutrons, 23 electrons.</p>
+              </div>
+            </details>
+
+            <details class="num-prob p-3.5 rounded-xl border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <summary class="font-bold cursor-pointer text-cyan-400">Problem 2 — Moles (22.0 g of CO₂)</summary>
+              <div class="mt-2 pt-2 border-t space-y-1" style="border-color: var(--border-color);">
+                <p>\(M(\mathrm{CO_2}) = 44.0\ \mathrm{g\,mol^{-1}} \implies n = 22.0 / 44.0\)</p>
+                <p class="font-bold text-emerald-400">Answer: \(0.500\ \mathrm{mol}\)</p>
+              </div>
+            </details>
+
+            <details class="num-prob p-3.5 rounded-xl border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <summary class="font-bold cursor-pointer text-cyan-400">Problem 3 — Photon Frequency (600 nm)</summary>
+              <div class="mt-2 pt-2 border-t space-y-1" style="border-color: var(--border-color);">
+                <p>\(\nu = c/\lambda = (3.00\times10^8)/(600\times10^{-9})\)</p>
+                <p class="font-bold text-emerald-400">Answer: \(5.00\times10^{14}\ \mathrm{Hz}\)</p>
+              </div>
+            </details>
+
+            <details class="num-prob p-3.5 rounded-xl border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <summary class="font-bold cursor-pointer text-cyan-400">Problem 4 — Photon Energy (\(5.00\times10^{14}\ \mathrm{Hz}\))</summary>
+              <div class="mt-2 pt-2 border-t space-y-1" style="border-color: var(--border-color);">
+                <p>\(E = h\nu = (6.626\times10^{-34})(5.00\times10^{14})\)</p>
+                <p class="font-bold text-emerald-400">Answer: \(3.31\times10^{-19}\ \mathrm{J}\)</p>
+              </div>
+            </details>
+
+            <details class="num-prob p-3.5 rounded-xl border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <summary class="font-bold cursor-pointer text-cyan-400">Problem 5 — De Broglie (\(v = 2.00\times10^6\ \mathrm{m\,s^{-1}}\))</summary>
+              <div class="mt-2 pt-2 border-t space-y-1" style="border-color: var(--border-color);">
+                <p>\(\lambda = \frac{6.626\times10^{-34}}{(9.109\times10^{-31})(2.00\times10^6)}\)</p>
+                <p class="font-bold text-emerald-400">Answer: \(3.64\times10^{-10}\ \mathrm{m}\)</p>
+              </div>
+            </details>
+
+            <details class="num-prob p-3.5 rounded-xl border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <summary class="font-bold cursor-pointer text-cyan-400">Problem 6 — Formal Charge (N in \(\mathrm{NH_4^+}\))</summary>
+              <div class="mt-2 pt-2 border-t space-y-1" style="border-color: var(--border-color);">
+                <p>\(FC = 5 - 0 - 4\)</p>
+                <p class="font-bold text-emerald-400">Answer: \(+1\)</p>
+              </div>
+            </details>
+
+            <details class="num-prob p-3.5 rounded-xl border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <summary class="font-bold cursor-pointer text-cyan-400">Problem 7 — MO Bond Order (\(N_b=8, N_a=4\))</summary>
+              <div class="mt-2 pt-2 border-t space-y-1" style="border-color: var(--border-color);">
+                <p>\(BO = (8 - 4)/2\)</p>
+                <p class="font-bold text-emerald-400">Answer: \(2\)</p>
+              </div>
+            </details>
+
+            <details class="num-prob p-3.5 rounded-xl border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <summary class="font-bold cursor-pointer text-cyan-400">Problem 8 — Oxidation Number (S in \(\mathrm{SO_4^{2-}}\))</summary>
+              <div class="mt-2 pt-2 border-t space-y-1" style="border-color: var(--border-color);">
+                <p>\(x + 4(-2) = -2 \implies x - 8 = -2\)</p>
+                <p class="font-bold text-emerald-400">Answer: \(+6\)</p>
+              </div>
+            </details>
+
+            <details class="num-prob p-3.5 rounded-xl border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <summary class="font-bold cursor-pointer text-cyan-400">Problem 9 — pH of \(1.0\times10^{-4}\ \mathrm{M\ HCl}\)</summary>
+              <div class="mt-2 pt-2 border-t space-y-1" style="border-color: var(--border-color);">
+                <p>\(pH = -\log_{10}(10^{-4})\)</p>
+                <p class="font-bold text-emerald-400">Answer: \(pH = 4.00\)</p>
+              </div>
+            </details>
+
+            <details class="num-prob p-3.5 rounded-xl border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <summary class="font-bold cursor-pointer text-cyan-400">Problem 10 — pOH & pH of \(0.0010\ \mathrm{M\ NaOH}\)</summary>
+              <div class="mt-2 pt-2 border-t space-y-1" style="border-color: var(--border-color);">
+                <p>\(pOH = -\log_{10}(10^{-3}) = 3.00 \implies pH = 14.00 - 3.00\)</p>
+                <p class="font-bold text-emerald-400">Answer: \(pOH = 3.00,\ pH = 11.00\)</p>
+              </div>
+            </details>
+
+            <details class="num-prob p-3.5 rounded-xl border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <summary class="font-bold cursor-pointer text-cyan-400">Problem 11 — \(pK_a\) from \(K_a = 1.0\times10^{-5}\)</summary>
+              <div class="mt-2 pt-2 border-t space-y-1" style="border-color: var(--border-color);">
+                <p>\(pK_a = -\log_{10}(10^{-5})\)</p>
+                <p class="font-bold text-emerald-400">Answer: \(pK_a = 5.00\)</p>
+              </div>
+            </details>
+
+            <details class="num-prob p-3.5 rounded-xl border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <summary class="font-bold cursor-pointer text-cyan-400">Problem 12 — Zn–Ag Cell Potential</summary>
+              <div class="mt-2 pt-2 border-t space-y-1" style="border-color: var(--border-color);">
+                <p>\(E^\circ_{\mathrm{cell}} = 0.80 - (-0.76)\)</p>
+                <p class="font-bold text-emerald-400">Answer: \(1.56\ \mathrm{V}\)</p>
+              </div>
+            </details>
+
+            <details class="num-prob p-3.5 rounded-xl border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <summary class="font-bold cursor-pointer text-cyan-400">Problem 13 — Gibbs Energy (\(E^\circ=0.50\ \mathrm{V}, n=2\))</summary>
+              <div class="mt-2 pt-2 border-t space-y-1" style="border-color: var(--border-color);">
+                <p>\(\Delta G^\circ = -(2)(96485)(0.50)\)</p>
+                <p class="font-bold text-emerald-400">Answer: \(-96.5\ \mathrm{kJ\,mol^{-1}}\)</p>
+              </div>
+            </details>
+
+            <details class="num-prob p-3.5 rounded-xl border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <summary class="font-bold cursor-pointer text-cyan-400">Problem 14 — Nernst (\(E^\circ=0.80\ \mathrm{V}, n=1, Q=10\))</summary>
+              <div class="mt-2 pt-2 border-t space-y-1" style="border-color: var(--border-color);">
+                <p>\(E = 0.80 - 0.05916\log_{10}(10)\)</p>
+                <p class="font-bold text-emerald-400">Answer: \(E \approx 0.741\ \mathrm{V}\)</p>
+              </div>
+            </details>
+
+            <details class="num-prob p-3.5 rounded-xl border" style="background-color: var(--bg-elevated); border-color: var(--border-color);">
+              <summary class="font-bold cursor-pointer text-cyan-400">Problem 15 — Neutralization Stoichiometry</summary>
+              <div class="mt-2 pt-2 border-t space-y-1" style="border-color: var(--border-color);">
+                <p>25.0 mL of 0.100 M \(\mathrm{H_2SO_4}\) (\(0.00250\ \mathrm{mol}\)) needs \(0.00500\ \mathrm{mol\ NaOH}\).</p>
+                <p class="font-bold text-emerald-400">Answer: \(50.0\ \mathrm{mL}\)</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- 21.8 Interactive 24-Item Syllabus Revision Checklist with LocalStorage -->
+        <div class="bento-card p-6 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h3 class="text-lg font-bold text-cyan-400">21.8 Final Revision Checklist (Syllabus Learning Progress)</h3>
+              <p class="text-xs" style="color: var(--text-secondary);">Your progress is automatically saved in your browser.</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <span id="checklist-counter" class="px-3 py-1 rounded-full font-mono text-xs font-bold bg-emerald-500/15 text-emerald-400">0/24 completed</span>
+              <button onclick="resetChecklist()" class="px-3 py-1 text-xs rounded border hover:bg-rose-500/10 hover:text-rose-400 transition" style="border-color: var(--border-color);">Reset Checklist</button>
+            </div>
+          </div>
+
+          <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+            <div id="checklist-bar" class="h-full bg-emerald-500 transition-all duration-300 w-0"></div>
+          </div>
+
+          <div id="checklist-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5 text-xs">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+
+        <!-- Suggested Textbook References & Footer -->
+        <div class="bento-card p-6 space-y-3">
+          <h3 class="text-base font-bold text-cyan-400">Suggested Textbook References</h3>
+          <ul class="list-disc list-inside text-xs space-y-1" style="color: var(--text-secondary);">
+            <li>Atkins, P. and Jones, L. <em>Chemical Principles: The Quest for Insight</em>. W. H. Freeman.</li>
+            <li>Brown, T.L. et al. <em>Chemistry: The Central Science</em>. Pearson.</li>
+            <li>Housecroft, C.E. and Sharpe, A.G. <em>Inorganic Chemistry</em>. Pearson.</li>
+            <li>Petrucci, R.H. et al. <em>General Chemistry: Principles and Modern Applications</em>. Pearson.</li>
+            <li>OpenStax, <em>Chemistry: Atoms First 2e</em>, including the <a href="https://openstax.org/books/chemistry-atoms-first-2e/pages/3-3-development-of-quantum-theory" target="_blank" class="text-cyan-400 underline">Development of Quantum Theory</a> chapter.</li>
+          </ul>
+          <p class="text-[11px] pt-3 border-t" style="border-color: var(--border-color); color: var(--text-muted);">
+            End of PST 11204 — General Chemistry learning notes • Sabaragamuwa University of Sri Lanka • Designed & Built for <strong>Malith Eranga Kumarasekara</strong>.
+          </p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- =======================================================================
+       INTERACTIVE JAVASCRIPT ENGINE (Themes, Simulators, Checklist, Search)
+  ======================================================================== -->
+  <script>
+    /* 1. THEME SWITCHER (Dark / Light / Reading Sepia) */
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('pst11204_theme', theme);
+      ['dark', 'light', 'reading'].forEach(t => {
+        const btn = document.getElementById('btn-' + t);
+        if (t === theme) {
+          btn.className = 'px-2.5 py-1 rounded-full font-semibold transition bg-cyan-500 text-white';
+        } else {
+          btn.className = 'px-2.5 py-1 rounded-full font-medium transition opacity-70 hover:opacity-100';
+        }
+      });
+    }
+    setTheme(localStorage.getItem('pst11204_theme') || 'dark');
+
+    /* 2. MOBILE SIDEBAR DRAWER */
+    function toggleMobileSidebar() {
+      const sb = document.getElementById('sidebar');
+      const bd = document.getElementById('sidebar-backdrop');
+      sb.classList.toggle('-translate-x-full');
+      bd.classList.toggle('hidden');
+    }
+
+    /* 3. SCROLL PROGRESS & ACTIVE SIDEBAR SPY */
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      document.getElementById('scroll-progress').style.width = ((winScroll / height) * 100) + '%';
+    });
+
+    /* 4. FILTER / SEARCH UNITS */
+    function filterUnits(query) {
+      const q = query.toLowerCase().trim();
+      document.querySelectorAll('.unit-section').forEach(sec => {
+        if (!q || sec.innerText.toLowerCase().includes(q)) {
+          sec.style.display = '';
+        } else {
+          sec.style.display = 'none';
+        }
+      });
+    }
+
+    /* 5. POMODORO TIMER */
+    let pomoSeconds = 25 * 60;
+    let pomoRunning = false;
+    let pomoTimer = null;
+    function togglePomodoro() {
+      const btn = document.getElementById('pomo-btn');
+      if (pomoRunning) {
+        clearInterval(pomoTimer);
+        pomoRunning = false;
+        btn.textContent = 'Resume';
+      } else {
+        pomoRunning = true;
+        btn.textContent = 'Pause';
+        pomoTimer = setInterval(() => {
+          if (pomoSeconds > 0) {
+            pomoSeconds--;
+            const m = String(Math.floor(pomoSeconds / 60)).padStart(2, '0');
+            const s = String(pomoSeconds % 60).padStart(2, '0');
+            document.getElementById('pomo-display').textContent = `${m}:${s}`;
+          } else {
+            clearInterval(pomoTimer);
+            pomoRunning = false;
+            btn.textContent = 'Start';
+          }
+        }, 1000);
+      }
+    }
+    function resetPomodoro() {
+      clearInterval(pomoTimer);
+      pomoRunning = false;
+      pomoSeconds = 25 * 60;
+      document.getElementById('pomo-display').textContent = '25:00';
+      document.getElementById('pomo-btn').textContent = 'Start';
+    }
+
+    /* 6. BOHR QUANTUM ATOM SIMULATOR */
+    const bohrCanvas = document.getElementById('bohrCanvas');
+    const bCtx = bohrCanvas.getContext('2d');
+    let bohrN = 2;
+    let bohrAngle = 0;
+    let bohrRunning = true;
+    let photonWave = null;
+
+    function setBohrLevel(newN) {
+      const oldN = bohrN;
+      bohrN = newN;
+      const E_n = (-2.1799e-18 / (newN * newN));
+      document.getElementById('bohr-state-readout').textContent = `n = ${newN} (${newN === 1 ? 'Ground State' : 'Excited State'})`;
+      document.getElementById('bohr-energy-readout').textContent = `${(E_n * 1e19).toFixed(3)} × 10⁻¹⁹ J`;
+
+      if (newN !== oldN) {
+        const dE = Math.abs((-2.1799e-18 / (newN * newN)) - (-2.1799e-18 / (oldN * oldN)));
+        const lambdaNm = ((6.626e-34 * 2.998e8) / dE) * 1e9;
+        const type = newN < oldN ? 'EMISSION (Photon Released)' : 'ABSORPTION (Photon Absorbed)';
+        document.getElementById('bohr-photon-readout').textContent = `${type}: n=${oldN} → n=${newN} | λ ≈ ${lambdaNm.toFixed(0)} nm`;
+        photonWave = { x: 230, y: 130, r: 10, color: newN < oldN ? '#22d3ee' : '#f59e0b' };
+      }
+    }
+    function toggleBohrAnim() {
+      bohrRunning = !bohrRunning;
+      document.getElementById('bohr-play-btn').textContent = bohrRunning ? 'Pause' : 'Play';
+    }
+    function drawBohr() {
+      bCtx.clearRect(0, 0, bohrCanvas.width, bohrCanvas.height);
+      const cx = 230, cy = 130;
+      const radii = [32, 58, 86, 114];
+      // Orbits
+      radii.forEach((r, idx) => {
+        bCtx.beginPath();
+        bCtx.arc(cx, cy, r, 0, Math.PI * 2);
+        bCtx.strokeStyle = (idx + 1 === bohrN) ? 'rgba(6, 182, 212, 0.8)' : 'rgba(148, 163, 184, 0.25)';
+        bCtx.lineWidth = (idx + 1 === bohrN) ? 2 : 1;
+        bCtx.stroke();
+      });
+      // Nucleus
+      bCtx.beginPath();
+      bCtx.arc(cx, cy, 8, 0, Math.PI * 2);
+      bCtx.fillStyle = '#f43f5e';
+      bCtx.fill();
+      // Electron
+      const curR = radii[bohrN - 1];
+      const ex = cx + curR * Math.cos(bohrAngle);
+      const ey = cy + curR * Math.sin(bohrAngle);
+      bCtx.beginPath();
+      bCtx.arc(ex, ey, 6, 0, Math.PI * 2);
+      bCtx.fillStyle = '#22d3ee';
+      bCtx.shadowColor = '#22d3ee';
+      bCtx.shadowBlur = 10;
+      bCtx.fill();
+      bCtx.shadowBlur = 0;
+
+      if (photonWave) {
+        bCtx.beginPath();
+        bCtx.arc(cx, cy, photonWave.r, 0, Math.PI * 2);
+        bCtx.strokeStyle = photonWave.color;
+        bCtx.lineWidth = 2;
+        bCtx.stroke();
+        photonWave.r += 3;
+        if (photonWave.r > 130) photonWave = null;
+      }
+
+      if (bohrRunning) bohrAngle += 0.04 / bohrN;
+      requestAnimationFrame(drawBohr);
+    }
+    drawBohr();
+
+    /* 7. VSEPR 3D MOLECULAR GEOMETRY EXPLORER */
+    const vseprCanvas = document.getElementById('vseprCanvas');
+    const vCtx = vseprCanvas.getContext('2d');
+    let vseprX = 2, vseprE = 2;
+    let rotX = 0.35, rotY = 0.55;
+    let isDragging = false, lastMX = 0, lastMY = 0;
+
+    const vseprDB = {
+      '2_0': { hyb: 'sp', eg: 'Linear', mg: 'Linear', ang: '180°', ex: 'CO₂, BeCl₂', coords: [[1,0,0,'X'],[-1,0,0,'X']] },
+      '3_0': { hyb: 'sp²', eg: 'Trigonal planar', mg: 'Trigonal planar', ang: '120°', ex: 'BF₃', coords: [[1,0,0,'X'],[-0.5,0.866,0,'X'],[-0.5,-0.866,0,'X']] },
+      '2_1': { hyb: 'sp²', eg: 'Trigonal planar', mg: 'Bent', ang: '<120°', ex: 'SO₂', coords: [[0,1,0,'E'],[-0.866,-0.5,0,'X'],[0.866,-0.5,0,'X']] },
+      '4_0': { hyb: 'sp³', eg: 'Tetrahedral', mg: 'Tetrahedral', ang: '109.5°', ex: 'CH₄, NH₄⁺', coords: [[0,1,0,'X'],[0.94,-0.33,0,'X'],[-0.47,-0.33,0.81,'X'],[-0.47,-0.33,-0.81,'X']] },
+      '3_1': { hyb: 'sp³', eg: 'Tetrahedral', mg: 'Trigonal pyramidal', ang: '≈107°', ex: 'NH₃', coords: [[0,1,0,'E'],[0.94,-0.33,0,'X'],[-0.47,-0.33,0.81,'X'],[-0.47,-0.33,-0.81,'X']] },
+      '2_2': { hyb: 'sp³', eg: 'Tetrahedral', mg: 'Bent', ang: '≈104.5°', ex: 'H₂O', coords: [[0,1,0,'E'],[0.94,-0.33,0,'E'],[-0.47,-0.33,0.81,'X'],[-0.47,-0.33,-0.81,'X']] },
+      '5_0': { hyb: 'sp³d', eg: 'Trigonal bipyramidal', mg: 'Trigonal bipyramidal', ang: '90°, 120°', ex: 'PCl₅', coords: [[0,1,0,'X'],[0,-1,0,'X'],[1,0,0,'X'],[-0.5,0,0.866,'X'],[-0.5,0,-0.866,'X']] },
+      '4_1': { hyb: 'sp³d', eg: 'Trigonal bipyramidal', mg: 'Seesaw', ang: '<90°, <120°', ex: 'SF₄', coords: [[0,1,0,'X'],[0,-1,0,'X'],[1,0,0,'E'],[-0.5,0,0.866,'X'],[-0.5,0,-0.866,'X']] },
+      '3_2': { hyb: 'sp³d', eg: 'Trigonal bipyramidal', mg: 'T-shaped', ang: '<90°', ex: 'ClF₃', coords: [[0,1,0,'X'],[0,-1,0,'X'],[1,0,0,'X'],[-0.5,0,0.866,'E'],[-0.5,0,-0.866,'E']] },
+      '2_3': { hyb: 'sp³d', eg: 'Trigonal bipyramidal', mg: 'Linear', ang: '180°', ex: 'XeF₂', coords: [[0,1,0,'X'],[0,-1,0,'X'],[1,0,0,'E'],[-0.5,0,0.866,'E'],[-0.5,0,-0.866,'E']] },
+      '6_0': { hyb: 'sp³d²', eg: 'Octahedral', mg: 'Octahedral', ang: '90°, 180°', ex: 'SF₆', coords: [[1,0,0,'X'],[-1,0,0,'X'],[0,1,0,'X'],[0,-1,0,'X'],[0,0,1,'X'],[0,0,-1,'X']] },
+      '5_1': { hyb: 'sp³d²', eg: 'Octahedral', mg: 'Square pyramidal', ang: '<90°', ex: 'BrF₅', coords: [[1,0,0,'X'],[-1,0,0,'X'],[0,1,0,'X'],[0,-1,0,'E'],[0,0,1,'X'],[0,0,-1,'X']] },
+      '4_2': { hyb: 'sp³d²', eg: 'Octahedral', mg: 'Square planar', ang: '90°', ex: 'XeF₄', coords: [[1,0,0,'X'],[-1,0,0,'X'],[0,1,0,'E'],[0,-1,0,'E'],[0,0,1,'X'],[0,0,-1,'X']] }
+    };
+
+    function updateVSEPR(newX, newE) {
+      if (newX !== null) vseprX = newX;
+      if (newE !== null) vseprE = newE;
+      if (vseprX + vseprE > 6) vseprE = 6 - vseprX;
+      if (vseprX + vseprE < 2) vseprX = 2;
+      const key = `${vseprX}_${vseprE}`;
+      const info = vseprDB[key] || vseprDB['2_2'];
+
+      document.getElementById('vsepr-axe').textContent = `AX${vseprX}${vseprE > 0 ? 'E' + (vseprE > 1 ? vseprE : '') : ''} • ${info.hyb}`;
+      document.getElementById('vsepr-geom').textContent = `Electron: ${info.eg} | Shape: ${info.mg}`;
+      document.getElementById('vsepr-example').textContent = `${info.ang} • Example: ${info.ex}`;
+      drawVSEPR();
+    }
+
+    vseprCanvas.addEventListener('mousedown', e => { isDragging = true; lastMX = e.clientX; lastMY = e.clientY; });
+    window.addEventListener('mouseup', () => isDragging = false);
+    window.addEventListener('mousemove', e => {
+      if (!isDragging) return;
+      rotY += (e.clientX - lastMX) * 0.01;
+      rotX += (e.clientY - lastMY) * 0.01;
+      lastMX = e.clientX; lastMY = e.clientY;
+      drawVSEPR();
+    });
+
+    function drawVSEPR() {
+      vCtx.clearRect(0, 0, vseprCanvas.width, vseprCanvas.height);
+      const cx = 230, cy = 135, scale = 82;
+      const key = `${vseprX}_${vseprE}`;
+      const info = vseprDB[key] || vseprDB['2_2'];
+
+      // Rotate & project
+      const pts = info.coords.map(([x, y, z, type]) => {
+        let y1 = y * Math.cos(rotX) - z * Math.sin(rotX);
+        let z1 = y * Math.sin(rotX) + z * Math.cos(rotX);
+        let x2 = x * Math.cos(rotY) + z1 * Math.sin(rotY);
+        let z2 = -x * Math.sin(rotY) + z1 * Math.cos(rotY);
+        return { x: cx + x2 * scale, y: cy - y1 * scale, z: z2, type };
+      }).sort((a, b) => a.z - b.z);
+
+      // Draw central atom A
+      pts.forEach(p => {
+        vCtx.beginPath();
+        vCtx.moveTo(cx, cy);
+        vCtx.lineTo(p.x, p.y);
+        vCtx.strokeStyle = p.type === 'E' ? 'rgba(251, 191, 36, 0.5)' : 'rgba(148, 163, 184, 0.75)';
+        vCtx.lineWidth = p.type === 'E' ? 2 : 4;
+        vCtx.stroke();
+
+        vCtx.beginPath();
+        vCtx.arc(p.x, p.y, p.type === 'E' ? 12 : 16, 0, Math.PI * 2);
+        vCtx.fillStyle = p.type === 'E' ? 'rgba(245, 158, 11, 0.75)' : '#06b6d4';
+        vCtx.fill();
+        vCtx.fillStyle = '#fff';
+        vCtx.font = 'bold 11px JetBrains Mono';
+        vCtx.textAlign = 'center';
+        vCtx.fillText(p.type === 'E' ? 'LP' : 'X', p.x, p.y + 4);
+      });
+
+      vCtx.beginPath();
+      vCtx.arc(cx, cy, 20, 0, Math.PI * 2);
+      vCtx.fillStyle = '#6366f1';
+      vCtx.fill();
+      vCtx.fillStyle = '#fff';
+      vCtx.fillText('A', cx, cy + 4);
+    }
+    updateVSEPR(2, 2);
+
+    /* 8. NERNST EQUATION INTERACTIVE GRAPH ENGINE */
+    const nernstCanvas = document.getElementById('nernstCanvas');
+    const nCtx = nernstCanvas.getContext('2d');
+    let nernstN = 2;
+
+    function setNernstN(n) {
+      nernstN = n;
+      document.querySelectorAll('.nernst-n-btn').forEach(btn => {
+        if (Number(btn.dataset.n) === n) {
+          btn.className = 'nernst-n-btn flex-1 py-1.5 rounded border font-mono bg-cyan-500/20 text-cyan-400';
+        } else {
+          btn.className = 'nernst-n-btn flex-1 py-1.5 rounded border font-mono';
+        }
+      });
+      updateNernst();
+    }
+
+    function updateNernst() {
+      const logQ = parseFloat(document.getElementById('nernst-q-slider').value);
+      const E0 = 1.100;
+      const E = E0 - (0.05916 / nernstN) * logQ;
+      document.getElementById('nernst-q-label').textContent = `${logQ.toFixed(1)} (Q = 10^${logQ.toFixed(1)})`;
+      document.getElementById('nernst-e-readout').textContent = `${E.toFixed(3)} V`;
+      document.getElementById('nernst-note').textContent = logQ === 0
+        ? 'Standard State (Q = 1): E = E°'
+        : (logQ < 0 ? 'Q < 1 (Reactant rich): E > E°' : 'Q > 1 (Product rich): E < E°');
+
+      // Draw Graph
+      nCtx.clearRect(0, 0, nernstCanvas.width, nernstCanvas.height);
+      const padL = 55, padR = 25, padT = 20, padB = 35;
+      const w = nernstCanvas.width - padL - padR;
+      const h = nernstCanvas.height - padT - padB;
+
+      // Axes
+      nCtx.strokeStyle = '#475569';
+      nCtx.lineWidth = 1;
+      nCtx.beginPath();
+      nCtx.moveTo(padL, padT);
+      nCtx.lineTo(padL, padT + h);
+      nCtx.lineTo(padL + w, padT + h);
+      nCtx.stroke();
+
+      // Plot Line for logQ from -4 to +4
+      nCtx.beginPath();
+      for (let lq = -4; lq <= 4; lq += 0.1) {
+        const eVal = E0 - (0.05916 / nernstN) * lq;
+        const x = padL + ((lq + 4) / 8) * w;
+        const y = padT + h - ((eVal - 0.85) / 0.5) * h;
+        if (lq === -4) nCtx.moveTo(x, y);
+        else nCtx.lineTo(x, y);
+      }
+      nCtx.strokeStyle = '#06b6d4';
+      nCtx.lineWidth = 2.5;
+      nCtx.stroke();
+
+      // Current Point
+      const curX = padL + ((logQ + 4) / 8) * w;
+      const curY = padT + h - ((E - 0.85) / 0.5) * h;
+      nCtx.beginPath();
+      nCtx.arc(curX, curY, 6, 0, Math.PI * 2);
+      nCtx.fillStyle = '#10b981';
+      nCtx.fill();
+
+      nCtx.fillStyle = '#94a3b8';
+      nCtx.font = '11px JetBrains Mono';
+      nCtx.fillText('log₁₀(Q) [-4 to +4]', padL + w / 2 - 45, padT + h + 24);
+      nCtx.fillText('E (V)', 10, padT + h / 2);
+    }
+    updateNernst();
+
+    /* 9. CONCEPTUAL QUESTIONS (21.6) & NUMERICAL ACCORDIONS (21.7) */
+    const conceptQA = [
+      ["1. Why do isotopes of the same element have different masses?", "They have the same number of protons but different numbers of neutrons in their nuclei."],
+      ["2. Why is the Bohr model not sufficient for all atoms?", "It fails for multi-electron atoms because it ignores electron–electron repulsions, wave–particle duality, and Heisenberg's uncertainty principle."],
+      ["3. What is the difference between an orbit and an orbital?", "An orbit is a fixed classical circular path (Bohr), whereas an orbital is a 3D quantum mechanical wavefunction (ψ) where |ψ|² gives electron probability density."],
+      ["4. Why can an atomic orbital contain only two electrons?", "By the Pauli Exclusion Principle, no two electrons can share all four quantum numbers; since n, l, m_l are fixed for an orbital, m_s only allows +1/2 and -1/2."],
+      ["5. Why does atomic radius generally decrease across a period?", "Proton number increases while electrons enter the same principal shell; incomplete shielding causes Z_eff to increase, pulling electrons closer."],
+      ["6. Why is H₂O bent while CO₂ is linear?", "H₂O is AX₂E₂ (4 domains, 2 lone pairs on O → bent ≈104.5°), whereas CO₂ is AX₂ (2 bonding domains, 0 lone pairs on C → linear 180°)."],
+      ["7. Why is oxygen paramagnetic?", "In Molecular Orbital Theory, O₂ has two unpaired electrons occupying degenerate π*₂p antibonding orbitals with parallel spins."],
+      ["8. Why does NaCl have a high melting point?", "Strong electrostatic Coulombic attractions exist between Na⁺ and Cl⁻ ions throughout the extended 3D ionic crystal lattice."],
+      ["9. Why is the second electron addition to oxygen endothermic?", "Adding an electron to O⁻ experiences strong electrostatic repulsion from the already negatively charged ion."],
+      ["10. What is the difference between an oxidizing agent and a reducing agent?", "An oxidizing agent accepts electrons and is reduced; a reducing agent donates electrons and is oxidized."],
+      ["11. Why does a buffer resist pH changes?", "It contains both a weak acid (HA) to neutralize added OH⁻ and its conjugate base (A⁻) to neutralize added H₃O⁺."],
+      ["12. Why does cell potential depend on ion concentration?", "By the Nernst equation, changing reactant/product activities alters the reaction quotient Q and the Gibbs free energy driving force (ΔG)."],
+      ["13. Why is a salt bridge needed in a galvanic cell?", "It completes the internal electrical circuit by allowing ion migration to maintain electrical neutrality in both half-cells."],
+      ["14. Why are standard electrode potentials not multiplied by reaction coefficients?", "Electrode potential (E° = -ΔG°/nF) is an intensive property (energy per unit charge in J/C); multiplying both ΔG° and n cancels out."],
+      ["15. Can a reaction with positive cell potential be slow?", "Yes. E° > 0 only guarantees thermodynamic spontaneity (ΔG° < 0), not fast kinetics (which depend on activation energy and overpotential)."]
+    ];
+
+    const conceptGrid = document.getElementById('concept-questions-grid');
+    conceptQA.forEach(([q, a]) => {
+      const el = document.createElement('details');
+      el.className = 'concept-item p-3.5 rounded-xl border';
+      el.style.backgroundColor = 'var(--bg-elevated)';
+      el.style.borderColor = 'var(--border-color)';
+      el.innerHTML = `<summary class="font-semibold cursor-pointer">${q}</summary><p class="mt-2 pt-2 border-t text-emerald-400" style="border-color: var(--border-color);">${a}</p>`;
+      conceptGrid.appendChild(el);
+    });
+
+    let conceptsOpen = false;
+    function toggleAllConceptAnswers() {
+      conceptsOpen = !conceptsOpen;
+      document.querySelectorAll('.concept-item').forEach(d => d.open = conceptsOpen);
+      document.getElementById('toggle-concepts-btn').textContent = conceptsOpen ? 'Hide All Answers' : 'Show All Answers';
+    }
+
+    let numOpen = false;
+    function toggleAllNumericalSolutions() {
+      numOpen = !numOpen;
+      document.querySelectorAll('.num-prob').forEach(d => d.open = numOpen);
+    }
+
+    /* 10. 24-ITEM SYLLABUS REVISION CHECKLIST (21.8) */
+    const checklistItems = [
+      "Explain atoms, molecules, ions, isotopes and subatomic particles",
+      "Describe Dalton, Thomson, Rutherford and Bohr atomic models",
+      "Explain photons, wave–particle duality and de Broglie wavelength",
+      "Apply Heisenberg's uncertainty principle",
+      "Explain the Schrödinger equation, orbitals and quantum numbers",
+      "Write electronic configurations and apply Pauli, Hund and Aufbau rules",
+      "Solve hydrogen atomic spectrum problems",
+      "Explain ionic, covalent and intermolecular bonding",
+      "Draw Lewis structures and calculate formal charges",
+      "Explain resonance, octet exceptions and coordinate bonding",
+      "Differentiate sigma and pi bonds using valence bond theory",
+      "Calculate molecular orbital bond orders and magnetic behavior",
+      "Predict molecular geometry using VSEPR theory",
+      "Assign introductory hybridisation labels",
+      "Explain periodic size and energy trends",
+      "Perform Born–Haber cycle calculations",
+      "Assign oxidation numbers and identify redox agents",
+      "Use Arrhenius, Brønsted–Lowry and Lewis acid–base theories",
+      "Calculate pH, pKa and buffer pH",
+      "Balance ordinary chemical and ionic equations",
+      "Balance redox reactions in acidic and basic media",
+      "Calculate galvanic cell potentials from reduction potential data",
+      "Apply the Nernst equation to electrodes and cells",
+      "Calculate Gibbs energy, equilibrium constants and electrolysis mass"
+    ];
+
+    let savedChecklist = JSON.parse(localStorage.getItem('pst11204_checklist') || '{}');
+    const checkGrid = document.getElementById('checklist-grid');
+
+    function renderChecklist() {
+      checkGrid.innerHTML = '';
+      let doneCount = 0;
+      checklistItems.forEach((item, idx) => {
+        const checked = !!savedChecklist[idx];
+        if (checked) doneCount++;
+        const label = document.createElement('label');
+        label.className = `flex items-start gap-2.5 p-3 rounded-lg border cursor-pointer transition ${checked ? 'border-emerald-500/40 bg-emerald-500/10' : ''}`;
+        if (!checked) {
+          label.style.backgroundColor = 'var(--bg-elevated)';
+          label.style.borderColor = 'var(--border-color)';
+        }
+        label.innerHTML = `
+          <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleCheckItem(${idx})" class="mt-0.5 accent-emerald-500 rounded" />
+          <span class="${checked ? 'line-through opacity-70' : ''}">${item}</span>
+        `;
+        checkGrid.appendChild(label);
+      });
+      document.getElementById('checklist-counter').textContent = `${doneCount}/24 completed`;
+      document.getElementById('checklist-bar').style.width = `${(doneCount / 24) * 100}%`;
+    }
+
+    function toggleCheckItem(idx) {
+      savedChecklist[idx] = !savedChecklist[idx];
+      localStorage.setItem('pst11204_checklist', JSON.stringify(savedChecklist));
+      renderChecklist();
+    }
+
+    function resetChecklist() {
+      savedChecklist = {};
+      localStorage.removeItem('pst11204_checklist');
+      renderChecklist();
+    }
+
+    renderChecklist();
+  </script>
+</body>
+</html>
