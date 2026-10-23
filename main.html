@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=1200">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>Malith Eranga</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Syncopate:wght@600&display=swap" rel="stylesheet">
 <style>
@@ -26,25 +26,42 @@
 html { background-color: #030712; width: 100%; height: 100%; scroll-behavior: smooth; }
 
 body {
-    width: 100%; height: 100%;
+    width: 100%; min-height: 100%;
     background-color: #030712; 
     font-family: 'Space Grotesk', sans-serif;
     color: var(--text-main);
     overflow-x: hidden;
     opacity: 0;
-    animation: fadeInPage 2s ease-in-out forwards;
+    animation: fadeInPage 1.6s ease-in-out forwards;
 }
 
+/* ===================================================
+   HERO SECTION (NO-CROP RESPONSIVE IMAGE PROTECTION)
+   =================================================== */
 .hero-section {
-    position: relative; width: 100%; min-height: 800px; 
-    background: url('Backgrounds/background1.webp');
-    background-size: cover; background-position: center; background-repeat: no-repeat;
+    position: relative;
+    width: 100%;
+    min-height: 800px;
+    aspect-ratio: 16 / 9;
+    background-color: #030712;
+    background-image: url('Backgrounds/background1.webp');
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
     overflow: hidden;
+}
+
+@media (min-width: 1200px) {
+    .hero-section {
+        min-height: 100vh;
+        background-size: cover;
+        background-position: center top;
+    }
 }
 
 .top-nav {
     position: fixed; top: 30px; left: 50%; z-index: 100;
-    background: rgba(15, 23, 42, 0.3);
+    background: rgba(15, 23, 42, 0.35);
     backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-bottom: 2px solid var(--secondary); 
@@ -52,13 +69,14 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     opacity: 0;
     animation: navSlideDown 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; 
+    max-width: 94vw;
 }
 
 .top-nav ul { list-style: none; display: flex; gap: 25px; align-items: center; }
 .top-nav li a {
     text-decoration: none; color: var(--text-muted); font-size: 0.75rem; 
     font-weight: 600; text-transform: uppercase; letter-spacing: 2px; 
-    transition: all 0.4s ease; position: relative; padding: 5px 0;
+    transition: all 0.4s ease; position: relative; padding: 5px 0; white-space: nowrap;
 }
 .top-nav li a:hover, .top-nav li a.active { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 .top-nav li a::after {
@@ -76,54 +94,22 @@ body {
 #starsCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; mix-blend-mode: screen; }
 
 /* ===================================================
-   CALM MOLECULAR GALLERY & ARCHITECT LAB (BELOW HERO)
+   REALISTIC PROFESSOR CHALKBOARD SECTION (NO EXTRA TEXT)
    =================================================== */
 .chem-arena-section {
     position: relative;
     width: 100%;
-    height: 310px;
-    background: linear-gradient(180deg, #030712 0%, #050b1a 50%, #040812 100%);
-    border-top: 1px solid rgba(0, 255, 204, 0.14);
-    border-bottom: 1px solid rgba(0, 255, 204, 0.14);
+    height: 350px;
+    background: #0a0f18;
+    border-top: 8px solid #3e2723;
+    border-bottom: 12px solid #4e342e;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.85), 0 10px 25px rgba(0, 0, 0, 0.6);
     overflow: hidden;
     z-index: 15;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-.chem-arena-hud {
-    position: absolute;
-    top: 14px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    z-index: 5;
-    pointer-events: none;
-    background: rgba(4, 8, 18, 0.7);
-    border: 1px solid rgba(0, 255, 204, 0.2);
-    padding: 6px 22px;
-    border-radius: 30px;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-}
-
-.chem-arena-title {
-    font-family: 'Syncopate', sans-serif;
-    font-size: 0.65rem;
-    letter-spacing: 2.5px;
-    color: var(--secondary);
-    text-transform: uppercase;
-}
-
-.chem-arena-status {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    letter-spacing: 1px;
+    user-select: none;
 }
 
 #chemGalleryCanvas {
@@ -343,8 +329,8 @@ body {
 .tora-chat-panel {
     position: fixed;
     bottom: 145px; right: 30px;
-    width: 345px; height: 485px;
-    background: rgba(4, 9, 24, 0.95);
+    width: 360px; height: 500px;
+    background: rgba(4, 9, 24, 0.96);
     backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(0, 255, 204, 0.4);
     border-radius: 20px;
@@ -401,17 +387,24 @@ body {
 .t-msg-icon.user { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); }
 
 .t-bubble {
-    max-width: 83%; padding: 9px 13px; border-radius: 13px;
+    max-width: 84%; padding: 9px 13px; border-radius: 13px;
     font-size: 12.5px; line-height: 1.55; word-break: break-word;
 }
 .t-msg.bot .t-bubble {
-    background: rgba(15, 23, 42, 0.9);
+    background: rgba(15, 23, 42, 0.92);
     border: 1px solid rgba(0, 255, 204, 0.22);
     color: #f1f5f9; border-bottom-left-radius: 3px;
 }
 .t-msg.user .t-bubble {
     background: linear-gradient(135deg, #00ffcc, #10b981);
     color: #022c22; font-weight: 600; border-bottom-right-radius: 3px;
+}
+
+.t-wiki-badge {
+    display: inline-block; font-size: 9.5px; letter-spacing: 1px;
+    text-transform: uppercase; color: #38bdf8;
+    background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3);
+    padding: 2px 7px; border-radius: 6px; margin-bottom: 5px;
 }
 
 .t-action-btn {
@@ -496,6 +489,79 @@ body {
     transition: all 0.5s ease;
 }
 .resume-btn:hover::after { left: 150%; transition: all 0.7s ease; }
+
+/* ===================================================
+   MOBILE & TABLET RESPONSIVE OPTIMIZATIONS
+   =================================================== */
+@media (max-width: 1024px) {
+    .hero-section {
+        min-height: 0;
+        aspect-ratio: 16 / 9;
+        background-size: 100% 100%;
+    }
+    .top-nav {
+        top: 14px;
+        padding: 8px 18px;
+    }
+    .top-nav ul { gap: 15px; }
+    .top-nav li a { font-size: 0.68rem; letter-spacing: 1.2px; }
+    .resume-btn {
+        top: 14px; right: 14px;
+        padding: 8px 14px; font-size: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        width: 100%;
+        min-height: 250px;
+        aspect-ratio: 16 / 9;
+        background-size: 100% 100%;
+        background-position: center center;
+    }
+    .top-nav {
+        top: 10px;
+        left: 50%;
+        width: 94%;
+        padding: 7px 12px;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+    .top-nav::-webkit-scrollbar { display: none; }
+    .top-nav ul {
+        justify-content: space-between;
+        gap: 12px;
+        min-width: max-content;
+        margin: 0 auto;
+    }
+    .top-nav li a { font-size: 0.62rem; letter-spacing: 1px; }
+    .resume-btn {
+        top: auto;
+        bottom: 24px;
+        left: 16px;
+        right: auto;
+        padding: 9px 14px;
+        font-size: 10px;
+        letter-spacing: 1.5px;
+        z-index: 999;
+    }
+    .chem-arena-section { height: 290px; }
+
+    #chuti-bot {
+        bottom: 16px;
+        right: 16px;
+        transform: scale(0.86);
+        transform-origin: bottom right;
+    }
+    .tora-chat-panel {
+        right: 10px;
+        bottom: 120px;
+        width: calc(100vw - 20px);
+        max-width: 360px;
+        height: 68vh;
+        max-height: 460px;
+    }
+}
 </style>
 </head>
 <body>
@@ -504,12 +570,8 @@ body {
     <canvas id="starsCanvas"></canvas>
 </div>
 
-<!-- ========== CALM SINGLE-CHEMIST MOLECULAR GALLERY ========== -->
-<section class="chem-arena-section">
-    <div class="chem-arena-hud">
-        <span class="chem-arena-title">🧪 Molecular Synthesis Studio</span>
-        <span class="chem-arena-status" id="arenaStatusText">Synthesizing 1 / 8 : Benzene (C₆H₆)</span>
-    </div>
+<!-- ========== REALISTIC PROFESSOR CHALKBOARD SECTION (NO EXTRA HUD TEXT) ========== -->
+<section class="chem-arena-section" id="chemArenaSection">
     <canvas id="chemGalleryCanvas"></canvas>
 </section>
 
@@ -524,7 +586,7 @@ body {
     </ul>
 </nav>
 
-<!-- ========== ADVANCED TORA 2.0 ROBOT + CHAT ========== -->
+<!-- ========== ADVANCED TORA 2.0 ROBOT + OMNI-BRAIN CHAT ========== -->
 <div id="chuti-bot">
 
     <div class="tora-chat-panel" id="tora-chat-panel">
@@ -532,8 +594,8 @@ body {
         <div class="tora-header">
             <div class="tora-avatar">🤖</div>
             <div class="tora-header-info">
-                <div class="tora-header-name">TORA 2.0 · AI Core</div>
-                <div class="tora-header-status" id="tora-status-sub">● Quantum Brain Online · Ask Anything!</div>
+                <div class="tora-header-name">TORA 2.0 · Omni-AI</div>
+                <div class="tora-header-status" id="tora-status-sub">● Global Knowledge + Malith AI Online</div>
             </div>
             <button class="tora-icon-btn" id="tora-voice-btn" onclick="toggleVoice(event)" title="Toggle Robot Voice">🔊</button>
             <button class="tora-icon-btn tora-close-btn" onclick="closeChat(event)" title="Close">✕</button>
@@ -546,14 +608,14 @@ body {
             <span class="t-chip" onclick="askChip('Tell me about Modern Pixels')">🎨 Modern Pixels</span>
             <span class="t-chip" onclick="askChip('Tell me about his Chemistry degree')">🧪 Chemistry Degree</span>
             <span class="t-chip" onclick="askChip('What are his top projects?')">🚀 Top Projects</span>
-            <span class="t-chip" onclick="askChip('What is ChemAZ series?')">🧬 ChemAZ Series</span>
-            <span class="t-chip" onclick="askChip('Tell me a chemistry joke')">😂 Chem Joke</span>
+            <span class="t-chip" onclick="askChip('What is Quantum Computing?')">⚛️ Quantum Computing</span>
+            <span class="t-chip" onclick="askChip('Tell me about Gold element')">🪙 Element Gold (Au)</span>
             <span class="t-chip" onclick="askChip('How can I hire or contact him?')">📬 Hire / Contact</span>
         </div>
 
         <div class="tora-input-area">
             <div class="tora-input-row">
-                <textarea id="tora-input" rows="1" placeholder="Ask about Malith, Chemistry, Singlish, Math…"
+                <textarea id="tora-input" rows="1" placeholder="Ask anything in the world, Chemistry, Math, or Malith…"
                     onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
                 <button class="tora-send-btn" onclick="handleTyped()">
                     <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
@@ -606,770 +668,900 @@ function resizeIframe(obj) {
     } catch (_) {}
 }
 
-// =========================================
-// 1. HERO STARS ANIMATION
-// =========================================
-const canvas = document.getElementById('starsCanvas');
-const ctx    = canvas.getContext('2d');
-const hero   = document.querySelector('.hero-section');
-let stars    = [];
+// =========================================================
+// 1. OPTIMIZED HERO STARS ANIMATION (AUTO-PAUSES OFF-SCREEN)
+// =========================================================
+(function initHeroStars() {
+    const canvas = document.getElementById('starsCanvas');
+    const ctx    = canvas.getContext('2d', { alpha: true });
+    const hero   = document.querySelector('.hero-section');
+    let stars    = [];
+    let heroVisible = true;
 
-function resize() { canvas.width = hero.offsetWidth; canvas.height = hero.offsetHeight; }
+    function resize() {
+        canvas.width = hero.offsetWidth;
+        canvas.height = hero.offsetHeight;
+        initStars();
+    }
 
-class Star {
-    constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 1.5 + 0.2;
-        this.baseAlpha = Math.random() * 0.5 + 0.1;
-        this.pulseSpeed = Math.random() * 0.02 + 0.005;
-        this.angle = Math.random() * 2 * Math.PI;
+    function initStars() {
+        stars = [];
+        const isMobile = window.innerWidth < 768;
+        const count = isMobile ? 75 : 140;
+        for (let i = 0; i < count; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 1.5 + 0.3,
+                baseAlpha: Math.random() * 0.5 + 0.15,
+                pulseSpeed: Math.random() * 0.02 + 0.005,
+                angle: Math.random() * Math.PI * 2
+            });
+        }
     }
-    update() {
-        this.angle += this.pulseSpeed;
-        this.alpha = Math.min(1, Math.max(0, this.baseAlpha + Math.sin(this.angle) * 0.5));
-    }
-    draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
-        ctx.shadowBlur = this.alpha > 0.6 ? 6 : 0;
-        ctx.shadowColor = "rgba(255,255,255,0.8)";
-        ctx.fill();
-    }
-}
 
-function initStars() { stars = []; for (let i = 0; i < 200; i++) stars.push(new Star()); }
-function animateStars() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    stars.forEach(s => { s.update(); s.draw(); });
-    requestAnimationFrame(animateStars);
-}
-window.addEventListener('resize', resize);
-resize(); initStars(); animateStars();
+    const obs = new IntersectionObserver(entries => {
+        heroVisible = entries[0].isIntersecting;
+    }, { threshold: 0.01 });
+    obs.observe(hero);
+
+    function animateStars() {
+        if (heroVisible && !document.hidden) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#ffffff";
+            for (let i = 0; i < stars.length; i++) {
+                const s = stars[i];
+                s.angle += s.pulseSpeed;
+                const alpha = Math.min(1, Math.max(0.05, s.baseAlpha + Math.sin(s.angle) * 0.45));
+                ctx.globalAlpha = alpha;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.globalAlpha = 1;
+        }
+        requestAnimationFrame(animateStars);
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+    animateStars();
+})();
 
 // =========================================================================
-// 2. CALM SINGLE CYBER-CHEMIST BUILDING & FILLING MOLECULAR GALLERY
+// 2. REALISTIC PROFESSOR CHALKBOARD ANIMATION (10 MOLECULES + NAMES BELOW)
 // =========================================================================
-(function initMolecularGallery() {
-    const gCanvas = document.getElementById('chemGalleryCanvas');
-    const gCtx = gCanvas.getContext('2d');
-    const statusText = document.getElementById('arenaStatusText');
-    let gw = 1200, gh = 310, floorY = 268;
+(function initChalkboardProfessor() {
+    const section = document.getElementById('chemArenaSection');
+    const canvas = document.getElementById('chemGalleryCanvas');
+    const ctx = canvas.getContext('2d');
 
-    function resizeGallery() {
-        const rect = gCanvas.parentElement.getBoundingClientRect();
-        const dpr = window.devicePixelRatio || 1;
-        gw = rect.width;
-        gh = rect.height;
-        gCanvas.width = gw * dpr;
-        gCanvas.height = gh * dpr;
-        gCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        floorY = gh - 38;
-        setupGallerySlots();
+    let cw = 1200, ch = 350, floorY = 326;
+    let isVisible = true;
+    let scale = 1;
+
+    // Pause when off-screen for zero CPU/GPU usage on slow machines
+    const obs = new IntersectionObserver(entries => {
+        isVisible = entries[0].isIntersecting;
+    }, { threshold: 0.02 });
+    obs.observe(section);
+
+    // Pre-rendered Realistic Slate Blackboard Texture (Zero runtime lag)
+    let boardBuffer = null;
+    function buildBlackboardTexture(w, h) {
+        const off = document.createElement('canvas');
+        off.width = Math.max(1, Math.floor(w));
+        off.height = Math.max(1, Math.floor(h));
+        const oCtx = off.getContext('2d');
+
+        // Deep realistic slate-green chalkboard gradient
+        const bgGrad = oCtx.createRadialGradient(w * 0.5, h * 0.45, 30, w * 0.5, h * 0.5, Math.max(w, h) * 0.75);
+        bgGrad.addColorStop(0, "#1c3128");
+        bgGrad.addColorStop(0.55, "#13231c");
+        bgGrad.addColorStop(1, "#0b1511");
+        oCtx.fillStyle = bgGrad;
+        oCtx.fillRect(0, 0, w, h);
+
+        // Subtle diagonal chalk smudge marks (like a real used university board)
+        oCtx.strokeStyle = "rgba(255, 255, 255, 0.018)";
+        oCtx.lineWidth = 28;
+        oCtx.lineCap = "round";
+        for (let i = 0; i < 16; i++) {
+            const sx = (i / 16) * w + 20;
+            const sy = 30 + (i % 3) * 70;
+            oCtx.beginPath();
+            oCtx.moveTo(sx, sy);
+            oCtx.lineTo(sx + 90, sy - 20);
+            oCtx.stroke();
+        }
+
+        // Fine grain slate texture
+        oCtx.fillStyle = "rgba(255, 255, 255, 0.015)";
+        for (let i = 0; i < 350; i++) {
+            const rx = Math.random() * w;
+            const ry = Math.random() * h;
+            oCtx.fillRect(rx, ry, 1.5, 1.5);
+        }
+
+        // Wooden Chalk Tray at the bottom
+        const trayY = h - 22;
+        const woodGrad = oCtx.createLinearGradient(0, trayY, 0, h);
+        woodGrad.addColorStop(0, "#6d4c41");
+        woodGrad.addColorStop(0.3, "#4e342e");
+        woodGrad.addColorStop(1, "#271915");
+        oCtx.fillStyle = woodGrad;
+        oCtx.fillRect(0, trayY, w, 22);
+
+        oCtx.strokeStyle = "rgba(255, 255, 255, 0.12)";
+        oCtx.lineWidth = 1;
+        oCtx.beginPath();
+        oCtx.moveTo(0, trayY);
+        oCtx.lineTo(w, trayY);
+        oCtx.stroke();
+
+        // Coloured chalk sticks resting on the wooden ledge
+        const chalkColors = ["#ffffff", "#fef08a", "#bae6fd", "#fecdd3", "#bbf7d0"];
+        for (let i = 0; i < 8; i++) {
+            const cx = w * 0.12 + i * (w * 0.11);
+            oCtx.fillStyle = chalkColors[i % chalkColors.length];
+            oCtx.fillRect(cx, trayY - 3.5, 18, 3.5);
+        }
+
+        // Classic felt wooden board duster resting on the tray
+        oCtx.fillStyle = "#8d6e63";
+        oCtx.fillRect(w * 0.82, trayY - 9, 34, 6);
+        oCtx.fillStyle = "#37474f";
+        oCtx.fillRect(w * 0.82, trayY - 3, 34, 3);
+
+        boardBuffer = off;
     }
 
-    // 8 Distinct Chemical Structures with custom Atom & Bond blueprints
-    const MOLECULE_BLUEPRINTS = [
+    // 10 Authentic Chemical Compounds (Each with Strokes, Atom Labels, and Name + Formula below)
+    const TEN_COMPOUNDS = [
+        // 1. Benzene
         {
-            name: "Benzene Ring",
+            name: "Benzene",
             formula: "C₆H₆",
-            color: "#00ffcc",
-            atoms: [
-                { x: 0, y: -24, el: "C", r: 5 },
-                { x: 21, y: -12, el: "C", r: 5 },
-                { x: 21, y: 12, el: "C", r: 5 },
-                { x: 0, y: 24, el: "C", r: 5 },
-                { x: -21, y: 12, el: "C", r: 5 },
-                { x: -21, y: -12, el: "C", r: 5 }
-            ],
-            bonds: [[0,1,2], [1,2,1], [2,3,2], [3,4,1], [4,5,2], [5,0,1]],
-            hasAromaticRing: true
+            chalkColor: "#f8fafc",
+            strokes: [
+                { type: 'line', x1: 0, y1: -34, x2: 29, y2: -17 },
+                { type: 'line', x1: 29, y1: -17, x2: 29, y2: 17 },
+                { type: 'line', x1: 29, y1: 17, x2: 0, y2: 34 },
+                { type: 'line', x1: 0, y1: 34, x2: -29, y2: 17 },
+                { type: 'line', x1: -29, y1: 17, x2: -29, y2: -17 },
+                { type: 'line', x1: -29, y1: -17, x2: 0, y2: -34 },
+                // Inner double bonds
+                { type: 'line', x1: 2, y1: -27, x2: 23, y2: -14 },
+                { type: 'line', x1: 23, y1: 14, x2: 2, y2: 27 },
+                { type: 'line', x1: -23, y1: 14, x2: -23, y2: -14 }
+            ]
         },
+        // 2. Water
         {
             name: "Water",
             formula: "H₂O",
-            color: "#38bdf8",
-            atoms: [
-                { x: 0, y: -6, el: "O", r: 7.5, col: "#ef4444" },
-                { x: -20, y: 14, el: "H", r: 4.5, col: "#e2e8f0" },
-                { x: 20, y: 14, el: "H", r: 4.5, col: "#e2e8f0" }
-            ],
-            bonds: [[0,1,1], [0,2,1]]
+            chalkColor: "#e0f2fe",
+            strokes: [
+                { type: 'atom', text: 'O', x: 0, y: -12 },
+                { type: 'line', x1: -9, y1: -4, x2: -25, y2: 14 },
+                { type: 'atom', text: 'H', x: -32, y: 24 },
+                { type: 'line', x1: 9, y1: -4, x2: 25, y2: 14 },
+                { type: 'atom', text: 'H', x: 32, y: 24 },
+                // Lone pairs on Oxygen
+                { type: 'dots', x1: -6, y1: -25, x2: -2, y2: -25 },
+                { type: 'dots', x1: 2, y1: -25, x2: 6, y2: -25 }
+            ]
         },
+        // 3. Methane
         {
             name: "Methane",
             formula: "CH₄",
-            color: "#a855f7",
-            atoms: [
-                { x: 0, y: 0, el: "C", r: 7, col: "#a855f7" },
-                { x: 0, y: -24, el: "H", r: 4.5, col: "#e2e8f0" },
-                { x: -22, y: 12, el: "H", r: 4.5, col: "#e2e8f0" },
-                { x: 22, y: 12, el: "H", r: 4.5, col: "#e2e8f0" },
-                { x: 8, y: 20, el: "H", r: 4, col: "#cbd5e1" }
-            ],
-            bonds: [[0,1,1], [0,2,1], [0,3,1], [0,4,1]]
+            chalkColor: "#fef9c3",
+            strokes: [
+                { type: 'atom', text: 'C', x: 0, y: 0 },
+                { type: 'line', x1: 0, y1: -10, x2: 0, y2: -25 },
+                { type: 'atom', text: 'H', x: 0, y: -34 },
+                { type: 'line', x1: 0, y1: 10, x2: 0, y2: 25 },
+                { type: 'atom', text: 'H', x: 0, y: 36 },
+                { type: 'line', x1: -10, y1: 0, x2: -25, y2: 0 },
+                { type: 'atom', text: 'H', x: -34, y: 0 },
+                { type: 'line', x1: 10, y1: 0, x2: 25, y2: 0 },
+                { type: 'atom', text: 'H', x: 34, y: 0 }
+            ]
         },
-        {
-            name: "Carbon Dioxide",
-            formula: "CO₂",
-            color: "#f43f5e",
-            atoms: [
-                { x: 0, y: 0, el: "C", r: 6.5, col: "#94a3b8" },
-                { x: -26, y: 0, el: "O", r: 6.5, col: "#f43f5e" },
-                { x: 26, y: 0, el: "O", r: 6.5, col: "#f43f5e" }
-            ],
-            bonds: [[0,1,2], [0,2,2]]
-        },
-        {
-            name: "Ammonia",
-            formula: "NH₃",
-            color: "#22c55e",
-            atoms: [
-                { x: 0, y: -8, el: "N", r: 7, col: "#3b82f6" },
-                { x: -22, y: 12, el: "H", r: 4.5, col: "#e2e8f0" },
-                { x: 0, y: 20, el: "H", r: 4.5, col: "#e2e8f0" },
-                { x: 22, y: 12, el: "H", r: 4.5, col: "#e2e8f0" }
-            ],
-            bonds: [[0,1,1], [0,2,1], [0,3,1]]
-        },
-        {
-            name: "Cyclohexane",
-            formula: "C₆H₁₂",
-            color: "#eab308",
-            atoms: [
-                { x: -22, y: -10, el: "C", r: 5 },
-                { x: -7, y: -18, el: "C", r: 5 },
-                { x: 20, y: -8, el: "C", r: 5 },
-                { x: 22, y: 10, el: "C", r: 5 },
-                { x: 7, y: 18, el: "C", r: 5 },
-                { x: -20, y: 8, el: "C", r: 5 }
-            ],
-            bonds: [[0,1,1], [1,2,1], [2,3,1], [3,4,1], [4,5,1], [5,0,1]]
-        },
+        // 4. Ethanol
         {
             name: "Ethanol",
             formula: "C₂H₅OH",
-            color: "#06b6d4",
-            atoms: [
-                { x: -22, y: 6, el: "C", r: 6 },
-                { x: 0, y: -6, el: "C", r: 6 },
-                { x: 20, y: 6, el: "O", r: 6.5, col: "#ef4444" },
-                { x: 32, y: -4, el: "H", r: 4, col: "#ffffff" }
-            ],
-            bonds: [[0,1,1], [1,2,1], [2,3,1]]
+            chalkColor: "#f8fafc",
+            strokes: [
+                { type: 'atom', text: 'H₃C', x: -34, y: 12 },
+                { type: 'line', x1: -18, y1: 6, x2: 0, y2: -10 },
+                { type: 'line', x1: 0, y1: -10, x2: 18, y2: 6 },
+                { type: 'atom', text: 'OH', x: 32, y: 12 }
+            ]
         },
+        // 5. Acetic Acid
         {
-            name: "Buckyball Node",
-            formula: "C₆₀",
-            color: "#ec4899",
-            atoms: [
-                { x: 0, y: -22, el: "C", r: 4.5 },
-                { x: 21, y: -7, el: "C", r: 4.5 },
-                { x: 13, y: 18, el: "C", r: 4.5 },
-                { x: -13, y: 18, el: "C", r: 4.5 },
-                { x: -21, y: -7, el: "C", r: 4.5 },
-                { x: 0, y: 0, el: "C", r: 5.5 }
-            ],
-            bonds: [[0,1,1], [1,2,1], [2,3,1], [3,4,1], [4,0,1], [5,0,1], [5,1,1], [5,2,1], [5,3,1], [5,4,1]]
+            name: "Acetic Acid",
+            formula: "CH₃COOH",
+            chalkColor: "#fde68a",
+            strokes: [
+                { type: 'atom', text: 'H₃C', x: -32, y: 12 },
+                { type: 'line', x1: -16, y1: 6, x2: 0, y2: -6 },
+                { type: 'atom', text: 'C', x: 4, y: -6 },
+                // C=O Double bond upwards
+                { type: 'line', x1: 2, y1: -15, x2: 2, y2: -28 },
+                { type: 'line', x1: 6, y1: -15, x2: 6, y2: -28 },
+                { type: 'atom', text: 'O', x: 4, y: -36 },
+                // C-OH bond
+                { type: 'line', x1: 12, y1: -2, x2: 24, y2: 10 },
+                { type: 'atom', text: 'OH', x: 36, y: 16 }
+            ]
+        },
+        // 6. Acetone
+        {
+            name: "Acetone",
+            formula: "C₃H₆O",
+            chalkColor: "#f8fafc",
+            strokes: [
+                { type: 'atom', text: 'H₃C', x: -32, y: 16 },
+                { type: 'line', x1: -17, y1: 9, x2: 0, y2: -5 },
+                { type: 'line', x1: 0, y1: -5, x2: 17, y2: 9 },
+                { type: 'atom', text: 'CH₃', x: 32, y: 16 },
+                // Carbonyl C=O
+                { type: 'line', x1: -2.5, y1: -5, x2: -2.5, y2: -25 },
+                { type: 'line', x1: 2.5, y1: -5, x2: 2.5, y2: -25 },
+                { type: 'atom', text: 'O', x: 0, y: -34 }
+            ]
+        },
+        // 7. Carbon Dioxide
+        {
+            name: "Carbon Dioxide",
+            formula: "CO₂",
+            chalkColor: "#fecdd3",
+            strokes: [
+                { type: 'atom', text: 'O', x: -34, y: 0 },
+                { type: 'line', x1: -24, y1: -3, x2: -9, y2: -3 },
+                { type: 'line', x1: -24, y1: 3, x2: -9, y2: 3 },
+                { type: 'atom', text: 'C', x: 0, y: 0 },
+                { type: 'line', x1: 9, y1: -3, x2: 24, y2: -3 },
+                { type: 'line', x1: 9, y1: 3, x2: 24, y2: 3 },
+                { type: 'atom', text: 'O', x: 34, y: 0 }
+            ]
+        },
+        // 8. Ammonia
+        {
+            name: "Ammonia",
+            formula: "NH₃",
+            chalkColor: "#bbf7d0",
+            strokes: [
+                { type: 'atom', text: 'N', x: 0, y: -12 },
+                { type: 'dots', x1: -3, y1: -24, x2: 3, y2: -24 },
+                { type: 'line', x1: -9, y1: -3, x2: -24, y2: 15 },
+                { type: 'atom', text: 'H', x: -31, y: 24 },
+                { type: 'line', x1: 0, y1: -2, x2: 0, y2: 18 },
+                { type: 'atom', text: 'H', x: 0, y: 29 },
+                { type: 'line', x1: 9, y1: -3, x2: 24, y2: 15 },
+                { type: 'atom', text: 'H', x: 31, y: 24 }
+            ]
+        },
+        // 9. Cyclohexane (Chair Conformation)
+        {
+            name: "Cyclohexane",
+            formula: "C₆H₁₂",
+            chalkColor: "#fef08a",
+            strokes: [
+                { type: 'line', x1: -34, y1: 10, x2: -14, y2: -14 },
+                { type: 'line', x1: -14, y1: -14, x2: 12, y2: -4 },
+                { type: 'line', x1: 12, y1: -4, x2: 34, y2: -16 },
+                { type: 'line', x1: 34, y1: -16, x2: 14, y2: 14 },
+                { type: 'line', x1: 14, y1: 14, x2: -12, y2: 4 },
+                { type: 'line', x1: -12, y1: 4, x2: -34, y2: 10 }
+            ]
+        },
+        // 10. Glucose (Haworth Pyranose Ring)
+        {
+            name: "Glucose",
+            formula: "C₆H₁₂O₆",
+            chalkColor: "#e0f2fe",
+            strokes: [
+                { type: 'atom', text: 'O', x: 16, y: -20 },
+                { type: 'line', x1: 23, y1: -13, x2: 32, y2: 2 },
+                { type: 'line', x1: 32, y1: 2, x2: 16, y2: 18 },
+                { type: 'line', x1: 16, y1: 18, x2: -16, y2: 18 },
+                { type: 'line', x1: -16, y1: 18, x2: -32, y2: 2 },
+                { type: 'line', x1: -32, y1: 2, x2: -16, y2: -20 },
+                { type: 'line', x1: -16, y1: -20, x2: 7, y2: -20 },
+                { type: 'line', x1: -16, y1: -20, x2: -16, y2: -32 },
+                { type: 'atom', text: 'CH₂OH', x: -16, y: -39 }
+            ]
         }
     ];
 
-    let slots = [];
-    let currentSlotIndex = 0;
-    let galleryPhase = 'WALKING'; // 'WALKING' -> 'CRAFTING' -> 'PLACING' -> 'ADMIRING' -> 'RESETTING'
-    let phaseTimer = 0;
-    let fadeOutAlpha = 1;
-    let particles = [];
+    // We display 5 compounds per board full, then Professor wipes the board and draws the next 5
+    const PER_BATCH = 5;
+    let batchIndex = 0; // 0 = Compounds 1..5, 1 = Compounds 6..10
+    let slotInBatch = 0; // 0..4
+    let boardSlots = [];
 
-    function setupGallerySlots() {
-        const count = MOLECULE_BLUEPRINTS.length;
-        const marginX = Math.max(90, gw * 0.08);
-        const usableW = gw - marginX * 2;
-        const stepX = usableW / (count - 1);
+    // State Machine: 'WALKING' -> 'DRAWING_MOL' -> 'WRITING_NAME' -> 'NEXT_PAUSE' -> 'ADMIRING' -> 'ERASING'
+    let phase = 'WALKING';
+    let currentStrokeIdx = 0;
+    let strokeProgress = 0; // 0..1
+    let labelProgress = 0;  // 0..1
+    let pauseTimer = 0;
+    let eraseSweepX = 0;
+    let chalkDust = [];
 
-        slots = MOLECULE_BLUEPRINTS.map((bp, idx) => {
-            // Alternate heights slightly so the filled section looks like a rich 3D floating exhibition
-            const rowOffset = (idx % 2 === 0) ? -145 : -105;
-            return {
-                x: marginX + idx * stepX,
-                y: floorY + rowOffset,
-                blueprint: bp,
-                progress: 0,    // 0.0 to 1.0
-                completed: false,
-                floatPhase: idx * 0.9,
-                rotAngle: 0
-            };
+    function setupBoardSlots() {
+        scale = cw < 600 ? 0.62 : cw < 960 ? 0.82 : 1;
+        const marginX = Math.max(58 * scale, cw * 0.11);
+        const usableW = cw - marginX * 2;
+        const stepX = usableW / (PER_BATCH - 1);
+
+        const startIdx = batchIndex * PER_BATCH;
+        boardSlots = [];
+        for (let i = 0; i < PER_BATCH; i++) {
+            const comp = TEN_COMPOUNDS[startIdx + i];
+            // Alternate slight vertical height so board looks balanced & natural
+            const centerY = (ch * 0.40) + (i % 2 === 0 ? -12 * scale : 8 * scale);
+            boardSlots.push({
+                x: marginX + i * stepX,
+                y: centerY,
+                compound: comp,
+                drawnStrokes: 0,
+                currentStrokeProg: 0,
+                labelProg: 0,
+                erased: false
+            });
+        }
+    }
+
+    function resizeBoard() {
+        const rect = section.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        cw = rect.width;
+        ch = rect.height;
+        canvas.width = cw * dpr;
+        canvas.height = ch * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        floorY = ch - 18;
+        buildBlackboardTexture(cw, ch);
+        setupBoardSlots();
+    }
+
+    window.addEventListener('resize', resizeBoard, { passive: true });
+
+    function spawnChalkDust(x, y, color) {
+        if (chalkDust.length > 40) return;
+        chalkDust.push({
+            x: x + (Math.random() - 0.5) * 4,
+            y: y + (Math.random() - 0.5) * 4,
+            vx: (Math.random() - 0.5) * 0.6,
+            vy: Math.random() * 0.8 + 0.3,
+            r: Math.random() * 1.6 + 0.6,
+            color: color || "#ffffff",
+            alpha: 0.75
         });
     }
 
-    window.addEventListener('resize', resizeGallery);
-    resizeGallery();
+    // Draw a single Chalk Stroke with realistic textured appearance
+    function drawChalkStroke(ctx, cx, cy, stroke, prog, color, sc) {
+        ctx.save();
+        ctx.strokeStyle = color;
+        ctx.fillStyle = color;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
 
-    // --- Single Advanced 3D-Styled Cyber-Chemist Character ---
-    const chemist = {
-        x: 80,
+        if (stroke.type === 'line') {
+            const x1 = cx + stroke.x1 * sc;
+            const y1 = cy + stroke.y1 * sc;
+            const x2 = cx + (stroke.x1 + (stroke.x2 - stroke.x1) * prog) * sc;
+            const y2 = cy + (stroke.y1 + (stroke.y2 - stroke.y1) * prog) * sc;
+
+            // Main chalk line
+            ctx.globalAlpha = 0.88;
+            ctx.lineWidth = 2.6 * sc;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+
+            // Soft chalk halo for realistic texture
+            ctx.globalAlpha = 0.25;
+            ctx.lineWidth = 4.5 * sc;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+        } else if (stroke.type === 'atom') {
+            const ax = cx + stroke.x * sc;
+            const ay = cy + stroke.y * sc;
+            ctx.globalAlpha = Math.min(1, prog * 1.2);
+            ctx.font = `600 ${Math.round(13.5 * sc)}px 'Space Grotesk', sans-serif`;
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText(stroke.text, ax, ay);
+        } else if (stroke.type === 'dots') {
+            ctx.globalAlpha = Math.min(1, prog * 1.2);
+            ctx.beginPath();
+            ctx.arc(cx + stroke.x1 * sc, cy + stroke.y1 * sc, 1.8 * sc, 0, Math.PI * 2);
+            ctx.arc(cx + stroke.x2 * sc, cy + stroke.y2 * sc, 1.8 * sc, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        ctx.restore();
+    }
+
+    // Get exact world coordinate of the chalk tip for the current stroke/writing action
+    function getActiveChalkTarget(slot, sc) {
+        if (!slot) return { x: cw * 0.5, y: ch * 0.5 };
+        const comp = slot.compound;
+
+        if (phase === 'DRAWING_MOL') {
+            const st = comp.strokes[slot.drawnStrokes];
+            if (!st) return { x: slot.x, y: slot.y };
+            const p = slot.currentStrokeProg;
+            if (st.type === 'line') {
+                return {
+                    x: slot.x + (st.x1 + (st.x2 - st.x1) * p) * sc,
+                    y: slot.y + (st.y1 + (st.y2 - st.y1) * p) * sc
+                };
+            } else if (st.type === 'atom') {
+                return {
+                    x: slot.x + st.x * sc + Math.sin(p * Math.PI * 4) * 4 * sc,
+                    y: slot.y + st.y * sc + Math.cos(p * Math.PI * 4) * 3 * sc
+                };
+            } else {
+                return { x: slot.x + st.x1 * sc, y: slot.y + st.y1 * sc };
+            }
+        } else if (phase === 'WRITING_NAME') {
+            // Writing the compound name and formula directly below the structure
+            const labelW = 86 * sc;
+            const writeX = (slot.x - labelW / 2) + labelW * slot.labelProg;
+            const writeY = slot.y + (60 + (slot.labelProg > 0.55 ? 16 : 0)) * sc + Math.sin(slot.labelProg * 45) * 2.2 * sc;
+            return { x: writeX, y: writeY };
+        }
+        return { x: slot.x, y: slot.y };
+    }
+
+    // --- Realistic Chemistry Professor Character ---
+    const professor = {
+        x: 90,
         y: floorY,
-        targetX: 150,
+        targetX: 120,
         facing: 1,
         walkCycle: 0,
         isWalking: false,
-        isCrafting: false,
-        isCelebrating: false,
-        beamTarget: { x: 0, y: 0 },
-        thought: "",
-        thoughtTimer: 0,
-        scarfPoints: [{x:0, y:0}, {x:0, y:0}, {x:0, y:0}, {x:0, y:0}],
+        handTarget: { x: 120, y: 180 },
+        usingChalk: false,
+        usingEraser: false,
 
-        say(text, duration = 160) {
-            this.thought = text;
-            this.thoughtTimer = duration;
-        },
-
-        update() {
-            if (this.thoughtTimer > 0) this.thoughtTimer--;
-
+        update(dt) {
+            this.y = floorY;
             const dx = this.targetX - this.x;
-            // Very calm, slow walking speed (1.35 px per frame)
-            if (Math.abs(dx) > 2.5 && galleryPhase === 'WALKING') {
+            const speed = (phase === 'ERASING' ? 5.2 : 2.2) * Math.max(0.75, scale) * dt;
+
+            if (Math.abs(dx) > 3) {
                 this.isWalking = true;
                 this.facing = dx > 0 ? 1 : -1;
-                this.x += Math.sign(dx) * 1.35;
-                this.walkCycle += 0.065; // Slow, relaxed step rhythm
+                this.x += Math.sign(dx) * Math.min(Math.abs(dx), speed);
+                this.walkCycle += 0.11 * dt;
             } else {
                 this.isWalking = false;
-                this.walkCycle += 0.03; // Gentle breathing idle
-            }
-
-            // Update flowing neck scarf physics
-            const neckX = this.x - this.facing * 4;
-            const neckY = this.y - 54;
-            this.scarfPoints[0] = { x: neckX, y: neckY };
-            for (let i = 1; i < this.scarfPoints.length; i++) {
-                const prev = this.scarfPoints[i - 1];
-                const cur = this.scarfPoints[i];
-                const targetX = prev.x - this.facing * 8 - (this.isWalking ? this.facing * 3 : 0);
-                const targetY = prev.y + 3 + Math.sin(this.walkCycle * 1.5 + i) * 2;
-                cur.x += (targetX - cur.x) * 0.25;
-                cur.y += (targetY - cur.y) * 0.25;
+                this.walkCycle += 0.035 * dt;
             }
         },
 
         draw(ctx) {
-            ctx.save();
-            ctx.translate(this.x, this.y);
+            const sc = Math.max(0.78, scale);
+            const t = this.walkCycle;
+            const bounce = this.isWalking ? Math.abs(Math.sin(t)) * 2.4 * sc : Math.sin(t) * 0.9 * sc;
+            const baseX = this.x;
+            const baseY = this.y - bounce;
 
-            // 1. Soft Floor Glow Shadow
-            const shGrad = ctx.createRadialGradient(0, 2, 2, 0, 2, 26);
-            shGrad.addColorStop(0, "rgba(0, 255, 204, 0.35)");
-            shGrad.addColorStop(1, "transparent");
-            ctx.fillStyle = shGrad;
+            ctx.save();
+
+            // 1. Floor Shadow
+            ctx.fillStyle = "rgba(0, 0, 0, 0.45)";
             ctx.beginPath();
-            ctx.ellipse(0, 2, 24, 5, 0, 0, Math.PI * 2);
+            ctx.ellipse(baseX, this.y - 2, 26 * sc, 5 * sc, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            const t = this.walkCycle;
-            const bounce = this.isWalking ? Math.abs(Math.sin(t)) * 2.5 : Math.sin(t) * 1.2;
-            ctx.translate(0, -bounce);
-
-            // Joint Angles (Smooth & Relaxed)
-            let lHip = 0, lKnee = 0, rHip = 0, rKnee = 0;
-            let lArm = -0.2, lElbow = 0.2, rArm = 0.2, rElbow = -0.3;
-
+            // Leg Walk Angles
+            let lHip = 0, rHip = 0;
             if (this.isWalking) {
-                lHip = Math.sin(t) * 0.45;
-                lKnee = Math.max(0.05, Math.cos(t) * 0.45 + 0.2);
-                rHip = Math.sin(t + Math.PI) * 0.45;
-                rKnee = Math.max(0.05, Math.cos(t + Math.PI) * 0.45 + 0.2);
-
-                lArm = Math.sin(t + Math.PI) * 0.35;
-                rArm = Math.sin(t) * 0.35;
-            } else if (this.isCrafting) {
-                // Pointing synthesis wand calmly upward toward the molecule slot
-                const angleToTarget = Math.atan2(
-                    (this.beamTarget.y) - (this.y - 45),
-                    (this.beamTarget.x - this.x) * this.facing
-                );
-                rArm = angleToTarget - Math.PI / 2;
-                rElbow = -0.15;
-                lArm = -0.4 + Math.sin(t * 2) * 0.1;
-                lElbow = -0.5;
-            } else if (this.isCelebrating) {
-                lArm = -2.2 + Math.sin(t * 3) * 0.25;
-                rArm = -2.2 - Math.sin(t * 3) * 0.25;
+                lHip = Math.sin(t) * 0.38;
+                rHip = Math.sin(t + Math.PI) * 0.38;
             }
 
-            // Helper for 3D Articulated Limb
-            const drawSmoothLimb = (ox, oy, a1, a2, len1, len2, col1, col2, isLeg) => {
+            const drawLeg = (offsetX, hipAngle, trouserCol) => {
                 ctx.save();
-                ctx.translate(ox, oy);
-                ctx.rotate(a1 * this.facing);
-
-                ctx.fillStyle = col1;
+                ctx.translate(baseX + offsetX * sc, baseY - 38 * sc);
+                ctx.rotate(hipAngle * this.facing);
+                // Slacks
+                ctx.fillStyle = trouserCol;
                 ctx.beginPath();
-                ctx.roundRect(-4, 0, 8, len1, 4);
+                ctx.roundRect(-5 * sc, 0, 10 * sc, 34 * sc, 4 * sc);
                 ctx.fill();
-
-                ctx.translate(0, len1 - 2);
-                ctx.rotate(a2 * this.facing);
-
-                ctx.fillStyle = col2;
+                // Leather Oxford Shoes
+                ctx.fillStyle = "#1c1917";
                 ctx.beginPath();
-                ctx.roundRect(-3.5, 0, 7, len2, 3.5);
+                ctx.roundRect(this.facing > 0 ? -4 * sc : -10 * sc, 31 * sc, 14 * sc, 6 * sc, 3 * sc);
                 ctx.fill();
-
-                if (isLeg) {
-                    // Futuristic Cyber Boots
-                    ctx.translate(0, len2 - 1);
-                    ctx.fillStyle = "#0f172a";
-                    ctx.strokeStyle = "#00ffcc";
-                    ctx.lineWidth = 1.2;
-                    ctx.beginPath();
-                    ctx.roundRect(this.facing > 0 ? -3 : -9, 0, 12, 5.5, 2.5);
-                    ctx.fill();
-                    ctx.stroke();
-                }
-
-                // Return world coordinates of hand/foot tip
                 ctx.restore();
-                const jx = ox + Math.sin(-a1 * this.facing) * len1;
-                const jy = oy + Math.cos(-a1 * this.facing) * len1;
-                const ex = jx + Math.sin(-(a1 + a2) * this.facing) * len2;
-                const ey = jy + Math.cos(-(a1 + a2) * this.facing) * len2;
-                return { x: ex, y: ey };
             };
 
-            // 2. Back Arm & Back Leg
-            drawSmoothLimb(0, -46, lArm, lElbow, 12, 11, "#64748b", "#475569", false);
-            drawSmoothLimb(-2 * this.facing, -25, lHip, lKnee, 13, 13, "#0f172a", "#1e293b", true);
+            // Back Leg & Front Leg
+            drawLeg(-3 * this.facing, lHip, "#1e293b");
+            drawLeg(3 * this.facing, rHip, "#334155");
 
-            // 3. Flowing Neon Scarf (Drawn in World Space)
-            ctx.restore();
+            // 2. Left Arm (Holds Chemistry Textbook / Notes while walking/drawing)
             ctx.save();
-            ctx.strokeStyle = "#00ffcc";
-            ctx.lineWidth = 4.5;
-            ctx.lineCap = "round";
-            ctx.lineJoin = "round";
-            ctx.shadowColor = "#00ffcc";
-            ctx.shadowBlur = 10;
+            ctx.translate(baseX - 6 * this.facing * sc, baseY - 76 * sc);
+            ctx.rotate((this.isWalking ? Math.sin(t + Math.PI) * 0.25 : 0.22) * this.facing);
+            ctx.fillStyle = "#e2e8f0";
             ctx.beginPath();
-            this.scarfPoints.forEach((pt, idx) => {
-                if (idx === 0) ctx.moveTo(pt.x, pt.y);
-                else ctx.lineTo(pt.x, pt.y);
-            });
+            ctx.roundRect(-4 * sc, 0, 8 * sc, 26 * sc, 4 * sc);
+            ctx.fill();
+            // Red Chemistry Reference Book in hand
+            ctx.fillStyle = "#7f1d1d";
+            ctx.strokeStyle = "#fde68a";
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.roundRect(-6 * sc, 20 * sc, 13 * sc, 16 * sc, 2 * sc);
+            ctx.fill();
             ctx.stroke();
             ctx.restore();
 
-            ctx.save();
-            ctx.translate(this.x, this.y - bounce);
-
-            // 4. Front Leg
-            drawSmoothLimb(2 * this.facing, -25, rHip, rKnee, 13, 13, "#1e293b", "#334155", true);
-
-            // 5. Tailored 3D Lab Coat & Torso
-            const coatSway = this.isWalking ? Math.sin(t) * 3 : 0;
-            const coatGrad = ctx.createLinearGradient(-10, -50, 12, -16);
+            // 3. Professor's Tailored White Lab Coat & Tweed Waistcoat
+            const coatGrad = ctx.createLinearGradient(baseX - 14 * sc, baseY - 82 * sc, baseX + 14 * sc, baseY - 26 * sc);
             coatGrad.addColorStop(0, "#ffffff");
-            coatGrad.addColorStop(0.6, "#e2e8f0");
-            coatGrad.addColorStop(1, "#94a3b8");
+            coatGrad.addColorStop(0.65, "#f1f5f9");
+            coatGrad.addColorStop(1, "#cbd5e1");
             ctx.fillStyle = coatGrad;
             ctx.beginPath();
-            ctx.moveTo(-8, -50);
-            ctx.lineTo(8, -50);
-            ctx.lineTo(10 * this.facing, -16);
-            ctx.quadraticCurveTo(0, -14, -12 * this.facing - coatSway, -15);
+            ctx.moveTo(baseX - 12 * sc, baseY - 82 * sc);
+            ctx.lineTo(baseX + 12 * sc, baseY - 82 * sc);
+            ctx.lineTo(baseX + 15 * sc, baseY - 26 * sc);
+            ctx.lineTo(baseX - 15 * sc, baseY - 26 * sc);
             ctx.closePath();
             ctx.fill();
 
-            // Glowing Cyan Vest Strip
-            ctx.fillStyle = "#00ffcc";
-            ctx.shadowColor = "#00ffcc";
-            ctx.shadowBlur = 6;
-            ctx.fillRect(this.facing > 0 ? 3 : -6, -48, 3, 18);
-            ctx.shadowBlur = 0;
+            // Academic Tweed Vest & Red Tie
+            ctx.fillStyle = "#475569";
+            ctx.fillRect(baseX - 4 * sc, baseY - 80 * sc, 8 * sc, 34 * sc);
+            ctx.fillStyle = "#dc2626";
+            ctx.beginPath();
+            ctx.moveTo(baseX - 2 * sc, baseY - 80 * sc);
+            ctx.lineTo(baseX + 2 * sc, baseY - 80 * sc);
+            ctx.lineTo(baseX + 3 * sc, baseY - 58 * sc);
+            ctx.lineTo(baseX, baseY - 53 * sc);
+            ctx.lineTo(baseX - 3 * sc, baseY - 58 * sc);
+            ctx.closePath();
+            ctx.fill();
 
-            // 6. 3D Head, Stylish Hair & Cyber Goggles
+            // Coat Collar Lapels
+            ctx.strokeStyle = "#94a3b8";
+            ctx.lineWidth = 1.2 * sc;
+            ctx.beginPath();
+            ctx.moveTo(baseX - 7 * sc, baseY - 82 * sc);
+            ctx.lineTo(baseX - 3 * sc, baseY - 62 * sc);
+            ctx.moveTo(baseX + 7 * sc, baseY - 82 * sc);
+            ctx.lineTo(baseX + 3 * sc, baseY - 62 * sc);
+            ctx.stroke();
+
+            // 4. Professor's Head, Beard, Silver Hair & Spectacles
             ctx.save();
-            ctx.translate(0, -60);
-            if (this.isCrafting) ctx.rotate(-0.18 * this.facing);
-
-            // Head Sphere
-            const headGrad = ctx.createRadialGradient(2 * this.facing, -2, 2, 0, 0, 12);
-            headGrad.addColorStop(0, "#fde68a");
-            headGrad.addColorStop(1, "#d97706");
-            ctx.fillStyle = headGrad;
-            ctx.beginPath();
-            ctx.arc(0, 0, 10.5, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Styled Silver-White Scientist Hair
-            ctx.fillStyle = "#f1f5f9";
-            ctx.beginPath();
-            ctx.moveTo(-10 * this.facing, -2);
-            ctx.lineTo(-16 * this.facing, -7);
-            ctx.lineTo(-9 * this.facing, -10);
-            ctx.lineTo(-13 * this.facing, -16);
-            ctx.lineTo(-3 * this.facing, -13);
-            ctx.lineTo(3 * this.facing, -17);
-            ctx.lineTo(9 * this.facing, -10);
-            ctx.arc(0, 0, 10.5, -0.4, Math.PI * 1.1, true);
-            ctx.fill();
-
-            // Glowing Visor Goggles
-            ctx.fillStyle = "#0f172a";
-            ctx.beginPath();
-            ctx.roundRect(-10, -4.5, 20, 6.5, 2);
-            ctx.fill();
-
-            ctx.fillStyle = "#00ffcc";
-            ctx.shadowColor = "#00ffcc";
-            ctx.shadowBlur = 10;
-            ctx.beginPath();
-            ctx.roundRect(this.facing > 0 ? 0 : -11, -4, 11, 5.5, 2);
-            ctx.fill();
-            ctx.shadowBlur = 0;
-            ctx.restore();
-
-            // 7. Front Arm + Holographic Molecular Synthesizer Wand
-            const handPos = drawSmoothLimb(1 * this.facing, -45, rArm, rElbow, 12, 11, "#ffffff", "#cbd5e1", false);
-
-            // Glowing Cyan Wand Tip
-            ctx.fillStyle = "#00ffcc";
-            ctx.shadowColor = "#00ffcc";
-            ctx.shadowBlur = 12;
-            ctx.beginPath();
-            ctx.arc(handPos.x, handPos.y, 4, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.shadowBlur = 0;
-
-            // 8. Calm Thought / Formula Bubble
-            if (this.thoughtTimer > 0 && this.thought) {
-                ctx.font = "500 11px 'Space Grotesk', sans-serif";
-                const pad = 16;
-                const tw = ctx.measureText(this.thought).width + pad;
-                ctx.fillStyle = "rgba(4, 8, 18, 0.88)";
-                ctx.strokeStyle = "rgba(0, 255, 204, 0.5)";
-                ctx.lineWidth = 1.2;
-                ctx.beginPath();
-                ctx.roundRect(-tw / 2, -96, tw, 22, 11);
-                ctx.fill();
-                ctx.stroke();
-
-                ctx.fillStyle = "#f8fafc";
-                ctx.textAlign = "center";
-                ctx.fillText(this.thought, 0, -81);
+            ctx.translate(baseX, baseY - 95 * sc);
+            // Look slightly upward toward the chalk when drawing
+            if (this.usingChalk || this.usingEraser) {
+                const lookDir = this.handTarget.x >= baseX ? 1 : -1;
+                this.facing = lookDir;
+                ctx.rotate(-0.14 * this.facing);
             }
 
+            // Head
+            ctx.fillStyle = "#fed7aa";
+            ctx.beginPath();
+            ctx.arc(0, 0, 12.5 * sc, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Distinguished Silver-Grey Professor Hair & Neat Beard
+            ctx.fillStyle = "#e2e8f0";
+            ctx.beginPath();
+            ctx.arc(-3 * this.facing * sc, -2 * sc, 13 * sc, Math.PI * 0.75, Math.PI * 1.95);
+            ctx.fill();
+
+            // Beard / Mustache
+            ctx.fillStyle = "#cbd5e1";
+            ctx.beginPath();
+            ctx.arc(4 * this.facing * sc, 5 * sc, 7 * sc, 0, Math.PI);
+            ctx.fill();
+
+            // Gold-Rimmed Professor Glasses
+            ctx.strokeStyle = "#fbbf24";
+            ctx.lineWidth = 1.5 * sc;
+            ctx.fillStyle = "rgba(255, 255, 255, 0.25)";
+            ctx.beginPath();
+            ctx.arc(6 * this.facing * sc, -1 * sc, 4.2 * sc, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(2 * this.facing * sc, -1 * sc);
+            ctx.lineTo(-4 * this.facing * sc, -2 * sc);
+            ctx.stroke();
             ctx.restore();
 
-            // 9. Draw Holographic Synthesis Laser Beam when Crafting
-            if (this.isCrafting) {
-                const startX = this.x + handPos.x;
-                const startY = this.y - bounce + handPos.y;
-                const endX = this.beamTarget.x;
-                const endY = this.beamTarget.y;
+            // 5. Right Arm (2-Bone Inverse Kinematics Reaching Directly to Chalk / Eraser Point!)
+            const shoulderX = baseX + 5 * this.facing * sc;
+            const shoulderY = baseY - 76 * sc;
 
+            let wristX = shoulderX + 14 * this.facing * sc;
+            let wristY = shoulderY + 24 * sc;
+
+            if (this.usingChalk || this.usingEraser) {
+                wristX = this.handTarget.x;
+                wristY = this.handTarget.y;
+            } else if (this.isWalking) {
+                wristX = shoulderX + Math.sin(t) * 14 * sc;
+                wristY = shoulderY + 26 * sc;
+            }
+
+            // Solve 2-segment arm elbow position smoothly
+            const L1 = 24 * sc, L2 = 24 * sc;
+            const dx = wristX - shoulderX;
+            const dy = wristY - shoulderY;
+            const dist = Math.min(L1 + L2 - 1, Math.hypot(dx, dy));
+            const baseAngle = Math.atan2(dy, dx);
+            const cosAngle = Math.max(-1, Math.min(1, (L1 * L1 + dist * dist - L2 * L2) / (2 * L1 * dist)));
+            const bend = Math.acos(cosAngle);
+            const elbowAngle = baseAngle + bend * (this.facing >= 0 ? 1 : -1);
+
+            const elbowX = shoulderX + Math.cos(elbowAngle) * L1;
+            const elbowY = shoulderY + Math.sin(elbowAngle) * L1;
+
+            // Draw Upper Arm & Forearm Sleeve
+            ctx.strokeStyle = "#ffffff";
+            ctx.lineWidth = 8.5 * sc;
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
+            ctx.beginPath();
+            ctx.moveTo(shoulderX, shoulderY);
+            ctx.lineTo(elbowX, elbowY);
+            ctx.lineTo(wristX, wristY);
+            ctx.stroke();
+
+            // Hand
+            ctx.fillStyle = "#fed7aa";
+            ctx.beginPath();
+            ctx.arc(wristX, wristY, 4.2 * sc, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Chalk Stick or Felt Duster in Hand
+            if (this.usingChalk) {
                 ctx.save();
-                // Outer soft laser cone
-                const beamGrad = ctx.createLinearGradient(startX, startY, endX, endY);
-                beamGrad.addColorStop(0, "rgba(0, 255, 204, 0.85)");
-                beamGrad.addColorStop(1, "rgba(56, 189, 248, 0.15)");
-                ctx.strokeStyle = beamGrad;
-                ctx.lineWidth = 3;
-                ctx.shadowColor = "#00ffcc";
-                ctx.shadowBlur = 12;
-                ctx.setLineDash([6, 6]);
-                ctx.lineDashOffset = -phaseTimer * 0.4;
-                ctx.beginPath();
-                ctx.moveTo(startX, startY);
-                ctx.lineTo(endX, endY);
-                ctx.stroke();
-
-                // Sparkling synthesis point at target
+                ctx.translate(wristX, wristY);
+                ctx.rotate(-0.4 * this.facing);
                 ctx.fillStyle = "#ffffff";
-                ctx.beginPath();
-                ctx.arc(endX, endY, 4 + Math.sin(phaseTimer * 0.3) * 2, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.fillRect(0, -2 * sc, 11 * sc * this.facing, 3.5 * sc);
+                ctx.restore();
+            } else if (this.usingEraser) {
+                ctx.save();
+                ctx.translate(wristX - 14 * sc, wristY - 8 * sc);
+                ctx.fillStyle = "#8d6e63";
+                ctx.fillRect(0, 0, 28 * sc, 12 * sc);
+                ctx.fillStyle = "#cfd8dc";
+                ctx.fillRect(0, 10 * sc, 28 * sc, 4 * sc);
                 ctx.restore();
             }
+
+            ctx.restore();
         }
     };
 
-    // Draw a Single Molecule Slot (Pod + Bonds + Atoms + Label)
-    function drawMoleculeSlot(ctx, slot, globalAlpha = 1) {
-        if (slot.progress <= 0) return;
+    let lastTime = performance.now();
 
-        const bp = slot.blueprint;
-        const bobY = Math.sin(slot.floatPhase) * 5;
-        const cx = slot.x;
-        const cy = slot.y + bobY;
-
-        ctx.save();
-        ctx.globalAlpha = globalAlpha;
-
-        // 1. Holographic Display Pedestal Ring on the Floor below the molecule
-        ctx.fillStyle = bp.color + "22";
-        ctx.strokeStyle = bp.color + "66";
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.ellipse(cx, floorY, 24 * Math.min(1, slot.progress * 1.5), 4, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
-
-        // Subtle vertical light pillar when completed
-        if (slot.completed) {
-            const pilGrad = ctx.createLinearGradient(cx, cy - 35, cx, floorY);
-            pilGrad.addColorStop(0, bp.color + "18");
-            pilGrad.addColorStop(1, "transparent");
-            ctx.fillStyle = pilGrad;
-            ctx.fillRect(cx - 22, cy - 30, 44, floorY - cy + 30);
+    function animateChalkboard(now) {
+        requestAnimationFrame(animateChalkboard);
+        if (!isVisible || document.hidden) {
+            lastTime = now;
+            return;
         }
 
-        // 2. Holographic Containment Aura Circle
-        ctx.translate(cx, cy);
-        ctx.strokeStyle = bp.color + "35";
-        ctx.lineWidth = 1.2;
-        ctx.beginPath();
-        ctx.arc(0, 0, 38 * Math.min(1, slot.progress * 1.2), 0, Math.PI * 2 * slot.progress);
-        ctx.stroke();
+        const dt = Math.min((now - lastTime) / 16.667, 2.5);
+        lastTime = now;
 
-        // Slight 3D sway rotation once completed
-        const swayX = slot.completed ? Math.cos(slot.rotAngle) : 1;
-
-        // 3. Draw Covalent Bonds progressively
-        const totalSteps = bp.bonds.length + bp.atoms.length;
-        const currentStep = slot.progress * totalSteps;
-
-        bp.bonds.forEach((b, bIdx) => {
-            if (currentStep > bIdx) {
-                const a1 = bp.atoms[b[0]];
-                const a2 = bp.atoms[b[1]];
-                const order = b[2]; // 1 = single, 2 = double bond
-
-                ctx.strokeStyle = bp.color;
-                ctx.shadowColor = bp.color;
-                ctx.shadowBlur = 8;
-                ctx.lineWidth = order === 2 ? 3.2 : 2.2;
-
-                ctx.beginPath();
-                ctx.moveTo(a1.x * swayX, a1.y);
-                ctx.lineTo(a2.x * swayX, a2.y);
-                ctx.stroke();
-            }
-        });
-
-        // Inner Benzene Aromatic Ring
-        if (bp.hasAromaticRing && slot.progress > 0.85) {
-            ctx.strokeStyle = bp.color;
-            ctx.lineWidth = 1.5;
-            ctx.beginPath();
-            ctx.ellipse(0, 0, 12 * Math.abs(swayX), 12, 0, 0, Math.PI * 2);
-            ctx.stroke();
+        // 1. Draw Pre-rendered Realistic Blackboard Background
+        if (boardBuffer) {
+            ctx.drawImage(boardBuffer, 0, 0, cw, ch);
         }
 
-        // 4. Draw 3D Atoms progressively
-        bp.atoms.forEach((atom, aIdx) => {
-            if (currentStep >= aIdx * 1.2) {
-                const ax = atom.x * swayX;
-                const ay = atom.y;
-                const col = atom.col || bp.color;
+        const activeSlot = boardSlots[slotInBatch];
 
-                ctx.shadowColor = col;
-                ctx.shadowBlur = 10;
-                const radGrad = ctx.createRadialGradient(ax - 1.5, ay - 1.5, 1, ax, ay, atom.r);
-                radGrad.addColorStop(0, "#ffffff");
-                radGrad.addColorStop(0.4, col);
-                radGrad.addColorStop(1, "#0f172a");
+        // 2. Professor & Chalkboard State Machine
+        if (phase === 'WALKING' && activeSlot) {
+            professor.usingChalk = false;
+            professor.usingEraser = false;
+            // Stand slightly to the side of the molecule so the Professor doesn't block the view
+            const standOffset = -28 * scale;
+            professor.targetX = activeSlot.x + standOffset;
 
-                ctx.fillStyle = radGrad;
-                ctx.beginPath();
-                ctx.arc(ax, ay, atom.r, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        });
-
-        // 5. Molecule Formula & Name Tag underneath Pod
-        if (slot.progress > 0.4) {
-            ctx.shadowBlur = 0;
-            ctx.font = "600 11px 'Syncopate', sans-serif";
-            ctx.fillStyle = "#ffffff";
-            ctx.textAlign = "center";
-            ctx.fillText(bp.formula, 0, 52);
-
-            ctx.font = "400 10px 'Space Grotesk', sans-serif";
-            ctx.fillStyle = bp.color;
-            ctx.fillText(bp.name, 0, 65);
-        }
-
-        ctx.restore();
-    }
-
-    function spawnGentleSpark(x, y, color) {
-        const ang = Math.random() * Math.PI * 2;
-        const spd = Math.random() * 1.2 + 0.3;
-        particles.push({
-            x, y,
-            vx: Math.cos(ang) * spd,
-            vy: Math.sin(ang) * spd - 0.4,
-            r: Math.random() * 2.2 + 1,
-            color,
-            alpha: 0.9
-        });
-    }
-
-    function animateGallery() {
-        requestAnimationFrame(animateGallery);
-        phaseTimer++;
-        gCtx.clearRect(0, 0, gw, gh);
-
-        // 1. Calm Lab Floor & Subtle Molecular Grid
-        gCtx.save();
-        gCtx.strokeStyle = "rgba(0, 255, 204, 0.22)";
-        gCtx.lineWidth = 1.5;
-        gCtx.beginPath();
-        gCtx.moveTo(0, floorY);
-        gCtx.lineTo(gw, floorY);
-        gCtx.stroke();
-
-        for (let gx = 40; gx < gw; gx += 75) {
-            gCtx.strokeStyle = "rgba(255, 255, 255, 0.04)";
-            gCtx.beginPath();
-            gCtx.moveTo(gx, floorY);
-            gCtx.lineTo(gx - 18, gh);
-            gCtx.stroke();
-        }
-        gCtx.restore();
-
-        // 2. State Machine: Calmly Walk -> Slowly Craft -> Place -> Fill Whole Section
-        const activeSlot = slots[currentSlotIndex];
-
-        if (galleryPhase === 'WALKING' && activeSlot) {
-            // Stand slightly to the left or right of the slot to build it comfortably
-            const standOffset = currentSlotIndex < slots.length / 2 ? -42 : 42;
-            chemist.targetX = activeSlot.x + standOffset;
-            chemist.isCrafting = false;
-            chemist.isCelebrating = false;
-
-            const bp = activeSlot.blueprint;
-            statusText.textContent = `Moving to Station ${currentSlotIndex + 1} / ${slots.length} : ${bp.name} (${bp.formula})`;
-
-            if (Math.abs(chemist.x - chemist.targetX) <= 3) {
-                chemist.facing = activeSlot.x > chemist.x ? 1 : -1;
-                galleryPhase = 'CRAFTING';
-                phaseTimer = 0;
-                chemist.say(`Synthesizing ${bp.formula}...`, 180);
+            if (Math.abs(professor.x - professor.targetX) <= 4) {
+                professor.facing = 1;
+                phase = 'DRAWING_MOL';
+                activeSlot.drawnStrokes = 0;
+                activeSlot.currentStrokeProg = 0;
             }
 
-        } else if (galleryPhase === 'CRAFTING' && activeSlot) {
-            chemist.isCrafting = true;
-            const bp = activeSlot.blueprint;
-            statusText.textContent = `Synthesizing ${currentSlotIndex + 1} / ${slots.length} : ${bp.name} (${bp.formula}) — ${Math.floor(activeSlot.progress * 100)}%`;
+        } else if (phase === 'DRAWING_MOL' && activeSlot) {
+            professor.usingChalk = true;
+            const comp = activeSlot.compound;
+            const st = comp.strokes[activeSlot.drawnStrokes];
 
-            // Very slow, deliberate crafting speed (~3.5 seconds per molecule)
-            activeSlot.progress = Math.min(1, activeSlot.progress + 0.0048);
+            if (st) {
+                // Realistic chalk drawing speed
+                const speed = st.type === 'line' ? 0.048 : 0.065;
+                activeSlot.currentStrokeProg += speed * dt;
 
-            // Move laser wand tip around the atoms being formed
-            const atomIdx = Math.floor(activeSlot.progress * bp.atoms.length) % bp.atoms.length;
-            const targetAtom = bp.atoms[atomIdx];
-            chemist.beamTarget = {
-                x: activeSlot.x + targetAtom.x,
-                y: activeSlot.y + Math.sin(activeSlot.floatPhase) * 5 + targetAtom.y
+                const tip = getActiveChalkTarget(activeSlot, scale);
+                professor.handTarget = tip;
+                professor.targetX = tip.x - 24 * scale;
+
+                if (Math.random() < 0.35) {
+                    spawnChalkDust(tip.x, tip.y, comp.chalkColor);
+                }
+
+                if (activeSlot.currentStrokeProg >= 1) {
+                    activeSlot.drawnStrokes++;
+                    activeSlot.currentStrokeProg = 0;
+                }
+            } else {
+                // Finished all strokes of this molecule -> Now write the compound name & formula below!
+                phase = 'WRITING_NAME';
+                activeSlot.labelProg = 0;
+            }
+
+        } else if (phase === 'WRITING_NAME' && activeSlot) {
+            professor.usingChalk = true;
+            activeSlot.labelProg = Math.min(1, activeSlot.labelProg + 0.022 * dt);
+
+            const tip = getActiveChalkTarget(activeSlot, scale);
+            professor.handTarget = tip;
+            professor.targetX = tip.x - 20 * scale;
+
+            if (Math.random() < 0.3) {
+                spawnChalkDust(tip.x, tip.y, "#ffffff");
+            }
+
+            if (activeSlot.labelProg >= 1) {
+                professor.usingChalk = false;
+                phase = 'NEXT_PAUSE';
+                pauseTimer = 0;
+            }
+
+        } else if (phase === 'NEXT_PAUSE') {
+            pauseTimer += dt;
+            if (pauseTimer > 28) {
+                slotInBatch++;
+                if (slotInBatch >= PER_BATCH) {
+                    phase = 'ADMIRING';
+                    pauseTimer = 0;
+                    // Walk to the right edge so user can admire all 5 drawn structures clearly
+                    professor.targetX = cw - 55 * scale;
+                } else {
+                    phase = 'WALKING';
+                }
+            }
+
+        } else if (phase === 'ADMIRING') {
+            professor.usingChalk = false;
+            professor.usingEraser = false;
+            pauseTimer += dt;
+            // Keep the completed board visible for ~4.5 seconds before erasing for the next batch of 5
+            if (pauseTimer > 270) {
+                phase = 'ERASING';
+                eraseSweepX = cw;
+            }
+
+        } else if (phase === 'ERASING') {
+            professor.usingChalk = false;
+            professor.usingEraser = true;
+            eraseSweepX -= 11 * scale * dt;
+            professor.targetX = Math.max(50 * scale, eraseSweepX);
+            professor.handTarget = {
+                x: eraseSweepX,
+                y: ch * 0.46 + Math.sin(eraseSweepX * 0.06) * 45 * scale
             };
 
-            if (phaseTimer % 5 === 0) {
-                spawnGentleSpark(chemist.beamTarget.x, chemist.beamTarget.y, bp.color);
+            if (Math.random() < 0.65) {
+                spawnChalkDust(professor.handTarget.x, professor.handTarget.y, "#ffffff");
             }
 
-            if (activeSlot.progress >= 1) {
-                activeSlot.completed = true;
-                chemist.isCrafting = false;
-                chemist.say(`${bp.formula} Complete! ✨`, 90);
-                for (let k = 0; k < 12; k++) {
-                    spawnGentleSpark(activeSlot.x, activeSlot.y, bp.color);
-                }
-                galleryPhase = 'PLACING';
-                phaseTimer = 0;
-            }
+            boardSlots.forEach(s => {
+                if (s.x > eraseSweepX) s.erased = true;
+            });
 
-        } else if (galleryPhase === 'PLACING') {
-            // Brief calm pause before walking to the next station
-            if (phaseTimer > 75) {
-                currentSlotIndex++;
-                if (currentSlotIndex >= slots.length) {
-                    galleryPhase = 'ADMIRING';
-                    phaseTimer = 0;
-                    chemist.targetX = gw * 0.5;
-                    chemist.say("Molecular Gallery Complete! 🧪✨", 240);
-                    statusText.textContent = `All ${slots.length} Molecular Structures Synthesized!`;
-                } else {
-                    galleryPhase = 'WALKING';
-                    phaseTimer = 0;
-                }
-            }
-
-        } else if (galleryPhase === 'ADMIRING') {
-            // Walk to center and admire the full row of floating 3D molecules
-            if (Math.abs(chemist.x - chemist.targetX) > 3) {
-                chemist.facing = chemist.targetX > chemist.x ? 1 : -1;
-                chemist.x += Math.sign(chemist.targetX - chemist.x) * 1.2;
-                chemist.isWalking = true;
-                chemist.walkCycle += 0.06;
-            } else {
-                chemist.isWalking = false;
-                chemist.isCelebrating = true;
-            }
-
-            // Keep the full gallery on display for a relaxing ~6 seconds
-            if (phaseTimer > 360) {
-                galleryPhase = 'RESETTING';
-                phaseTimer = 0;
-                chemist.isCelebrating = false;
-            }
-
-        } else if (galleryPhase === 'RESETTING') {
-            fadeOutAlpha -= 0.015;
-            if (fadeOutAlpha <= 0) {
-                fadeOutAlpha = 1;
-                currentSlotIndex = 0;
-                slots.forEach(s => { s.progress = 0; s.completed = false; });
-                galleryPhase = 'WALKING';
-                phaseTimer = 0;
+            if (eraseSweepX <= 40 * scale) {
+                professor.usingEraser = false;
+                batchIndex = (batchIndex + 1) % 2; // Toggle between Batch 1 (1..5) and Batch 2 (6..10)
+                slotInBatch = 0;
+                setupBoardSlots();
+                phase = 'WALKING';
             }
         }
 
-        // 3. Update & Draw All Placed / Crafting Molecules
-        slots.forEach(s => {
-            s.floatPhase += 0.025; // Slow, peaceful floating bob
-            if (s.completed) {
-                s.rotAngle += 0.012; // Very slow 3D rotation
+        // 3. Render All Drawn Chalk Molecules & Handwritten Compound Names Below Them
+        boardSlots.forEach((s, idx) => {
+            if (s.erased) return;
+            const comp = s.compound;
+
+            // Completed strokes
+            for (let i = 0; i < s.drawnStrokes; i++) {
+                drawChalkStroke(ctx, s.x, s.y, comp.strokes[i], 1, comp.chalkColor, scale);
             }
-            drawMoleculeSlot(gCtx, s, fadeOutAlpha);
+
+            // Currently drawing stroke
+            if (idx === slotInBatch && phase === 'DRAWING_MOL' && comp.strokes[s.drawnStrokes]) {
+                drawChalkStroke(ctx, s.x, s.y, comp.strokes[s.drawnStrokes], s.currentStrokeProg, comp.chalkColor, scale);
+            }
+
+            // Progressive Chalk Writing of Compound Name & Formula Underneath
+            if (s.labelProg > 0) {
+                ctx.save();
+                const clipW = 135 * scale * s.labelProg;
+                ctx.beginPath();
+                ctx.rect(s.x - 67.5 * scale, s.y + 42 * scale, clipW, 45 * scale);
+                ctx.clip();
+
+                // Chalk Underline
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.35)";
+                ctx.lineWidth = 1.2 * scale;
+                ctx.beginPath();
+                ctx.moveTo(s.x - 42 * scale, s.y + 46 * scale);
+                ctx.lineTo(s.x + 42 * scale, s.y + 46 * scale);
+                ctx.stroke();
+
+                // Compound Name
+                ctx.font = `600 ${Math.round(12.5 * scale)}px 'Space Grotesk', sans-serif`;
+                ctx.fillStyle = "#ffffff";
+                ctx.textAlign = "center";
+                ctx.fillText(comp.name, s.x, s.y + 62 * scale);
+
+                // Chemical Formula below Name
+                ctx.font = `500 ${Math.round(11 * scale)}px 'Space Grotesk', sans-serif`;
+                ctx.fillStyle = comp.chalkColor;
+                ctx.fillText(`(${comp.formula})`, s.x, s.y + 77 * scale);
+
+                ctx.restore();
+            }
         });
 
-        // 4. Update & Draw the Single Cyber-Chemist
-        chemist.update();
-        chemist.draw(gCtx);
+        // 4. Update & Draw the Chemistry Professor
+        professor.update(dt);
+        professor.draw(ctx);
 
-        // 5. Update & Draw Gentle Synthesis Sparks
-        for (let i = particles.length - 1; i >= 0; i--) {
-            const p = particles[i];
-            p.x += p.vx;
-            p.y += p.vy;
-            p.alpha -= 0.018;
-            gCtx.save();
-            gCtx.globalAlpha = Math.max(0, p.alpha);
-            gCtx.fillStyle = p.color;
-            gCtx.shadowColor = p.color;
-            gCtx.shadowBlur = 8;
-            gCtx.beginPath();
-            gCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            gCtx.fill();
-            gCtx.restore();
-            if (p.alpha <= 0) particles.splice(i, 1);
+        // 5. Update & Draw Falling Chalk Dust Particles
+        for (let i = chalkDust.length - 1; i >= 0; i--) {
+            const p = chalkDust[i];
+            p.x += p.vx * dt;
+            p.y += p.vy * dt;
+            p.alpha -= 0.018 * dt;
+            if (p.alpha <= 0) {
+                chalkDust.splice(i, 1);
+                continue;
+            }
+            ctx.globalAlpha = p.alpha;
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fill();
         }
+        ctx.globalAlpha = 1;
     }
 
-    animateGallery();
+    resizeBoard();
+    requestAnimationFrame(animateChalkboard);
 })();
 
 // =========================================
@@ -1383,7 +1575,7 @@ window.addEventListener('scroll', () => {
     document.querySelectorAll('.top-nav a').forEach(a => {
         a.classList.toggle('active', a.getAttribute('href').includes(cur) && !!cur);
     });
-});
+}, { passive: true });
 
 window.addEventListener('message', e => {
     if (e.data?.type === 'resize') {
@@ -1410,9 +1602,9 @@ function slowScrollTo(id, dur = 900) {
     })(performance.now());
 }
 
-// ================================================================
-// 4. TORA 2.0 — ADVANCED CONVERSATIONAL AI BRAIN (EN / SINGLISH / CHEM)
-// ================================================================
+// ============================================================================
+// 4. TORA 2.0 — OMNI-INTELLIGENCE ENGINE (MALITH + GLOBAL WORLD KNOWLEDGE API)
+// ============================================================================
 const chatPanel = document.getElementById('tora-chat-panel');
 const msgBox    = document.getElementById('tora-messages');
 const chutiBot  = document.getElementById('chuti-bot');
@@ -1449,11 +1641,35 @@ function setBotMood(mood, duration = 2200) {
     }
 }
 
+const ELEMENTS_DB = {
+    hydrogen: "Hydrogen (H) · Atomic #1 · Mass: 1.008 u · The most abundant element in the universe!",
+    helium: "Helium (He) · Atomic #2 · Mass: 4.0026 u · Noble gas with the lowest boiling point.",
+    carbon: "Carbon (C) · Atomic #6 · Mass: 12.011 u · The backbone of organic chemistry, diamond, and graphene!",
+    nitrogen: "Nitrogen (N) · Atomic #7 · Mass: 14.007 u · Makes up ~78% of Earth's atmosphere.",
+    oxygen: "Oxygen (O) · Atomic #8 · Mass: 15.999 u · Essential oxidizing agent for respiration and combustion.",
+    sodium: "Sodium (Na) · Atomic #11 · Mass: 22.990 u · Highly reactive alkali metal.",
+    magnesium: "Magnesium (Mg) · Atomic #12 · Mass: 24.305 u · Central atom in chlorophyll!",
+    aluminium: "Aluminium (Al) · Atomic #13 · Mass: 26.982 u · Lightweight amphoteric metal.",
+    silicon: "Silicon (Si) · Atomic #14 · Mass: 28.085 u · The foundation of semiconductors and microchips!",
+    phosphorus: "Phosphorus (P) · Atomic #15 · Mass: 30.974 u · Vital component of DNA, RNA, and ATP.",
+    sulfur: "Sulfur (S) · Atomic #16 · Mass: 32.06 u · Used in sulfuric acid production and vulcanization.",
+    chlorine: "Chlorine (Cl) · Atomic #17 · Mass: 35.45 u · Strong halogen disinfectant and oxidizing agent.",
+    potassium: "Potassium (K) · Atomic #19 · Mass: 39.098 u · Crucial electrolyte for nerve impulse transmission.",
+    calcium: "Calcium (Ca) · Atomic #20 · Mass: 40.078 u · Alkaline earth metal essential for bones and shells.",
+    iron: "Iron (Fe) · Atomic #26 · Mass: 55.845 u · Key transition metal in steel and hemoglobin.",
+    copper: "Copper (Cu) · Atomic #29 · Mass: 63.546 u · High thermal and electrical conductivity metal.",
+    zinc: "Zinc (Zn) · Atomic #30 · Mass: 65.38 u · Used in galvanizing and catalytic enzymes.",
+    silver: "Silver (Ag) · Atomic #47 · Mass: 107.87 u · Highest electrical conductivity; Malith researches Green Synthesis of AgNPs!",
+    gold: "Gold (Au) · Atomic #79 · Mass: 196.97 u · Inert noble transition metal prized in electronics and jewelry.",
+    mercury: "Mercury (Hg) · Atomic #80 · Mass: 200.59 u · The only metallic element that is liquid at standard room temperature.",
+    uranium: "Uranium (U) · Atomic #92 · Mass: 238.03 u · Heavy actinide used as nuclear fuel."
+};
+
 const BRAIN_TOPICS = [
     {
         id: 'greeting_si',
         keywords: ['kohomada', 'ayubowan', 'mk', 'mokada karanne', 'sinduwak', 'machan', 'halo', 'ammata'],
-        reply: () => "ආයුබෝවන්! 👋 මම හොඳින් ඉන්නවා! මම TORA 2.0 — Malith ගේ AI Assistant. ඔයාට Malith ගේ Projects, Chemical Technology Degree එක, Modern Pixels, හෝ ඕනෑම Chemistry / Tech දෙයක් ගැන මගෙන් අහන්න පුළුවන්! 🚀"
+        reply: () => "ආයුබෝවන්! 👋 මම හොඳින් ඉන්නවා! මම TORA 2.0 — Malith ගේ Omni-AI Assistant. ඔයාට Malith ගැන වගේම ලෝකේ තියෙන ඕනෑම දෙයක් (Science, History, Countries, Tech, Math, Chemistry) මගෙන් අහන්න පුළුවන්! 🚀"
     },
     {
         id: 'who_si',
@@ -1466,54 +1682,43 @@ const BRAIN_TOPICS = [
         reply: () => {
             const hr = new Date().getHours();
             const timeGreet = hr < 12 ? "Good morning" : hr < 18 ? "Good afternoon" : "Good evening";
-            return `${timeGreet}! 👋 I'm **TORA 2.0**, Malith's upgraded cyber-assistant. Ask me anything about Malith, his Chemistry degree, Modern Pixels, web packages, or even test me with a Chemistry or Math question!`;
+            return `${timeGreet}! 👋 I'm **TORA 2.0**, Malith's Omni-AI companion. Ask me about **Malith, his Chemistry degree, Modern Pixels**, or ask me **any question in the world** (Science, History, People, Math, Coding, or Chemistry)!`;
         }
     },
     {
         id: 'who_malith',
-        keywords: ['who is malith', 'about malith', 'introduce', 'full name', 'kumarasekara', 'age', 'how old', 'bio', 'background'],
-        reply: () => "**Malith Eranga Kumarasekara** (24) is a passionate **BSc (Hons) Chemical Technology** undergraduate at Sabaragamuwa University of Sri Lanka (SUSL), a full-stack web developer, graphic designer, and the founder of **Modern Pixels**! 🚀<br><button class='t-action-btn' onclick=\"slowScrollTo('aboutme')\">⬆️ View Hero Section</button>"
+        keywords: ['who is malith', 'about malith', 'malith eranga', 'kumarasekara', 'his bio', 'malith background'],
+        reply: () => "**Malith Eranga Kumarasekara** is a passionate **BSc (Hons) Chemical Technology** undergraduate at Sabaragamuwa University of Sri Lanka (SUSL), a full-stack web developer, graphic designer, and the founder of **Modern Pixels**! 🚀<br><button class='t-action-btn' onclick=\"slowScrollTo('aboutme')\">⬆️ View Hero Section</button>"
     },
     {
         id: 'modern_pixels',
-        keywords: ['modern pixels', 'agency', 'freelance', 'services', 'logo', 'branding', 'video editing', 'photo editing'],
+        keywords: ['modern pixels', 'agency', 'freelance', 'logo design', 'branding', 'video editing', 'photo editing'],
         reply: () => "**Modern Pixels** 🎨 is Malith's creative digital agency! He offers:<br>• Custom Graphic Design & Branding (Photoshop & Illustrator)<br>• UI/UX & Responsive Web Development<br>• Photo Retouching (Camera Raw) & Video Editing<br><button class='t-action-btn' onclick=\"slowScrollTo('Projects')\">🚀 See Modern Pixels in Showcase</button>"
     },
     {
         id: 'degree_chem',
-        keywords: ['degree', 'university', 'susl', 'sabaragamuwa', 'education', 'study', 'chemical technology', 'faculty', 'applied sciences', 'biochemistry', 'quality control'],
-        reply: () => "Malith studies **BSc (Hons) in Chemical Technology** at the Department of Physical Sciences & Technology, Faculty of Applied Sciences, **Sabaragamuwa University of Sri Lanka (SUSL)**. 🧪<br>He works on fascinating areas like Green Synthesis of Silver Nanoparticles, Biochemistry, and Lab Quality Assurance!<br><button class='t-action-btn' onclick=\"slowScrollTo('education')\">🎓 View Qualifications</button>"
+        keywords: ['his degree', 'susl', 'sabaragamuwa', 'chemical technology', 'applied sciences', 'malith university', 'malith study'],
+        reply: () => "Malith studies **BSc (Hons) in Chemical Technology** at the Department of Physical Sciences & Technology, Faculty of Applied Sciences, **Sabaragamuwa University of Sri Lanka (SUSL)**. 🧪<br>He works on fascinating areas like Green Synthesis of Silver Nanoparticles, Biochemistry, Spectroscopy, and Lab Quality Assurance!<br><button class='t-action-btn' onclick=\"slowScrollTo('education')\">🎓 View Qualifications</button>"
     },
     {
         id: 'chemaz',
-        keywords: ['chemaz', 'linkedin', 'article', 'blog', 'insights', 'science communication', 'series'],
+        keywords: ['chemaz', 'linkedin series', 'insights blog', 'science communication'],
         reply: () => "**ChemAZ** 🧬 is Malith's original science communication series published on LinkedIn and his **Insights Blog**! It breaks down Atomic Structure, the Periodic Table, States of Matter, Chemical Reactions, and Organic Chemistry into engaging reads."
     },
     {
         id: 'projects',
-        keywords: ['project', 'showcase', 'portfolio', 'safe heaven', 'safeheaven', 'greenchain', 'photo frame', 'ecommerce', 'built', 'work'],
+        keywords: ['top projects', 'his projects', 'showcase', 'portfolio', 'safe heaven', 'safeheaven', 'greenchain', 'carbon tracker'],
         reply: () => "Here are Malith's standout projects:<br>1. **Modern Pixels** (Creative Agency Portfolio)<br>2. **Insights Blog** (ChemAZ & Tech Articles)<br>3. **Photo Frames E-Commerce Store** (Client Store)<br>4. **Safe Heaven Pet Care** (Vet & Pet Platform)<br>5. **GreenChain Carbon Tracker** (Data Structures Environmental App)<br><button class='t-action-btn' onclick=\"slowScrollTo('Projects')\">📂 Scroll to Projects</button>"
     },
     {
         id: 'web_skills',
-        keywords: ['skill', 'web', 'html', 'css', 'javascript', 'php', 'mysql', 'code', 'programming', 'stack', 'developer', 'github', 'packages', 'price'],
-        reply: () => "Malith builds fast, futuristic web apps using **HTML5, CSS3, JavaScript, PHP, MySQL, VS Code, and GitHub Pages**! 💻 He also offers tiered client web packages starting from front-end GitHub Pages deployments.<br><button class='t-action-btn' onclick=\"slowScrollTo('more')\">⚡ Explore Skills</button>"
+        keywords: ['malith skill', 'his skills', 'tech stack', 'web packages', 'html', 'css', 'javascript', 'php', 'mysql'],
+        reply: () => "Malith builds fast, futuristic web apps using **HTML5, CSS3, JavaScript, PHP, MySQL, C, C++, C#, VS Code, and GitHub Pages**! 💻<br><button class='t-action-btn' onclick=\"slowScrollTo('more')\">⚡ Explore Skills</button>"
     },
     {
         id: 'setup_gear',
-        keywords: ['setup', 'laptop', 'asus', 'tuf', 'tablet', 'galaxy tab', 'rtx', 'hardware', 'pc', 'computer', 'rig'],
-        reply: () => "Malith's daily driver setup:<br>💻 **ASUS TUF Gaming F15** (11th Gen, NVIDIA RTX 3050)<br>📱 **Samsung Galaxy Tab S10 Lite** for academic notes, UI sketching & research!"
-    },
-    {
-        id: 'chemistry_knowledge',
-        keywords: ['benzene', 'atom', 'molecule', 'periodic table', 'acid', 'base', 'ph', 'covalent', 'ionic', 'congo red', 'nanoparticle', 'organic', 'electron', 'reaction'],
-        reply: (msg) => {
-            const m = msg.toLowerCase();
-            if (m.includes('benzene')) return "**Benzene ($C_6H_6$)** ⬢ is an aromatic hydrocarbon with a 6-carbon ring and delocalized pi-electrons! Watch our Cyber-Chemist above synthesize it first in the gallery!";
-            if (m.includes('congo red') || m.includes('dye')) return "**Congo Red** is an azo dye and pH indicator (turns blue-violet below pH 3.0 and red above pH 5.2) widely used in fabric dyeing fastness tests!";
-            if (m.includes('nanoparticle') || m.includes('silver')) return "**Green Synthesis of Silver Nanoparticles (AgNPs)** uses plant extracts (like tea polyphenols) as natural reducing and capping agents—eco-friendly nanotechnology! 🌿🧪";
-            return "Chemistry is in Malith's DNA! ⚛️ From delocalized aromatic rings and stoichiometry to analytical quality assurance, chemical bonds hold the universe together!"
-        }
+        keywords: ['malith setup', 'his laptop', 'asus tuf', 'galaxy tab', 'rtx 3050'],
+        reply: () => "Malith's daily driver setup:<br>💻 **ASUS TUF Gaming F15** (NVIDIA RTX 3050, 16GB RAM)<br>📱 **Samsung Galaxy Tab S10 Lite** for academic notes, UI sketching & research!"
     },
     {
         id: 'joke',
@@ -1530,41 +1735,113 @@ const BRAIN_TOPICS = [
     },
     {
         id: 'time_date',
-        keywords: ['time', 'date', 'today', 'day is it'],
+        keywords: ['what time', 'current time', 'what date', 'today date', 'day is it'],
         reply: () => `Right now it's **${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}** on **${new Date().toDateString()}**! ⏱️`
     },
     {
         id: 'contact_hire',
-        keywords: ['contact', 'hire', 'email', 'reach', 'message', 'call', 'phone', 'connect', 'resume', 'cv'],
-        reply: () => "Want to collaborate with Malith or hire **Modern Pixels**? 📬 You can grab his CV from the top-right **MY RESUME** button or jump straight to the Contact section below!<br><button class='t-action-btn' onclick=\"slowScrollTo('contact')\">📬 Go to Contact Section</button>"
+        keywords: ['contact', 'hire', 'email malith', 'reach him', 'resume', 'cv'],
+        reply: () => "Want to collaborate with Malith or hire **Modern Pixels**? 📬 You can grab his CV from the **MY RESUME** button or jump straight to the Contact section below!<br><button class='t-action-btn' onclick=\"slowScrollTo('contact')\">📬 Go to Contact Section</button>"
     },
     {
         id: 'thanks',
-        keywords: ['thank', 'thanks', 'thx', 'awesome', 'cool', 'nice', 'supiri', 'hodai', 'patta', 'niyamai'],
-        reply: () => "You're most welcome! 😊 Let me know if you want to explore anything else!"
+        keywords: ['thank', 'thanks', 'thx', 'awesome', 'supiri', 'hodai', 'patta', 'niyamai'],
+        reply: () => "You're most welcome! 😊 Ask me anything else—from Malith's work to any topic in the universe!"
     }
 ];
 
-function generateSmartReply(userText) {
-    const clean = userText.trim();
-    const lower = clean.toLowerCase();
+function tryEvaluateMath(lower) {
+    let expr = lower
+        .replace(/what is|calculate|solve|compute|equals|equal to/g, '')
+        .replace(/square root of|sqrt\(/g, 'Math.sqrt(')
+        .replace(/\bpi\b/g, 'Math.PI')
+        .replace(/\bsin\(/g, 'Math.sin(')
+        .replace(/\bcos\(/g, 'Math.cos(')
+        .replace(/\btan\(/g, 'Math.tan(')
+        .replace(/\blog\(/g, 'Math.log10(')
+        .replace(/\^/g, '**')
+        .trim();
 
-    const mathMatch = lower.replace(/[^0-9+\-*/().]/g, '');
-    if (mathMatch.length >= 3 && /[+\-*/]/.test(mathMatch) && /\d/.test(mathMatch)) {
+    if (/^[0-9+\-*/().\s%*MathsqrtPISinCosTanlog10]+$/.test(expr) && /\d/.test(expr) && /[+\-*/^]|Math/.test(expr)) {
         try {
-            const result = Function(`"use strict"; return (${mathMatch})`)();
-            if (isFinite(result)) {
-                return `🧮 Quantum Calculator says: **${mathMatch} = ${result}**!`;
+            const result = Function(`"use strict"; return (${expr})`)();
+            if (typeof result === 'number' && isFinite(result)) {
+                const rounded = Number.isInteger(result) ? result : Number(result.toFixed(6));
+                return `🧮 **Quantum Math Engine:**<br>**${esc(lower.replace(/what is|calculate|solve/g,'').trim())} = ${rounded}**`;
             }
         } catch (_) {}
     }
+    return null;
+}
+
+function extractSearchSubject(raw) {
+    return raw
+        .replace(/^(who|what|where|when|why|how)\s+(is|are|was|were|does|do|did|can|could|the)\s+/i, '')
+        .replace(/^(tell me about|explain|define|meaning of|search for|do you know about|do you know)\s+/i, '')
+        .replace(/\b(kiyanna|gana|mokakda|kawda|koheda|monawada)\b/gi, '')
+        .replace(/[?!.]+$/g, '')
+        .trim();
+}
+
+async function fetchWorldKnowledge(userText) {
+    const subject = extractSearchSubject(userText);
+    if (!subject || subject.length < 2) return null;
+
+    const subLower = subject.toLowerCase().replace(/\belement\b/g, '').trim();
+    if (ELEMENTS_DB[subLower]) {
+        return `<span class="t-wiki-badge">⚛️ Periodic Table Core</span><br>**${ELEMENTS_DB[subLower]}**`;
+    }
+
+    try {
+        const searchUrl = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(subject)}&limit=1&namespace=0&format=json&origin=*`;
+        const sRes = await fetch(searchUrl);
+        if (sRes.ok) {
+            const sData = await sRes.json();
+            const bestTitle = sData?.[1]?.[0];
+            if (bestTitle) {
+                const sumUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(bestTitle)}`;
+                const sumRes = await fetch(sumUrl);
+                if (sumRes.ok) {
+                    const sumData = await sumRes.json();
+                    if (sumData.extract && sumData.type !== 'disambiguation') {
+                        const sentences = sumData.extract.match(/[^.!?]+[.!?]+/g) || [sumData.extract];
+                        const shortExtract = sentences.slice(0, 2).join(' ').trim();
+                        return `<span class="t-wiki-badge">🌐 Global Knowledge · ${esc(sumData.title)}</span><br>${esc(shortExtract)}`;
+                    }
+                }
+            }
+        }
+    } catch (_) {}
+
+    try {
+        const ddgUrl = `https://api.duckduckgo.com/?q=${encodeURIComponent(subject)}&format=json&no_html=1&skip_disambig=1`;
+        const dRes = await fetch(ddgUrl);
+        if (dRes.ok) {
+            const dData = await dRes.json();
+            const text = dData.AbstractText || dData.Answer || (dData.RelatedTopics?.[0]?.Text);
+            if (text) {
+                return `<span class="t-wiki-badge">🌐 Omni-Search Core</span><br>${esc(text)}`;
+            }
+        }
+    } catch (_) {}
+
+    return null;
+}
+
+async function generateSmartReply(userText) {
+    const clean = userText.trim();
+    const lower = clean.toLowerCase();
+
+    const mathAns = tryEvaluateMath(lower);
+    if (mathAns) return mathAns;
 
     let bestTopic = null;
     let bestScore = 0;
     for (const topic of BRAIN_TOPICS) {
         let score = 0;
         for (const kw of topic.keywords) {
-            if (lower.includes(kw)) score += kw.length;
+            if (lower === kw) score += kw.length * 3;
+            else if (lower.includes(kw)) score += kw.length;
         }
         if (score > bestScore) {
             bestScore = score;
@@ -1572,11 +1849,16 @@ function generateSmartReply(userText) {
         }
     }
 
-    if (bestTopic) {
+    if (bestTopic && bestScore >= 4) {
         return bestTopic.reply(clean);
     }
 
-    return `That's an interesting question about **"${esc(clean)}"**! 🤔<br>I know everything about **Malith Eranga**, his **Chemical Technology degree at SUSL**, **Modern Pixels**, **ChemAZ**, his **Web/Design skills**, and **Chemistry concepts**. Which one would you like to dive into?<br><button class='t-action-btn' onclick=\"slowScrollTo('Projects')\">🚀 Explore Showcase</button>`;
+    const worldAnswer = await fetchWorldKnowledge(clean);
+    if (worldAnswer) return worldAnswer;
+
+    if (bestTopic) return bestTopic.reply(clean);
+
+    return `I searched my quantum banks for **"${esc(clean)}"**! 🤔<br>Try phrasing it as a topic name (e.g., *"Quantum Mechanics"*, *"Albert Einstein"*, *"Sri Lanka"*, *"Benzene"*) or ask me anything about **Malith Eranga, Modern Pixels, or his Chemical Technology degree**!<br><button class='t-action-btn' onclick=\"slowScrollTo('Projects')\">🚀 Explore Showcase</button>`;
 }
 
 chutiBot.addEventListener('click', e => {
@@ -1585,38 +1867,41 @@ chutiBot.addEventListener('click', e => {
     setBotMood('mood-happy', 2000);
     if (!chatOpened) {
         chatOpened = true;
-        showMsg('bot', "Hey there! 👋 I'm **TORA 2.0**, Malith's AI robot companion! Ask me anything in **English** or **Singlish** — about Malith, Chemistry, his projects, or even a math puzzle!");
+        showMsg('bot', "Hey there! 👋 I'm **TORA 2.0**, Malith's upgraded **Omni-AI**! Ask me anything about **Malith, his Projects & Chemistry**, or ask me **any question in the world** (Science, History, People, Math, Elements)!");
     }
 });
 
 function closeChat(e) { e.stopPropagation(); chatPanel.classList.remove('show'); }
 
-function askChip(questionText) {
+async function processUserQuestion(questionText) {
     showMsg('user', questionText);
-    setBotMood('mood-thinking', 900);
-    showTyping(() => {
-        const answer = generateSmartReply(questionText);
+    setBotMood('mood-thinking', 1500);
+    const typingRow = showTypingIndicator();
+    const startT = performance.now();
+
+    const answer = await generateSmartReply(questionText);
+    const elapsed = performance.now() - startT;
+    const waitMore = Math.max(0, 480 - elapsed);
+
+    setTimeout(() => {
+        typingRow.remove();
         setBotMood('mood-happy', 1800);
         showMsg('bot', answer);
         speakText(answer);
-    });
+    }, waitMore);
+}
+
+function askChip(questionText) {
+    processUserQuestion(questionText);
 }
 
 function handleTyped() {
     const input = document.getElementById('tora-input');
     const msg   = input.value.trim();
     if (!msg) return;
-    showMsg('user', msg);
     input.value = '';
     autoResize(input);
-
-    setBotMood('mood-thinking', 900);
-    showTyping(() => {
-        const answer = generateSmartReply(msg);
-        setBotMood('mood-happy', 1800);
-        showMsg('bot', answer);
-        speakText(answer);
-    });
+    processUserQuestion(msg);
 }
 
 function handleKey(e) {
@@ -1642,23 +1927,23 @@ function showMsg(role, htmlText) {
     msgBox.scrollTop = msgBox.scrollHeight;
 }
 
-function showTyping(cb) {
+function showTypingIndicator() {
     const row = document.createElement('div');
     row.className = 't-msg bot';
     row.innerHTML = `<div class="t-msg-icon bot">🤖</div>
                      <div class="typing-dots"><span></span><span></span><span></span></div>`;
     msgBox.appendChild(row);
     msgBox.scrollTop = msgBox.scrollHeight;
-    setTimeout(() => { row.remove(); cb(); }, 650);
+    return row;
 }
 
 function esc(t) {
-    return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+    return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
 }
 
-// =========================================
-// 5. MOUSE TRACKING (HEAD & EYES FOLLOW CURSOR)
-// =========================================
+// =========================================================
+// 5. SMOOTH HARDWARE-ACCELERATED MOUSE TRACKING FOR TORA 2.0
+// =========================================================
 const chutiHead = document.getElementById('chuti-head');
 const chutiEyes = document.getElementById('chuti-eyes');
 let cx=0, cy=0, tx=0, ty=0, rx=window.innerWidth/2, ry=window.innerHeight/2;
@@ -1669,7 +1954,7 @@ function updateMouse(x, y) {
     ty = ((y / window.innerHeight) - 0.5) * 2;
 }
 
-document.addEventListener('mousemove', e => updateMouse(e.clientX, e.clientY));
+document.addEventListener('mousemove', e => updateMouse(e.clientX, e.clientY), { passive: true });
 
 document.querySelectorAll('.Projects-iframe').forEach(f => {
     f.addEventListener('load', () => {
@@ -1678,22 +1963,23 @@ document.querySelectorAll('.Projects-iframe').forEach(f => {
             f.contentWindow.document.addEventListener('mousemove', e => {
                 const r = f.getBoundingClientRect();
                 updateMouse(e.clientX + r.left, e.clientY + r.top);
-            });
+            }, { passive: true });
         } catch(_) {}
     });
 });
 
 function animateChuti() {
-    const r    = chutiBot.getBoundingClientRect();
-    const dist = Math.hypot(rx - (r.left + r.width/2), ry - (r.top + r.height/2));
-    chutiBot.classList.toggle('tora-active', dist < 160);
+    if (!document.hidden) {
+        const r    = chutiBot.getBoundingClientRect();
+        const dist = Math.hypot(rx - (r.left + r.width/2), ry - (r.top + r.height/2));
+        chutiBot.classList.toggle('tora-active', dist < 160);
 
-    cx += (tx - cx) * 0.1;
-    cy += (ty - cy) * 0.1;
+        cx += (tx - cx) * 0.1;
+        cy += (ty - cy) * 0.1;
 
-    chutiHead.style.transform = `translate(${cx*8}px,${cy*5}px) rotate(${cx*14}deg)`;
-    chutiEyes.style.transform = `translate(${cx*9}px,${cy*4}px)`;
-
+        chutiHead.style.transform = `translate3d(${cx*8}px,${cy*5}px,0) rotate(${cx*14}deg)`;
+        chutiEyes.style.transform = `translate3d(${cx*9}px,${cy*4}px,0)`;
+    }
     requestAnimationFrame(animateChuti);
 }
 animateChuti();
