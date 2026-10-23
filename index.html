@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Malith Eranga | Modern Pixels & Chemical Technology</title>
 
-    <!-- Fonts: Bebas Neue (Display), Space Grotesk (UI), JetBrains Mono (HUD) -->
+    <!-- Font: Poppins (Clean, Modern, Geometric Sans-Serif) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary: #00ffcc;
-            --secondary: #00b4d8;
-            --bg-abyss: #01050c;
-            --glass-bg: rgba(5, 16, 32, 0.52);
-            --glass-border: rgba(0, 255, 204, 0.2);
+            --primary: #00f5d4;
+            --secondary: #00bbf9;
+            --bg-abyss: #020710;
+            --glass-bg: rgba(8, 20, 38, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.14);
             --text-light: #f8fafc;
             --text-dim: #94a3b8;
         }
@@ -26,39 +26,41 @@
             margin: 0;
             padding: 0;
             user-select: none;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body, html {
             width: 100%;
             height: 100%;
+            height: 100dvh;
             background-color: var(--bg-abyss);
             overflow: hidden;
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Poppins', sans-serif;
             color: var(--text-light);
             touch-action: none;
             -webkit-font-smoothing: antialiased;
         }
 
         /* ==========================================
-           1. CUSTOM AQUATIC CURSOR
+           1. CUSTOM AQUATIC CURSOR (DESKTOP ONLY)
         ========================================== */
         .cursor-ring {
             position: fixed;
             width: 34px;
             height: 34px;
-            border: 1px solid rgba(0, 255, 204, 0.45);
+            border: 1.5px solid rgba(0, 245, 212, 0.4);
             border-radius: 50%;
             pointer-events: none;
             z-index: 999;
             transform: translate(-50%, -50%);
             transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, background 0.25s ease;
-            mix-blend-mode: screen;
         }
 
         .cursor-dot {
             position: fixed;
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
             background: var(--primary);
             border-radius: 50%;
             pointer-events: none;
@@ -68,18 +70,18 @@
         }
 
         .cursor-ring.hovering {
-            width: 54px;
-            height: 54px;
-            background: rgba(0, 255, 204, 0.1);
+            width: 52px;
+            height: 52px;
+            background: rgba(0, 245, 212, 0.08);
             border-color: var(--primary);
         }
 
-        @media (pointer: coarse) {
-            .cursor-ring, .cursor-dot { display: none; }
+        @media (pointer: coarse), (hover: none) {
+            .cursor-ring, .cursor-dot { display: none !important; }
         }
 
         /* ==========================================
-           2. ADVANCED QUANTUM BENZENE PRELOADER
+           2. CLEAN MINIMAL BENZENE PRELOADER
         ========================================== */
         #loader {
             position: fixed;
@@ -89,65 +91,48 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding: 20px;
             z-index: 500;
-            transition: opacity 0.9s cubic-bezier(0.85, 0, 0.15, 1),
-                        transform 1.1s cubic-bezier(0.85, 0, 0.15, 1),
-                        visibility 0.9s;
+            transition: opacity 0.8s cubic-bezier(0.85, 0, 0.15, 1),
+                        transform 1s cubic-bezier(0.85, 0, 0.15, 1),
+                        visibility 0.8s;
         }
 
         #loader.complete {
             opacity: 0;
-            transform: scale(1.15);
+            transform: scale(1.08);
             visibility: hidden;
-            pointer-events: none;
-        }
-
-        .loader-grid {
-            position: absolute;
-            inset: 0;
-            background-image: 
-                linear-gradient(rgba(0, 255, 204, 0.035) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 204, 0.035) 1px, transparent 1px);
-            background-size: 45px 45px;
-            mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
-            -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
             pointer-events: none;
         }
 
         .quantum-core {
             position: relative;
-            width: 240px;
-            height: 240px;
+            width: clamp(160px, 42vw, 210px);
+            height: clamp(160px, 42vw, 210px);
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
         }
 
         .orbit-ring {
             position: absolute;
             inset: 0;
             border-radius: 50%;
-            border: 1px solid rgba(0, 255, 204, 0.15);
+            border: 1px solid rgba(0, 245, 212, 0.12);
         }
 
         .orbit-ring.r1 {
             animation: orbit3D-1 6s linear infinite;
             border-top-color: var(--primary);
-            border-bottom-color: rgba(0, 180, 216, 0.45);
+            border-bottom-color: rgba(0, 187, 249, 0.4);
         }
 
         .orbit-ring.r2 {
-            inset: 18px;
+            inset: 14px;
             animation: orbit3D-2 8s linear infinite;
             border-left-color: var(--secondary);
-            border-right-color: rgba(0, 255, 204, 0.45);
-        }
-
-        .orbit-ring.r3 {
-            inset: -14px;
-            border: 1px dashed rgba(0, 255, 204, 0.25);
-            animation: spinFlat 20s linear infinite;
+            border-right-color: rgba(0, 245, 212, 0.4);
         }
 
         @keyframes orbit3D-1 {
@@ -158,21 +143,17 @@
             0% { transform: rotateX(25deg) rotateY(65deg) rotateZ(360deg); }
             100% { transform: rotateX(25deg) rotateY(65deg) rotateZ(0deg); }
         }
-        @keyframes spinFlat {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
 
         #benzene-svg {
-            width: 155px;
-            height: 155px;
-            filter: drop-shadow(0 0 18px rgba(0, 255, 204, 0.45));
+            width: 64%;
+            height: 64%;
+            filter: drop-shadow(0 0 16px rgba(0, 245, 212, 0.35));
             animation: pulseCore 3s ease-in-out infinite;
         }
 
         @keyframes pulseCore {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.05) rotate(6deg); }
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
         }
 
         #progress-hex, #progress-circle {
@@ -197,71 +178,44 @@
 
         .loader-percent-big {
             position: absolute;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.35rem;
-            letter-spacing: 3px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: clamp(1.3rem, 4vw, 1.6rem);
             color: #ffffff;
-            text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
+            letter-spacing: 0.5px;
         }
 
-        .loader-hud {
-            width: 320px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 2;
-        }
-
-        .hud-row {
-            display: flex;
-            justify-content: space-between;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
-            letter-spacing: 2px;
-            color: var(--primary);
-            text-transform: uppercase;
-        }
-
-        .hud-bar-bg {
-            width: 100%;
+        .loader-bar-wrap {
+            width: min(220px, 75vw);
             height: 4px;
-            background: rgba(255, 255, 255, 0.07);
-            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 99px;
             overflow: hidden;
-            border: 1px solid rgba(0, 255, 204, 0.15);
         }
 
         #hud-bar-fill {
             width: 0%;
             height: 100%;
-            background: linear-gradient(90deg, var(--secondary), var(--primary), #ffffff);
-            box-shadow: 0 0 15px var(--primary);
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            border-radius: 99px;
             transition: width 0.08s linear;
         }
 
-        #telemetry-status {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem;
-            color: var(--text-dim);
-            text-align: center;
-            letter-spacing: 1.5px;
-            height: 16px;
-        }
-
         /* ==========================================
-           3. MAIN SCENE, HUD & 3D PARALLAX STAGE
+           3. MAIN SCENE & STATIC CENTER STAGE
         ========================================== */
         #main-scene {
             position: relative;
             width: 100%;
             height: 100%;
+            height: 100dvh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding: 24px;
             opacity: 0;
-            transition: opacity 1.2s ease-out;
-            perspective: 1200px;
+            transition: opacity 1s ease-out;
         }
 
         #main-scene.active {
@@ -276,190 +230,79 @@
             z-index: 1;
         }
 
-        /* Top Navigation / Telemetry HUD */
-        .top-hud {
-            position: fixed;
-            top: 26px;
-            left: 36px;
-            right: 36px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 25;
-            opacity: 0;
-            transform: translateY(-20px);
-            transition: all 1s 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            pointer-events: none;
-        }
-
-        #main-scene.active .top-hud {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .hud-left, .hud-right {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            pointer-events: auto;
-        }
-
-        .hud-pill {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 16px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(12px);
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            color: var(--text-light);
-            text-transform: uppercase;
-            clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
-        }
-
-        .audio-btn {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .audio-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            box-shadow: 0 0 18px rgba(0, 255, 204, 0.25);
-        }
-
-        .sound-bars {
-            display: flex;
-            align-items: flex-end;
-            gap: 2px;
-            height: 12px;
-        }
-
-        .sound-bars span {
-            width: 2px;
-            background: var(--primary);
-            height: 3px;
-            transition: height 0.2s ease;
-        }
-
-        .audio-btn.playing .sound-bars span:nth-child(1) { animation: eq 0.6s infinite alternate; }
-        .audio-btn.playing .sound-bars span:nth-child(2) { animation: eq 0.45s 0.15s infinite alternate; }
-        .audio-btn.playing .sound-bars span:nth-child(3) { animation: eq 0.7s 0.3s infinite alternate; }
-
-        @keyframes eq {
-            0% { height: 3px; }
-            100% { height: 12px; }
-        }
-
-        .live-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--primary);
-            box-shadow: 0 0 10px var(--primary);
-            animation: blink 1.8s infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.35; transform: scale(0.8); }
-        }
-
-        /* 3D Parallax Center Stage */
-        #parallax-stage {
+        /* Static Hero Stage (No Mouse Tilt) */
+        #hero-stage {
             position: relative;
             z-index: 15;
+            width: 100%;
+            max-width: 1100px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            transform-style: preserve-3d;
-            transition: transform 0.15s ease-out;
+            justify-content: center;
             pointer-events: none;
         }
 
         .text-wrapper {
+            width: 100%;
             text-align: center;
-            padding: 0 20px;
+            padding: 0 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            transform: translateZ(35px);
         }
 
-        .role-tag {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: clamp(0.68rem, 1vw, 0.8rem);
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--primary);
-            background: rgba(0, 255, 204, 0.07);
-            border: 1px solid rgba(0, 255, 204, 0.3);
-            padding: 6px 22px;
-            margin-bottom: 14px;
-            backdrop-filter: blur(8px);
-            clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
-            opacity: 0;
-            transform: translateY(15px);
-            transition: all 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        #main-scene.active .role-tag {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* BEBAS NEUE HERO TITLE */
-        .bebas-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(4.2rem, 12.2vw, 11.2rem);
-            font-weight: 400;
-            line-height: 0.92;
-            letter-spacing: clamp(6px, 1.8vw, 22px);
+        /* POPPINS BOLD DISPLAY HERO TITLE */
+        .display-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(2.5rem, 8.2vw, 6.8rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
             text-transform: uppercase;
             margin: 0;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 0.25em;
-            filter: drop-shadow(0 18px 38px rgba(0, 0, 0, 0.85));
+            column-gap: 0.28em;
+            row-gap: 0.05em;
+            filter: drop-shadow(0 16px 36px rgba(0, 0, 0, 0.8));
         }
 
         .word-box {
             display: inline-flex;
+            white-space: nowrap;
         }
 
         .b-char {
             display: inline-block;
-            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 48%, #94a3b8 82%, #00ffcc 100%);
+            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 55%, #67e8f9 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             opacity: 0;
-            transform: translateY(70px) rotateX(-65deg) scale(0.85);
-            transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-                        opacity 0.85s ease;
+            transform: translateY(36px);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        opacity 0.8s ease;
         }
 
         #main-scene.active .b-char {
             opacity: 1;
-            transform: translateY(0) rotateX(0deg) scale(1);
+            transform: translateY(0);
         }
 
         .subtitle {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(0.86rem, 1.35vw, 1.12rem);
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            margin-top: 16px;
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(0.9rem, 1.7vw, 1.15rem);
+            letter-spacing: 0.2px;
+            margin-top: 14px;
             color: #cbd5e1;
             font-weight: 400;
-            line-height: 1.65;
+            line-height: 1.6;
+            max-width: 680px;
             opacity: 0;
             transform: translateY(20px);
-            transition: all 0.9s 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95);
+            transition: all 0.9s 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+            text-shadow: 0 4px 18px rgba(0, 0, 0, 0.9);
         }
 
         #main-scene.active .subtitle {
@@ -470,137 +313,121 @@
         .highlight {
             color: var(--primary);
             font-weight: 600;
-            text-shadow: 0 0 14px rgba(0, 255, 204, 0.45);
         }
 
         /* ==========================================
-           4. NAVIGATION BUTTONS
+           4. PROFESSIONAL BUTTONS WITH DESCRIPTIONS
         ========================================== */
         .buttons-container {
-            margin-top: 40px;
+            margin-top: clamp(26px, 4.5vh, 42px);
+            width: 100%;
+            max-width: 620px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 22px;
+            gap: 20px;
             opacity: 0;
-            transform: translateY(25px) translateZ(50px);
-            transition: all 0.9s 1s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(25px);
+            transition: all 0.9s 0.75s cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: auto;
         }
 
         #main-scene.active .buttons-container {
             opacity: 1;
-            transform: translateY(0) translateZ(50px);
+            transform: translateY(0);
         }
 
         .button-group {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
+            width: 100%;
         }
 
         #enter-btn {
-            padding: 16px 56px;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.45rem;
-            letter-spacing: 6px;
+            padding: 15px 42px;
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+            font-weight: 600;
+            letter-spacing: 0.3px;
             color: #020813;
-            background: linear-gradient(135deg, #00ffcc 0%, #00b4d8 100%);
+            background: linear-gradient(135deg, #00f5d4 0%, #00bbf9 100%);
             border: none;
+            border-radius: 999px;
             cursor: pointer;
             position: relative;
-            text-transform: uppercase;
-            clip-path: polygon(16px 0%, 100% 0%, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0% 100%, 0% 16px);
-            box-shadow: 0 0 35px rgba(0, 255, 204, 0.4);
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex;
+            box-shadow: 0 12px 32px -6px rgba(0, 245, 212, 0.45);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            justify-content: center;
             align-items: center;
-            gap: 14px;
-            overflow: hidden;
+            gap: 10px;
         }
 
-        #enter-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -120%;
-            width: 60%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-            transform: skewX(-25deg);
-            transition: left 0.6s ease;
+        #enter-btn:hover, #enter-btn:active {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 38px -4px rgba(0, 245, 212, 0.65);
+            filter: brightness(1.05);
         }
 
-        #enter-btn:hover {
-            transform: translateY(-3px) scale(1.04);
-            box-shadow: 0 0 50px rgba(0, 255, 204, 0.75);
-            letter-spacing: 8px;
+        #enter-btn svg {
+            transition: transform 0.3s ease;
         }
 
-        #enter-btn:hover::before {
-            left: 160%;
+        #enter-btn:hover svg {
+            transform: translateX(4px);
         }
 
         .secondary-buttons-row {
             display: flex;
-            gap: 22px;
-            flex-wrap: wrap;
+            gap: 18px;
+            width: 100%;
             justify-content: center;
+            align-items: flex-start;
+        }
+
+        .secondary-buttons-row .button-group {
+            flex: 1;
+            max-width: 270px;
         }
 
         .secondary-btn {
-            padding: 13px 34px;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.15rem;
-            letter-spacing: 4.5px;
+            width: 100%;
+            padding: 13px 26px;
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(0.88rem, 2vw, 0.95rem);
+            font-weight: 600;
+            letter-spacing: 0.2px;
             color: var(--text-light);
-            background: rgba(6, 20, 38, 0.62);
-            border: 1px solid rgba(0, 255, 204, 0.3);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 999px;
             cursor: pointer;
-            text-transform: uppercase;
-            backdrop-filter: blur(12px);
-            clip-path: polygon(12px 0%, 100% 0%, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0% 100%, 0% 12px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
-        .secondary-btn:hover {
-            color: var(--primary);
-            border-color: var(--primary);
-            background: rgba(0, 255, 204, 0.12);
-            box-shadow: 0 0 25px rgba(0, 255, 204, 0.25);
-            transform: translateY(-3px);
-            letter-spacing: 6px;
+        .secondary-btn:hover, .secondary-btn:active {
+            color: #ffffff;
+            border-color: rgba(0, 245, 212, 0.6);
+            background: rgba(0, 245, 212, 0.14);
+            box-shadow: 0 8px 25px -4px rgba(0, 245, 212, 0.25);
+            transform: translateY(-2px);
         }
 
         .btn-desc {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.66rem;
-            color: rgba(203, 213, 225, 0.6);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* Bottom Subtle Hint Bar */
-        .bottom-hint {
-            position: fixed;
-            bottom: 22px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 20;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem;
-            letter-spacing: 2.5px;
-            color: rgba(148, 163, 184, 0.65);
-            text-transform: uppercase;
-            pointer-events: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: clamp(0.72rem, 1.5vw, 0.78rem);
+            font-weight: 400;
+            color: #cbd5e1;
+            opacity: 0.82;
+            letter-spacing: 0.2px;
             text-align: center;
-            opacity: 0;
-            transition: opacity 1s 1.4s ease;
-        }
-
-        #main-scene.active .bottom-hint {
-            opacity: 1;
+            line-height: 1.4;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95);
         }
 
         /* ==========================================
@@ -634,7 +461,7 @@
             position: relative;
             width: 100%;
             height: 15vh;
-            min-height: 120px;
+            min-height: 100px;
             max-height: 200px;
             transform: rotate(180deg);
             margin-bottom: -2px;
@@ -653,18 +480,86 @@
             100% { transform: translate3d(85px,0,0); }
         }
 
+        /* ==========================================
+           6. MOBILE & TABLET RESPONSIVE BREAKPOINTS
+        ========================================== */
         @media (max-width: 768px) {
-            .top-hud {
-                top: 16px;
-                left: 16px;
-                right: 16px;
+            #enter-btn {
+                width: 100%;
+                max-width: 320px;
+                padding: 14px 28px;
             }
-            .hide-mobile {
+            .secondary-buttons-row {
+                max-width: 480px;
+                gap: 14px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .display-title {
+                font-size: clamp(2.2rem, 11vw, 3.3rem);
+            }
+            .subtitle {
+                margin-top: 10px;
+                font-size: 0.85rem;
+            }
+            .buttons-container {
+                margin-top: 22px;
+                gap: 14px;
+            }
+            .secondary-buttons-row {
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                gap: 14px;
+            }
+            .secondary-buttons-row .button-group {
+                max-width: 290px;
+                width: 100%;
+            }
+            #enter-btn {
+                max-width: 290px;
+                padding: 13px 24px;
+            }
+            .secondary-btn {
+                padding: 12px 20px;
+            }
+            .btn-desc {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* Short Horizontal Mobile Landscape Mode */
+        @media (max-height: 540px) {
+            .display-title {
+                font-size: clamp(2rem, 8vh, 3rem);
+            }
+            .subtitle {
+                margin-top: 6px;
+                font-size: 0.78rem;
+            }
+            .buttons-container {
+                margin-top: 14px;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+                max-width: 94vw;
+                gap: 12px;
+            }
+            .button-group {
+                width: auto;
+            }
+            .secondary-buttons-row {
+                width: auto;
+                gap: 12px;
+            }
+            .btn-desc {
                 display: none;
             }
-            .bottom-hint {
-                width: 90%;
-                font-size: 0.6rem;
+            #enter-btn, .secondary-btn {
+                padding: 10px 22px;
+                font-size: 0.85rem;
+                width: auto;
             }
         }
     </style>
@@ -683,25 +578,23 @@
                 <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
             </defs>
             <g class="parallax">
-                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0, 255, 204, 0.25)" />
-                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(0, 180, 216, 0.45)" />
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0, 245, 212, 0.25)" />
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(0, 187, 249, 0.45)" />
                 <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(4, 13, 26, 0.9)" />
                 <use xlink:href="#gentle-wave" x="48" y="7" fill="#01040a" />
             </g>
         </svg>
     </div>
 
-    <!-- Quantum Benzene Preloader -->
+    <!-- Clean Minimal Preloader -->
     <div id="loader">
-        <div class="loader-grid"></div>
         <div class="quantum-core">
             <div class="orbit-ring r1"></div>
             <div class="orbit-ring r2"></div>
-            <div class="orbit-ring r3"></div>
 
             <svg id="benzene-svg" viewBox="0 0 100 100">
-                <polygon points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" fill="none" stroke="rgba(0, 255, 204, 0.12)" stroke-width="2"/>
-                <circle cx="50" cy="50" r="22" fill="none" stroke="rgba(0, 180, 216, 0.15)" stroke-width="1.8" stroke-dasharray="4 3"/>
+                <polygon points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" fill="none" stroke="rgba(0, 245, 212, 0.12)" stroke-width="2"/>
+                <circle cx="50" cy="50" r="22" fill="none" stroke="rgba(0, 187, 249, 0.15)" stroke-width="1.8" stroke-dasharray="4 3"/>
 
                 <polygon id="progress-hex" points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" fill="none" stroke="var(--primary)" stroke-width="2.8" pathLength="100"/>
                 <circle id="progress-circle" cx="50" cy="50" r="22" fill="none" stroke="var(--secondary)" stroke-width="2.2" pathLength="100"/>
@@ -714,18 +607,11 @@
                 <circle class="carbon-node" cx="15.4" cy="30" r="3.2"/>
             </svg>
 
-            <div class="loader-percent-big"><span id="percent">00</span>%</div>
+            <div class="loader-percent-big"><span id="percent">0</span>%</div>
         </div>
 
-        <div class="loader-hud">
-            <div class="hud-row">
-                <span>C6H6 // AROMATIC CORE</span>
-                <span id="loader-state">SYNTHESIZING</span>
-            </div>
-            <div class="hud-bar-bg">
-                <div id="hud-bar-fill"></div>
-            </div>
-            <div id="telemetry-status">Initializing molecular dynamics...</div>
+        <div class="loader-bar-wrap">
+            <div id="hud-bar-fill"></div>
         </div>
     </div>
 
@@ -733,76 +619,55 @@
     <div id="main-scene">
         <canvas id="particleCanvas"></canvas>
 
-        <!-- Top Telemetry & Audio HUD -->
-        <div class="top-hud">
-            <div class="hud-left">
-                <div class="hud-pill">
-                    <span class="live-dot"></span>
-                    <span>MALITH.ECOSYSTEM // <span id="koi-behavior-badge">FREE ROAMING</span></span>
-                </div>
-                <div class="hud-pill hide-mobile">
-                    <span id="lka-clock">LKA 00:00:00</span>
-                </div>
-            </div>
-
-            <div class="hud-right">
-                <button class="hud-pill audio-btn" id="audio-toggle" type="button">
-                    <div class="sound-bars">
-                        <span></span><span></span><span></span>
-                    </div>
-                    <span id="audio-label">ZEN AUDIO: OFF</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- 3D Parallax Hero Stage -->
-        <div id="parallax-stage">
+        <!-- Static Center Hero Stage -->
+        <div id="hero-stage">
             <div class="text-wrapper">
-                <div class="role-tag">CHEMICAL TECHNOLOGY &times; MODERN PIXELS</div>
-                <h1 class="bebas-title" id="bebas-heading" aria-label="MALITH ERANGA"></h1>
-                <div class="subtitle">
-                    Chemical Technology Undergraduate | BSc (Hons) <br>
-                    <span class="highlight">Sabaragamuwa University of Sri Lanka</span>
-                </div>
+                <h1 class="display-title" id="display-heading" aria-label="MALITH ERANGA"></h1>
+                <p class="subtitle">
+                    BSc (Hons) in Chemical Technology &bull; <span class="highlight">Sabaragamuwa University of Sri Lanka</span>
+                </p>
             </div>
 
-            <!-- Navigation Buttons -->
+            <!-- Navigation Buttons with Clear Descriptions -->
             <div class="buttons-container">
                 <div class="button-group">
                     <button id="enter-btn" class="nav-trigger interactable" data-target="main.html">
-                        <span>View My Portfolio</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <span>Explore Portfolio</span>
+                        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                             <polyline points="12 5 19 12 12 19"></polyline>
                         </svg>
                     </button>
-                    <div class="btn-desc">Explore academic &amp; personal projects</div>
+                    <span class="btn-desc">Academic research, software &amp; personal projects</span>
                 </div>
 
                 <div class="secondary-buttons-row">
                     <div class="button-group">
                         <button class="secondary-btn nav-trigger interactable" data-target="modernpixels.html">Modern Pixels</button>
-                        <div class="btn-desc">Freelance Agency &amp; Designs</div>
+                        <span class="btn-desc">Creative graphic design &amp; web studio</span>
                     </div>
 
                     <div class="button-group">
                         <button class="secondary-btn nav-trigger interactable" data-target="Article.html">Insights Blog</button>
-                        <div class="btn-desc">Articles on Tech &amp; Science</div>
+                        <span class="btn-desc">Articles on technology, chemistry &amp; design</span>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="bottom-hint">
-            MOVE CURSOR TO GUIDE KOI &bull; STOP MOVING TO LET KOI ROAM FREELY &bull; CLICK WATER TO DROP BIO-PELLET
         </div>
     </div>
 
     <script>
         /* ==========================================================
-           1. BEBAS NEUE STAGGERED 3D CHARACTER REVEAL
+           0. DEVICE & VIEWPORT INITIALIZATION
         ========================================================== */
-        const headingEl = document.getElementById('bebas-heading');
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        let viewW = window.innerWidth;
+        let viewH = window.innerHeight;
+
+        /* ==========================================================
+           1. STAGGERED CHARACTER REVEAL FOR POPPINS HEADING
+        ========================================================== */
+        const headingEl = document.getElementById('display-heading');
         const titleWords = ["MALITH", "ERANGA"];
         let globalCharCount = 0;
 
@@ -813,7 +678,7 @@
                 const cSpan = document.createElement('span');
                 cSpan.className = 'b-char';
                 cSpan.textContent = ch;
-                cSpan.style.transitionDelay = `${0.2 + globalCharCount * 0.045}s`;
+                cSpan.style.transitionDelay = `${0.15 + globalCharCount * 0.04}s`;
                 wBox.appendChild(cSpan);
                 globalCharCount++;
             }
@@ -821,120 +686,22 @@
         });
 
         /* ==========================================================
-           2. LIVE SRI LANKA CLOCK
-        ========================================================== */
-        const clockEl = document.getElementById('lka-clock');
-        function updateClock() {
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString('en-US', {
-                timeZone: 'Asia/Colombo',
-                hour12: false,
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            clockEl.textContent = `LKA ${timeStr}`;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-
-        /* ==========================================================
-           3. PROCEDURAL WEB-AUDIO ZEN SOUNDSCAPE (NO EXTERNAL MP3)
-        ========================================================== */
-        let audioCtx = null;
-        let isAudioPlaying = false;
-        let masterGain = null;
-        const audioBtn = document.getElementById('audio-toggle');
-        const audioLabel = document.getElementById('audio-label');
-
-        function initZenAudio() {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            masterGain = audioCtx.createGain();
-            masterGain.gain.value = 0.08;
-            masterGain.connect(audioCtx.destination);
-
-            // Warm harmonic ambient drone chords (Fmaj9 aquatic pad)
-            const freqs = [174.61, 220.00, 261.63, 329.63, 392.00];
-            freqs.forEach((f, idx) => {
-                const osc = audioCtx.createOscillator();
-                const oscGain = audioCtx.createGain();
-                osc.type = idx % 2 === 0 ? 'sine' : 'triangle';
-                osc.frequency.value = f;
-
-                // Subtle detune LFO for underwater shimmer
-                const lfo = audioCtx.createOscillator();
-                const lfoGain = audioCtx.createGain();
-                lfo.frequency.value = 0.12 + idx * 0.05;
-                lfoGain.gain.value = 1.5;
-                lfo.connect(osc.frequency);
-                lfo.start();
-
-                oscGain.gain.value = 0.15 / freqs.length;
-                osc.connect(oscGain);
-                oscGain.connect(masterGain);
-                osc.start();
-            });
-        }
-
-        function playWaterPlopSound() {
-            if (!isAudioPlaying || !audioCtx) return;
-            const osc = audioCtx.createOscillator();
-            const g = audioCtx.createGain();
-            osc.type = 'sine';
-            const now = audioCtx.currentTime;
-            osc.frequency.setValueAtTime(320, now);
-            osc.frequency.exponentialRampToValueAtTime(680, now + 0.12);
-            g.gain.setValueAtTime(0.12, now);
-            g.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
-            osc.connect(g);
-            g.connect(audioCtx.destination);
-            osc.start(now);
-            osc.stop(now + 0.26);
-        }
-
-        audioBtn.addEventListener('click', () => {
-            if (!audioCtx) initZenAudio();
-            if (isAudioPlaying) {
-                audioCtx.suspend();
-                isAudioPlaying = false;
-                audioBtn.classList.remove('playing');
-                audioLabel.textContent = "ZEN AUDIO: OFF";
-            } else {
-                audioCtx.resume();
-                isAudioPlaying = true;
-                audioBtn.classList.add('playing');
-                audioLabel.textContent = "ZEN AUDIO: ON";
-                playWaterPlopSound();
-            }
-        });
-
-        /* ==========================================================
-           4. QUANTUM BENZENE PRELOADER
+           2. MINIMAL BENZENE PRELOADER
         ========================================================== */
         let loadProgress = 0;
         const percentEl = document.getElementById('percent');
         const hudBarFill = document.getElementById('hud-bar-fill');
-        const telemetryEl = document.getElementById('telemetry-status');
-        const loaderStateEl = document.getElementById('loader-state');
         const loader = document.getElementById('loader');
         const mainScene = document.getElementById('main-scene');
         const progressHex = document.getElementById('progress-hex');
         const progressCircle = document.getElementById('progress-circle');
         const carbonNodes = document.querySelectorAll('.carbon-node');
 
-        const telemetryLogs = [
-            "Calibrating aromatic pi-electron cloud...",
-            "Synthesizing procedural hydro-dynamics...",
-            "Loading Imperial Koi anatomy & fins...",
-            "Generating underwater light caustics...",
-            "System ready. Launching experience..."
-        ];
-
         const loadingTimer = setInterval(() => {
             let step = Math.random() > 0.35 ? Math.floor(Math.random() * 8) + 2 : 1;
             loadProgress = Math.min(100, loadProgress + step);
 
-            percentEl.textContent = loadProgress.toString().padStart(2, '0');
+            percentEl.textContent = loadProgress;
             hudBarFill.style.width = `${loadProgress}%`;
             progressHex.style.strokeDashoffset = 100 - loadProgress;
             progressCircle.style.strokeDashoffset = 100 - loadProgress;
@@ -944,41 +711,39 @@
                 if (idx < litCount) node.classList.add('lit');
             });
 
-            const logIdx = Math.min(telemetryLogs.length - 1, Math.floor((loadProgress / 100) * telemetryLogs.length));
-            telemetryEl.textContent = telemetryLogs[logIdx];
-
             if (loadProgress >= 100) {
                 clearInterval(loadingTimer);
-                loaderStateEl.textContent = "COMPLETE";
                 setTimeout(() => {
                     loader.classList.add('complete');
                     mainScene.classList.add('active');
-                }, 450);
+                }, 400);
             }
-        }, 40);
+        }, 35);
 
         /* ==========================================================
-           5. MOUSE TRACKING (STRICTLY ONLY WHEN MOVING) & 3D PARALLAX
+           3. POINTER / TOUCH TRACKING & HIGH-DPI CANVAS SETUP
         ========================================================== */
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         const cursorRing = document.getElementById('cursor-ring');
         const cursorDot = document.getElementById('cursor-dot');
-        const parallaxStage = document.getElementById('parallax-stage');
-        const behaviorBadge = document.getElementById('koi-behavior-badge');
 
         let mouse = {
-            x: window.innerWidth * 0.5,
-            y: window.innerHeight * 0.5,
-            prevX: window.innerWidth * 0.5,
-            prevY: window.innerHeight * 0.5,
+            x: viewW * 0.5,
+            y: viewH * 0.5,
+            prevX: viewW * 0.5,
+            prevY: viewH * 0.5,
             lastMoveTime: 0,
             isMoving: false
         };
 
         function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            viewW = window.innerWidth;
+            viewH = window.innerHeight;
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width = viewW * dpr;
+            canvas.height = viewH * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         }
         resizeCanvas();
 
@@ -989,18 +754,13 @@
             mouse.x = clientX;
             mouse.y = clientY;
 
-            // Update Custom Cursor
-            cursorDot.style.left = `${clientX}px`;
-            cursorDot.style.top = `${clientY}px`;
-            cursorRing.style.left = `${clientX}px`;
-            cursorRing.style.top = `${clientY}px`;
+            if (!isTouchDevice) {
+                cursorDot.style.left = `${clientX}px`;
+                cursorDot.style.top = `${clientY}px`;
+                cursorRing.style.left = `${clientX}px`;
+                cursorRing.style.top = `${clientY}px`;
+            }
 
-            // Subtle 3D Parallax Tilt on Hero Content
-            const normX = (clientX / window.innerWidth - 0.5) * 2;
-            const normY = (clientY / window.innerHeight - 0.5) * 2;
-            parallaxStage.style.transform = `rotateY(${normX * 4.5}deg) rotateX(${-normY * 4.5}deg)`;
-
-            // Only flag mouse as actively moving if actual movement occurred
             if (moveDist > 1.5) {
                 mouse.lastMoveTime = performance.now();
                 mouse.isMoving = true;
@@ -1009,17 +769,22 @@
 
         window.addEventListener('mousemove', (e) => handlePointerMove(e.clientX, e.clientY));
         window.addEventListener('touchmove', (e) => {
-            handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+            if (e.touches.length > 0) {
+                handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+            }
         }, { passive: true });
 
-        // Hover effect on interactive buttons
-        document.querySelectorAll('.interactable, .audio-btn').forEach(el => {
+        window.addEventListener('touchend', () => {
+            mouse.isMoving = false;
+        });
+
+        document.querySelectorAll('.interactable').forEach(el => {
             el.addEventListener('mouseenter', () => cursorRing.classList.add('hovering'));
             el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovering'));
         });
 
         /* ==========================================================
-           6. POND ECOSYSTEM: BENZENE, RIPPLES, FOOD PELLETS & PETALS
+           4. POND ECOSYSTEM: BENZENE, RIPPLES, FOOD PELLETS & PETALS
         ========================================================== */
         let particlesArray = [];
         let waterRipples = [];
@@ -1028,7 +793,7 @@
         let floatingPetals = [];
 
         class WaterRipple {
-            constructor(x, y, maxR = 120, speed = 1.9, color = '0, 255, 204') {
+            constructor(x, y, maxR = 120, speed = 1.9, color = '0, 245, 212') {
                 this.x = x;
                 this.y = y;
                 this.r = 4;
@@ -1053,14 +818,12 @@
             }
         }
 
-        // Interactive Bio-Pellet (Fish Food) dropped when clicking water
         class FoodPellet {
             constructor(x, y) {
                 this.x = x;
                 this.y = y;
                 this.r = 5.5;
                 this.pulse = 0;
-                this.eaten = false;
             }
             update() {
                 this.pulse += 0.1;
@@ -1070,8 +833,8 @@
                 const glowR = this.r + Math.sin(this.pulse) * 3 + 5;
                 const grad = ctx.createRadialGradient(this.x, this.y, 1, this.x, this.y, glowR);
                 grad.addColorStop(0, '#ffffff');
-                grad.addColorStop(0.4, '#00ffcc');
-                grad.addColorStop(1, 'rgba(0, 255, 204, 0)');
+                grad.addColorStop(0.4, '#00f5d4');
+                grad.addColorStop(1, 'rgba(0, 245, 212, 0)');
                 ctx.fillStyle = grad;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, glowR, 0, Math.PI * 2);
@@ -1080,15 +843,14 @@
             }
         }
 
-        // Floating Sakura / Lotus Petals on water surface
         class FloatingPetal {
             constructor() {
                 this.reset(true);
             }
             reset(initial = false) {
-                this.x = initial ? Math.random() * canvas.width : -30;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 5 + 4;
+                this.x = initial ? Math.random() * viewW : -30;
+                this.y = Math.random() * viewH;
+                this.size = Math.random() * 4.5 + 3.5;
                 this.vx = Math.random() * 0.35 + 0.15;
                 this.vy = (Math.random() - 0.5) * 0.25;
                 this.angle = Math.random() * Math.PI * 2;
@@ -1104,15 +866,15 @@
                     const dx = this.x - fishHead.x;
                     const dy = this.y - fishHead.y;
                     const d = Math.hypot(dx, dy);
-                    if (d < 130 && d > 1) {
-                        const push = (130 - d) / 130;
+                    if (d < 120 && d > 1) {
+                        const push = (120 - d) / 120;
                         this.x += (dx / d) * push * 1.8;
                         this.y += (dy / d) * push * 1.8;
                         this.angle += push * 0.04;
                     }
                 }
 
-                if (this.x > canvas.width + 40 || this.y < -40 || this.y > canvas.height + 40) {
+                if (this.x > viewW + 40 || this.y < -40 || this.y > viewH + 40) {
                     this.reset(false);
                 }
             }
@@ -1132,8 +894,8 @@
 
         class BenzeneMolecule {
             constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
+                this.x = Math.random() * viewW;
+                this.y = Math.random() * viewH;
                 this.z = Math.random() * 0.8 + 0.2;
                 this.size = (Math.random() * 8 + 5) * this.z;
                 this.vx = (Math.random() - 0.5) * 0.45 * this.z;
@@ -1147,19 +909,19 @@
                 this.y += this.vy;
                 this.rot += this.rotSpeed;
 
-                if (this.x < -50) this.x = canvas.width + 50;
-                if (this.x > canvas.width + 50) this.x = -50;
-                if (this.y < -50) this.y = canvas.height + 50;
-                if (this.y > canvas.height + 50) this.y = -50;
+                if (this.x < -50) this.x = viewW + 50;
+                if (this.x > viewW + 50) this.x = -50;
+                if (this.y < -50) this.y = viewH + 50;
+                if (this.y > viewH + 50) this.y = -50;
 
                 if (fishHead) {
                     const dx = this.x - fishHead.x;
                     const dy = this.y - fishHead.y;
                     const d = Math.hypot(dx, dy);
-                    if (d < 170 && d > 1) {
-                        const force = (170 - d) / 170;
-                        this.x += (dx / d) * force * 2.4 * this.z;
-                        this.y += (dy / d) * force * 2.4 * this.z;
+                    if (d < 150 && d > 1) {
+                        const force = (150 - d) / 150;
+                        this.x += (dx / d) * force * 2.2 * this.z;
+                        this.y += (dy / d) * force * 2.2 * this.z;
                     }
                 }
             }
@@ -1167,7 +929,7 @@
                 ctx.save();
                 ctx.translate(this.x, this.y);
                 ctx.rotate(this.rot);
-                ctx.strokeStyle = `rgba(0, 255, 204, ${this.opacity})`;
+                ctx.strokeStyle = `rgba(0, 245, 212, ${this.opacity})`;
                 ctx.lineWidth = 0.7;
                 ctx.beginPath();
                 for (let i = 0; i < 6; i++) {
@@ -1189,17 +951,17 @@
         function initEcosystem() {
             particlesArray = [];
             floatingPetals = [];
-            const molCount = Math.min(Math.floor((canvas.width * canvas.height) / 23000), 42);
+            const molCount = Math.min(Math.floor((viewW * viewH) / 22000), 40);
+            const petalCount = viewW < 600 ? 8 : 14;
             for (let i = 0; i < molCount; i++) particlesArray.push(new BenzeneMolecule());
-            for (let i = 0; i < 14; i++) floatingPetals.push(new FloatingPetal());
+            for (let i = 0; i < petalCount; i++) floatingPetals.push(new FloatingPetal());
         }
         initEcosystem();
 
         /* ==========================================================
-           7. ULTRA-REALISTIC IMPERIAL KOI ENGINE
+           5. ULTRA-REALISTIC IMPERIAL KOI ENGINE
         ========================================================== */
         const koiPalettes = [
-            // 1. Imperial Tancho Kohaku (Pearl White, Vermilion Crimson & Gold)
             {
                 base1: [255, 250, 245],
                 base2: [255, 82, 32],
@@ -1208,16 +970,14 @@
                 patch: [235, 45, 18],
                 glow: [255, 105, 45]
             },
-            // 2. Bioluminescent Cyber Koi (Ice White, Neon Cyan & Deep Azure)
             {
                 base1: [235, 255, 252],
                 base2: [0, 245, 212],
                 tail: [0, 180, 216],
                 fin: [180, 248, 255],
                 patch: [14, 165, 233],
-                glow: [0, 255, 204]
+                glow: [0, 245, 212]
             },
-            // 3. Kin-Showa Gold Dragon (Metallic Gold, Rich Amber & White Silk)
             {
                 base1: [255, 253, 230],
                 base2: [250, 190, 20],
@@ -1226,7 +986,6 @@
                 patch: [234, 88, 12],
                 glow: [250, 204, 21]
             },
-            // 4. Sakura Orchid Betta-Koi (Soft Rose, Electric Magenta & Violet)
             {
                 base1: [255, 240, 248],
                 base2: [244, 63, 94],
@@ -1288,29 +1047,31 @@
         class UltraRealisticKoi {
             constructor() {
                 this.numSegs = 32;
-                this.segLen = 7.2;
-                // Anatomical Teardrop Koi Width Profile (32 vertebrae)
-                this.profile = [
+                this.baseSegLen = 7.2;
+                this.baseProfile = [
                     8.5, 16.5, 23.5, 29, 32.8, 35, 35.5, 34.8, 33.2, 31,
                     28.5, 25.8, 23, 20.2, 17.6, 15.2, 13, 11, 9.2, 7.6,
                     6.3, 5.2, 4.3, 3.6, 3.0, 2.5, 2.0, 1.6, 1.2, 0.9, 0.6, 0.3
                 ];
 
+                this.scale = 1;
+                this.segLen = this.baseSegLen;
+                this.profile = [...this.baseProfile];
+                this.updateScale();
+
                 this.spine = [];
-                this.x = canvas.width * 0.7;
-                this.y = canvas.height * 0.35;
+                this.x = viewW * 0.7;
+                this.y = viewH * 0.3;
                 this.angle = Math.PI;
 
-                this.velocity = 2.6;
+                this.velocity = 2.4;
                 this.glideImpulse = 0;
                 this.swimCycle = 0;
                 this.finCycle = 0;
                 this.mouthOpen = 0;
 
-                // Free-roaming random destination across the pond
                 this.roamTarget = this.pickNewRoamPoint();
 
-                // Authentic Kohaku / Sanke Dorsal Spots
                 this.patches = [
                     { seg: 1, sideOffset: 0.0, rx: 14, ry: 12 },
                     { seg: 6, sideOffset: 0.16, rx: 26, ry: 19 },
@@ -1328,21 +1089,27 @@
                 }
             }
 
+            updateScale() {
+                const minDim = Math.min(viewW, viewH);
+                this.scale = minDim < 480 ? 0.68 : (minDim < 768 ? 0.82 : 1.0);
+                this.segLen = this.baseSegLen * this.scale;
+                this.profile = this.baseProfile.map(w => w * this.scale);
+            }
+
             pickNewRoamPoint() {
-                const margin = 120;
+                const marginX = Math.min(90, viewW * 0.14);
+                const marginY = Math.min(90, viewH * 0.14);
                 let nx, ny, tries = 0;
                 do {
-                    nx = margin + Math.random() * Math.max(200, canvas.width - margin * 2);
-                    ny = margin + Math.random() * Math.max(200, canvas.height - margin * 2);
+                    nx = marginX + Math.random() * Math.max(80, viewW - marginX * 2);
+                    ny = marginY + Math.random() * Math.max(80, viewH - marginY * 2);
                     tries++;
-                } while (Math.hypot(nx - mouse.x, ny - mouse.y) < 180 && tries < 8);
+                } while (Math.hypot(nx - mouse.x, ny - mouse.y) < 120 && tries < 8);
                 return { x: nx, y: ny };
             }
 
             update(time) {
                 const now = performance.now();
-
-                // Check if mouse is actively moving right now (within last 380ms)
                 const isMouseActivelyMoving = mouse.isMoving && (now - mouse.lastMoveTime < 380);
                 if (!isMouseActivelyMoving) {
                     mouse.isMoving = false;
@@ -1351,52 +1118,40 @@
                 let targetX, targetY;
                 let mode = "ROAM";
 
-                // Priority 1: If there is a food pellet in the water, swim to eat it!
                 if (foodPellets.length > 0) {
                     const pellet = foodPellets[0];
                     targetX = pellet.x;
                     targetY = pellet.y;
                     mode = "FEEDING";
-                    behaviorBadge.textContent = "SEEKING BIO-PELLET";
 
                     const distToPellet = Math.hypot(targetX - this.x, targetY - this.y);
-                    if (distToPellet < 95) {
-                        this.mouthOpen = Math.min(1, (95 - distToPellet) / 60);
+                    if (distToPellet < 95 * this.scale) {
+                        this.mouthOpen = Math.min(1, (95 * this.scale - distToPellet) / (60 * this.scale));
                     }
                     if (distToPellet < 22) {
-                        // Eat pellet, shift color, create splash
                         foodPellets.shift();
                         paletteIdx = (paletteIdx + 1) % koiPalettes.length;
-                        this.glideImpulse = 4.2;
+                        this.glideImpulse = 4.0 * this.scale;
                         const g = koiPalettes[paletteIdx].glow;
-                        waterRipples.push(new WaterRipple(this.x, this.y, 140, 2.4, `${g[0]}, ${g[1]}, ${g[2]}`));
-                        playWaterPlopSound();
+                        waterRipples.push(new WaterRipple(this.x, this.y, 130 * this.scale, 2.2, `${g[0]}, ${g[1]}, ${g[2]}`));
                     }
-                }
-                // Priority 2: Mouse is actively moving -> Follow cursor
-                else if (isMouseActivelyMoving) {
+                } else if (isMouseActivelyMoving) {
                     targetX = mouse.x;
                     targetY = mouse.y;
                     mode = "FOLLOW";
-                    behaviorBadge.textContent = "FOLLOWING CURSOR";
                     this.mouthOpen *= 0.9;
 
-                    // If fish reaches very close to the moving mouse, pick a roam point so it doesn't spin in place
                     if (Math.hypot(targetX - this.x, targetY - this.y) < 55) {
                         this.roamTarget = this.pickNewRoamPoint();
                     }
-                }
-                // Priority 3: Mouse is NOT moving -> Swim away freely around the entire pond (NEVER orbit mouse)
-                else {
+                } else {
                     mode = "ROAM";
-                    behaviorBadge.textContent = "FREE ROAMING";
                     this.mouthOpen *= 0.9;
 
                     const distToRoam = Math.hypot(this.roamTarget.x - this.x, this.roamTarget.y - this.y);
-                    if (distToRoam < 110) {
+                    if (distToRoam < 95) {
                         this.roamTarget = this.pickNewRoamPoint();
-                        // Subtle natural tail kick when picking a new path
-                        if (Math.random() < 0.65) this.glideImpulse = 1.8 + Math.random() * 1.4;
+                        if (Math.random() < 0.65) this.glideImpulse = (1.6 + Math.random() * 1.3) * this.scale;
                     }
                     targetX = this.roamTarget.x;
                     targetY = this.roamTarget.y;
@@ -1406,37 +1161,31 @@
                 const dy = targetY - this.y;
                 const dist = Math.hypot(dx, dy);
 
-                // Add subtle organic S-meandering when roaming freely
                 const meander = mode === "ROAM" ? Math.sin(time * 1.3) * 0.18 : 0;
                 const desiredAngle = Math.atan2(dy, dx) + meander;
                 let angleDiff = normAngle(desiredAngle - this.angle);
 
-                // Smooth natural turning radius
-                const maxTurn = mode === "ROAM" ? 0.042 : 0.062;
+                const maxTurn = mode === "ROAM" ? 0.044 : 0.064;
                 const turnStep = Math.max(-maxTurn, Math.min(maxTurn, angleDiff * 0.12));
                 this.angle = normAngle(this.angle + turnStep);
 
-                // Decay natural glide impulse
                 this.glideImpulse *= 0.95;
                 if (this.glideImpulse < 0.04) this.glideImpulse = 0;
 
-                // Organic Velocity Calculation
                 let targetVel;
                 if (mode === "FEEDING") {
-                    targetVel = Math.min(5.8, 2.8 + dist * 0.012);
+                    targetVel = Math.min(5.5 * this.scale, 2.5 * this.scale + dist * 0.012);
                 } else if (mode === "FOLLOW") {
-                    targetVel = Math.min(6.2, Math.max(2.2, dist * 0.022));
+                    targetVel = Math.min(5.8 * this.scale, Math.max(2.0 * this.scale, dist * 0.022));
                 } else {
-                    // Calm, realistic pond cruising with gentle rhythmic kicks
-                    const naturalPulse = (Math.sin(time * 1.4) + 1) * 0.45;
-                    targetVel = 2.0 + naturalPulse + this.glideImpulse;
+                    const naturalPulse = (Math.sin(time * 1.4) + 1) * 0.42 * this.scale;
+                    targetVel = 1.9 * this.scale + naturalPulse + this.glideImpulse;
                 }
 
                 this.velocity += (targetVel - this.velocity) * 0.06;
 
-                // Spine S-wave frequency matched to actual swimming velocity
-                this.swimCycle += 0.06 + this.velocity * 0.028;
-                this.finCycle += 0.055 + this.velocity * 0.02;
+                this.swimCycle += 0.06 + (this.velocity / this.scale) * 0.028;
+                this.finCycle += 0.055 + (this.velocity / this.scale) * 0.02;
 
                 const headSway = Math.sin(this.swimCycle) * 0.038;
                 const moveAngle = this.angle + headSway;
@@ -1448,7 +1197,6 @@
                 this.spine[0].y = this.y;
                 this.spine[0].angle = moveAngle;
 
-                // Inverse Kinematics along 32 Vertebrae with Traveling Muscular Wave
                 for (let i = 1; i < this.numSegs; i++) {
                     const prev = this.spine[i - 1];
                     const curr = this.spine[i];
@@ -1458,7 +1206,7 @@
                     let segAngle = Math.atan2(sdy, sdx);
 
                     const ratio = i / this.numSegs;
-                    const waveAmp = Math.pow(ratio, 1.4) * 0.11 * (0.55 + this.velocity * 0.1);
+                    const waveAmp = Math.pow(ratio, 1.4) * 0.11 * (0.55 + (this.velocity / this.scale) * 0.1);
                     const muscularOffset = Math.sin(this.swimCycle - i * 0.31) * waveAmp;
 
                     segAngle += muscularOffset;
@@ -1473,22 +1221,21 @@
                     curr.y = prev.y - Math.sin(segAngle) * this.segLen;
                 }
 
-                // Subtle wake bubbles & ripples
                 if (Math.random() < 0.14) {
                     const tail = this.spine[this.numSegs - 4];
                     wakeBubbles.push({
-                        x: tail.x + (Math.random() - 0.5) * 14,
-                        y: tail.y + (Math.random() - 0.5) * 14,
+                        x: tail.x + (Math.random() - 0.5) * 12 * this.scale,
+                        y: tail.y + (Math.random() - 0.5) * 12 * this.scale,
                         vx: (Math.random() - 0.5) * 0.6,
                         vy: (Math.random() - 0.5) * 0.6,
-                        r: Math.random() * 2.2 + 0.7,
+                        r: (Math.random() * 2.1 + 0.7) * this.scale,
                         alpha: 0.65,
                         color: [...curPal.glow]
                     });
                 }
                 if (Math.random() < 0.03) {
                     const g = curPal.glow;
-                    waterRipples.push(new WaterRipple(this.x, this.y, 75, 1.15, `${Math.round(g[0])}, ${Math.round(g[1])}, ${Math.round(g[2])}`));
+                    waterRipples.push(new WaterRipple(this.x, this.y, 70 * this.scale, 1.1, `${Math.round(g[0])}, ${Math.round(g[1])}, ${Math.round(g[2])}`));
                 }
             }
 
@@ -1498,14 +1245,14 @@
                 const ax = joint.x + Math.cos(perp) * (this.profile[segIdx] * 0.78);
                 const ay = joint.y + Math.sin(perp) * (this.profile[segIdx] * 0.78);
 
-                const speedTuck = Math.min(0.28, this.velocity * 0.03);
+                const speedTuck = Math.min(0.28, (this.velocity / this.scale) * 0.03);
                 const featherWave = Math.sin(this.finCycle - side * 0.45) * 0.24;
                 const finAng = joint.angle + side * (1.72 + speedTuck + featherWave);
 
                 ctx.save();
                 ctx.translate(ax, ay);
                 ctx.rotate(finAng);
-                ctx.scale(1, side);
+                ctx.scale(this.scale, side * this.scale);
 
                 const fLen = 72;
                 const fWid = 40;
@@ -1524,7 +1271,6 @@
                 ctx.closePath();
                 ctx.fill();
 
-                // Realistic Fin Cartilage Rays
                 ctx.strokeStyle = rgba(curPal.base1, 0.34);
                 ctx.lineWidth = 0.85;
                 for (let r = 0; r < 10; r++) {
@@ -1541,7 +1287,6 @@
                     ctx.stroke();
                 }
 
-                // Leading Bone Edge Highlight
                 ctx.strokeStyle = rgba(curPal.base1, 0.8);
                 ctx.lineWidth = 1.7;
                 ctx.beginPath();
@@ -1564,7 +1309,7 @@
                 ctx.save();
                 ctx.translate(ax, ay);
                 ctx.rotate(ang);
-                ctx.scale(1, side);
+                ctx.scale(this.scale, side * this.scale);
 
                 const fLen = 42;
                 const fWid = 22;
@@ -1591,9 +1336,9 @@
                 const tailDir = tip.angle + Math.PI;
                 const perp = tailDir + Math.PI / 2;
 
-                const whip1 = Math.sin(this.swimCycle - 2.7) * 34;
-                const whip2 = Math.cos(this.swimCycle - 3.2) * 38;
-                const tailLen = 102;
+                const whip1 = Math.sin(this.swimCycle - 2.7) * 34 * this.scale;
+                const whip2 = Math.cos(this.swimCycle - 3.2) * 38 * this.scale;
+                const tailLen = 102 * this.scale;
 
                 const topLobe = {
                     x: tip.x + Math.cos(tailDir + 0.45) * tailLen + Math.cos(perp) * whip1,
@@ -1609,7 +1354,7 @@
                 };
 
                 ctx.save();
-                const tGrad = ctx.createRadialGradient(base.x, base.y, 6, tip.x, tip.y, tailLen * 1.2);
+                const tGrad = ctx.createRadialGradient(base.x, base.y, 6 * this.scale, tip.x, tip.y, tailLen * 1.2);
                 tGrad.addColorStop(0, rgba(curPal.base2, 0.88));
                 tGrad.addColorStop(0.38, rgba(curPal.tail, 0.6));
                 tGrad.addColorStop(0.78, rgba(curPal.fin, 0.3));
@@ -1619,22 +1364,21 @@
                 ctx.beginPath();
                 ctx.moveTo(base.x, base.y);
                 ctx.bezierCurveTo(
-                    mid.x + Math.cos(perp) * 24, mid.y + Math.sin(perp) * 24,
-                    tip.x + Math.cos(perp) * 36, tip.y + Math.sin(perp) * 36,
+                    mid.x + Math.cos(perp) * 24 * this.scale, mid.y + Math.sin(perp) * 24 * this.scale,
+                    tip.x + Math.cos(perp) * 36 * this.scale, tip.y + Math.sin(perp) * 36 * this.scale,
                     topLobe.x, topLobe.y
                 );
                 ctx.quadraticCurveTo(innerFork.x, innerFork.y, botLobe.x, botLobe.y);
                 ctx.bezierCurveTo(
-                    tip.x - Math.cos(perp) * 36, tip.y - Math.sin(perp) * 36,
-                    mid.x - Math.cos(perp) * 24, mid.y - Math.sin(perp) * 24,
+                    tip.x - Math.cos(perp) * 36 * this.scale, tip.y - Math.sin(perp) * 36 * this.scale,
+                    mid.x - Math.cos(perp) * 24 * this.scale, mid.y - Math.sin(perp) * 24 * this.scale,
                     base.x, base.y
                 );
                 ctx.closePath();
                 ctx.fill();
 
-                // Delicate Silk Rays in the Caudal Tail
                 ctx.strokeStyle = rgba(curPal.base1, 0.32);
-                ctx.lineWidth = 0.9;
+                ctx.lineWidth = 0.9 * this.scale;
                 const numRays = 15;
                 for (let i = 0; i <= numRays; i++) {
                     const t = i / numRays;
@@ -1662,7 +1406,7 @@
 
                 ctx.fillStyle = dGrad;
                 ctx.strokeStyle = rgba(curPal.base1, 0.6);
-                ctx.lineWidth = 1.25;
+                ctx.lineWidth = 1.25 * this.scale;
 
                 const crestPoints = [];
                 ctx.beginPath();
@@ -1674,7 +1418,7 @@
                 for (let i = end; i >= start; i--) {
                     const s = this.spine[i];
                     const norm = (i - start) / (end - start);
-                    const height = Math.sin(norm * Math.PI) * 32;
+                    const height = Math.sin(norm * Math.PI) * 32 * this.scale;
                     const sway = Math.sin(this.swimCycle - i * 0.4) * height;
                     const perp = s.angle + Math.PI / 2;
                     const cx = s.x + Math.cos(perp) * sway;
@@ -1687,7 +1431,7 @@
                 ctx.stroke();
 
                 ctx.strokeStyle = rgba(curPal.base1, 0.26);
-                ctx.lineWidth = 0.75;
+                ctx.lineWidth = 0.75 * this.scale;
                 crestPoints.forEach((pt, idx) => {
                     if (idx % 2 === 0) {
                         ctx.beginPath();
@@ -1706,7 +1450,7 @@
 
                 // 1. Deep 3D Underwater Shadow
                 ctx.save();
-                ctx.translate(18, 30);
+                ctx.translate(16 * this.scale, 26 * this.scale);
                 const shPts = [];
                 for (let i = 0; i < this.numSegs; i++) {
                     const s = this.spine[i];
@@ -1721,11 +1465,11 @@
                 drawCatmullClosed(ctx, shPts);
                 ctx.fillStyle = 'rgba(0, 3, 10, 0.58)';
                 ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
-                ctx.shadowBlur = 35;
+                ctx.shadowBlur = 30 * this.scale;
                 ctx.fill();
                 ctx.restore();
 
-                // 2. Underneath Fins (Pectorals, Pelvics & Veil Tail)
+                // 2. Underneath Fins
                 this.drawSilkPectoralFin(4, -1);
                 this.drawSilkPectoralFin(4, 1);
                 this.drawPelvicFin(12, -1);
@@ -1749,20 +1493,19 @@
                 }
 
                 const head = this.spine[0];
-                const snoutExtend = 11.5 + this.mouthOpen * 3.5;
+                const snoutExtend = (11.5 + this.mouthOpen * 3.5) * this.scale;
                 const snout = {
                     x: head.x + Math.cos(head.angle) * snoutExtend,
                     y: head.y + Math.sin(head.angle) * snoutExtend
                 };
 
-                // Animated Mouth Lip when feeding
                 if (this.mouthOpen > 0.05) {
                     ctx.save();
                     ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
                     ctx.strokeStyle = rgba(curPal.base1, 0.8);
-                    ctx.lineWidth = 1.5;
+                    ctx.lineWidth = 1.5 * this.scale;
                     ctx.beginPath();
-                    ctx.arc(snout.x, snout.y, 4.5 * this.mouthOpen, 0, Math.PI * 2);
+                    ctx.arc(snout.x, snout.y, 4.5 * this.mouthOpen * this.scale, 0, Math.PI * 2);
                     ctx.fill();
                     ctx.stroke();
                     ctx.restore();
@@ -1770,7 +1513,7 @@
 
                 const contour = [snout, ...rightSide, ...leftSide.reverse()];
 
-                // 4. Fill Body Base + Clip for Markings, 3D Cylindrical Shading & Diamond Scales
+                // 4. Fill Body Base + Clip for Markings
                 ctx.save();
                 drawCatmullClosed(ctx, contour);
 
@@ -1782,7 +1525,7 @@
                 bodyGrad.addColorStop(1, rgba(curPal.tail, 0.45));
 
                 ctx.shadowColor = rgba(curPal.glow, 0.42);
-                ctx.shadowBlur = 24;
+                ctx.shadowBlur = 22 * this.scale;
                 ctx.fillStyle = bodyGrad;
                 ctx.fill();
 
@@ -1795,34 +1538,36 @@
                     const perp = s.angle + Math.PI / 2;
                     const px = s.x + Math.cos(perp) * (this.profile[p.seg] * p.sideOffset);
                     const py = s.y + Math.sin(perp) * (this.profile[p.seg] * p.sideOffset);
+                    const rx = p.rx * this.scale;
+                    const ry = p.ry * this.scale;
 
                     ctx.save();
                     ctx.translate(px, py);
                     ctx.rotate(s.angle);
-                    const pGrad = ctx.createRadialGradient(0, 0, p.rx * 0.15, 0, 0, p.rx);
+                    const pGrad = ctx.createRadialGradient(0, 0, rx * 0.15, 0, 0, rx);
                     pGrad.addColorStop(0, rgba(curPal.patch, 0.94));
                     pGrad.addColorStop(0.78, rgba(curPal.patch, 0.68));
                     pGrad.addColorStop(1, rgba(curPal.patch, 0));
                     ctx.fillStyle = pGrad;
                     ctx.beginPath();
-                    ctx.ellipse(0, 0, p.rx, p.ry, 0, 0, Math.PI * 2);
+                    ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
                     ctx.fill();
                     ctx.restore();
                 });
 
                 // 4B. Shimmering Overlapping Scales
                 ctx.strokeStyle = 'rgba(255, 255, 255, 0.24)';
-                ctx.lineWidth = 0.85;
+                ctx.lineWidth = 0.85 * this.scale;
                 for (let i = 3; i < this.numSegs - 5; i++) {
                     const s = this.spine[i];
                     const w = this.profile[i];
                     const perp = s.angle + Math.PI / 2;
                     const cols = i < 15 ? 3 : 2;
                     for (let c = -cols + 1; c < cols; c++) {
-                        const off = (c / cols) * w * 0.64 + ((i % 2) * 2.8 - 1.4);
+                        const off = (c / cols) * w * 0.64 + ((i % 2) * 2.8 - 1.4) * this.scale;
                         const sx = s.x + Math.cos(perp) * off;
                         const sy = s.y + Math.sin(perp) * off;
-                        const sr = Math.max(2.6, w * 0.21);
+                        const sr = Math.max(2.4 * this.scale, w * 0.21);
                         ctx.beginPath();
                         ctx.arc(sx, sy, sr, s.angle + Math.PI - 0.82, s.angle + Math.PI + 0.82);
                         ctx.stroke();
@@ -1831,7 +1576,7 @@
 
                 // 4C. 3D Cylindrical Rim Shading
                 ctx.strokeStyle = 'rgba(2, 8, 22, 0.45)';
-                ctx.lineWidth = 7.5;
+                ctx.lineWidth = 7.5 * this.scale;
                 drawCatmullClosed(ctx, contour);
                 ctx.stroke();
 
@@ -1843,43 +1588,43 @@
                     else ctx.lineTo(s.x, s.y);
                 }
                 ctx.strokeStyle = 'rgba(255, 255, 255, 0.36)';
-                ctx.lineWidth = 7;
+                ctx.lineWidth = 7 * this.scale;
                 ctx.lineCap = 'round';
                 ctx.stroke();
 
-                // 4E. Breathing Gill Plates (Operculum)
+                // 4E. Breathing Gill Plates
                 const gillSeg = this.spine[2];
-                const breathOpen = Math.sin(this.finCycle * 1.5) * 1.3;
+                const breathOpen = Math.sin(this.finCycle * 1.5) * 1.3 * this.scale;
                 [-1, 1].forEach(side => {
                     const gPerp = gillSeg.angle + side * (Math.PI / 2);
                     const gx = gillSeg.x + Math.cos(gPerp) * (this.profile[2] * 0.62 + breathOpen);
                     const gy = gillSeg.y + Math.sin(gPerp) * (this.profile[2] * 0.62 + breathOpen);
                     ctx.strokeStyle = 'rgba(10, 20, 35, 0.45)';
-                    ctx.lineWidth = 1.9;
+                    ctx.lineWidth = 1.9 * this.scale;
                     ctx.beginPath();
-                    ctx.arc(gx, gy, 8.8, gillSeg.angle + Math.PI - 0.65, gillSeg.angle + Math.PI + 0.65);
+                    ctx.arc(gx, gy, 8.8 * this.scale, gillSeg.angle + Math.PI - 0.65, gillSeg.angle + Math.PI + 0.65);
                     ctx.stroke();
                 });
 
-                ctx.restore(); // End Body Clip
+                ctx.restore();
 
-                // 5. Two Pairs of Sensory Koi Barbels (Whiskers)
+                // 5. Sensory Koi Barbels (Whiskers)
                 [-1, 1].forEach(side => {
                     const bPerp = head.angle + side * (Math.PI / 2);
-                    const bx = snout.x - Math.cos(head.angle) * 3 + Math.cos(bPerp) * 6;
-                    const by = snout.y - Math.sin(head.angle) * 3 + Math.sin(bPerp) * 6;
+                    const bx = snout.x - Math.cos(head.angle) * 3 * this.scale + Math.cos(bPerp) * 6 * this.scale;
+                    const by = snout.y - Math.sin(head.angle) * 3 * this.scale + Math.sin(bPerp) * 6 * this.scale;
                     const bSway = Math.sin(this.swimCycle - side) * 0.25;
                     const bAng = head.angle + side * (0.62 + bSway);
                     ctx.strokeStyle = rgba(curPal.base2, 0.92);
-                    ctx.lineWidth = 1.6;
+                    ctx.lineWidth = 1.6 * this.scale;
                     ctx.lineCap = 'round';
                     ctx.beginPath();
                     ctx.moveTo(bx, by);
                     ctx.quadraticCurveTo(
-                        bx + Math.cos(head.angle + side * 0.25) * 10,
-                        by + Math.sin(head.angle + side * 0.25) * 10,
-                        bx + Math.cos(bAng) * 19,
-                        by + Math.sin(bAng) * 19
+                        bx + Math.cos(head.angle + side * 0.25) * 10 * this.scale,
+                        by + Math.sin(head.angle + side * 0.25) * 10 * this.scale,
+                        bx + Math.cos(bAng) * 19 * this.scale,
+                        by + Math.sin(bAng) * 19 * this.scale
                     );
                     ctx.stroke();
                 });
@@ -1893,17 +1638,17 @@
 
                     ctx.fillStyle = '#fde047';
                     ctx.beginPath();
-                    ctx.arc(ex, ey, 4.1, 0, Math.PI * 2);
+                    ctx.arc(ex, ey, 4.1 * this.scale, 0, Math.PI * 2);
                     ctx.fill();
 
                     ctx.fillStyle = '#020617';
                     ctx.beginPath();
-                    ctx.arc(ex + Math.cos(eyeSeg.angle) * 0.7, ey + Math.sin(eyeSeg.angle) * 0.7, 2.5, 0, Math.PI * 2);
+                    ctx.arc(ex + Math.cos(eyeSeg.angle) * 0.7 * this.scale, ey + Math.sin(eyeSeg.angle) * 0.7 * this.scale, 2.5 * this.scale, 0, Math.PI * 2);
                     ctx.fill();
 
                     ctx.fillStyle = '#ffffff';
                     ctx.beginPath();
-                    ctx.arc(ex + Math.cos(eyeSeg.angle - 0.5) * 1.3, ey + Math.sin(eyeSeg.angle - 0.5) * 1.3, 1.1, 0, Math.PI * 2);
+                    ctx.arc(ex + Math.cos(eyeSeg.angle - 0.5) * 1.3 * this.scale, ey + Math.sin(eyeSeg.angle - 0.5) * 1.3 * this.scale, 1.1 * this.scale, 0, Math.PI * 2);
                     ctx.fill();
                 });
 
@@ -1916,51 +1661,48 @@
 
         const koi = new UltraRealisticKoi();
 
-        // Click on Water to drop a Bio-Pellet for the Koi to eat
+        // Tap / Click on Water to drop a Bio-Pellet for the Koi to eat
         window.addEventListener('pointerdown', (e) => {
-            if (e.target.closest('.nav-trigger') || e.target.closest('.top-hud')) return;
+            if (e.target.closest('.nav-trigger')) return;
             if (foodPellets.length < 4) {
                 foodPellets.push(new FoodPellet(e.clientX, e.clientY));
             }
-            waterRipples.push(new WaterRipple(e.clientX, e.clientY, 110, 2.2, '0, 255, 204'));
-            playWaterPlopSound();
+            waterRipples.push(new WaterRipple(e.clientX, e.clientY, 110, 2.2, '0, 245, 212'));
         });
 
         window.addEventListener('resize', () => {
             resizeCanvas();
+            koi.updateScale();
             initEcosystem();
         });
 
         /* ==========================================================
-           8. MAIN RENDER LOOP
+           6. MAIN RENDER LOOP
         ========================================================== */
         function animate(timestamp) {
             const time = timestamp * 0.001;
 
-            // Deep aquatic pond gradient
             const bgGrad = ctx.createRadialGradient(
-                canvas.width * 0.5 + Math.cos(time * 0.3) * 130,
-                canvas.height * 0.4 + Math.sin(time * 0.25) * 90,
+                viewW * 0.5 + Math.cos(time * 0.3) * 110,
+                viewH * 0.4 + Math.sin(time * 0.25) * 80,
                 30,
-                canvas.width * 0.5,
-                canvas.height * 0.5,
-                Math.max(canvas.width, canvas.height) * 0.9
+                viewW * 0.5,
+                viewH * 0.5,
+                Math.max(viewW, viewH) * 0.9
             );
             bgGrad.addColorStop(0, '#071b34');
             bgGrad.addColorStop(0.55, '#030b18');
             bgGrad.addColorStop(1, '#01040a');
 
             ctx.fillStyle = bgGrad;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillRect(0, 0, viewW, viewH);
 
-            // Ambient Underwater Light Caustics
-            const spotGrad = ctx.createRadialGradient(mouse.x, mouse.y, 10, mouse.x, mouse.y, 380);
+            const spotGrad = ctx.createRadialGradient(mouse.x, mouse.y, 10, mouse.x, mouse.y, 340);
             spotGrad.addColorStop(0, rgba(curPal.glow, 0.065));
             spotGrad.addColorStop(1, 'transparent');
             ctx.fillStyle = spotGrad;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillRect(0, 0, viewW, viewH);
 
-            // Benzene Chemical Network
             for (let i = 0; i < particlesArray.length; i++) {
                 particlesArray[i].update(koi.spine[0]);
                 particlesArray[i].draw();
@@ -1969,9 +1711,9 @@
                     const dx = particlesArray[i].x - particlesArray[j].x;
                     const dy = particlesArray[i].y - particlesArray[j].y;
                     const dist = Math.hypot(dx, dy);
-                    if (dist < 165) {
-                        const alpha = Math.pow(1 - dist / 165, 2) * 0.18;
-                        ctx.strokeStyle = `rgba(0, 255, 204, ${alpha})`;
+                    if (dist < 155) {
+                        const alpha = Math.pow(1 - dist / 155, 2) * 0.18;
+                        ctx.strokeStyle = `rgba(0, 245, 212, ${alpha})`;
                         ctx.lineWidth = 0.45;
                         ctx.beginPath();
                         ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
@@ -1981,20 +1723,17 @@
                 }
             }
 
-            // Water Ripples
             for (let i = waterRipples.length - 1; i >= 0; i--) {
                 waterRipples[i].update();
                 waterRipples[i].draw();
                 if (waterRipples[i].alpha <= 0.01) waterRipples.splice(i, 1);
             }
 
-            // Food Pellets
             for (let i = 0; i < foodPellets.length; i++) {
                 foodPellets[i].update();
                 foodPellets[i].draw();
             }
 
-            // Wake Bioluminescent Bubbles
             for (let i = wakeBubbles.length - 1; i >= 0; i--) {
                 const b = wakeBubbles[i];
                 b.x += b.vx;
@@ -2014,13 +1753,11 @@
                 ctx.restore();
             }
 
-            // Update & Draw Ultra-Realistic Koi
             if (mainScene.classList.contains('active')) {
                 koi.update(time);
                 koi.draw();
             }
 
-            // Floating Surface Sakura Petals (drawn over the fish for true depth)
             for (let i = 0; i < floatingPetals.length; i++) {
                 floatingPetals[i].update(koi.spine[0]);
                 floatingPetals[i].draw();
@@ -2032,13 +1769,14 @@
         requestAnimationFrame(animate);
 
         /* ==========================================================
-           9. WATERFALL NAVIGATION TRIGGER
+           7. WATERFALL NAVIGATION TRIGGER
         ========================================================== */
         const navButtons = document.querySelectorAll('.nav-trigger');
         const waterfallOverlay = document.getElementById('waterfall-overlay');
 
         navButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 const targetPage = btn.getAttribute('data-target');
                 waterfallOverlay.classList.add('active');
                 setTimeout(() => {
