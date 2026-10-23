@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Malith Eranga | Modern Pixels & Chemical Technology</title>
-    
-    <!-- Bebas Neue + Space Grotesk + JetBrains Mono Fonts -->
+
+    <!-- Fonts: Bebas Neue (Display), Space Grotesk (UI), JetBrains Mono (HUD) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -14,11 +14,9 @@
         :root {
             --primary: #00ffcc;
             --secondary: #00b4d8;
-            --accent: #ff6b35;
-            --bg-abyss: #01040a;
-            --bg-deep: #040d1a;
-            --glass-bg: rgba(6, 18, 34, 0.55);
-            --glass-border: rgba(0, 255, 204, 0.18);
+            --bg-abyss: #01050c;
+            --glass-bg: rgba(5, 16, 32, 0.52);
+            --glass-border: rgba(0, 255, 204, 0.2);
             --text-light: #f8fafc;
             --text-dim: #94a3b8;
         }
@@ -42,7 +40,46 @@
         }
 
         /* ==========================================
-           1. ULTRA-ADVANCED QUANTUM BENZENE LOADER
+           1. CUSTOM AQUATIC CURSOR
+        ========================================== */
+        .cursor-ring {
+            position: fixed;
+            width: 34px;
+            height: 34px;
+            border: 1px solid rgba(0, 255, 204, 0.45);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+            transform: translate(-50%, -50%);
+            transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+            mix-blend-mode: screen;
+        }
+
+        .cursor-dot {
+            position: fixed;
+            width: 5px;
+            height: 5px;
+            background: var(--primary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .cursor-ring.hovering {
+            width: 54px;
+            height: 54px;
+            background: rgba(0, 255, 204, 0.1);
+            border-color: var(--primary);
+        }
+
+        @media (pointer: coarse) {
+            .cursor-ring, .cursor-dot { display: none; }
+        }
+
+        /* ==========================================
+           2. ADVANCED QUANTUM BENZENE PRELOADER
         ========================================== */
         #loader {
             position: fixed;
@@ -60,18 +97,17 @@
 
         #loader.complete {
             opacity: 0;
-            transform: scale(1.18);
+            transform: scale(1.15);
             visibility: hidden;
             pointer-events: none;
         }
 
-        /* Subtle HUD Grid in Loader */
         .loader-grid {
             position: absolute;
             inset: 0;
             background-image: 
-                linear-gradient(rgba(0, 255, 204, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 204, 0.03) 1px, transparent 1px);
+                linear-gradient(rgba(0, 255, 204, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 204, 0.035) 1px, transparent 1px);
             background-size: 45px 45px;
             mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
             -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
@@ -88,31 +124,29 @@
             margin-bottom: 30px;
         }
 
-        /* 3D Rotating Orbital Rings */
         .orbit-ring {
             position: absolute;
             inset: 0;
             border-radius: 50%;
             border: 1px solid rgba(0, 255, 204, 0.15);
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.05) inset;
         }
 
         .orbit-ring.r1 {
             animation: orbit3D-1 6s linear infinite;
             border-top-color: var(--primary);
-            border-bottom-color: rgba(0, 180, 216, 0.4);
+            border-bottom-color: rgba(0, 180, 216, 0.45);
         }
 
         .orbit-ring.r2 {
             inset: 18px;
             animation: orbit3D-2 8s linear infinite;
             border-left-color: var(--secondary);
-            border-right-color: rgba(0, 255, 204, 0.4);
+            border-right-color: rgba(0, 255, 204, 0.45);
         }
 
         .orbit-ring.r3 {
             inset: -14px;
-            border: 1px dashed rgba(0, 255, 204, 0.22);
+            border: 1px dashed rgba(0, 255, 204, 0.25);
             animation: spinFlat 20s linear infinite;
         }
 
@@ -120,12 +154,10 @@
             0% { transform: rotateX(65deg) rotateY(15deg) rotateZ(0deg); }
             100% { transform: rotateX(65deg) rotateY(15deg) rotateZ(360deg); }
         }
-
         @keyframes orbit3D-2 {
             0% { transform: rotateX(25deg) rotateY(65deg) rotateZ(360deg); }
             100% { transform: rotateX(25deg) rotateY(65deg) rotateZ(0deg); }
         }
-
         @keyframes spinFlat {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -166,13 +198,12 @@
         .loader-percent-big {
             position: absolute;
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.3rem;
+            font-size: 2.35rem;
             letter-spacing: 3px;
             color: #ffffff;
             text-shadow: 0 0 15px rgba(0, 255, 204, 0.7);
         }
 
-        /* Loader Telemetry & Progress Bar */
         .loader-hud {
             width: 320px;
             display: flex;
@@ -197,7 +228,6 @@
             background: rgba(255, 255, 255, 0.07);
             border-radius: 4px;
             overflow: hidden;
-            position: relative;
             border: 1px solid rgba(0, 255, 204, 0.15);
         }
 
@@ -219,7 +249,7 @@
         }
 
         /* ==========================================
-           2. MAIN SCENE & BEBAS NEUE HERO TYPOGRAPHY
+           3. MAIN SCENE, HUD & 3D PARALLAX STAGE
         ========================================== */
         #main-scene {
             position: relative;
@@ -231,6 +261,7 @@
             align-items: center;
             opacity: 0;
             transition: opacity 1.2s ease-out;
+            perspective: 1200px;
         }
 
         #main-scene.active {
@@ -245,20 +276,20 @@
             z-index: 1;
         }
 
-        /* Top HUD Bar */
+        /* Top Navigation / Telemetry HUD */
         .top-hud {
             position: fixed;
-            top: 28px;
-            left: 40px;
-            right: 40px;
+            top: 26px;
+            left: 36px;
+            right: 36px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 20;
-            pointer-events: none;
+            z-index: 25;
             opacity: 0;
             transform: translateY(-20px);
             transition: all 1s 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
         }
 
         #main-scene.active .top-hud {
@@ -266,26 +297,66 @@
             transform: translateY(0);
         }
 
-        .hud-badge {
+        .hud-left, .hud-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            pointer-events: auto;
+        }
+
+        .hud-pill {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 8px 18px;
+            padding: 8px 16px;
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(12px);
-            border-radius: 6px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             letter-spacing: 2px;
             color: var(--text-light);
             text-transform: uppercase;
             clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
         }
 
+        .audio-btn {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .audio-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 18px rgba(0, 255, 204, 0.25);
+        }
+
+        .sound-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 12px;
+        }
+
+        .sound-bars span {
+            width: 2px;
+            background: var(--primary);
+            height: 3px;
+            transition: height 0.2s ease;
+        }
+
+        .audio-btn.playing .sound-bars span:nth-child(1) { animation: eq 0.6s infinite alternate; }
+        .audio-btn.playing .sound-bars span:nth-child(2) { animation: eq 0.45s 0.15s infinite alternate; }
+        .audio-btn.playing .sound-bars span:nth-child(3) { animation: eq 0.7s 0.3s infinite alternate; }
+
+        @keyframes eq {
+            0% { height: 3px; }
+            100% { height: 12px; }
+        }
+
         .live-dot {
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             border-radius: 50%;
             background: var(--primary);
             box-shadow: 0 0 10px var(--primary);
@@ -297,29 +368,38 @@
             50% { opacity: 0.35; transform: scale(0.8); }
         }
 
-        /* Center Hero Text Wrapper */
-        .text-wrapper {
+        /* 3D Parallax Center Stage */
+        #parallax-stage {
             position: relative;
-            z-index: 10;
-            text-align: center;
+            z-index: 15;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transform-style: preserve-3d;
+            transition: transform 0.15s ease-out;
             pointer-events: none;
+        }
+
+        .text-wrapper {
+            text-align: center;
             padding: 0 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            transform: translateZ(35px);
         }
 
         .role-tag {
             font-family: 'JetBrains Mono', monospace;
-            font-size: clamp(0.7rem, 1vw, 0.82rem);
+            font-size: clamp(0.68rem, 1vw, 0.8rem);
             letter-spacing: 5px;
             text-transform: uppercase;
             color: var(--primary);
             background: rgba(0, 255, 204, 0.07);
-            border: 1px solid rgba(0, 255, 204, 0.28);
-            padding: 6px 20px;
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            padding: 6px 22px;
             margin-bottom: 14px;
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(8px);
             clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
             opacity: 0;
             transform: translateY(15px);
@@ -334,7 +414,7 @@
         /* BEBAS NEUE HERO TITLE */
         .bebas-title {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(4.2rem, 12.5vw, 11.5rem);
+            font-size: clamp(4.2rem, 12.2vw, 11.2rem);
             font-weight: 400;
             line-height: 0.92;
             letter-spacing: clamp(6px, 1.8vw, 22px);
@@ -344,8 +424,7 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 0.25em;
-            perspective: 1000px;
-            filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.85));
+            filter: drop-shadow(0 18px 38px rgba(0, 0, 0, 0.85));
         }
 
         .word-box {
@@ -354,14 +433,13 @@
 
         .b-char {
             display: inline-block;
-            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 45%, #94a3b8 85%, #00ffcc 100%);
+            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 48%, #94a3b8 82%, #00ffcc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             opacity: 0;
             transform: translateY(70px) rotateX(-65deg) scale(0.85);
             transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
                         opacity 0.85s ease;
-            position: relative;
         }
 
         #main-scene.active .b-char {
@@ -369,20 +447,19 @@
             transform: translateY(0) rotateX(0deg) scale(1);
         }
 
-        /* Subtitle */
         .subtitle {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(0.88rem, 1.4vw, 1.15rem);
+            font-size: clamp(0.86rem, 1.35vw, 1.12rem);
             letter-spacing: 5px;
             text-transform: uppercase;
-            margin-top: 18px;
+            margin-top: 16px;
             color: #cbd5e1;
             font-weight: 400;
             line-height: 1.65;
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.9s 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+            text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95);
         }
 
         #main-scene.active .subtitle {
@@ -397,24 +474,23 @@
         }
 
         /* ==========================================
-           3. CYBER-GLASS NAVIGATION BUTTONS
+           4. NAVIGATION BUTTONS
         ========================================== */
         .buttons-container {
-            margin-top: 42px;
-            position: relative;
-            z-index: 15;
+            margin-top: 40px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 24px;
+            gap: 22px;
             opacity: 0;
-            transform: translateY(25px);
+            transform: translateY(25px) translateZ(50px);
             transition: all 0.9s 1s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: auto;
         }
 
         #main-scene.active .buttons-container {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) translateZ(50px);
         }
 
         .button-group {
@@ -424,7 +500,6 @@
             gap: 8px;
         }
 
-        /* Primary Button with Bebas Neue Accent */
         #enter-btn {
             padding: 16px 56px;
             font-family: 'Bebas Neue', sans-serif;
@@ -480,7 +555,7 @@
             font-size: 1.15rem;
             letter-spacing: 4.5px;
             color: var(--text-light);
-            background: rgba(6, 20, 38, 0.6);
+            background: rgba(6, 20, 38, 0.62);
             border: 1px solid rgba(0, 255, 204, 0.3);
             cursor: pointer;
             text-transform: uppercase;
@@ -500,104 +575,32 @@
 
         .btn-desc {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem;
+            font-size: 0.66rem;
             color: rgba(203, 213, 225, 0.6);
             letter-spacing: 2px;
             text-transform: uppercase;
         }
 
-        /* ==========================================
-           4. INTERACTIVE KOI SPEED CONTROLLER HUD
-        ========================================== */
-        .fish-controls-hud {
+        /* Bottom Subtle Hint Bar */
+        .bottom-hint {
             position: fixed;
-            bottom: 24px;
-            right: 32px;
-            z-index: 25;
-            background: rgba(5, 15, 30, 0.7);
-            border: 1px solid rgba(0, 255, 204, 0.22);
-            backdrop-filter: blur(14px);
-            padding: 12px 18px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-light);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 1s 1.3s cubic-bezier(0.16, 1, 0.3, 1);
-            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-        }
-
-        #main-scene.active .fish-controls-hud {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .speed-label {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .speed-label span:first-child {
-            color: var(--primary);
-            letter-spacing: 1.5px;
-            font-weight: 600;
-        }
-
-        .speed-label span:last-child {
-            font-size: 0.62rem;
-            color: var(--text-dim);
-        }
-
-        #speed-slider {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 110px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 4px;
-            outline: none;
-            cursor: pointer;
-        }
-
-        #speed-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: var(--primary);
-            box-shadow: 0 0 10px var(--primary);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        #speed-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.25);
-        }
-
-        #boost-btn {
-            padding: 6px 12px;
+            bottom: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.68rem;
-            font-weight: 600;
-            color: #020813;
-            background: var(--primary);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            letter-spacing: 1px;
+            letter-spacing: 2.5px;
+            color: rgba(148, 163, 184, 0.65);
             text-transform: uppercase;
-            transition: all 0.2s;
+            pointer-events: none;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s 1.4s ease;
         }
 
-        #boost-btn:hover {
-            box-shadow: 0 0 15px var(--primary);
-            transform: scale(1.05);
+        #main-scene.active .bottom-hint {
+            opacity: 1;
         }
 
         /* ==========================================
@@ -656,21 +659,23 @@
                 left: 16px;
                 right: 16px;
             }
-            .hud-badge.hide-mobile {
+            .hide-mobile {
                 display: none;
             }
-            .fish-controls-hud {
-                right: 16px;
-                left: 16px;
-                bottom: 14px;
-                justify-content: space-between;
+            .bottom-hint {
+                width: 90%;
+                font-size: 0.6rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Waterfall Transition -->
+    <!-- Custom Cursor -->
+    <div class="cursor-ring" id="cursor-ring"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+
+    <!-- Waterfall Page Transition -->
     <div id="waterfall-overlay">
         <div class="water-fill"></div>
         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
@@ -686,7 +691,7 @@
         </svg>
     </div>
 
-    <!-- Advanced Quantum Benzene Preloader -->
+    <!-- Quantum Benzene Preloader -->
     <div id="loader">
         <div class="loader-grid"></div>
         <div class="quantum-core">
@@ -695,15 +700,12 @@
             <div class="orbit-ring r3"></div>
 
             <svg id="benzene-svg" viewBox="0 0 100 100">
-                <!-- Background faint structure -->
                 <polygon points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" fill="none" stroke="rgba(0, 255, 204, 0.12)" stroke-width="2"/>
                 <circle cx="50" cy="50" r="22" fill="none" stroke="rgba(0, 180, 216, 0.15)" stroke-width="1.8" stroke-dasharray="4 3"/>
 
-                <!-- Animated progress strokes -->
                 <polygon id="progress-hex" points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" fill="none" stroke="var(--primary)" stroke-width="2.8" pathLength="100"/>
                 <circle id="progress-circle" cx="50" cy="50" r="22" fill="none" stroke="var(--secondary)" stroke-width="2.2" pathLength="100"/>
 
-                <!-- 6 Carbon Atom Nodes -->
                 <circle class="carbon-node" cx="50" cy="10" r="3.2"/>
                 <circle class="carbon-node" cx="84.6" cy="30" r="3.2"/>
                 <circle class="carbon-node" cx="84.6" cy="70" r="3.2"/>
@@ -731,67 +733,74 @@
     <div id="main-scene">
         <canvas id="particleCanvas"></canvas>
 
-        <!-- Top Status Bar -->
+        <!-- Top Telemetry & Audio HUD -->
         <div class="top-hud">
-            <div class="hud-badge">
-                <span class="live-dot"></span>
-                <span>MALITH ERANGA // PORTFOLIO</span>
+            <div class="hud-left">
+                <div class="hud-pill">
+                    <span class="live-dot"></span>
+                    <span>MALITH.ECOSYSTEM // <span id="koi-behavior-badge">FREE ROAMING</span></span>
+                </div>
+                <div class="hud-pill hide-mobile">
+                    <span id="lka-clock">LKA 00:00:00</span>
+                </div>
             </div>
-            <div class="hud-badge hide-mobile">
-                <span>CLICK WATER OR PRESS [SPACE] FOR KOI SPEED BOOST &amp; COLOR SHIFT</span>
-            </div>
-        </div>
 
-        <!-- Center Bebas Neue Hero Title -->
-        <div class="text-wrapper">
-            <div class="role-tag">CHEMICAL TECHNOLOGY &times; MODERN PIXELS</div>
-            <h1 class="bebas-title" id="bebas-heading" aria-label="MALITH ERANGA"></h1>
-            <div class="subtitle">
-                Chemical Technology Undergraduate | BSc (Hons) <br>
-                <span class="highlight">Sabaragamuwa University of Sri Lanka</span>
-            </div>
-        </div>
-
-        <!-- Navigation Buttons -->
-        <div class="buttons-container">
-            <div class="button-group">
-                <button id="enter-btn" class="nav-trigger" data-target="main.html">
-                    <span>View My Portfolio</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
+            <div class="hud-right">
+                <button class="hud-pill audio-btn" id="audio-toggle" type="button">
+                    <div class="sound-bars">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <span id="audio-label">ZEN AUDIO: OFF</span>
                 </button>
-                <div class="btn-desc">Explore academic &amp; personal projects</div>
+            </div>
+        </div>
+
+        <!-- 3D Parallax Hero Stage -->
+        <div id="parallax-stage">
+            <div class="text-wrapper">
+                <div class="role-tag">CHEMICAL TECHNOLOGY &times; MODERN PIXELS</div>
+                <h1 class="bebas-title" id="bebas-heading" aria-label="MALITH ERANGA"></h1>
+                <div class="subtitle">
+                    Chemical Technology Undergraduate | BSc (Hons) <br>
+                    <span class="highlight">Sabaragamuwa University of Sri Lanka</span>
+                </div>
             </div>
 
-            <div class="secondary-buttons-row">
+            <!-- Navigation Buttons -->
+            <div class="buttons-container">
                 <div class="button-group">
-                    <button class="secondary-btn nav-trigger" data-target="modernpixels.html">Modern Pixels</button>
-                    <div class="btn-desc">Freelance Agency &amp; Designs</div>
+                    <button id="enter-btn" class="nav-trigger interactable" data-target="main.html">
+                        <span>View My Portfolio</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+                    <div class="btn-desc">Explore academic &amp; personal projects</div>
                 </div>
 
-                <div class="button-group">
-                    <button class="secondary-btn nav-trigger" data-target="Article.html">Insights Blog</button>
-                    <div class="btn-desc">Articles on Tech &amp; Science</div>
+                <div class="secondary-buttons-row">
+                    <div class="button-group">
+                        <button class="secondary-btn nav-trigger interactable" data-target="modernpixels.html">Modern Pixels</button>
+                        <div class="btn-desc">Freelance Agency &amp; Designs</div>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="secondary-btn nav-trigger interactable" data-target="Article.html">Insights Blog</button>
+                        <div class="btn-desc">Articles on Tech &amp; Science</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Live Koi Fish Speed Controller HUD -->
-        <div class="fish-controls-hud">
-            <div class="speed-label">
-                <span>KOI VELOCITY: <strong id="speed-readout">1.0x</strong></span>
-                <span id="fish-mode-text">MODE: NATURAL GLIDE</span>
-            </div>
-            <input type="range" id="speed-slider" min="0.4" max="2.5" step="0.1" value="1.0" aria-label="Koi Fish Speed">
-            <button id="boost-btn" type="button">DASH ⚡</button>
+        <div class="bottom-hint">
+            MOVE CURSOR TO GUIDE KOI &bull; STOP MOVING TO LET KOI ROAM FREELY &bull; CLICK WATER TO DROP BIO-PELLET
         </div>
     </div>
 
     <script>
         /* ==========================================================
-           1. BEBAS NEUE STAGGERED 3D CHARACTER ANIMATION
+           1. BEBAS NEUE STAGGERED 3D CHARACTER REVEAL
         ========================================================== */
         const headingEl = document.getElementById('bebas-heading');
         const titleWords = ["MALITH", "ERANGA"];
@@ -812,7 +821,95 @@
         });
 
         /* ==========================================================
-           2. ADVANCED QUANTUM BENZENE PRELOADER
+           2. LIVE SRI LANKA CLOCK
+        ========================================================== */
+        const clockEl = document.getElementById('lka-clock');
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', {
+                timeZone: 'Asia/Colombo',
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            clockEl.textContent = `LKA ${timeStr}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        /* ==========================================================
+           3. PROCEDURAL WEB-AUDIO ZEN SOUNDSCAPE (NO EXTERNAL MP3)
+        ========================================================== */
+        let audioCtx = null;
+        let isAudioPlaying = false;
+        let masterGain = null;
+        const audioBtn = document.getElementById('audio-toggle');
+        const audioLabel = document.getElementById('audio-label');
+
+        function initZenAudio() {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            masterGain = audioCtx.createGain();
+            masterGain.gain.value = 0.08;
+            masterGain.connect(audioCtx.destination);
+
+            // Warm harmonic ambient drone chords (Fmaj9 aquatic pad)
+            const freqs = [174.61, 220.00, 261.63, 329.63, 392.00];
+            freqs.forEach((f, idx) => {
+                const osc = audioCtx.createOscillator();
+                const oscGain = audioCtx.createGain();
+                osc.type = idx % 2 === 0 ? 'sine' : 'triangle';
+                osc.frequency.value = f;
+
+                // Subtle detune LFO for underwater shimmer
+                const lfo = audioCtx.createOscillator();
+                const lfoGain = audioCtx.createGain();
+                lfo.frequency.value = 0.12 + idx * 0.05;
+                lfoGain.gain.value = 1.5;
+                lfo.connect(osc.frequency);
+                lfo.start();
+
+                oscGain.gain.value = 0.15 / freqs.length;
+                osc.connect(oscGain);
+                oscGain.connect(masterGain);
+                osc.start();
+            });
+        }
+
+        function playWaterPlopSound() {
+            if (!isAudioPlaying || !audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            osc.type = 'sine';
+            const now = audioCtx.currentTime;
+            osc.frequency.setValueAtTime(320, now);
+            osc.frequency.exponentialRampToValueAtTime(680, now + 0.12);
+            g.gain.setValueAtTime(0.12, now);
+            g.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+            osc.connect(g);
+            g.connect(audioCtx.destination);
+            osc.start(now);
+            osc.stop(now + 0.26);
+        }
+
+        audioBtn.addEventListener('click', () => {
+            if (!audioCtx) initZenAudio();
+            if (isAudioPlaying) {
+                audioCtx.suspend();
+                isAudioPlaying = false;
+                audioBtn.classList.remove('playing');
+                audioLabel.textContent = "ZEN AUDIO: OFF";
+            } else {
+                audioCtx.resume();
+                isAudioPlaying = true;
+                audioBtn.classList.add('playing');
+                audioLabel.textContent = "ZEN AUDIO: ON";
+                playWaterPlopSound();
+            }
+        });
+
+        /* ==========================================================
+           4. QUANTUM BENZENE PRELOADER
         ========================================================== */
         let loadProgress = 0;
         const percentEl = document.getElementById('percent');
@@ -828,8 +925,8 @@
         const telemetryLogs = [
             "Calibrating aromatic pi-electron cloud...",
             "Synthesizing procedural hydro-dynamics...",
-            "Loading Imperial Koi inverse kinematics...",
-            "Compiling bioluminescent shader nodes...",
+            "Loading Imperial Koi anatomy & fins...",
+            "Generating underwater light caustics...",
             "System ready. Launching experience..."
         ];
 
@@ -842,7 +939,6 @@
             progressHex.style.strokeDashoffset = 100 - loadProgress;
             progressCircle.style.strokeDashoffset = 100 - loadProgress;
 
-            // Light up carbon atoms progressively
             const litCount = Math.floor((loadProgress / 100) * carbonNodes.length);
             carbonNodes.forEach((node, idx) => {
                 if (idx < litCount) node.classList.add('lit');
@@ -859,19 +955,25 @@
                     mainScene.classList.add('active');
                 }, 450);
             }
-        }, 42);
+        }, 40);
 
         /* ==========================================================
-           3. CANVAS & ENVIRONMENT (BENZENE + RIPPLES + BUBBLES)
+           5. MOUSE TRACKING (STRICTLY ONLY WHEN MOVING) & 3D PARALLAX
         ========================================================== */
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
+        const cursorRing = document.getElementById('cursor-ring');
+        const cursorDot = document.getElementById('cursor-dot');
+        const parallaxStage = document.getElementById('parallax-stage');
+        const behaviorBadge = document.getElementById('koi-behavior-badge');
 
         let mouse = {
-            x: window.innerWidth * 0.7,
-            y: window.innerHeight * 0.3,
-            active: false,
-            lastMove: 0
+            x: window.innerWidth * 0.5,
+            y: window.innerHeight * 0.5,
+            prevX: window.innerWidth * 0.5,
+            prevY: window.innerHeight * 0.5,
+            lastMoveTime: 0,
+            isMoving: false
         };
 
         function resizeCanvas() {
@@ -880,33 +982,60 @@
         }
         resizeCanvas();
 
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-            mouse.active = true;
-            mouse.lastMove = performance.now();
-        });
-        window.addEventListener('mouseout', () => { mouse.active = false; });
+        function handlePointerMove(clientX, clientY) {
+            const moveDist = Math.hypot(clientX - mouse.prevX, clientY - mouse.prevY);
+            mouse.prevX = mouse.x;
+            mouse.prevY = mouse.y;
+            mouse.x = clientX;
+            mouse.y = clientY;
+
+            // Update Custom Cursor
+            cursorDot.style.left = `${clientX}px`;
+            cursorDot.style.top = `${clientY}px`;
+            cursorRing.style.left = `${clientX}px`;
+            cursorRing.style.top = `${clientY}px`;
+
+            // Subtle 3D Parallax Tilt on Hero Content
+            const normX = (clientX / window.innerWidth - 0.5) * 2;
+            const normY = (clientY / window.innerHeight - 0.5) * 2;
+            parallaxStage.style.transform = `rotateY(${normX * 4.5}deg) rotateX(${-normY * 4.5}deg)`;
+
+            // Only flag mouse as actively moving if actual movement occurred
+            if (moveDist > 1.5) {
+                mouse.lastMoveTime = performance.now();
+                mouse.isMoving = true;
+            }
+        }
+
+        window.addEventListener('mousemove', (e) => handlePointerMove(e.clientX, e.clientY));
         window.addEventListener('touchmove', (e) => {
-            mouse.x = e.touches[0].clientX;
-            mouse.y = e.touches[0].clientY;
-            mouse.active = true;
-            mouse.lastMove = performance.now();
+            handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
         }, { passive: true });
 
+        // Hover effect on interactive buttons
+        document.querySelectorAll('.interactable, .audio-btn').forEach(el => {
+            el.addEventListener('mouseenter', () => cursorRing.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovering'));
+        });
+
+        /* ==========================================================
+           6. POND ECOSYSTEM: BENZENE, RIPPLES, FOOD PELLETS & PETALS
+        ========================================================== */
         let particlesArray = [];
         let waterRipples = [];
         let wakeBubbles = [];
+        let foodPellets = [];
+        let floatingPetals = [];
 
         class WaterRipple {
-            constructor(x, y, maxR = 120, speed = 2.0, color = '0, 255, 204') {
+            constructor(x, y, maxR = 120, speed = 1.9, color = '0, 255, 204') {
                 this.x = x;
                 this.y = y;
-                this.r = 5;
+                this.r = 4;
                 this.maxR = maxR;
                 this.speed = speed;
                 this.color = color;
-                this.alpha = 0.6;
+                this.alpha = 0.55;
             }
             update() {
                 this.r += this.speed;
@@ -918,8 +1047,85 @@
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
                 ctx.strokeStyle = `rgba(${this.color}, ${this.alpha})`;
-                ctx.lineWidth = 1.3;
+                ctx.lineWidth = 1.2;
                 ctx.stroke();
+                ctx.restore();
+            }
+        }
+
+        // Interactive Bio-Pellet (Fish Food) dropped when clicking water
+        class FoodPellet {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.r = 5.5;
+                this.pulse = 0;
+                this.eaten = false;
+            }
+            update() {
+                this.pulse += 0.1;
+            }
+            draw() {
+                ctx.save();
+                const glowR = this.r + Math.sin(this.pulse) * 3 + 5;
+                const grad = ctx.createRadialGradient(this.x, this.y, 1, this.x, this.y, glowR);
+                grad.addColorStop(0, '#ffffff');
+                grad.addColorStop(0.4, '#00ffcc');
+                grad.addColorStop(1, 'rgba(0, 255, 204, 0)');
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, glowR, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // Floating Sakura / Lotus Petals on water surface
+        class FloatingPetal {
+            constructor() {
+                this.reset(true);
+            }
+            reset(initial = false) {
+                this.x = initial ? Math.random() * canvas.width : -30;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 4;
+                this.vx = Math.random() * 0.35 + 0.15;
+                this.vy = (Math.random() - 0.5) * 0.25;
+                this.angle = Math.random() * Math.PI * 2;
+                this.angVel = (Math.random() - 0.5) * 0.008;
+                this.opacity = Math.random() * 0.25 + 0.12;
+            }
+            update(fishHead) {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.angle += this.angVel;
+
+                if (fishHead) {
+                    const dx = this.x - fishHead.x;
+                    const dy = this.y - fishHead.y;
+                    const d = Math.hypot(dx, dy);
+                    if (d < 130 && d > 1) {
+                        const push = (130 - d) / 130;
+                        this.x += (dx / d) * push * 1.8;
+                        this.y += (dy / d) * push * 1.8;
+                        this.angle += push * 0.04;
+                    }
+                }
+
+                if (this.x > canvas.width + 40 || this.y < -40 || this.y > canvas.height + 40) {
+                    this.reset(false);
+                }
+            }
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.angle);
+                ctx.fillStyle = `rgba(255, 195, 215, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(this.size, -this.size * 0.7, this.size * 1.6, 0, 0, this.size);
+                ctx.bezierCurveTo(-this.size * 1.6, 0, -this.size, -this.size * 0.7, 0, 0);
+                ctx.fill();
                 ctx.restore();
             }
         }
@@ -930,11 +1136,11 @@
                 this.y = Math.random() * canvas.height;
                 this.z = Math.random() * 0.8 + 0.2;
                 this.size = (Math.random() * 8 + 5) * this.z;
-                this.vx = (Math.random() - 0.5) * 0.55 * this.z;
-                this.vy = (Math.random() - 0.5) * 0.55 * this.z;
+                this.vx = (Math.random() - 0.5) * 0.45 * this.z;
+                this.vy = (Math.random() - 0.5) * 0.45 * this.z;
                 this.rot = Math.random() * Math.PI * 2;
-                this.rotSpeed = (Math.random() - 0.5) * 0.01;
-                this.opacity = this.z * 0.35 + 0.08;
+                this.rotSpeed = (Math.random() - 0.5) * 0.008;
+                this.opacity = this.z * 0.32 + 0.06;
             }
             update(fishHead) {
                 this.x += this.vx;
@@ -946,16 +1152,14 @@
                 if (this.y < -50) this.y = canvas.height + 50;
                 if (this.y > canvas.height + 50) this.y = -50;
 
-                // React to swimming fish wake
                 if (fishHead) {
                     const dx = this.x - fishHead.x;
                     const dy = this.y - fishHead.y;
                     const d = Math.hypot(dx, dy);
-                    if (d < 180 && d > 1) {
-                        const force = (180 - d) / 180;
-                        this.x += (dx / d) * force * 2.8 * this.z;
-                        this.y += (dy / d) * force * 2.8 * this.z;
-                        this.rot += force * 0.03;
+                    if (d < 170 && d > 1) {
+                        const force = (170 - d) / 170;
+                        this.x += (dx / d) * force * 2.4 * this.z;
+                        this.y += (dy / d) * force * 2.4 * this.z;
                     }
                 }
             }
@@ -982,52 +1186,52 @@
             }
         }
 
-        function initParticles() {
+        function initEcosystem() {
             particlesArray = [];
-            const count = Math.min(Math.floor((canvas.width * canvas.height) / 22000), 45);
-            for (let i = 0; i < count; i++) {
-                particlesArray.push(new BenzeneMolecule());
-            }
+            floatingPetals = [];
+            const molCount = Math.min(Math.floor((canvas.width * canvas.height) / 23000), 42);
+            for (let i = 0; i < molCount; i++) particlesArray.push(new BenzeneMolecule());
+            for (let i = 0; i < 14; i++) floatingPetals.push(new FloatingPetal());
         }
-        initParticles();
+        initEcosystem();
 
         /* ==========================================================
-           4. HYPER-REALISTIC BUTTERFLY KOI ENGINE & SPEED PHYSICS
+           7. ULTRA-REALISTIC IMPERIAL KOI ENGINE
         ========================================================== */
         const koiPalettes = [
-            // 1. Imperial Tancho Kohaku (Ivory White, Vermilion Red-Orange & Gold)
+            // 1. Imperial Tancho Kohaku (Pearl White, Vermilion Crimson & Gold)
             {
-                base1: [255, 248, 240],
-                base2: [255, 90, 35],
-                tail: [255, 150, 50],
-                fin: [255, 235, 215],
-                patch: [255, 55, 20],
-                glow: [255, 110, 50]
+                base1: [255, 250, 245],
+                base2: [255, 82, 32],
+                tail: [255, 145, 45],
+                fin: [255, 240, 225],
+                patch: [235, 45, 18],
+                glow: [255, 105, 45]
             },
-            // 2. Bioluminescent Neon Aqua (Electric Cyan, Deep Cerulean & Mint)
+            // 2. Bioluminescent Cyber Koi (Ice White, Neon Cyan & Deep Azure)
             {
-                base1: [220, 255, 250],
+                base1: [235, 255, 252],
                 base2: [0, 245, 212],
                 tail: [0, 180, 216],
-                fin: [165, 243, 252],
+                fin: [180, 248, 255],
                 patch: [14, 165, 233],
                 glow: [0, 255, 204]
             },
-            // 3. Yamabuki Ogon (Metallic Platinum Gold, Amber & Pearl)
+            // 3. Kin-Showa Gold Dragon (Metallic Gold, Rich Amber & White Silk)
             {
-                base1: [255, 252, 220],
+                base1: [255, 253, 230],
                 base2: [250, 190, 20],
                 tail: [245, 130, 10],
-                fin: [254, 240, 150],
+                fin: [254, 243, 170],
                 patch: [234, 88, 12],
                 glow: [250, 204, 21]
             },
-            // 4. Showa Crimson & Violet (Ruby Magenta, Royal Violet & Silk Pink)
+            // 4. Sakura Orchid Betta-Koi (Soft Rose, Electric Magenta & Violet)
             {
-                base1: [255, 235, 245],
+                base1: [255, 240, 248],
                 base2: [244, 63, 94],
                 tail: [168, 85, 247],
-                fin: [253, 164, 175],
+                fin: [253, 180, 195],
                 patch: [190, 18, 60],
                 glow: [244, 63, 94]
             }
@@ -1042,12 +1246,12 @@
 
         function updateColors() {
             const target = koiPalettes[paletteIdx];
-            lerpArr(curPal.base1, target.base1, 0.05);
-            lerpArr(curPal.base2, target.base2, 0.05);
-            lerpArr(curPal.tail, target.tail, 0.05);
-            lerpArr(curPal.fin, target.fin, 0.05);
-            lerpArr(curPal.patch, target.patch, 0.05);
-            lerpArr(curPal.glow, target.glow, 0.05);
+            lerpArr(curPal.base1, target.base1, 0.045);
+            lerpArr(curPal.base2, target.base2, 0.045);
+            lerpArr(curPal.tail, target.tail, 0.045);
+            lerpArr(curPal.fin, target.fin, 0.045);
+            lerpArr(curPal.patch, target.patch, 0.045);
+            lerpArr(curPal.glow, target.glow, 0.045);
         }
 
         function rgba(arr, alpha = 1) {
@@ -1081,48 +1285,38 @@
             ctx.closePath();
         }
 
-        // Speed Multiplier Controlled by Slider & Boost
-        let userSpeedMultiplier = 1.0;
-        const speedSlider = document.getElementById('speed-slider');
-        const speedReadout = document.getElementById('speed-readout');
-        const fishModeText = document.getElementById('fish-mode-text');
-        const boostBtn = document.getElementById('boost-btn');
-
-        speedSlider.addEventListener('input', (e) => {
-            userSpeedMultiplier = parseFloat(e.target.value);
-            speedReadout.textContent = `${userSpeedMultiplier.toFixed(1)}x`;
-        });
-
-        class HyperRealisticKoi {
+        class UltraRealisticKoi {
             constructor() {
-                this.numSegs = 30;
-                this.segLen = 7.4;
-                // True anatomical Koi width profile
+                this.numSegs = 32;
+                this.segLen = 7.2;
+                // Anatomical Teardrop Koi Width Profile (32 vertebrae)
                 this.profile = [
-                    8.5, 16, 23, 28.5, 32, 34, 34.5, 33.5, 31.8, 29.5,
-                    27, 24.2, 21.5, 18.8, 16.2, 13.8, 11.6, 9.6, 8.0, 6.6,
-                    5.5, 4.6, 3.8, 3.2, 2.6, 2.1, 1.6, 1.2, 0.8, 0.4
+                    8.5, 16.5, 23.5, 29, 32.8, 35, 35.5, 34.8, 33.2, 31,
+                    28.5, 25.8, 23, 20.2, 17.6, 15.2, 13, 11, 9.2, 7.6,
+                    6.3, 5.2, 4.3, 3.6, 3.0, 2.5, 2.0, 1.6, 1.2, 0.9, 0.6, 0.3
                 ];
 
                 this.spine = [];
-                this.x = canvas.width * 0.65;
+                this.x = canvas.width * 0.7;
                 this.y = canvas.height * 0.35;
                 this.angle = Math.PI;
 
-                // Dynamic Velocity & Burst-and-Glide state
-                this.velocity = 3.0;
-                this.boostImpulse = 0;
+                this.velocity = 2.6;
+                this.glideImpulse = 0;
                 this.swimCycle = 0;
                 this.finCycle = 0;
-                this.waypoint = { x: canvas.width * 0.3, y: canvas.height * 0.6 };
-                this.waypointTimer = 0;
+                this.mouthOpen = 0;
 
-                // Kohaku Dorsal Markings (head crown + body patches)
+                // Free-roaming random destination across the pond
+                this.roamTarget = this.pickNewRoamPoint();
+
+                // Authentic Kohaku / Sanke Dorsal Spots
                 this.patches = [
-                    { seg: 1, sideOffset: 0.0, rx: 14, ry: 12 },   // Classic Tancho head spot
-                    { seg: 6, sideOffset: 0.18, rx: 24, ry: 18 },
-                    { seg: 12, sideOffset: -0.2, rx: 20, ry: 15 },
-                    { seg: 18, sideOffset: 0.12, rx: 14, ry: 10 }
+                    { seg: 1, sideOffset: 0.0, rx: 14, ry: 12 },
+                    { seg: 6, sideOffset: 0.16, rx: 26, ry: 19 },
+                    { seg: 12, sideOffset: -0.22, rx: 22, ry: 16 },
+                    { seg: 18, sideOffset: 0.14, rx: 16, ry: 12 },
+                    { seg: 23, sideOffset: -0.08, rx: 11, ry: 8 }
                 ];
 
                 for (let i = 0; i < this.numSegs; i++) {
@@ -1134,100 +1328,118 @@
                 }
             }
 
-            triggerDash() {
-                this.boostImpulse = 9.5;
-                fishModeText.textContent = "MODE: RAPID DASH ⚡";
-                const g = curPal.glow;
-                waterRipples.push(new WaterRipple(this.x, this.y, 160, 3.0, `${Math.round(g[0])}, ${Math.round(g[1])}, ${Math.round(g[2])}`));
-                for (let i = 0; i < 14; i++) {
-                    const tail = this.spine[this.numSegs - 3];
-                    wakeBubbles.push({
-                        x: tail.x + (Math.random() - 0.5) * 24,
-                        y: tail.y + (Math.random() - 0.5) * 24,
-                        vx: (Math.random() - 0.5) * 2.2,
-                        vy: (Math.random() - 0.5) * 2.2,
-                        r: Math.random() * 3.5 + 1.2,
-                        alpha: 0.9,
-                        color: [...curPal.glow]
-                    });
-                }
+            pickNewRoamPoint() {
+                const margin = 120;
+                let nx, ny, tries = 0;
+                do {
+                    nx = margin + Math.random() * Math.max(200, canvas.width - margin * 2);
+                    ny = margin + Math.random() * Math.max(200, canvas.height - margin * 2);
+                    tries++;
+                } while (Math.hypot(nx - mouse.x, ny - mouse.y) < 180 && tries < 8);
+                return { x: nx, y: ny };
             }
 
             update(time) {
                 const now = performance.now();
-                const cursorActive = mouse.active && (now - mouse.lastMove < 3200);
 
-                let tx = mouse.x;
-                let ty = mouse.y;
-
-                // Autonomous natural pond exploration when cursor is idle or very close
-                const distToCursor = Math.hypot(tx - this.x, ty - this.y);
-                if (!cursorActive || distToCursor < 70) {
-                    this.waypointTimer--;
-                    const distToWP = Math.hypot(this.waypoint.x - this.x, this.waypoint.y - this.y);
-                    if (this.waypointTimer <= 0 || distToWP < 90) {
-                        const margin = 140;
-                        this.waypoint.x = margin + Math.random() * (canvas.width - margin * 2);
-                        this.waypoint.y = margin + Math.random() * (canvas.height - margin * 2);
-                        this.waypointTimer = 180 + Math.random() * 160;
-                        // Natural slight burst when choosing a new direction
-                        if (Math.random() < 0.5) this.boostImpulse = Math.max(this.boostImpulse, 3.2);
-                    }
-                    tx = this.waypoint.x;
-                    ty = this.waypoint.y;
+                // Check if mouse is actively moving right now (within last 380ms)
+                const isMouseActivelyMoving = mouse.isMoving && (now - mouse.lastMoveTime < 380);
+                if (!isMouseActivelyMoving) {
+                    mouse.isMoving = false;
                 }
 
-                const dx = tx - this.x;
-                const dy = ty - this.y;
+                let targetX, targetY;
+                let mode = "ROAM";
+
+                // Priority 1: If there is a food pellet in the water, swim to eat it!
+                if (foodPellets.length > 0) {
+                    const pellet = foodPellets[0];
+                    targetX = pellet.x;
+                    targetY = pellet.y;
+                    mode = "FEEDING";
+                    behaviorBadge.textContent = "SEEKING BIO-PELLET";
+
+                    const distToPellet = Math.hypot(targetX - this.x, targetY - this.y);
+                    if (distToPellet < 95) {
+                        this.mouthOpen = Math.min(1, (95 - distToPellet) / 60);
+                    }
+                    if (distToPellet < 22) {
+                        // Eat pellet, shift color, create splash
+                        foodPellets.shift();
+                        paletteIdx = (paletteIdx + 1) % koiPalettes.length;
+                        this.glideImpulse = 4.2;
+                        const g = koiPalettes[paletteIdx].glow;
+                        waterRipples.push(new WaterRipple(this.x, this.y, 140, 2.4, `${g[0]}, ${g[1]}, ${g[2]}`));
+                        playWaterPlopSound();
+                    }
+                }
+                // Priority 2: Mouse is actively moving -> Follow cursor
+                else if (isMouseActivelyMoving) {
+                    targetX = mouse.x;
+                    targetY = mouse.y;
+                    mode = "FOLLOW";
+                    behaviorBadge.textContent = "FOLLOWING CURSOR";
+                    this.mouthOpen *= 0.9;
+
+                    // If fish reaches very close to the moving mouse, pick a roam point so it doesn't spin in place
+                    if (Math.hypot(targetX - this.x, targetY - this.y) < 55) {
+                        this.roamTarget = this.pickNewRoamPoint();
+                    }
+                }
+                // Priority 3: Mouse is NOT moving -> Swim away freely around the entire pond (NEVER orbit mouse)
+                else {
+                    mode = "ROAM";
+                    behaviorBadge.textContent = "FREE ROAMING";
+                    this.mouthOpen *= 0.9;
+
+                    const distToRoam = Math.hypot(this.roamTarget.x - this.x, this.roamTarget.y - this.y);
+                    if (distToRoam < 110) {
+                        this.roamTarget = this.pickNewRoamPoint();
+                        // Subtle natural tail kick when picking a new path
+                        if (Math.random() < 0.65) this.glideImpulse = 1.8 + Math.random() * 1.4;
+                    }
+                    targetX = this.roamTarget.x;
+                    targetY = this.roamTarget.y;
+                }
+
+                const dx = targetX - this.x;
+                const dy = targetY - this.y;
                 const dist = Math.hypot(dx, dy);
 
-                const desiredAngle = Math.atan2(dy, dx);
+                // Add subtle organic S-meandering when roaming freely
+                const meander = mode === "ROAM" ? Math.sin(time * 1.3) * 0.18 : 0;
+                const desiredAngle = Math.atan2(dy, dx) + meander;
                 let angleDiff = normAngle(desiredAngle - this.angle);
 
-                // Agile turning when fast, sweeping graceful turns when gliding
-                const turnAgility = 0.055 + Math.min(0.04, this.velocity * 0.005);
-                const turnStep = Math.max(-turnAgility, Math.min(turnAgility, angleDiff * 0.14));
+                // Smooth natural turning radius
+                const maxTurn = mode === "ROAM" ? 0.042 : 0.062;
+                const turnStep = Math.max(-maxTurn, Math.min(maxTurn, angleDiff * 0.12));
                 this.angle = normAngle(this.angle + turnStep);
 
-                // Sharp turns naturally generate a tail flick impulse
-                if (Math.abs(angleDiff) > 0.9 && this.boostImpulse < 2.0) {
-                    this.boostImpulse = 2.8;
-                }
+                // Decay natural glide impulse
+                this.glideImpulse *= 0.95;
+                if (this.glideImpulse < 0.04) this.glideImpulse = 0;
 
-                // Decay boost impulse smoothly (Water drag)
-                this.boostImpulse *= 0.94;
-                if (this.boostImpulse < 0.05) this.boostImpulse = 0;
-
-                // Dynamic Speed Calculation (accelerates when far, glides slowly when near)
-                let baseTargetSpeed;
-                if (cursorActive) {
-                    if (dist > 280) {
-                        baseTargetSpeed = Math.min(7.8, 3.2 + (dist - 280) * 0.014);
-                        if (this.boostImpulse < 1) fishModeText.textContent = "MODE: CRUISING";
-                    } else if (dist > 95) {
-                        baseTargetSpeed = 2.2 + (dist / 280) * 1.5;
-                        if (this.boostImpulse < 1) fishModeText.textContent = "MODE: NATURAL GLIDE";
-                    } else {
-                        baseTargetSpeed = 1.35; // Slow hover near cursor
-                        if (this.boostImpulse < 1) fishModeText.textContent = "MODE: GENTLE HOVER";
-                    }
+                // Organic Velocity Calculation
+                let targetVel;
+                if (mode === "FEEDING") {
+                    targetVel = Math.min(5.8, 2.8 + dist * 0.012);
+                } else if (mode === "FOLLOW") {
+                    targetVel = Math.min(6.2, Math.max(2.2, dist * 0.022));
                 } else {
-                    // Autonomous natural rhythm (alternating burst & glide)
-                    const rhythm = Math.sin(time * 1.1) * 0.5 + 0.5;
-                    baseTargetSpeed = 1.8 + rhythm * 2.4;
-                    if (this.boostImpulse < 1) fishModeText.textContent = "MODE: FREE ROAMING";
+                    // Calm, realistic pond cruising with gentle rhythmic kicks
+                    const naturalPulse = (Math.sin(time * 1.4) + 1) * 0.45;
+                    targetVel = 2.0 + naturalPulse + this.glideImpulse;
                 }
 
-                const finalTargetSpeed = (baseTargetSpeed + this.boostImpulse) * userSpeedMultiplier;
-                this.velocity += (finalTargetSpeed - this.velocity) * 0.08;
+                this.velocity += (targetVel - this.velocity) * 0.06;
 
-                // Tail & Fin oscillation frequency directly linked to swimming speed
-                this.swimCycle += 0.065 + this.velocity * 0.032;
-                this.finCycle += 0.055 + this.velocity * 0.022;
+                // Spine S-wave frequency matched to actual swimming velocity
+                this.swimCycle += 0.06 + this.velocity * 0.028;
+                this.finCycle += 0.055 + this.velocity * 0.02;
 
-                // Subtle head yaw from tail thrust
-                const headYaw = Math.sin(this.swimCycle) * 0.04 * Math.min(1.5, this.velocity / 3);
-                const moveAngle = this.angle + headYaw;
+                const headSway = Math.sin(this.swimCycle) * 0.038;
+                const moveAngle = this.angle + headSway;
 
                 this.x += Math.cos(moveAngle) * this.velocity;
                 this.y += Math.sin(moveAngle) * this.velocity;
@@ -1236,7 +1448,7 @@
                 this.spine[0].y = this.y;
                 this.spine[0].angle = moveAngle;
 
-                // Spine Inverse Kinematics + Traveling Muscular Wave
+                // Inverse Kinematics along 32 Vertebrae with Traveling Muscular Wave
                 for (let i = 1; i < this.numSegs; i++) {
                     const prev = this.spine[i - 1];
                     const curr = this.spine[i];
@@ -1245,40 +1457,38 @@
                     const sdy = prev.y - curr.y;
                     let segAngle = Math.atan2(sdy, sdx);
 
-                    // Progressive S-wave down the body
                     const ratio = i / this.numSegs;
-                    const waveEnvelope = Math.pow(ratio, 1.45) * 0.115 * (0.55 + this.velocity * 0.11);
-                    const muscularOffset = Math.sin(this.swimCycle - i * 0.32) * waveEnvelope;
+                    const waveAmp = Math.pow(ratio, 1.4) * 0.11 * (0.55 + this.velocity * 0.1);
+                    const muscularOffset = Math.sin(this.swimCycle - i * 0.31) * waveAmp;
 
                     segAngle += muscularOffset;
 
-                    // Anatomical joint constraint
                     let rel = normAngle(segAngle - prev.angle);
-                    const maxJointBend = 0.24;
-                    if (rel > maxJointBend) segAngle = prev.angle + maxJointBend;
-                    if (rel < -maxJointBend) segAngle = prev.angle - maxJointBend;
+                    const maxBend = 0.23;
+                    if (rel > maxBend) segAngle = prev.angle + maxBend;
+                    if (rel < -maxBend) segAngle = prev.angle - maxBend;
 
                     curr.angle = segAngle;
                     curr.x = prev.x - Math.cos(segAngle) * this.segLen;
                     curr.y = prev.y - Math.sin(segAngle) * this.segLen;
                 }
 
-                // Wake bubbles & ripples proportional to speed
-                if (Math.random() < 0.12 + this.velocity * 0.03) {
-                    const tail = this.spine[this.numSegs - 3];
+                // Subtle wake bubbles & ripples
+                if (Math.random() < 0.14) {
+                    const tail = this.spine[this.numSegs - 4];
                     wakeBubbles.push({
                         x: tail.x + (Math.random() - 0.5) * 14,
                         y: tail.y + (Math.random() - 0.5) * 14,
-                        vx: (Math.random() - 0.5) * 0.7,
-                        vy: (Math.random() - 0.5) * 0.7,
-                        r: Math.random() * 2.3 + 0.7,
-                        alpha: 0.7,
+                        vx: (Math.random() - 0.5) * 0.6,
+                        vy: (Math.random() - 0.5) * 0.6,
+                        r: Math.random() * 2.2 + 0.7,
+                        alpha: 0.65,
                         color: [...curPal.glow]
                     });
                 }
-                if (Math.random() < 0.035 * (this.velocity / 3)) {
+                if (Math.random() < 0.03) {
                     const g = curPal.glow;
-                    waterRipples.push(new WaterRipple(this.x, this.y, 65 + this.velocity * 8, 1.2, `${Math.round(g[0])}, ${Math.round(g[1])}, ${Math.round(g[2])}`));
+                    waterRipples.push(new WaterRipple(this.x, this.y, 75, 1.15, `${Math.round(g[0])}, ${Math.round(g[1])}, ${Math.round(g[2])}`));
                 }
             }
 
@@ -1288,39 +1498,37 @@
                 const ax = joint.x + Math.cos(perp) * (this.profile[segIdx] * 0.78);
                 const ay = joint.y + Math.sin(perp) * (this.profile[segIdx] * 0.78);
 
-                // Fins tuck back slightly when dashing fast, spread wide when gliding slowly
-                const speedTuck = Math.min(0.35, this.velocity * 0.035);
-                const featherWave = Math.sin(this.finCycle - side * 0.5) * (0.26 - speedTuck * 0.3);
-                const finAng = joint.angle + side * (1.75 + speedTuck + featherWave);
+                const speedTuck = Math.min(0.28, this.velocity * 0.03);
+                const featherWave = Math.sin(this.finCycle - side * 0.45) * 0.24;
+                const finAng = joint.angle + side * (1.72 + speedTuck + featherWave);
 
                 ctx.save();
                 ctx.translate(ax, ay);
                 ctx.rotate(finAng);
                 ctx.scale(1, side);
 
-                const fLen = 68;
-                const fWid = 38;
+                const fLen = 72;
+                const fWid = 40;
 
                 const grad = ctx.createRadialGradient(0, 0, 4, fLen * 0.5, fWid * 0.2, fLen * 1.05);
                 grad.addColorStop(0, rgba(curPal.base2, 0.85));
-                grad.addColorStop(0.4, rgba(curPal.fin, 0.55));
+                grad.addColorStop(0.4, rgba(curPal.fin, 0.58));
                 grad.addColorStop(0.8, rgba(curPal.tail, 0.22));
                 grad.addColorStop(1, rgba(curPal.fin, 0));
 
                 ctx.fillStyle = grad;
                 ctx.beginPath();
                 ctx.moveTo(0, 0);
-                // S-curved Butterfly Koi pectoral edge
                 ctx.bezierCurveTo(fLen * 0.35, -fWid * 0.45, fLen * 0.8, -fWid * 0.25, fLen, fWid * 0.12);
-                ctx.bezierCurveTo(fLen * 0.82, fWid * 0.85, fLen * 0.35, fWid * 1.05, 0, 6);
+                ctx.bezierCurveTo(fLen * 0.82, fWid * 0.88, fLen * 0.35, fWid * 1.08, 0, 6);
                 ctx.closePath();
                 ctx.fill();
 
-                // Realistic branching cartilage rays
-                ctx.strokeStyle = rgba(curPal.base1, 0.32);
+                // Realistic Fin Cartilage Rays
+                ctx.strokeStyle = rgba(curPal.base1, 0.34);
                 ctx.lineWidth = 0.85;
-                for (let r = 0; r < 9; r++) {
-                    const t = r / 8;
+                for (let r = 0; r < 10; r++) {
+                    const t = r / 9;
                     const rayWave = Math.sin(this.finCycle * 1.2 + r * 0.4) * 3;
                     ctx.beginPath();
                     ctx.moveTo(0, 0);
@@ -1333,9 +1541,9 @@
                     ctx.stroke();
                 }
 
-                // Bright leading bone edge
-                ctx.strokeStyle = rgba(curPal.base1, 0.75);
-                ctx.lineWidth = 1.6;
+                // Leading Bone Edge Highlight
+                ctx.strokeStyle = rgba(curPal.base1, 0.8);
+                ctx.lineWidth = 1.7;
                 ctx.beginPath();
                 ctx.moveTo(0, 0);
                 ctx.bezierCurveTo(fLen * 0.35, -fWid * 0.45, fLen * 0.8, -fWid * 0.25, fLen, fWid * 0.12);
@@ -1358,11 +1566,11 @@
                 ctx.rotate(ang);
                 ctx.scale(1, side);
 
-                const fLen = 40;
-                const fWid = 20;
+                const fLen = 42;
+                const fWid = 22;
                 const grad = ctx.createRadialGradient(0, 0, 2, fLen * 0.5, 0, fLen);
-                grad.addColorStop(0, rgba(curPal.base2, 0.7));
-                grad.addColorStop(0.55, rgba(curPal.fin, 0.38));
+                grad.addColorStop(0, rgba(curPal.base2, 0.72));
+                grad.addColorStop(0.55, rgba(curPal.fin, 0.4));
                 grad.addColorStop(1, rgba(curPal.fin, 0));
 
                 ctx.fillStyle = grad;
@@ -1383,53 +1591,51 @@
                 const tailDir = tip.angle + Math.PI;
                 const perp = tailDir + Math.PI / 2;
 
-                // Delayed fluid cloth whip
-                const whip1 = Math.sin(this.swimCycle - 2.7) * (32 + this.velocity * 2.5);
-                const whip2 = Math.cos(this.swimCycle - 3.2) * (36 + this.velocity * 2.5);
-
-                const tailLen = 96;
+                const whip1 = Math.sin(this.swimCycle - 2.7) * 34;
+                const whip2 = Math.cos(this.swimCycle - 3.2) * 38;
+                const tailLen = 102;
 
                 const topLobe = {
-                    x: tip.x + Math.cos(tailDir + 0.44) * tailLen + Math.cos(perp) * whip1,
-                    y: tip.y + Math.sin(tailDir + 0.44) * tailLen + Math.sin(perp) * whip1
+                    x: tip.x + Math.cos(tailDir + 0.45) * tailLen + Math.cos(perp) * whip1,
+                    y: tip.y + Math.sin(tailDir + 0.45) * tailLen + Math.sin(perp) * whip1
                 };
                 const botLobe = {
-                    x: tip.x + Math.cos(tailDir - 0.44) * tailLen + Math.cos(perp) * whip2,
-                    y: tip.y + Math.sin(tailDir - 0.44) * tailLen + Math.sin(perp) * whip2
+                    x: tip.x + Math.cos(tailDir - 0.45) * tailLen + Math.cos(perp) * whip2,
+                    y: tip.y + Math.sin(tailDir - 0.45) * tailLen + Math.sin(perp) * whip2
                 };
                 const innerFork = {
-                    x: tip.x + Math.cos(tailDir) * (tailLen * 0.64) + Math.cos(perp) * ((whip1 + whip2) * 0.5),
-                    y: tip.y + Math.sin(tailDir) * (tailLen * 0.64) + Math.sin(perp) * ((whip1 + whip2) * 0.5)
+                    x: tip.x + Math.cos(tailDir) * (tailLen * 0.62) + Math.cos(perp) * ((whip1 + whip2) * 0.5),
+                    y: tip.y + Math.sin(tailDir) * (tailLen * 0.62) + Math.sin(perp) * ((whip1 + whip2) * 0.5)
                 };
 
                 ctx.save();
                 const tGrad = ctx.createRadialGradient(base.x, base.y, 6, tip.x, tip.y, tailLen * 1.2);
-                tGrad.addColorStop(0, rgba(curPal.base2, 0.85));
-                tGrad.addColorStop(0.35, rgba(curPal.tail, 0.58));
-                tGrad.addColorStop(0.75, rgba(curPal.fin, 0.28));
+                tGrad.addColorStop(0, rgba(curPal.base2, 0.88));
+                tGrad.addColorStop(0.38, rgba(curPal.tail, 0.6));
+                tGrad.addColorStop(0.78, rgba(curPal.fin, 0.3));
                 tGrad.addColorStop(1, rgba(curPal.fin, 0));
 
                 ctx.fillStyle = tGrad;
                 ctx.beginPath();
                 ctx.moveTo(base.x, base.y);
                 ctx.bezierCurveTo(
-                    mid.x + Math.cos(perp) * 22, mid.y + Math.sin(perp) * 22,
-                    tip.x + Math.cos(perp) * 35, tip.y + Math.sin(perp) * 35,
+                    mid.x + Math.cos(perp) * 24, mid.y + Math.sin(perp) * 24,
+                    tip.x + Math.cos(perp) * 36, tip.y + Math.sin(perp) * 36,
                     topLobe.x, topLobe.y
                 );
                 ctx.quadraticCurveTo(innerFork.x, innerFork.y, botLobe.x, botLobe.y);
                 ctx.bezierCurveTo(
-                    tip.x - Math.cos(perp) * 35, tip.y - Math.sin(perp) * 35,
-                    mid.x - Math.cos(perp) * 22, mid.y - Math.sin(perp) * 22,
+                    tip.x - Math.cos(perp) * 36, tip.y - Math.sin(perp) * 36,
+                    mid.x - Math.cos(perp) * 24, mid.y - Math.sin(perp) * 24,
                     base.x, base.y
                 );
                 ctx.closePath();
                 ctx.fill();
 
-                // Flowing silk rays in the tail
-                ctx.strokeStyle = rgba(curPal.base1, 0.3);
+                // Delicate Silk Rays in the Caudal Tail
+                ctx.strokeStyle = rgba(curPal.base1, 0.32);
                 ctx.lineWidth = 0.9;
-                const numRays = 14;
+                const numRays = 15;
                 for (let i = 0; i <= numRays; i++) {
                     const t = i / numRays;
                     const rx = topLobe.x * (1 - t) + botLobe.x * t;
@@ -1444,19 +1650,19 @@
 
             drawFlowingDorsalFin() {
                 const start = 5;
-                const end = 22;
+                const end = 23;
                 ctx.save();
 
                 const pStart = this.spine[start];
                 const pEnd = this.spine[end];
                 const dGrad = ctx.createLinearGradient(pStart.x, pStart.y, pEnd.x, pEnd.y);
-                dGrad.addColorStop(0, rgba(curPal.base1, 0.78));
-                dGrad.addColorStop(0.5, rgba(curPal.fin, 0.52));
+                dGrad.addColorStop(0, rgba(curPal.base1, 0.8));
+                dGrad.addColorStop(0.5, rgba(curPal.fin, 0.54));
                 dGrad.addColorStop(1, rgba(curPal.tail, 0.08));
 
                 ctx.fillStyle = dGrad;
-                ctx.strokeStyle = rgba(curPal.base1, 0.55);
-                ctx.lineWidth = 1.2;
+                ctx.strokeStyle = rgba(curPal.base1, 0.6);
+                ctx.lineWidth = 1.25;
 
                 const crestPoints = [];
                 ctx.beginPath();
@@ -1468,8 +1674,8 @@
                 for (let i = end; i >= start; i--) {
                     const s = this.spine[i];
                     const norm = (i - start) / (end - start);
-                    const height = Math.sin(norm * Math.PI) * 30;
-                    const sway = Math.sin(this.swimCycle - i * 0.42) * height;
+                    const height = Math.sin(norm * Math.PI) * 32;
+                    const sway = Math.sin(this.swimCycle - i * 0.4) * height;
                     const perp = s.angle + Math.PI / 2;
                     const cx = s.x + Math.cos(perp) * sway;
                     const cy = s.y + Math.sin(perp) * sway;
@@ -1480,8 +1686,7 @@
                 ctx.fill();
                 ctx.stroke();
 
-                // Dorsal fin rays
-                ctx.strokeStyle = rgba(curPal.base1, 0.25);
+                ctx.strokeStyle = rgba(curPal.base1, 0.26);
                 ctx.lineWidth = 0.75;
                 crestPoints.forEach((pt, idx) => {
                     if (idx % 2 === 0) {
@@ -1501,7 +1706,7 @@
 
                 // 1. Deep 3D Underwater Shadow
                 ctx.save();
-                ctx.translate(16, 28);
+                ctx.translate(18, 30);
                 const shPts = [];
                 for (let i = 0; i < this.numSegs; i++) {
                     const s = this.spine[i];
@@ -1514,9 +1719,9 @@
                     shPts.push({ x: s.x + Math.cos(p) * this.profile[i], y: s.y + Math.sin(p) * this.profile[i] });
                 }
                 drawCatmullClosed(ctx, shPts);
-                ctx.fillStyle = 'rgba(0, 3, 10, 0.55)';
-                ctx.shadowColor = 'rgba(0, 0, 0, 0.75)';
-                ctx.shadowBlur = 32;
+                ctx.fillStyle = 'rgba(0, 3, 10, 0.58)';
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+                ctx.shadowBlur = 35;
                 ctx.fill();
                 ctx.restore();
 
@@ -1527,7 +1732,7 @@
                 this.drawPelvicFin(12, 1);
                 this.drawButterflyVeilTail();
 
-                // 3. Construct Smooth Anatomical Body Contour
+                // 3. Smooth Anatomical Body Contour
                 const leftSide = [];
                 const rightSide = [];
                 for (let i = 0; i < this.numSegs; i++) {
@@ -1544,10 +1749,24 @@
                 }
 
                 const head = this.spine[0];
+                const snoutExtend = 11.5 + this.mouthOpen * 3.5;
                 const snout = {
-                    x: head.x + Math.cos(head.angle) * 11,
-                    y: head.y + Math.sin(head.angle) * 11
+                    x: head.x + Math.cos(head.angle) * snoutExtend,
+                    y: head.y + Math.sin(head.angle) * snoutExtend
                 };
+
+                // Animated Mouth Lip when feeding
+                if (this.mouthOpen > 0.05) {
+                    ctx.save();
+                    ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+                    ctx.strokeStyle = rgba(curPal.base1, 0.8);
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.arc(snout.x, snout.y, 4.5 * this.mouthOpen, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.stroke();
+                    ctx.restore();
+                }
 
                 const contour = [snout, ...rightSide, ...leftSide.reverse()];
 
@@ -1557,21 +1776,20 @@
 
                 const tailEnd = this.spine[this.numSegs - 1];
                 const bodyGrad = ctx.createLinearGradient(snout.x, snout.y, tailEnd.x, tailEnd.y);
-                bodyGrad.addColorStop(0, rgba(curPal.base1, 0.98));
-                bodyGrad.addColorStop(0.35, rgba(curPal.base1, 0.95));
-                bodyGrad.addColorStop(0.75, rgba(curPal.base2, 0.92));
-                bodyGrad.addColorStop(1, rgba(curPal.tail, 0.4));
+                bodyGrad.addColorStop(0, rgba(curPal.base1, 0.99));
+                bodyGrad.addColorStop(0.38, rgba(curPal.base1, 0.96));
+                bodyGrad.addColorStop(0.78, rgba(curPal.base2, 0.92));
+                bodyGrad.addColorStop(1, rgba(curPal.tail, 0.45));
 
-                ctx.shadowColor = rgba(curPal.glow, 0.4);
+                ctx.shadowColor = rgba(curPal.glow, 0.42);
                 ctx.shadowBlur = 24;
                 ctx.fillStyle = bodyGrad;
                 ctx.fill();
 
-                // Clip interior of fish body
                 ctx.clip();
                 ctx.shadowBlur = 0;
 
-                // 4A. Organic Kohaku Red/Orange/Cyan Patches
+                // 4A. Organic Kohaku Markings
                 this.patches.forEach(p => {
                     const s = this.spine[p.seg];
                     const perp = s.angle + Math.PI / 2;
@@ -1582,8 +1800,8 @@
                     ctx.translate(px, py);
                     ctx.rotate(s.angle);
                     const pGrad = ctx.createRadialGradient(0, 0, p.rx * 0.15, 0, 0, p.rx);
-                    pGrad.addColorStop(0, rgba(curPal.patch, 0.92));
-                    pGrad.addColorStop(0.75, rgba(curPal.patch, 0.65));
+                    pGrad.addColorStop(0, rgba(curPal.patch, 0.94));
+                    pGrad.addColorStop(0.78, rgba(curPal.patch, 0.68));
                     pGrad.addColorStop(1, rgba(curPal.patch, 0));
                     ctx.fillStyle = pGrad;
                     ctx.beginPath();
@@ -1592,16 +1810,16 @@
                     ctx.restore();
                 });
 
-                // 4B. Iridescent Diamond Scale Mesh
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.22)';
+                // 4B. Shimmering Overlapping Scales
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.24)';
                 ctx.lineWidth = 0.85;
                 for (let i = 3; i < this.numSegs - 5; i++) {
                     const s = this.spine[i];
                     const w = this.profile[i];
                     const perp = s.angle + Math.PI / 2;
-                    const cols = i < 14 ? 3 : 2;
+                    const cols = i < 15 ? 3 : 2;
                     for (let c = -cols + 1; c < cols; c++) {
-                        const off = (c / cols) * w * 0.65 + ((i % 2) * 2.8 - 1.4);
+                        const off = (c / cols) * w * 0.64 + ((i % 2) * 2.8 - 1.4);
                         const sx = s.x + Math.cos(perp) * off;
                         const sy = s.y + Math.sin(perp) * off;
                         const sr = Math.max(2.6, w * 0.21);
@@ -1611,48 +1829,48 @@
                     }
                 }
 
-                // 4C. 3D Cylindrical Side Rim Shading (gives true roundness to the body)
-                ctx.strokeStyle = 'rgba(2, 8, 22, 0.42)';
-                ctx.lineWidth = 7;
+                // 4C. 3D Cylindrical Rim Shading
+                ctx.strokeStyle = 'rgba(2, 8, 22, 0.45)';
+                ctx.lineWidth = 7.5;
                 drawCatmullClosed(ctx, contour);
                 ctx.stroke();
 
-                // 4D. Glossy Wet Dorsal Spine Highlight
+                // 4D. Glossy Wet Dorsal Spine Ridge
                 ctx.beginPath();
                 for (let i = 1; i < this.numSegs - 7; i++) {
                     const s = this.spine[i];
                     if (i === 1) ctx.moveTo(s.x, s.y);
                     else ctx.lineTo(s.x, s.y);
                 }
-                ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.36)';
                 ctx.lineWidth = 7;
                 ctx.lineCap = 'round';
                 ctx.stroke();
 
-                // 4E. Breathing Gill Covers (Operculum)
+                // 4E. Breathing Gill Plates (Operculum)
                 const gillSeg = this.spine[2];
-                const breathOpen = Math.sin(this.finCycle * 1.5) * 1.2;
+                const breathOpen = Math.sin(this.finCycle * 1.5) * 1.3;
                 [-1, 1].forEach(side => {
                     const gPerp = gillSeg.angle + side * (Math.PI / 2);
                     const gx = gillSeg.x + Math.cos(gPerp) * (this.profile[2] * 0.62 + breathOpen);
                     const gy = gillSeg.y + Math.sin(gPerp) * (this.profile[2] * 0.62 + breathOpen);
                     ctx.strokeStyle = 'rgba(10, 20, 35, 0.45)';
-                    ctx.lineWidth = 1.8;
+                    ctx.lineWidth = 1.9;
                     ctx.beginPath();
-                    ctx.arc(gx, gy, 8.5, gillSeg.angle + Math.PI - 0.65, gillSeg.angle + Math.PI + 0.65);
+                    ctx.arc(gx, gy, 8.8, gillSeg.angle + Math.PI - 0.65, gillSeg.angle + Math.PI + 0.65);
                     ctx.stroke();
                 });
 
                 ctx.restore(); // End Body Clip
 
-                // 5. Sensory Koi Barbels (Whiskers) at the Mouth
+                // 5. Two Pairs of Sensory Koi Barbels (Whiskers)
                 [-1, 1].forEach(side => {
                     const bPerp = head.angle + side * (Math.PI / 2);
                     const bx = snout.x - Math.cos(head.angle) * 3 + Math.cos(bPerp) * 6;
                     const by = snout.y - Math.sin(head.angle) * 3 + Math.sin(bPerp) * 6;
                     const bSway = Math.sin(this.swimCycle - side) * 0.25;
                     const bAng = head.angle + side * (0.62 + bSway);
-                    ctx.strokeStyle = rgba(curPal.base2, 0.9);
+                    ctx.strokeStyle = rgba(curPal.base2, 0.92);
                     ctx.lineWidth = 1.6;
                     ctx.lineCap = 'round';
                     ctx.beginPath();
@@ -1660,32 +1878,29 @@
                     ctx.quadraticCurveTo(
                         bx + Math.cos(head.angle + side * 0.25) * 10,
                         by + Math.sin(head.angle + side * 0.25) * 10,
-                        bx + Math.cos(bAng) * 18,
-                        by + Math.sin(bAng) * 18
+                        bx + Math.cos(bAng) * 19,
+                        by + Math.sin(bAng) * 19
                     );
                     ctx.stroke();
                 });
 
-                // 6. Realistic 3D Eyes (Sclera, Metallic Iris, Pupil & Cornea Reflection)
+                // 6. Realistic 3D Eyes
                 const eyeSeg = this.spine[1];
                 [-1, 1].forEach(side => {
                     const ePerp = eyeSeg.angle + side * (Math.PI / 2);
                     const ex = eyeSeg.x + Math.cos(ePerp) * (this.profile[1] * 0.78);
                     const ey = eyeSeg.y + Math.sin(ePerp) * (this.profile[1] * 0.78);
 
-                    // Golden/Cyan Metallic Iris
                     ctx.fillStyle = '#fde047';
                     ctx.beginPath();
-                    ctx.arc(ex, ey, 4.0, 0, Math.PI * 2);
+                    ctx.arc(ex, ey, 4.1, 0, Math.PI * 2);
                     ctx.fill();
 
-                    // Deep Pupil
                     ctx.fillStyle = '#020617';
                     ctx.beginPath();
                     ctx.arc(ex + Math.cos(eyeSeg.angle) * 0.7, ey + Math.sin(eyeSeg.angle) * 0.7, 2.5, 0, Math.PI * 2);
                     ctx.fill();
 
-                    // Dual Specular Cornea Glint
                     ctx.fillStyle = '#ffffff';
                     ctx.beginPath();
                     ctx.arc(ex + Math.cos(eyeSeg.angle - 0.5) * 1.3, ey + Math.sin(eyeSeg.angle - 0.5) * 1.3, 1.1, 0, Math.PI * 2);
@@ -1699,41 +1914,32 @@
             }
         }
 
-        const koi = new HyperRealisticKoi();
+        const koi = new UltraRealisticKoi();
 
-        // Click on Water or Press Spacebar / Boost Button to Dash & Shift Color
+        // Click on Water to drop a Bio-Pellet for the Koi to eat
         window.addEventListener('pointerdown', (e) => {
-            if (e.target.closest('.nav-trigger') || e.target.closest('.fish-controls-hud')) return;
-            paletteIdx = (paletteIdx + 1) % koiPalettes.length;
-            koi.triggerDash();
-        });
-
-        boostBtn.addEventListener('click', () => {
-            paletteIdx = (paletteIdx + 1) % koiPalettes.length;
-            koi.triggerDash();
-        });
-
-        window.addEventListener('keydown', (e) => {
-            if (e.code === 'Space') {
-                paletteIdx = (paletteIdx + 1) % koiPalettes.length;
-                koi.triggerDash();
+            if (e.target.closest('.nav-trigger') || e.target.closest('.top-hud')) return;
+            if (foodPellets.length < 4) {
+                foodPellets.push(new FoodPellet(e.clientX, e.clientY));
             }
+            waterRipples.push(new WaterRipple(e.clientX, e.clientY, 110, 2.2, '0, 255, 204'));
+            playWaterPlopSound();
         });
 
         window.addEventListener('resize', () => {
             resizeCanvas();
-            initParticles();
+            initEcosystem();
         });
 
         /* ==========================================================
-           5. MAIN RENDER LOOP
+           8. MAIN RENDER LOOP
         ========================================================== */
         function animate(timestamp) {
             const time = timestamp * 0.001;
 
-            // Deep aquatic abyss background gradient
+            // Deep aquatic pond gradient
             const bgGrad = ctx.createRadialGradient(
-                canvas.width * 0.5 + Math.cos(time * 0.35) * 140,
+                canvas.width * 0.5 + Math.cos(time * 0.3) * 130,
                 canvas.height * 0.4 + Math.sin(time * 0.25) * 90,
                 30,
                 canvas.width * 0.5,
@@ -1747,9 +1953,9 @@
             ctx.fillStyle = bgGrad;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Dynamic underwater spotlight following cursor
-            const spotGrad = ctx.createRadialGradient(mouse.x, mouse.y, 10, mouse.x, mouse.y, 400);
-            spotGrad.addColorStop(0, rgba(curPal.glow, 0.075));
+            // Ambient Underwater Light Caustics
+            const spotGrad = ctx.createRadialGradient(mouse.x, mouse.y, 10, mouse.x, mouse.y, 380);
+            spotGrad.addColorStop(0, rgba(curPal.glow, 0.065));
             spotGrad.addColorStop(1, 'transparent');
             ctx.fillStyle = spotGrad;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -1763,8 +1969,8 @@
                     const dx = particlesArray[i].x - particlesArray[j].x;
                     const dy = particlesArray[i].y - particlesArray[j].y;
                     const dist = Math.hypot(dx, dy);
-                    if (dist < 170) {
-                        const alpha = Math.pow(1 - dist / 170, 2) * 0.2;
+                    if (dist < 165) {
+                        const alpha = Math.pow(1 - dist / 165, 2) * 0.18;
                         ctx.strokeStyle = `rgba(0, 255, 204, ${alpha})`;
                         ctx.lineWidth = 0.45;
                         ctx.beginPath();
@@ -1782,12 +1988,18 @@
                 if (waterRipples[i].alpha <= 0.01) waterRipples.splice(i, 1);
             }
 
+            // Food Pellets
+            for (let i = 0; i < foodPellets.length; i++) {
+                foodPellets[i].update();
+                foodPellets[i].draw();
+            }
+
             // Wake Bioluminescent Bubbles
             for (let i = wakeBubbles.length - 1; i >= 0; i--) {
                 const b = wakeBubbles[i];
                 b.x += b.vx;
                 b.y += b.vy;
-                b.alpha -= 0.016;
+                b.alpha -= 0.015;
                 if (b.alpha <= 0) {
                     wakeBubbles.splice(i, 1);
                     continue;
@@ -1802,10 +2014,16 @@
                 ctx.restore();
             }
 
-            // Update & Draw Hyper-Realistic Koi
+            // Update & Draw Ultra-Realistic Koi
             if (mainScene.classList.contains('active')) {
                 koi.update(time);
                 koi.draw();
+            }
+
+            // Floating Surface Sakura Petals (drawn over the fish for true depth)
+            for (let i = 0; i < floatingPetals.length; i++) {
+                floatingPetals[i].update(koi.spine[0]);
+                floatingPetals[i].draw();
             }
 
             requestAnimationFrame(animate);
@@ -1814,7 +2032,7 @@
         requestAnimationFrame(animate);
 
         /* ==========================================================
-           6. WATERFALL NAVIGATION TRIGGER
+           9. WATERFALL NAVIGATION TRIGGER
         ========================================================== */
         const navButtons = document.querySelectorAll('.nav-trigger');
         const waterfallOverlay = document.getElementById('waterfall-overlay');
