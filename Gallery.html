@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Malith Eranga</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Syncopate:wght@600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #00ffcc;
+            --bg-dark: #030712;
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-dark);
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text-main);
+            overflow-x: hidden;
+            padding: 60px 0 35px 0;
+            user-select: none;
+        }
+
+        /* MAIN PORTFOLIO CLEAN HEADING */
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+
+        .section-header h2 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .section-header h2 span {
+            color: var(--secondary);
+        }
+
+        /* DYNAMIC MULTI-ROW AUTO SCROLL CONTAINER */
+        .gallery-streams {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .horizontal-grid {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            padding: 4px 0;
+        }
+
+        .scroll-track {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 20px;
+            width: max-content;
+            will-change: transform;
+            transform: translateZ(0);
+            pointer-events: none; /* Mouse එක ගෙනිච්චට හෝ Click කළාට නවතින්නේ නැත */
+        }
+
+        /* IMAGE CARDS */
+        .image-card {
+            position: relative;
+            flex-shrink: 0;
+            transform: translateZ(0);
+        }
+
+        /* Portrait Row Style */
+        .image-card.portrait-card {
+            width: 230px;
+        }
+        .image-card.portrait-card .img-wrapper {
+            aspect-ratio: 3 / 4;
+        }
+
+        /* Landscape Row Style */
+        .image-card.landscape-card {
+            width: 340px;
+        }
+        .image-card.landscape-card .img-wrapper {
+            aspect-ratio: 16 / 10;
+        }
+
+        .img-wrapper {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            background: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* යටින්ම පොඩියට වැටෙන සටහන */
+        .bottom-tiny-caption {
+            text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            opacity: 0.5;
+            margin-top: 24px;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media (max-width: 768px) {
+            body { padding: 40px 0 25px 0; }
+            .section-header { margin-bottom: 25px; }
+            .section-header h2 { font-size: 1.3rem; letter-spacing: 2px; }
+            .gallery-streams { gap: 14px; }
+            .scroll-track { gap: 12px; }
+            .image-card.portrait-card { width: 150px; }
+            .image-card.landscape-card { width: 230px; }
+            .img-wrapper { border-radius: 9px; }
+            .bottom-tiny-caption { font-size: 0.62rem; margin-top: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="section-header">
+        <h2>MOMENTS &amp; <span>MEMORIES</span></h2>
+    </div>
+
+    <!-- මෙතනට පේළි ඔක්කොම ජාවාස්ක්‍රිප්ට් වලින් ඉබේම හැදෙනවා -->
+    <div class="gallery-streams" id="gallery-streams"></div>
+
+    <div class="bottom-tiny-caption">Captured Moments · Special Events &amp; Milestones</div>
+
+    <script>
+        const FOLDER_NAME = 'Gallery';
+
+        // =========================================================================
+        // පේළි පාලනය කරන තැන (ROW CONFIGURATION)
+        // -------------------------------------------------------------------------
+        // ඔයාට තව අලුත් පේළියක් ඕන වුණාම මේකට අලුත් {...} පේළියක් එකතු කරන්න විතරයි තියෙන්නේ!
+        //
+        // • type      : 'portrait' (උස ෆොටෝ) හෝ 'landscape' (දිගටි ෆොටෝ)
+        // • prefix    : ෆොටෝ නම් කරලා තියෙන මුල් අකුර (උදා: 'P' දුන්නොත් P1.webp, P2.webp...)
+        // • direction : 'left' (වමට යන්න) හෝ 'right' (දකුණට යන්න)
+        // • from / to : (අත්‍යවශ්‍ය නෑ) එකම අකුරේ ෆොටෝ පරාසයක් විතරක් පෙන්වන්න ඕන නම් විතරක් දාන්න
+        // =========================================================================
+        const GALLERY_ROWS = [
+            // 1 වෙනි පේළිය: Portrait (P1.webp, P2.webp, P3.webp...)
+            { type: 'portrait',  prefix: 'P', direction: 'left' },
+
+            // 2 වෙනි පේළිය: Landscape (L1.webp, L2.webp, L3.webp...)
+            { type: 'landscape', prefix: 'L', direction: 'right' },
+
+            // --- තව පේළියක් ඕන නම් යට තියෙන උදාහරණ වල මුල '//' අයින් කරලා පාවිච්චි කරන්න ---
+             { type: 'portrait',  prefix: 'A', direction: 'left' }, 
+             { type: 'landscape', prefix: 'B', direction: 'right' },  
+             { type: 'landscape', prefix: 'c', direction: 'left' },  
+            // { type: 'portrait',  prefix: 'P', from: 1, to: 8, direction: 'left' } // P1 සිට P8 දක්වා පමණක්
+        ];
+
+        // Main Page (index.html) එකේ Iframe උස Auto හදාගන්නා කොටස
+        function notifyParentHeight() {
+            const height = document.documentElement.scrollHeight;
+            window.parent.postMessage({ type: 'resize', height: height, url: window.location.href }, '*');
+            try {
+                if (window.frameElement) {
+                    window.frameElement.style.height = height + 'px';
+                }
+            } catch (_) {}
+        }
+
+        function checkImageExists(src) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve(true);
+                img.onerror = () => resolve(false);
+                img.src = src;
+            });
+        }
+
+        // දීලා තියෙන Prefix එකට අදාළ ෆොටෝ ඔක්කොම ඉබේම හොයාගෙන අලුත්ම ඒවා මුලට ගන්නා කොටස
+        async function discoverRowImages(rowConfig) {
+            const foundImages = [];
+            const prefix = rowConfig.prefix;
+            const startNum = rowConfig.from || 1;
+            const maxNum = rowConfig.to || Infinity;
+
+            let index = startNum;
+            const batchSize = 10;
+
+            while (index <= maxNum) {
+                const checks = [];
+                const endBatch = Math.min(index + batchSize - 1, maxNum);
+
+                for (let i = index; i <= endBatch; i++) {
+                    const path = `${FOLDER_NAME}/${prefix}${i}.webp`;
+                    checks.push(checkImageExists(path).then(exists => ({ path, exists })));
+                }
+
+                const results = await Promise.all(checks);
+                let stopped = false;
+
+                for (const res of results) {
+                    if (res.exists) {
+                        foundImages.push(res.path);
+                    } else {
+                        stopped = true;
+                        break;
+                    }
+                }
+
+                if (stopped) break;
+                index += batchSize;
+            }
+
+            // අන්තිමටම දාපු අලුත්ම පින්තූරය මුලින්ම පෙන්වන්න Reverse කරනවා
+            return foundImages.reverse();
+        }
+
+        // නොනවත්වා Loop වෙන Auto-Scroll කොටස
+        function startContinuousScroll(track, direction) {
+            let speedPerSecond = window.innerWidth <= 768 ? 25 : 40;
+            let exactScroll = direction === 'right' ? track.scrollWidth / 2 : 0;
+            let lastTime = 0;
+
+            window.addEventListener('resize', () => {
+                speedPerSecond = window.innerWidth <= 768 ? 25 : 40;
+                notifyParentHeight();
+            }, { passive: true });
+
+            function step(currentTime) {
+                if (!lastTime) lastTime = currentTime;
+                let deltaTime = currentTime - lastTime;
+                lastTime = currentTime;
+                if (deltaTime > 50) deltaTime = 16;
+
+                if (track.children.length > 1) {
+                    const gap = window.innerWidth <= 768 ? 12 : 20;
+                    const scrollAmount = (speedPerSecond * deltaTime) / 1000;
+
+                    if (direction === 'left') {
+                        exactScroll += scrollAmount;
+                        const firstItem = track.firstElementChild;
+                        if (firstItem && exactScroll >= (firstItem.offsetWidth + gap)) {
+                            exactScroll -= (firstItem.offsetWidth + gap);
+                            track.appendChild(firstItem);
+                        }
+                    } else {
+                        const lastItem = track.lastElementChild;
+                        if (lastItem && exactScroll <= 0) {
+                            const w = lastItem.offsetWidth + gap;
+                            track.prepend(lastItem);
+                            exactScroll += w;
+                        }
+                        exactScroll -= scrollAmount;
+                    }
+
+                    track.style.transform = `translate3d(${-exactScroll}px, 0, 0)`;
+                }
+                requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        // GALLERY_ROWS ලැයිස්තුවේ තියෙන පේළි ඔක්කොම ඉබේම හදන Function එක
+        async function initAllGalleryRows() {
+            const container = document.getElementById('gallery-streams');
+            container.innerHTML = '';
+
+            for (const rowConfig of GALLERY_ROWS) {
+                const gridDiv = document.createElement('div');
+                gridDiv.className = 'horizontal-grid';
+
+                const trackDiv = document.createElement('div');
+                trackDiv.className = 'scroll-track';
+                gridDiv.appendChild(trackDiv);
+                container.appendChild(gridDiv);
+
+                const imageList = await discoverRowImages(rowConfig);
+
+                if (imageList.length === 0) {
+                    gridDiv.style.display = 'none';
+                    continue;
+                }
+
+                const cardClass = rowConfig.type === 'landscape' ? 'landscape-card' : 'portrait-card';
+                const direction = rowConfig.direction === 'right' ? 'right' : 'left';
+
+                const minCardsNeeded = 14;
+                const loopList = [];
+                while (loopList.length < minCardsNeeded || loopList.length < imageList.length * 2) {
+                    loopList.push(...imageList);
+                }
+
+                trackDiv.innerHTML = loopList.map(src => `
+                    <div class="image-card ${cardClass}">
+                        <div class="img-wrapper">
+                            <img decoding="async" src="${src}" alt="Gallery Moment">
+                        </div>
+                    </div>
+                `).join('');
+
+                startContinuousScroll(trackDiv, direction);
+                notifyParentHeight();
+            }
+        }
+
+        window.addEventListener('load', async () => {
+            notifyParentHeight();
+            await initAllGalleryRows();
+            notifyParentHeight();
+            setTimeout(notifyParentHeight, 600);
+        });
+    </script>
+</body>
+</html>

@@ -4,12 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>Malith Eranga</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Syncopate:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syncopate:wght@600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
     --primary: #3b82f6;
     --secondary: #00ffcc; 
     --accent-pink: #ec4899;
+    --accent-purple: #8b5cf6;
+    --gold: #fbbf24;
     --bg-overlay: rgba(4, 8, 18, 0);
     --text-main: #f8fafc;
     --text-muted: #cbd5e1;
@@ -94,12 +96,12 @@ body {
 #starsCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; mix-blend-mode: screen; }
 
 /* ===================================================
-   REALISTIC PROFESSOR CHALKBOARD SECTION (NO EXTRA TEXT)
+   INTERACTIVE PROFESSOR CHALKBOARD SECTION
    =================================================== */
 .chem-arena-section {
     position: relative;
     width: 100%;
-    height: 350px;
+    height: 365px;
     background: #0a0f18;
     border-top: 8px solid #3e2723;
     border-bottom: 12px solid #4e342e;
@@ -116,284 +118,671 @@ body {
     width: 100%;
     height: 100%;
     display: block;
+    cursor: default;
 }
 
 .Projects-iframe { width: 100%; border: none; position: relative; z-index: 20; display: block; overflow: hidden; }
 
-/* =========================================
-   ADVANCED TORA 2.0 CYBER ROBOT
-   ========================================= */
+/* ===================================================
+   PROF. TORA 4.0 — CYBER-PROFESSOR ROBOT DESIGN
+   =================================================== */
 #chuti-bot {
-    position: fixed; bottom: 30px; right: 40px;
-    width: 82px; height: 105px;
-    z-index: 1000; pointer-events: auto; cursor: pointer;      
-    filter: drop-shadow(0 12px 20px rgba(0,0,0,0.75));
+    position: fixed; bottom: 28px; right: 38px;
+    width: 96px; height: 120px;
+    z-index: 1000; pointer-events: auto; cursor: pointer;
+    filter: drop-shadow(0 14px 24px rgba(0,0,0,0.85));
+    user-select: none;
 }
+
+.tora-proactive-bubble {
+    position: absolute;
+    bottom: 132px; right: 0;
+    background: rgba(6, 14, 32, 0.95);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(251, 191, 36, 0.55);
+    border-radius: 14px 14px 3px 14px;
+    padding: 8px 13px;
+    color: #e2e8f0;
+    font-size: 11.5px;
+    line-height: 1.4;
+    width: max-content;
+    max-width: 250px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.75), 0 0 16px rgba(0,255,204,0.2);
+    opacity: 0;
+    transform: translateY(10px) scale(0.9);
+    pointer-events: none;
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 25;
+}
+.tora-proactive-bubble.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+.tora-proactive-bubble strong { color: var(--secondary); }
 
 .chuti-name {
-    position: absolute; top: -24px; left: 50%; transform: translateX(-50%);
-    font-family: 'Syncopate', sans-serif; font-size: 8.5px; font-weight: 600;
-    color: var(--secondary); letter-spacing: 2px; text-shadow: 0 0 8px var(--secondary);
-    background: rgba(4, 8, 18, 0.8);
-    border: 1px solid rgba(0, 255, 204, 0.35);
-    padding: 3px 8px; border-radius: 12px;
+    position: absolute; top: -26px; left: 50%; transform: translateX(-50%);
+    font-family: 'Syncopate', sans-serif; font-size: 7.5px; font-weight: 700;
+    color: var(--gold); letter-spacing: 1.5px; text-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
+    background: rgba(4, 8, 18, 0.94);
+    border: 1px solid rgba(251, 191, 36, 0.55);
+    padding: 3px 9px; border-radius: 12px;
     white-space: nowrap;
-    opacity: 0.95; z-index: 20; transition: all 0.4s ease;
+    opacity: 0.98; z-index: 20; transition: all 0.4s ease;
+    display: flex; align-items: center; gap: 4px;
 }
+.chuti-name::before {
+    content: ''; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--secondary); box-shadow: 0 0 6px var(--secondary);
+    animation: statusBlink 1.8s infinite;
+}
+@keyframes statusBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
 
+/* Dual Orbiting Quantum Rings */
 .chuti-halo {
-    position: absolute; top: 38px; left: 50%;
-    width: 76px; height: 22px;
-    margin-left: -38px;
+    position: absolute; top: 48px; left: 50%;
+    width: 88px; height: 24px;
+    margin-left: -44px;
     border-radius: 50%;
     border: 1.5px dashed rgba(0, 255, 204, 0.45);
-    box-shadow: 0 0 12px rgba(0, 255, 204, 0.2);
-    transform: rotateX(65deg);
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+    transform: rotateX(68deg);
     animation: haloSpin 6s linear infinite;
     pointer-events: none;
     z-index: 12;
 }
+.chuti-halo-inner {
+    position: absolute; top: 60px; left: 50%;
+    width: 68px; height: 18px;
+    margin-left: -34px;
+    border-radius: 50%;
+    border: 1px solid rgba(251, 191, 36, 0.4);
+    transform: rotateX(70deg);
+    animation: haloSpinReverse 4.5s linear infinite;
+    pointer-events: none;
+    z-index: 3;
+}
 
 @keyframes haloSpin {
-    0% { transform: rotateX(65deg) rotateZ(0deg); }
-    100% { transform: rotateX(65deg) rotateZ(360deg); }
+    0% { transform: rotateX(68deg) rotateZ(0deg); }
+    100% { transform: rotateX(68deg) rotateZ(360deg); }
+}
+@keyframes haloSpinReverse {
+    0% { transform: rotateX(70deg) rotateZ(360deg); }
+    100% { transform: rotateX(70deg) rotateZ(0deg); }
 }
 
 .chuti-shadow {
-    position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%);
-    width: 54px; height: 10px; background: radial-gradient(circle, rgba(0,255,204,0.45) 0%, transparent 75%);
+    position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%);
+    width: 62px; height: 11px; background: radial-gradient(circle, rgba(0,255,204,0.55) 0%, rgba(251,191,36,0.2) 50%, transparent 78%);
     border-radius: 50%; filter: blur(3px);
-    animation: chutiShadowPulse 3s ease-in-out infinite; transition: background 0.4s ease;
+    animation: chutiShadowPulse 3.2s ease-in-out infinite; transition: all 0.4s ease;
 }
 
 .chuti-wrapper { position: relative; width: 100%; height: 100%; animation: chutiFloat 3.2s ease-in-out infinite; }
 
-.chuti-body, .chuti-head, .chuti-arm, .chuti-leg, .chuti-ear, .chuti-core, .chuti-eye {
-    transition: all 0.35s ease;
+/* =========================================================
+   PROFESSOR MORTARBOARD (GRADUATION CAP) & GOLD TASSEL
+   ========================================================= */
+.chuti-mortarboard {
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64px;
+    height: 18px;
+    z-index: 18;
+    pointer-events: none;
+}
+/* Diamond Academic Cap Top */
+.chuti-mortarboard-top {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 46px;
+    height: 46px;
+    margin-left: -23px;
+    margin-top: -14px;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 60%, #020617 100%);
+    border: 1.5px solid var(--gold);
+    border-radius: 4px;
+    transform: rotateX(66deg) rotateZ(45deg);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.8), 0 0 10px rgba(251, 191, 36, 0.3);
+}
+/* Cap Skull Base */
+.chuti-mortarboard-base {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 38px;
+    height: 9px;
+    background: linear-gradient(to right, #0f172a, #334155, #0f172a);
+    border: 1px solid rgba(251, 191, 36, 0.65);
+    border-radius: 4px 4px 2px 2px;
+}
+/* Center Gold Button & Swinging Gold Tassel */
+.chuti-mortarboard-btn {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 6px var(--gold);
+    z-index: 20;
+}
+.chuti-tassel {
+    position: absolute;
+    top: 7px;
+    left: 50%;
+    width: 24px;
+    height: 22px;
+    border-top: 2px solid var(--gold);
+    border-right: 2px solid var(--gold);
+    border-top-right-radius: 10px;
+    transform-origin: top left;
+    animation: tasselSwing 2.6s ease-in-out infinite alternate;
+    z-index: 21;
+}
+.chuti-tassel::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    right: -4px;
+    width: 6px;
+    height: 8px;
+    background: linear-gradient(to bottom, #fde047, #d97706);
+    clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+    box-shadow: 0 0 6px var(--gold);
+}
+@keyframes tasselSwing {
+    0% { transform: rotate(-5deg); }
+    100% { transform: rotate(8deg); }
 }
 
-.chuti-antenna {
-    position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
-    width: 3px; height: 11px;
-    background: linear-gradient(to top, #64748b, #cbd5e1);
-    z-index: 9;
+/* Fluffy Silver Einstein/Professor Side Hair Tufts */
+.chuti-prof-hair {
+    position: absolute;
+    top: 12px;
+    width: 13px;
+    height: 16px;
+    background: radial-gradient(circle, #ffffff 30%, #cbd5e1 100%);
+    border-radius: 50%;
+    z-index: 8;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
 }
-.chuti-antenna::after {
-    content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%);
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--secondary);
-    box-shadow: 0 0 10px var(--secondary), 0 0 18px #fff;
-    animation: antennaPulse 1.5s infinite alternate;
+.chuti-prof-hair.left {
+    left: -8px;
+    border-radius: 60% 40% 50% 70%;
+    transform: rotate(-18deg);
 }
-@keyframes antennaPulse {
-    0% { transform: translateX(-50%) scale(0.85); opacity: 0.7; }
-    100% { transform: translateX(-50%) scale(1.2); opacity: 1; }
+.chuti-prof-hair.right {
+    right: -8px;
+    border-radius: 40% 60% 70% 50%;
+    transform: rotate(18deg);
 }
 
+/* =========================================================
+   PROFESSOR LAB COAT, RED BOW-TIE & POCKET PROTECTOR BODY
+   ========================================================= */
 .chuti-body {
-    position: absolute; top: 50px; left: 50%; margin-left: -21px;
-    width: 42px; height: 36px;
-    background: linear-gradient(145deg, #f8fafc 0%, #cbd5e1 45%, #475569 100%);
-    border-radius: 16px 16px 14px 14px; border: 1.5px solid rgba(0, 255, 204, 0.45);
-    box-shadow: inset 0 -4px 8px rgba(0,0,0,0.4), 0 5px 15px rgba(0,0,0,0.4);
+    position: absolute; top: 56px; left: 50%; margin-left: -25px;
+    width: 50px; height: 42px;
+    background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 60%, #cbd5e1 100%);
+    border-radius: 14px 14px 16px 16px;
+    border: 1.5px solid #94a3b8;
+    box-shadow: inset 0 -4px 8px rgba(0,0,0,0.25), 0 6px 16px rgba(0,0,0,0.5);
     display: flex; align-items: center; justify-content: center; z-index: 5;
+    overflow: hidden;
+}
+
+/* Inner Tweed Vest V-Neck */
+.chuti-vest {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 18px;
+    height: 100%;
+    background: linear-gradient(to bottom, #1e293b, #0f172a);
+    border-left: 1.5px solid #e2e8f0;
+    border-right: 1.5px solid #e2e8f0;
+}
+
+/* Lab Coat V-Lapels */
+.chuti-lapel {
+    position: absolute;
+    top: -2px;
+    width: 14px;
+    height: 24px;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    z-index: 6;
+}
+.chuti-lapel.left {
+    left: 7px;
+    transform: rotate(-18deg);
+    border-radius: 0 0 4px 0;
+}
+.chuti-lapel.right {
+    right: 7px;
+    transform: rotate(18deg);
+    border-radius: 0 0 0 4px;
+}
+
+/* Professor Red Bow-Tie at Collar */
+.chuti-bowtie {
+    position: absolute;
+    top: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 8px;
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.chuti-bowtie::before, .chuti-bowtie::after {
+    content: '';
+    width: 7px;
+    height: 7px;
+    background: linear-gradient(135deg, #ef4444, #991b1b);
+    border: 0.5px solid #fca5a5;
+}
+.chuti-bowtie::before {
+    clip-path: polygon(0 0, 100% 25%, 100% 75%, 0 100%);
+    border-radius: 2px 0 0 2px;
+}
+.chuti-bowtie::after {
+    clip-path: polygon(0 25%, 100% 0, 100% 100%, 0 75%);
+    border-radius: 0 2px 2px 0;
+}
+.chuti-bowtie-knot {
+    width: 3.5px;
+    height: 4.5px;
+    background: #dc2626;
+    border-radius: 2px;
+    z-index: 10;
+    box-shadow: 0 0 4px rgba(239,68,68,0.6);
+}
+
+/* Lab Coat Pocket Protector with 3 Colored Pens */
+.chuti-pocket {
+    position: absolute;
+    bottom: 7px;
+    right: 4px;
+    width: 10px;
+    height: 11px;
+    background: #f8fafc;
+    border: 1px solid #94a3b8;
+    border-top: 2px solid #3b82f6;
+    border-radius: 1px 1px 3px 3px;
+    z-index: 8;
+}
+.chuti-pocket::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 1px;
+    width: 2px;
+    height: 4px;
+    background: #ef4444;
+    box-shadow: 3px 0 0 #22c55e, 6px 0 0 #eab308;
+    border-radius: 1px;
 }
 
 .chuti-core {
-    width: 15px; height: 15px;
-    background: radial-gradient(circle, #ffffff 15%, var(--secondary) 60%, #0284c7 100%);
+    width: 14px; height: 14px;
+    margin-top: 8px;
+    background: radial-gradient(circle, #ffffff 18%, var(--secondary) 58%, #0284c7 100%);
     border-radius: 50%;
     border: 1.5px solid #0f172a;
     box-shadow: 0 0 14px var(--secondary), inset 0 0 4px #fff;
     animation: heartBeat 1.8s infinite;
+    position: relative;
+    z-index: 8;
 }
 
 .chuti-head {
-    position: absolute; top: 6px; left: 50%; margin-left: -32px;
-    width: 64px; height: 44px;
+    position: absolute; top: 10px; left: 50%; margin-left: -34px;
+    width: 68px; height: 46px;
     background: linear-gradient(145deg, #ffffff 0%, #e2e8f0 55%, #64748b 100%);
-    border-radius: 24px 24px 20px 20px; border: 1.5px solid rgba(0, 255, 204, 0.55);
-    box-shadow: 0 6px 14px rgba(0,0,0,0.5), inset 0 2px 6px #fff;
+    border-radius: 25px 25px 21px 21px; border: 1.5px solid rgba(251, 191, 36, 0.7);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.55), inset 0 2px 6px #fff;
     z-index: 10; display: flex; justify-content: center; align-items: center;
     will-change: transform; transform-origin: center bottom;
 }
 
 .chuti-visor {
-    width: 84%; height: 27px; background: radial-gradient(circle at 50% 30%, #0f172a, #020617);
-    border-radius: 13px; border: 1.5px solid #334155;
-    box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.2);
+    width: 86%; height: 30px; background: radial-gradient(circle at 50% 30%, #0f172a, #020617);
+    border-radius: 14px; border: 1.5px solid #334155;
+    box-shadow: inset 0 0 12px rgba(0, 255, 204, 0.25);
     display: flex; flex-direction: column; justify-content: center; align-items: center;
-    overflow: hidden; position: relative;
+    overflow: visible; position: relative;
 }
 
-.chuti-visor::before {
-    content: ''; position: absolute; top: 2px; left: 8px;
-    width: 45%; height: 4px; border-radius: 4px;
-    background: linear-gradient(90deg, rgba(255,255,255,0.35), transparent);
+/* =========================================================
+   GOLD-RIMMED PROFESSOR SPECTACLES (GLASSES) & MUSTACHE
+   ========================================================= */
+.chuti-glasses {
+    position: absolute;
+    top: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 48px;
+    height: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 15;
     pointer-events: none;
 }
+.chuti-lens {
+    width: 20px;
+    height: 16px;
+    border: 1.8px solid var(--gold);
+    border-radius: 50% 50% 46% 46%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(251,191,36,0.05) 50%, transparent 100%);
+    box-shadow: 0 0 6px rgba(251, 191, 36, 0.45), inset 0 1px 2px rgba(255,255,255,0.5);
+}
+.chuti-glasses-bridge {
+    width: 8px;
+    height: 2px;
+    background: var(--gold);
+    margin-top: -2px;
+    box-shadow: 0 0 4px var(--gold);
+}
 
-.chuti-eyes-container { display: flex; gap: 13px; will-change: transform; align-items: center; }
+/* Cute Silver Professor Mustache below Eyes */
+.chuti-mustache {
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 26px;
+    height: 7px;
+    z-index: 16;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+}
+.chuti-mustache::before, .chuti-mustache::after {
+    content: '';
+    width: 13px;
+    height: 6px;
+    background: linear-gradient(to bottom, #ffffff, #cbd5e1);
+    border: 0.5px solid #94a3b8;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.chuti-mustache::before {
+    border-radius: 8px 4px 2px 8px;
+    transform: rotate(-10deg) translateX(1px);
+}
+.chuti-mustache::after {
+    border-radius: 4px 8px 8px 2px;
+    transform: rotate(10deg) translateX(-1px);
+}
+
+.chuti-eyes-container { display: flex; gap: 14px; will-change: transform; align-items: center; margin-top: -2px; }
 
 .chuti-eye {
-    width: 9px; height: 12px; background: var(--secondary);
+    width: 9px; height: 11px; background: var(--secondary);
     border-radius: 10px; box-shadow: 0 0 10px var(--secondary), 0 0 18px #fff;
     animation: cuteBlink 4s infinite;
     position: relative;
 }
 
 .chuti-eye::after {
-    content: ''; position: absolute; top: 2px; right: 2px;
+    content: ''; position: absolute; top: 1.5px; right: 1.5px;
     width: 3px; height: 3px; border-radius: 50%; background: #fff;
 }
 
 #chuti-bot.mood-happy .chuti-eye {
     height: 6px; border-radius: 10px 10px 2px 2px;
-    background: #22c55e; box-shadow: 0 0 12px #22c55e;
+    background: #22c55e; box-shadow: 0 0 14px #22c55e;
 }
-#chuti-bot.mood-thinking .chuti-eye:first-child { height: 6px; }
-#chuti-bot.mood-thinking .chuti-eye:last-child { height: 13px; background: #38bdf8; }
+#chuti-bot.mood-thinking .chuti-eye:first-child { height: 5px; background: #fbbf24; box-shadow: 0 0 12px #fbbf24; }
+#chuti-bot.mood-thinking .chuti-eye:last-child { height: 11px; background: #fbbf24; box-shadow: 0 0 12px #fbbf24; }
+
+#chuti-bot.mood-listening .chuti-eye {
+    background: #f43f5e; box-shadow: 0 0 15px #f43f5e;
+    transform: scale(1.15);
+}
+#chuti-bot.mood-cyber .chuti-eye {
+    width: 11px; height: 5px; border-radius: 2px;
+    background: #a855f7; box-shadow: 0 0 14px #a855f7;
+}
+#chuti-bot.mood-love .chuti-eye {
+    background: #ec4899; box-shadow: 0 0 15px #ec4899;
+    border-radius: 50% 50% 40% 40%;
+}
 
 .chuti-voice-wave {
-    display: flex; gap: 2px; align-items: center; height: 4px; margin-top: 2px; opacity: 0.4;
+    display: flex; gap: 2.5px; align-items: center; height: 4px; margin-top: 1px; opacity: 0.45;
 }
 .chuti-voice-wave span {
-    width: 2.5px; height: 2px; background: var(--secondary); border-radius: 2px;
+    width: 2px; height: 2px; background: var(--secondary); border-radius: 2px;
     transition: height 0.15s ease;
 }
-#chuti-bot.is-talking .chuti-voice-wave { opacity: 1; }
-#chuti-bot.is-talking .chuti-voice-wave span {
-    animation: voiceWaveAnim 0.35s infinite alternate;
+#chuti-bot.is-talking .chuti-voice-wave,
+#chuti-bot.mood-listening .chuti-voice-wave { opacity: 1; }
+#chuti-bot.is-talking .chuti-voice-wave span,
+#chuti-bot.mood-listening .chuti-voice-wave span {
+    animation: voiceWaveAnim 0.3s infinite alternate;
 }
-#chuti-bot.is-talking .chuti-voice-wave span:nth-child(2) { animation-delay: 0.1s; }
-#chuti-bot.is-talking .chuti-voice-wave span:nth-child(3) { animation-delay: 0.2s; }
 @keyframes voiceWaveAnim { 0% { height: 2px; } 100% { height: 6px; } }
 
-.chuti-cheek { position: absolute; bottom: 3px; width: 7px; height: 3.5px; background: rgba(244,63,94,0.75); border-radius: 5px; filter: blur(1px); }
-.chuti-cheek.left { left: 5px; }
-.chuti-cheek.right { right: 5px; }
-
 .chuti-ear {
-    position: absolute; top: 13px; width: 7px; height: 16px;
-    background: linear-gradient(to bottom, var(--secondary), #0284c7);
-    border-radius: 4px; box-shadow: 0 0 8px rgba(0, 255, 204, 0.5);
+    position: absolute; top: 15px; width: 6px; height: 15px;
+    background: linear-gradient(to bottom, var(--gold), #b45309);
+    border-radius: 4px; box-shadow: 0 0 8px rgba(251, 191, 36, 0.5);
 }
-.chuti-ear.left { left: -6px; border-radius: 6px 0 0 6px; }
-.chuti-ear.right { right: -6px; border-radius: 0 6px 6px 0; }
+.chuti-ear.left { left: -5px; border-radius: 6px 0 0 6px; }
+.chuti-ear.right { right: -5px; border-radius: 0 6px 6px 0; }
 
+/* White Lab Coat Sleeves on Robot Arms */
 .chuti-arm {
-    position: absolute; top: 53px; width: 11px; height: 25px;
-    background: linear-gradient(145deg, #f1f5f9, #64748b);
-    border-radius: 8px; border: 1.5px solid rgba(0, 255, 204, 0.4); z-index: 6;
+    position: absolute; top: 58px; width: 11px; height: 27px;
+    background: linear-gradient(145deg, #ffffff, #cbd5e1);
+    border-radius: 8px; border: 1.5px solid #94a3b8; z-index: 6;
     animation: armSwing 3s ease-in-out infinite;
 }
-.chuti-arm.left { left: 6px; transform-origin: top center; }
-.chuti-arm.right { right: 6px; transform-origin: top center; animation-delay: 1.5s; }
+.chuti-arm.left { left: 7px; transform-origin: top center; }
+.chuti-arm.right { right: 7px; transform-origin: top center; animation-delay: 1.5s; }
+
+/* Glowing Bubbling Erlenmeyer Flask in Professor Robot's Left Hand */
+.chuti-flask {
+    position: absolute;
+    bottom: -10px;
+    left: -5px;
+    width: 18px;
+    height: 20px;
+    clip-path: polygon(35% 0%, 65% 0%, 65% 28%, 100% 100%, 0% 100%, 35% 28%);
+    background: linear-gradient(to bottom, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.2) 45%, #00ffcc 48%, #10b981 100%);
+    border: 1px solid rgba(255,255,255,0.8);
+    filter: drop-shadow(0 0 8px rgba(0, 255, 204, 0.8));
+    animation: flaskGlow 2s infinite alternate;
+}
+@keyframes flaskGlow {
+    0% { filter: drop-shadow(0 0 5px rgba(0, 255, 204, 0.6)); }
+    100% { filter: drop-shadow(0 0 12px rgba(0, 255, 204, 1)); }
+}
+
+/* Pointer Stick in Right Hand */
+.chuti-pointer-stick {
+    position: absolute;
+    bottom: 2px;
+    right: -12px;
+    width: 18px;
+    height: 2.5px;
+    background: linear-gradient(to right, #d97706, #fef08a);
+    border-radius: 2px;
+    transform: rotate(-30deg);
+    transform-origin: left center;
+}
 
 .chuti-leg {
     position: absolute; bottom: 4px; width: 12px; height: 16px;
     background: linear-gradient(to bottom, #334155, #0f172a);
     border-radius: 4px 4px 8px 8px;
-    border: 1px solid var(--secondary); z-index: 4;
+    border: 1px solid var(--gold); z-index: 4;
     animation: legDangle 3s ease-in-out infinite;
 }
 .chuti-leg::after {
-    content: ''; position: absolute; bottom: -7px; left: 50%; transform: translateX(-50%);
-    width: 6px; height: 7px; border-radius: 0 0 50% 50%;
-    background: linear-gradient(to bottom, #00ffcc, transparent);
+    content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
+    width: 7px; height: 9px; border-radius: 0 0 50% 50%;
+    background: linear-gradient(to bottom, #00ffcc, #3b82f6, transparent);
     filter: blur(1px);
+    animation: thrusterFlame 0.25s infinite alternate;
 }
-.chuti-leg.left { left: 24px; transform-origin: top center; }
-.chuti-leg.right { right: 24px; transform-origin: top center; animation-delay: 1.5s; }
+@keyframes thrusterFlame { 0% { height: 7px; opacity: 0.75; } 100% { height: 11px; opacity: 1; } }
 
-#chuti-bot.tora-active .chuti-name { color: #00ffcc; border-color: #00ffcc; box-shadow: 0 0 12px rgba(0,255,204,0.4); } 
-#chuti-bot.tora-active .chuti-head { border-color: #00ffcc; box-shadow: 0 0 20px rgba(0,255,204,0.35), inset 0 2px 6px #fff; }
-#chuti-bot.tora-active .chuti-body { border-color: #00ffcc; }
-#chuti-bot.tora-active .chuti-arm.right { animation: waveHand 0.6s ease-in-out infinite alternate; }
+.chuti-leg.left { left: 28px; transform-origin: top center; }
+.chuti-leg.right { right: 28px; transform-origin: top center; animation-delay: 1.5s; }
+
+#chuti-bot.tora-active .chuti-name { color: #00ffcc; border-color: #00ffcc; box-shadow: 0 0 14px rgba(0,255,204,0.45); } 
+#chuti-bot.tora-active .chuti-head { border-color: #00ffcc; box-shadow: 0 0 22px rgba(0,255,204,0.4), inset 0 2px 6px #fff; }
+#chuti-bot.tora-active .chuti-arm.right { animation: waveHand 0.55s ease-in-out infinite alternate; }
 
 @keyframes waveHand {
-    0% { transform: rotate(-25deg); }
-    100% { transform: rotate(-115deg); }
+    0% { transform: rotate(-20deg); }
+    100% { transform: rotate(-110deg); }
 }
 
 @keyframes chutiFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
-@keyframes chutiShadowPulse { 0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.8; } 50% { transform: translateX(-50%) scale(0.68); opacity: 0.35; } }
+@keyframes chutiShadowPulse { 0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.85; } 50% { transform: translateX(-50%) scale(0.68); opacity: 0.35; } }
 @keyframes cuteBlink { 0%, 90%, 94%, 100% { transform: scaleY(1); } 92%, 96% { transform: scaleY(0.1); } }
-@keyframes heartBeat { 0%, 100% { transform: scale(1); opacity: 0.85; } 50% { transform: scale(1.18); opacity: 1; box-shadow: 0 0 18px var(--secondary); } }
+@keyframes heartBeat { 0%, 100% { transform: scale(1); opacity: 0.85; } 50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 20px var(--secondary); } }
 @keyframes armSwing { 0%, 100% { transform: rotate(10deg); } 50% { transform: rotate(-10deg); } }
 @keyframes legDangle { 0%, 100% { transform: rotate(5deg); } 50% { transform: rotate(-5deg); } }
 
-/* =========================================
-   ADVANCED TORA 2.0 CHAT PANEL
-   ========================================= */
+/* ===================================================
+   PROF. TORA 4.0 — CHEMTECH QUANTUM AI COMMAND PANEL
+   =================================================== */
 .tora-chat-panel {
     position: fixed;
-    bottom: 145px; right: 30px;
-    width: 360px; height: 500px;
-    background: rgba(4, 9, 24, 0.96);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 255, 204, 0.4);
-    border-radius: 20px;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.85), 0 0 35px rgba(0,255,204,0.15);
+    bottom: 155px; right: 28px;
+    width: 405px; height: 575px;
+    background: rgba(5, 10, 25, 0.97);
+    backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+    border: 1px solid rgba(251, 191, 36, 0.45);
+    border-radius: 22px;
+    box-shadow: 0 28px 70px rgba(0,0,0,0.92), 0 0 42px rgba(0,255,204,0.18);
     font-family: 'Space Grotesk', sans-serif;
     opacity: 0; pointer-events: none;
-    transform: translateY(20px) scale(0.92);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateY(22px) scale(0.92);
+    transition: all 0.38s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 2000;
     display: flex; flex-direction: column; overflow: hidden;
+    cursor: default;
 }
 .tora-chat-panel.show { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
 
+.tora-chat-panel.expanded {
+    width: min(720px, 95vw);
+    height: min(80vh, 720px);
+    bottom: 150px;
+    right: 28px;
+}
+
 .tora-header {
     display: flex; align-items: center; gap: 10px;
-    padding: 13px 15px;
-    background: linear-gradient(90deg, rgba(0,255,204,0.1), rgba(59,130,246,0.08));
-    border-bottom: 1px solid rgba(0,255,204,0.2);
+    padding: 12px 14px;
+    background: linear-gradient(90deg, rgba(251,191,36,0.14), rgba(0,255,204,0.12), rgba(59,130,246,0.08));
+    border-bottom: 1px solid rgba(251,191,36,0.28);
     flex-shrink: 0;
 }
 .tora-avatar {
-    width: 34px; height: 34px; border-radius: 10px;
-    background: linear-gradient(135deg, #00ffcc, #3b82f6);
+    width: 36px; height: 36px; border-radius: 11px;
+    background: linear-gradient(135deg, #fbbf24, #00ffcc);
     display: flex; align-items: center; justify-content: center;
-    font-size: 16px; box-shadow: 0 0 12px rgba(0,255,204,0.45); flex-shrink: 0;
+    font-size: 18px; box-shadow: 0 0 14px rgba(251,191,36,0.45); flex-shrink: 0;
+    position: relative;
 }
-.tora-header-name { font-family: 'Syncopate', sans-serif; font-size: 11px; font-weight: 600; color: #fff; letter-spacing: 1px; }
-.tora-header-status { font-size: 10.5px; color: var(--secondary); margin-top: 2px; }
-.tora-header-info { flex: 1; }
+.tora-avatar::after {
+    content: ''; position: absolute; bottom: -2px; right: -2px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: #22c55e; border: 2px solid #050a19;
+}
+.tora-header-name {
+    font-family: 'Syncopate', sans-serif; font-size: 10px; font-weight: 700;
+    color: #fff; letter-spacing: 1.1px; display: flex; align-items: center; gap: 6px;
+}
+.tora-ver-badge {
+    font-family: 'JetBrains Mono', monospace; font-size: 8.5px;
+    background: rgba(251,191,36,0.18); color: var(--gold);
+    border: 1px solid rgba(251,191,36,0.5); padding: 1px 6px; border-radius: 5px;
+}
+.tora-header-status { font-size: 10px; color: var(--secondary); margin-top: 2px; }
+.tora-header-info { flex: 1; min-width: 0; }
 
+.tora-header-actions { display: flex; gap: 5px; align-items: center; }
 .tora-icon-btn {
-    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-    color: #94a3b8; cursor: pointer;
-    font-size: 13px; padding: 4px 8px; border-radius: 8px; transition: all 0.2s; line-height: 1;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,204,0.12);
+    color: #cbd5e1; cursor: pointer;
+    font-size: 12.5px; width: 28px; height: 28px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; line-height: 1;
 }
-.tora-icon-btn:hover { color: #fff; border-color: var(--secondary); background: rgba(0,255,204,0.12); }
-.tora-close-btn:hover { color: #ef4444; border-color: #ef4444; background: rgba(239,68,68,0.12); }
+.tora-icon-btn:hover { color: #fff; border-color: var(--secondary); background: rgba(0,255,204,0.15); transform: translateY(-1px); }
+.tora-close-btn:hover { color: #ef4444; border-color: #ef4444; background: rgba(239,68,68,0.15); }
+
+.tora-telemetry-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 10px;
+    background: rgba(2, 6, 23, 0.85);
+    border-bottom: 1px solid rgba(0, 255, 204, 0.14);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px; color: #94a3b8;
+    flex-shrink: 0;
+    gap: 5px;
+}
+.tora-mode-pills { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.tora-mode-pills::-webkit-scrollbar { display: none; }
+.t-mode-pill {
+    padding: 3px 8px; border-radius: 6px; cursor: pointer;
+    border: 1px solid rgba(0,255,204,0.2); background: rgba(0,255,204,0.05);
+    color: #cbd5e1; font-size: 9.5px; font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600; transition: all 0.2s; white-space: nowrap;
+}
+.t-mode-pill.active, .t-mode-pill:hover {
+    background: rgba(0, 255, 204, 0.2);
+    border-color: var(--secondary);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0,255,204,0.25);
+}
 
 .tora-messages {
     flex: 1; overflow-y: auto;
-    padding: 14px 12px; display: flex; flex-direction: column; gap: 10px;
+    padding: 14px 12px; display: flex; flex-direction: column; gap: 11px;
     scroll-behavior: smooth;
 }
 .tora-messages::-webkit-scrollbar { width: 4px; }
 .tora-messages::-webkit-scrollbar-track { background: transparent; }
 .tora-messages::-webkit-scrollbar-thumb { background: rgba(0,255,204,0.3); border-radius: 99px; }
 
-.t-msg { display: flex; gap: 8px; align-items: flex-end; animation: msgPop 0.3s cubic-bezier(0.22,1,0.36,1) both; }
+.t-msg { display: flex; gap: 8px; align-items: flex-end; animation: msgPop 0.28s cubic-bezier(0.22,1,0.36,1) both; }
 @keyframes msgPop { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
 .t-msg.user { flex-direction: row-reverse; }
 
-.t-msg-icon { width: 25px; height: 25px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; }
-.t-msg-icon.bot { background: linear-gradient(135deg, #00ffcc, #3b82f6); color: #020617; }
-.t-msg-icon.user { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); }
+.t-msg-icon { width: 26px; height: 26px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+.t-msg-icon.bot { background: linear-gradient(135deg, #fbbf24, #00ffcc); color: #020617; box-shadow: 0 0 10px rgba(251,191,36,0.35); }
+.t-msg-icon.user { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); }
 
 .t-bubble {
-    max-width: 84%; padding: 9px 13px; border-radius: 13px;
-    font-size: 12.5px; line-height: 1.55; word-break: break-word;
+    max-width: 87%; padding: 10px 13px; border-radius: 14px;
+    font-size: 12.5px; line-height: 1.58; word-break: break-word;
+    position: relative;
 }
 .t-msg.bot .t-bubble {
-    background: rgba(15, 23, 42, 0.92);
-    border: 1px solid rgba(0, 255, 204, 0.22);
+    background: rgba(15, 23, 42, 0.95);
+    border: 1px solid rgba(0, 255, 204, 0.26);
     color: #f1f5f9; border-bottom-left-radius: 3px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4);
 }
 .t-msg.user .t-bubble {
     background: linear-gradient(135deg, #00ffcc, #10b981);
@@ -401,20 +790,75 @@ body {
 }
 
 .t-wiki-badge {
-    display: inline-block; font-size: 9.5px; letter-spacing: 1px;
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 9.5px; letter-spacing: 0.8px; font-weight: 700;
     text-transform: uppercase; color: #38bdf8;
-    background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3);
-    padding: 2px 7px; border-radius: 6px; margin-bottom: 5px;
+    background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35);
+    padding: 2px 8px; border-radius: 6px; margin-bottom: 6px;
+}
+.t-chem-badge {
+    color: #fbbf24; background: rgba(251, 191, 36, 0.14); border-color: rgba(251, 191, 36, 0.45);
+}
+.t-pubchem-img-wrap {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 8px;
+    margin: 7px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid rgba(0, 255, 204, 0.45);
+    box-shadow: 0 0 18px rgba(0, 255, 204, 0.15);
+}
+.t-pubchem-img {
+    max-width: 100%;
+    max-height: 155px;
+    object-fit: contain;
+    display: block;
+}
+.t-reaction-box {
+    background: rgba(2, 6, 23, 0.85);
+    border: 1px solid rgba(0, 255, 204, 0.4);
+    border-left: 3px solid var(--secondary);
+    border-radius: 8px;
+    padding: 8px 11px;
+    margin: 6px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #f8fafc;
+    overflow-x: auto;
+}
+.t-coeff {
+    color: #00ffcc;
+    font-weight: 700;
+    font-size: 13px;
 }
 
+.t-card-grid {
+    display: grid; gap: 6px; margin-top: 7px;
+}
+.t-mini-card {
+    background: rgba(2, 6, 23, 0.72);
+    border: 1px solid rgba(0, 255, 204, 0.22);
+    border-radius: 9px; padding: 8px 10px;
+}
+.t-mini-card-title { font-weight: 700; color: var(--secondary); font-size: 11.5px; }
+.t-mini-card-sub { font-size: 11px; color: #cbd5e1; margin-top: 3px; line-height: 1.45; }
+
+.t-mass-bar-wrap { margin-top: 5px; }
+.t-mass-bar-label { display: flex; justify-content: space-between; font-size: 10.5px; font-family: 'JetBrains Mono', monospace; color: #cbd5e1; }
+.t-mass-bar-bg { width: 100%; height: 5px; background: rgba(255,255,255,0.08); border-radius: 99px; overflow: hidden; margin-top: 2px; }
+.t-mass-bar-fill { height: 100%; background: linear-gradient(90deg, #00ffcc, #3b82f6); border-radius: 99px; }
+
 .t-action-btn {
-    display: inline-block; margin-top: 7px; padding: 4px 10px;
+    display: inline-flex; align-items: center; gap: 4px;
+    margin-top: 7px; margin-right: 5px; padding: 5px 11px;
     background: rgba(0, 255, 204, 0.14); border: 1px solid var(--secondary);
     color: var(--secondary); border-radius: 8px; font-size: 11px;
     font-weight: 600; cursor: pointer; text-decoration: none;
-    transition: all 0.2s;
+    transition: all 0.2s; font-family: 'Space Grotesk', sans-serif;
 }
-.t-action-btn:hover { background: var(--secondary); color: #020617; }
+.t-action-btn:hover { background: var(--secondary); color: #020617; transform: translateY(-1px); }
 
 .typing-dots { background: rgba(15,23,42,0.9); border: 1px solid rgba(0,255,204,0.22); border-radius: 12px; border-bottom-left-radius: 3px; padding: 10px 14px; display: flex; gap: 4px; align-items: center; }
 .typing-dots span { width: 5px; height: 5px; background: var(--secondary); border-radius: 50%; animation: dotBounce 1.1s infinite; }
@@ -422,24 +866,41 @@ body {
 .typing-dots span:nth-child(3) { animation-delay: 0.36s; }
 @keyframes dotBounce { 0%,60%,100% { transform: translateY(0); opacity:0.4; } 30% { transform: translateY(-5px); opacity:1; } }
 
+.tora-slash-menu {
+    display: none;
+    background: rgba(6, 13, 30, 0.98);
+    border-top: 1px solid rgba(0, 255, 204, 0.3);
+    padding: 6px 10px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+.tora-slash-menu.show { display: block; }
+.t-slash-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 5px 8px; border-radius: 7px; cursor: pointer;
+    font-size: 11px; color: #e2e8f0;
+}
+.t-slash-item:hover { background: rgba(0, 255, 204, 0.16); color: var(--secondary); }
+.t-slash-cmd { font-family: 'JetBrains Mono', monospace; color: var(--secondary); font-weight: 600; }
+
 .tora-chips {
-    display: flex; gap: 6px; overflow-x: auto; padding: 4px 12px 9px;
+    display: flex; gap: 6px; overflow-x: auto; padding: 5px 12px 9px;
     scrollbar-width: none; flex-shrink: 0;
 }
 .tora-chips::-webkit-scrollbar { display: none; }
 .t-chip {
     font-size: 11px; padding: 5px 11px; border-radius: 99px;
-    background: rgba(0, 255, 204, 0.07); border: 1px solid rgba(0, 255, 204, 0.28);
+    background: rgba(0, 255, 204, 0.08); border: 1px solid rgba(0, 255, 204, 0.3);
     color: #a7f3d0; cursor: pointer; transition: all 0.2s; white-space: nowrap;
     font-family: 'Space Grotesk', sans-serif; flex-shrink: 0;
 }
-.t-chip:hover { background: rgba(0, 255, 204, 0.2); color: #fff; border-color: var(--secondary); transform: translateY(-1px); }
+.t-chip:hover { background: rgba(0, 255, 204, 0.24); color: #fff; border-color: var(--secondary); transform: translateY(-1px); }
 
-.tora-input-area { padding: 9px 11px 12px; border-top: 1px solid rgba(0,255,204,0.15); background: rgba(2,6,23,0.6); flex-shrink: 0; }
+.tora-input-area { padding: 8px 11px 11px; border-top: 1px solid rgba(0,255,204,0.16); background: rgba(2,6,23,0.78); flex-shrink: 0; }
 .tora-input-row {
-    display: flex; align-items: flex-end; gap: 7px;
-    background: rgba(15,23,42,0.9); border: 1px solid rgba(0,255,204,0.3);
-    border-radius: 12px; padding: 7px 9px 7px 13px;
+    display: flex; align-items: flex-end; gap: 6px;
+    background: rgba(15,23,42,0.94); border: 1px solid rgba(0,255,204,0.34);
+    border-radius: 13px; padding: 6px 8px 6px 12px;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 .tora-input-row:focus-within { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(0,255,204,0.12); }
@@ -447,8 +908,27 @@ body {
     flex: 1; background: transparent; border: none; outline: none;
     color: #f8fafc; font-family: 'Space Grotesk', sans-serif;
     font-size: 12.5px; resize: none; line-height: 1.5; max-height: 70px; overflow-y: auto;
+    padding: 3px 0;
 }
 #tora-input::placeholder { color: #64748b; }
+
+.tora-mic-btn {
+    width: 31px; height: 31px; border-radius: 9px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #cbd5e1; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    transition: all 0.2s; font-size: 13px;
+}
+.tora-mic-btn:hover { border-color: var(--secondary); color: #fff; background: rgba(0,255,204,0.15); }
+.tora-mic-btn.listening {
+    background: rgba(244, 63, 94, 0.25);
+    border-color: #f43f5e; color: #f43f5e;
+    box-shadow: 0 0 14px rgba(244, 63, 94, 0.6);
+    animation: micPulse 1s infinite alternate;
+}
+@keyframes micPulse { 0% { transform: scale(0.95); } 100% { transform: scale(1.08); } }
+
 .tora-send-btn {
     width: 31px; height: 31px; border-radius: 9px;
     background: linear-gradient(135deg, #00ffcc, #10b981);
@@ -545,7 +1025,7 @@ body {
         letter-spacing: 1.5px;
         z-index: 999;
     }
-    .chem-arena-section { height: 290px; }
+    .chem-arena-section { height: 300px; }
 
     #chuti-bot {
         bottom: 16px;
@@ -553,13 +1033,13 @@ body {
         transform: scale(0.86);
         transform-origin: bottom right;
     }
-    .tora-chat-panel {
+    .tora-chat-panel, .tora-chat-panel.expanded {
         right: 10px;
-        bottom: 120px;
+        bottom: 126px;
         width: calc(100vw - 20px);
-        max-width: 360px;
-        height: 68vh;
-        max-height: 460px;
+        max-width: 390px;
+        height: 72vh;
+        max-height: 520px;
     }
 }
 </style>
@@ -570,7 +1050,7 @@ body {
     <canvas id="starsCanvas"></canvas>
 </div>
 
-<!-- ========== REALISTIC PROFESSOR CHALKBOARD SECTION (NO EXTRA HUD TEXT) ========== -->
+<!-- ========== INTERACTIVE LECTURE HALL CHALKBOARD PROFESSOR SECTION ========== -->
 <section class="chem-arena-section" id="chemArenaSection">
     <canvas id="chemGalleryCanvas"></canvas>
 </section>
@@ -581,63 +1061,134 @@ body {
         <li><a href="#aboutme">About</a></li>
         <li><a href="#Projects">Showcase</a></li>
         <li><a href="#education">Qualifications</a></li>
+        <li><a href="#gallery">Gallery</a></li>
         <li><a href="#more">Skills</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
 </nav>
 
-<!-- ========== ADVANCED TORA 2.0 ROBOT + OMNI-BRAIN CHAT ========== -->
+<!-- ========== PROF. TORA 4.0 — CYBER-PROFESSOR CHEMTECH AI ========== -->
 <div id="chuti-bot">
+
+    <div class="tora-proactive-bubble" id="tora-proactive-bubble">
+        🎓 <strong>Prof. TORA 4.0:</strong> Click any molecule on the chalkboard or ask me to balance equations!
+    </div>
 
     <div class="tora-chat-panel" id="tora-chat-panel">
 
         <div class="tora-header">
-            <div class="tora-avatar">🤖</div>
+            <div class="tora-avatar">👨‍🔬</div>
             <div class="tora-header-info">
-                <div class="tora-header-name">TORA 2.0 · Omni-AI</div>
-                <div class="tora-header-status" id="tora-status-sub">● Global Knowledge + Malith AI Online</div>
+                <div class="tora-header-name">
+                    PROF. TORA <span class="tora-ver-badge">PhD · v4.0</span>
+                </div>
+                <div class="tora-header-status" id="tora-status-sub">● Stoichiometry · PubChem 2D · Electrochem · Malith AI</div>
             </div>
-            <button class="tora-icon-btn" id="tora-voice-btn" onclick="toggleVoice(event)" title="Toggle Robot Voice">🔊</button>
-            <button class="tora-icon-btn tora-close-btn" onclick="closeChat(event)" title="Close">✕</button>
+            <div class="tora-header-actions">
+                <button class="tora-icon-btn" id="tora-sfx-btn" onclick="toggleSfx(event)" title="Toggle Sci-Fi Audio">🔔</button>
+                <button class="tora-icon-btn" id="tora-voice-btn" onclick="toggleVoice(event)" title="Toggle Professor Voice">🔇</button>
+                <button class="tora-icon-btn" id="tora-expand-btn" onclick="toggleExpandChat(event)" title="Expand Lab View">⛶</button>
+                <button class="tora-icon-btn" onclick="clearToraChat(event)" title="Clear Lab Log">🗑️</button>
+                <button class="tora-icon-btn tora-close-btn" onclick="closeChat(event)" title="Close">✕</button>
+            </div>
+        </div>
+
+        <!-- Interactive Chemistry Lab Quick-Tools Bar -->
+        <div class="tora-telemetry-bar">
+            <div class="tora-mode-pills">
+                <span class="t-mode-pill active" onclick="askChip('Balance KMnO4 + HCl -> KCl + MnCl2 + H2O + Cl2')">⚖️ Balance Eq</span>
+                <span class="t-mode-pill" onclick="askChip('Structure of Caffeine')">🔬 2D Structure</span>
+                <span class="t-mode-pill" onclick="askChip('Prepare 250 mL of 0.1 M NaOH')">🧪 Prep Solution</span>
+                <span class="t-mode-pill" onclick="askChip('Cell Zn and Cu')">⚡ Electrochem</span>
+                <span class="t-mode-pill" onclick="askChip('IR 1715 cm-1')">📊 FTIR / UV-Vis</span>
+                <span class="t-mode-pill" onclick="askChip('/quiz')">🎯 Chem Quiz</span>
+            </div>
         </div>
 
         <div class="tora-messages" id="tora-messages"></div>
 
+        <!-- Slash Commands Quick Menu -->
+        <div class="tora-slash-menu" id="tora-slash-menu">
+            <div class="t-slash-item" onclick="runSlash('Balance KMnO4 + HCl -> KCl + MnCl2 + H2O + Cl2')"><span class="t-slash-cmd">/balance [eq]</span><span>Stoichiometric Matrix Equation Balancer</span></div>
+            <div class="t-slash-item" onclick="runSlash('Structure of Aspirin')"><span class="t-slash-cmd">/structure [name]</span><span>Live NIH PubChem 2D Structure &amp; IUPAC</span></div>
+            <div class="t-slash-item" onclick="runSlash('Prepare 250 mL of 0.1 M Na2CO3')"><span class="t-slash-cmd">/prep [V] [M] [F]</span><span>Lab Solution Grams &amp; Molarity Calculator</span></div>
+            <div class="t-slash-item" onclick="runSlash('Cell Zn and Ag')"><span class="t-slash-cmd">/cell [M1] [M2]</span><span>Galvanic E°cell, ΔG° &amp; Nernst Potential</span></div>
+            <div class="t-slash-item" onclick="runSlash('pH of 0.005 M H2SO4')"><span class="t-slash-cmd">/ph [M] [Acid/Base]</span><span>pH, pOH &amp; [H+] Activity Calculator</span></div>
+            <div class="t-slash-item" onclick="runSlash('Analyze K4[Fe(CN)6]')"><span class="t-slash-cmd">/mass [formula]</span><span>Molar Mass &amp; Elemental Mass %</span></div>
+        </div>
+
         <div class="tora-chips" id="tora-chips">
-            <span class="t-chip" onclick="askChip('Who is Malith?')">👋 Who is Malith?</span>
+            <span class="t-chip" onclick="askChip('Balance KMnO4 + HCl -> KCl + MnCl2 + H2O + Cl2')">⚖️ Balance KMnO₄ + HCl</span>
+            <span class="t-chip" onclick="askChip('Structure of Congo Red')">🔬 Congo Red 2D Structure</span>
+            <span class="t-chip" onclick="askChip('Prepare 250 mL of 0.1 M NaOH')">🧪 Prep 250mL 0.1M NaOH</span>
+            <span class="t-chip" onclick="askChip('Cell Zn and Cu')">⚡ Zn/Cu Galvanic Cell E°</span>
+            <span class="t-chip" onclick="askChip('Analyze K4[Fe(CN)6]')">🧮 Molar Mass K₄[Fe(CN)₆]</span>
+            <span class="t-chip" onclick="askChip('pH of 0.02 M H2SO4')">💧 pH of 0.02M H₂SO₄</span>
+            <span class="t-chip" onclick="askChip('Who is Malith?')">👨‍🔬 Malith &amp; SUSL ChemTech</span>
             <span class="t-chip" onclick="askChip('Tell me about Modern Pixels')">🎨 Modern Pixels</span>
-            <span class="t-chip" onclick="askChip('Tell me about his Chemistry degree')">🧪 Chemistry Degree</span>
-            <span class="t-chip" onclick="askChip('What are his top projects?')">🚀 Top Projects</span>
-            <span class="t-chip" onclick="askChip('What is Quantum Computing?')">⚛️ Quantum Computing</span>
-            <span class="t-chip" onclick="askChip('Tell me about Gold element')">🪙 Element Gold (Au)</span>
-            <span class="t-chip" onclick="askChip('How can I hire or contact him?')">📬 Hire / Contact</span>
         </div>
 
         <div class="tora-input-area">
             <div class="tora-input-row">
-                <textarea id="tora-input" rows="1" placeholder="Ask anything in the world, Chemistry, Math, or Malith…"
-                    onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
-                <button class="tora-send-btn" onclick="handleTyped()">
+                <textarea id="tora-input" rows="1" placeholder="Ask Prof. TORA: reaction (Fe+O2->Fe2O3), Caffeine, prep 250mL 0.1M NaOH…"
+                    onkeydown="handleKey(event)" oninput="handleInputChange(this)"></textarea>
+                <button class="tora-mic-btn" id="tora-mic-btn" onclick="toggleSpeechRecognition(event)" title="Voice Input">🎙️</button>
+                <button class="tora-send-btn" onclick="handleTyped()" title="Execute">
                     <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
                 </button>
             </div>
         </div>
     </div>
 
-    <div class="chuti-name" id="tora-name">TORA 2.0</div>
+    <!-- ========== CYBER-PROFESSOR ROBOT BODY ========== -->
+    <div class="chuti-name" id="tora-name">PROF. TORA</div>
     <div class="chuti-halo"></div>
+    <div class="chuti-halo-inner"></div>
     <div class="chuti-shadow"></div>
     <div class="chuti-wrapper">
-        <div class="chuti-arm left"></div>
-        <div class="chuti-arm right"></div>
+        <!-- Left Arm holding Glowing Erlenmeyer Flask -->
+        <div class="chuti-arm left">
+            <div class="chuti-flask"></div>
+        </div>
+        <!-- Right Arm with Lecture Pointer -->
+        <div class="chuti-arm right">
+            <div class="chuti-pointer-stick"></div>
+        </div>
         <div class="chuti-leg left"></div>
         <div class="chuti-leg right"></div>
-        <div class="chuti-body"><div class="chuti-core"></div></div>
+
+        <!-- Lab Coat Body + Tweed Vest + Red Bow-Tie + Pocket Protector -->
+        <div class="chuti-body">
+            <div class="chuti-vest"></div>
+            <div class="chuti-lapel left"></div>
+            <div class="chuti-lapel right"></div>
+            <div class="chuti-bowtie"><div class="chuti-bowtie-knot"></div></div>
+            <div class="chuti-core"></div>
+            <div class="chuti-pocket"></div>
+        </div>
+
+        <!-- Professor Head with Mortarboard Cap, Fluffy Hair, Gold Glasses & Mustache -->
         <div class="chuti-head" id="chuti-head">
-            <div class="chuti-antenna"></div>
+            <!-- Academic Mortarboard Cap + Swinging Gold Tassel -->
+            <div class="chuti-mortarboard">
+                <div class="chuti-mortarboard-top"></div>
+                <div class="chuti-mortarboard-base"></div>
+                <div class="chuti-mortarboard-btn"></div>
+                <div class="chuti-tassel"></div>
+            </div>
+            <!-- Silver Einstein Side Hair Tufts -->
+            <div class="chuti-prof-hair left"></div>
+            <div class="chuti-prof-hair right"></div>
+
             <div class="chuti-ear left"></div>
             <div class="chuti-ear right"></div>
             <div class="chuti-visor">
+                <!-- Gold-Rimmed Professor Glasses -->
+                <div class="chuti-glasses">
+                    <div class="chuti-lens"></div>
+                    <div class="chuti-glasses-bridge"></div>
+                    <div class="chuti-lens"></div>
+                </div>
                 <div class="chuti-eyes-container" id="chuti-eyes">
                     <div class="chuti-eye"></div>
                     <div class="chuti-eye"></div>
@@ -645,8 +1196,8 @@ body {
                 <div class="chuti-voice-wave">
                     <span></span><span></span><span></span><span></span>
                 </div>
-                <div class="chuti-cheek left"></div>
-                <div class="chuti-cheek right"></div>
+                <!-- Silver Professor Mustache -->
+                <div class="chuti-mustache"></div>
             </div>
         </div>
     </div>
@@ -656,6 +1207,7 @@ body {
 
 <iframe id="Projects"  src="Projects.html"  class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
 <iframe id="education" src="Education.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
+<iframe id="gallery"   src="Gallery.html"   class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
 <iframe id="more"      src="Skills.html"    class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
 <iframe id="contact"   src="Contact.html"   class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
 
@@ -728,25 +1280,27 @@ function resizeIframe(obj) {
     animateStars();
 })();
 
-// =========================================================================
-// 2. REALISTIC PROFESSOR CHALKBOARD ANIMATION (10 MOLECULES + NAMES BELOW)
-// =========================================================================
+// ================================================================================
+// 2. ULTRA-ADVANCED INTERACTIVE LECTURE HALL CHALKBOARD PROFESSOR SIMULATION
+//    - Multi-Jointed 2-Bone Legs & Knees + Swaying Lab Coat + Thinking Beard Pose
+//    - Wooden Pointer Stick Lecture Tour + Live Bunsen Burner & Test Tube Rack
+//    - Color-Coded Heteroatoms, Aromatic Rings, Bond Angles & Click-to-Analyze!
+// ================================================================================
 (function initChalkboardProfessor() {
     const section = document.getElementById('chemArenaSection');
     const canvas = document.getElementById('chemGalleryCanvas');
     const ctx = canvas.getContext('2d');
 
-    let cw = 1200, ch = 350, floorY = 326;
+    let cw = 1200, ch = 365, floorY = 340;
     let isVisible = true;
     let scale = 1;
+    let hoveredSlot = null;
 
-    // Pause when off-screen for zero CPU/GPU usage on slow machines
     const obs = new IntersectionObserver(entries => {
         isVisible = entries[0].isIntersecting;
     }, { threshold: 0.02 });
     obs.observe(section);
 
-    // Pre-rendered Realistic Slate Blackboard Texture (Zero runtime lag)
     let boardBuffer = null;
     function buildBlackboardTexture(w, h) {
         const off = document.createElement('canvas');
@@ -754,74 +1308,82 @@ function resizeIframe(obj) {
         off.height = Math.max(1, Math.floor(h));
         const oCtx = off.getContext('2d');
 
-        // Deep realistic slate-green chalkboard gradient
-        const bgGrad = oCtx.createRadialGradient(w * 0.5, h * 0.45, 30, w * 0.5, h * 0.5, Math.max(w, h) * 0.75);
-        bgGrad.addColorStop(0, "#1c3128");
-        bgGrad.addColorStop(0.55, "#13231c");
-        bgGrad.addColorStop(1, "#0b1511");
+        // Deep realistic university slate-green chalkboard gradient
+        const bgGrad = oCtx.createRadialGradient(w * 0.5, h * 0.42, 30, w * 0.5, h * 0.5, Math.max(w, h) * 0.78);
+        bgGrad.addColorStop(0, "#1c3329");
+        bgGrad.addColorStop(0.55, "#12231c");
+        bgGrad.addColorStop(1, "#09130f");
         oCtx.fillStyle = bgGrad;
         oCtx.fillRect(0, 0, w, h);
 
-        // Subtle diagonal chalk smudge marks (like a real used university board)
-        oCtx.strokeStyle = "rgba(255, 255, 255, 0.018)";
-        oCtx.lineWidth = 28;
+        // Faint coordinate grid & erased ghost equations in background
+        oCtx.strokeStyle = "rgba(255, 255, 255, 0.014)";
+        oCtx.lineWidth = 26;
         oCtx.lineCap = "round";
-        for (let i = 0; i < 16; i++) {
-            const sx = (i / 16) * w + 20;
-            const sy = 30 + (i % 3) * 70;
+        for (let i = 0; i < 18; i++) {
+            const sx = (i / 18) * w + 15;
+            const sy = 25 + (i % 3) * 75;
             oCtx.beginPath();
             oCtx.moveTo(sx, sy);
-            oCtx.lineTo(sx + 90, sy - 20);
+            oCtx.lineTo(sx + 95, sy - 22);
             oCtx.stroke();
         }
 
-        // Fine grain slate texture
+        // Subtle watermarked thermodynamic & quantum formulas in deep chalk ghosting
+        oCtx.save();
+        oCtx.font = "italic 13px 'Space Grotesk', sans-serif";
+        oCtx.fillStyle = "rgba(255, 255, 255, 0.035)";
+        oCtx.fillText("ΔG° = -nFE°cell = -RT ln K", w * 0.05, 32);
+        oCtx.fillText("Ĥψ = Eψ   |   A = εbc", w * 0.42, 28);
+        oCtx.fillText("E = E° - (0.0592/n) log Q", w * 0.76, 32);
+        oCtx.restore();
+
+        // Fine slate grain
         oCtx.fillStyle = "rgba(255, 255, 255, 0.015)";
-        for (let i = 0; i < 350; i++) {
-            const rx = Math.random() * w;
-            const ry = Math.random() * h;
-            oCtx.fillRect(rx, ry, 1.5, 1.5);
+        for (let i = 0; i < 380; i++) {
+            oCtx.fillRect(Math.random() * w, Math.random() * h, 1.5, 1.5);
         }
 
         // Wooden Chalk Tray at the bottom
         const trayY = h - 22;
         const woodGrad = oCtx.createLinearGradient(0, trayY, 0, h);
-        woodGrad.addColorStop(0, "#6d4c41");
+        woodGrad.addColorStop(0, "#795548");
         woodGrad.addColorStop(0.3, "#4e342e");
         woodGrad.addColorStop(1, "#271915");
         oCtx.fillStyle = woodGrad;
         oCtx.fillRect(0, trayY, w, 22);
 
-        oCtx.strokeStyle = "rgba(255, 255, 255, 0.12)";
+        oCtx.strokeStyle = "rgba(255, 255, 255, 0.15)";
         oCtx.lineWidth = 1;
         oCtx.beginPath();
         oCtx.moveTo(0, trayY);
         oCtx.lineTo(w, trayY);
         oCtx.stroke();
 
-        // Coloured chalk sticks resting on the wooden ledge
-        const chalkColors = ["#ffffff", "#fef08a", "#bae6fd", "#fecdd3", "#bbf7d0"];
-        for (let i = 0; i < 8; i++) {
-            const cx = w * 0.12 + i * (w * 0.11);
+        // Colored chalk sticks resting on the ledge
+        const chalkColors = ["#ffffff", "#38bdf8", "#fb7185", "#fde047", "#4ade80"];
+        for (let i = 0; i < 9; i++) {
+            const cx = w * 0.14 + i * (w * 0.09);
             oCtx.fillStyle = chalkColors[i % chalkColors.length];
-            oCtx.fillRect(cx, trayY - 3.5, 18, 3.5);
+            oCtx.fillRect(cx, trayY - 3.5, 17, 3.5);
         }
 
-        // Classic felt wooden board duster resting on the tray
+        // Classic felt wooden board duster
         oCtx.fillStyle = "#8d6e63";
-        oCtx.fillRect(w * 0.82, trayY - 9, 34, 6);
+        oCtx.fillRect(w * 0.80, trayY - 9, 34, 6);
         oCtx.fillStyle = "#37474f";
-        oCtx.fillRect(w * 0.82, trayY - 3, 34, 3);
+        oCtx.fillRect(w * 0.80, trayY - 3, 34, 3);
 
         boardBuffer = off;
     }
 
-    // 10 Authentic Chemical Compounds (Each with Strokes, Atom Labels, and Name + Formula below)
+    // 10 Advanced Chemical Structures with Multi-Color Heteroatoms, Rings, Wedge/Dash & Hybridization Notes
     const TEN_COMPOUNDS = [
-        // 1. Benzene
+        // 1. Benzene (Aromatic Kekule + Delocalized pi-circle)
         {
             name: "Benzene",
             formula: "C₆H₆",
+            note: "sp² · Aromatic 6π e⁻",
             chalkColor: "#f8fafc",
             strokes: [
                 { type: 'line', x1: 0, y1: -34, x2: 29, y2: -17 },
@@ -830,126 +1392,154 @@ function resizeIframe(obj) {
                 { type: 'line', x1: 0, y1: 34, x2: -29, y2: 17 },
                 { type: 'line', x1: -29, y1: 17, x2: -29, y2: -17 },
                 { type: 'line', x1: -29, y1: -17, x2: 0, y2: -34 },
-                // Inner double bonds
-                { type: 'line', x1: 2, y1: -27, x2: 23, y2: -14 },
-                { type: 'line', x1: 23, y1: 14, x2: 2, y2: 27 },
-                { type: 'line', x1: -23, y1: 14, x2: -23, y2: -14 }
+                { type: 'circle', x: 0, y: 0, r: 17, dashed: true, color: "#fde047" }
             ]
         },
-        // 2. Water
+        // 2. Caffeine (Purine Xanthine Alkaloid Bicyclic Ring!)
+        {
+            name: "Caffeine",
+            formula: "C₈H₁₀N₄O₂",
+            note: "Purine Alkaloid",
+            chalkColor: "#e0f2fe",
+            strokes: [
+                // 6-membered pyrimidine ring
+                { type: 'line', x1: -26, y1: -14, x2: -4, y2: -26 },
+                { type: 'line', x1: -4, y1: -26, x2: 14, y2: -14 },
+                { type: 'line', x1: 14, y1: -14, x2: 14, y2: 12 },
+                { type: 'line', x1: 14, y1: 12, x2: -4, y2: 24 },
+                { type: 'line', x1: -4, y1: 24, x2: -26, y2: 12 },
+                { type: 'line', x1: -26, y1: 12, x2: -26, y2: -14 },
+                // Fused 5-membered imidazole ring
+                { type: 'line', x1: 14, y1: -14, x2: 34, y2: -6 },
+                { type: 'line', x1: 34, y1: -6, x2: 34, y2: 4 },
+                { type: 'line', x1: 14, y1: 12, x2: 34, y2: 4 },
+                // Carbonyls C=O in coral red
+                { type: 'line', x1: -4, y1: -26, x2: -4, y2: -37, color: "#fb7185" },
+                { type: 'atom', text: 'O', x: -4, y: -44, color: "#fb7185" },
+                { type: 'line', x1: -26, y1: 12, x2: -36, y2: 20, color: "#fb7185" },
+                { type: 'atom', text: 'O', x: -42, y: 25, color: "#fb7185" },
+                // Nitrogen heteroatoms in sky blue
+                { type: 'atom', text: 'N', x: -26, y: -14, color: "#38bdf8" },
+                { type: 'atom', text: 'N', x: 26, y: -12, color: "#38bdf8" },
+                { type: 'atom', text: 'N', x: 26, y: 10, color: "#38bdf8" }
+            ]
+        },
+        // 3. Aspirin (Acetylsalicylic Acid)
+        {
+            name: "Aspirin",
+            formula: "C₉H₈O₄",
+            note: "Ester + -COOH",
+            chalkColor: "#fef08a",
+            strokes: [
+                // Benzene ring
+                { type: 'line', x1: -12, y1: -26, x2: 12, y2: -14 },
+                { type: 'line', x1: 12, y1: -14, x2: 12, y2: 12 },
+                { type: 'line', x1: 12, y1: 12, x2: -12, y2: 24 },
+                { type: 'line', x1: -12, y1: 24, x2: -34, y2: 12 },
+                { type: 'line', x1: -34, y1: 12, x2: -34, y2: -14 },
+                { type: 'line', x1: -34, y1: -14, x2: -12, y2: -26 },
+                { type: 'circle', x: -11, y: -1, r: 12, dashed: true },
+                // -COOH group
+                { type: 'line', x1: 12, y1: -14, x2: 26, y2: -24 },
+                { type: 'atom', text: 'COOH', x: 38, y: -30, color: "#fb7185" },
+                // -OAc ester group
+                { type: 'line', x1: 12, y1: 12, x2: 26, y2: 20 },
+                { type: 'atom', text: 'OAc', x: 37, y: 24, color: "#38bdf8" }
+            ]
+        },
+        // 4. Water (Dipole + Bond Angle 104.5°)
         {
             name: "Water",
             formula: "H₂O",
+            note: "Bent · 104.5° · sp³",
             chalkColor: "#e0f2fe",
             strokes: [
-                { type: 'atom', text: 'O', x: 0, y: -12 },
-                { type: 'line', x1: -9, y1: -4, x2: -25, y2: 14 },
-                { type: 'atom', text: 'H', x: -32, y: 24 },
-                { type: 'line', x1: 9, y1: -4, x2: 25, y2: 14 },
-                { type: 'atom', text: 'H', x: 32, y: 24 },
-                // Lone pairs on Oxygen
-                { type: 'dots', x1: -6, y1: -25, x2: -2, y2: -25 },
-                { type: 'dots', x1: 2, y1: -25, x2: 6, y2: -25 }
+                { type: 'atom', text: 'O', x: 0, y: -12, color: "#fb7185" },
+                { type: 'line', x1: -9, y1: -4, x2: -27, y2: 16 },
+                { type: 'atom', text: 'H', x: -34, y: 25 },
+                { type: 'line', x1: 9, y1: -4, x2: 27, y2: 16 },
+                { type: 'atom', text: 'H', x: 34, y: 25 },
+                { type: 'dots', x1: -7, y1: -25, x2: -2, y2: -25, color: "#fde047" },
+                { type: 'dots', x1: 2, y1: -25, x2: 7, y2: -25, color: "#fde047" },
+                { type: 'atom', text: '104.5°', x: 0, y: 14, color: "#fde047", small: true }
             ]
         },
-        // 3. Methane
-        {
-            name: "Methane",
-            formula: "CH₄",
-            chalkColor: "#fef9c3",
-            strokes: [
-                { type: 'atom', text: 'C', x: 0, y: 0 },
-                { type: 'line', x1: 0, y1: -10, x2: 0, y2: -25 },
-                { type: 'atom', text: 'H', x: 0, y: -34 },
-                { type: 'line', x1: 0, y1: 10, x2: 0, y2: 25 },
-                { type: 'atom', text: 'H', x: 0, y: 36 },
-                { type: 'line', x1: -10, y1: 0, x2: -25, y2: 0 },
-                { type: 'atom', text: 'H', x: -34, y: 0 },
-                { type: 'line', x1: 10, y1: 0, x2: 25, y2: 0 },
-                { type: 'atom', text: 'H', x: 34, y: 0 }
-            ]
-        },
-        // 4. Ethanol
-        {
-            name: "Ethanol",
-            formula: "C₂H₅OH",
-            chalkColor: "#f8fafc",
-            strokes: [
-                { type: 'atom', text: 'H₃C', x: -34, y: 12 },
-                { type: 'line', x1: -18, y1: 6, x2: 0, y2: -10 },
-                { type: 'line', x1: 0, y1: -10, x2: 18, y2: 6 },
-                { type: 'atom', text: 'OH', x: 32, y: 12 }
-            ]
-        },
-        // 5. Acetic Acid
+        // 5. Acetic Acid (Carboxylic Dimer / Carbonyl)
         {
             name: "Acetic Acid",
             formula: "CH₃COOH",
+            note: "pKa = 4.76 · Weak Acid",
             chalkColor: "#fde68a",
             strokes: [
                 { type: 'atom', text: 'H₃C', x: -32, y: 12 },
                 { type: 'line', x1: -16, y1: 6, x2: 0, y2: -6 },
                 { type: 'atom', text: 'C', x: 4, y: -6 },
-                // C=O Double bond upwards
-                { type: 'line', x1: 2, y1: -15, x2: 2, y2: -28 },
-                { type: 'line', x1: 6, y1: -15, x2: 6, y2: -28 },
-                { type: 'atom', text: 'O', x: 4, y: -36 },
-                // C-OH bond
+                { type: 'line', x1: 2, y1: -15, x2: 2, y2: -28, color: "#fb7185" },
+                { type: 'line', x1: 6, y1: -15, x2: 6, y2: -28, color: "#fb7185" },
+                { type: 'atom', text: 'O', x: 4, y: -36, color: "#fb7185" },
                 { type: 'line', x1: 12, y1: -2, x2: 24, y2: 10 },
-                { type: 'atom', text: 'OH', x: 36, y: 16 }
+                { type: 'atom', text: 'OH', x: 36, y: 16, color: "#fb7185" }
             ]
         },
-        // 6. Acetone
+        // 6. Congo Red Diazo Chromophore (-N=N- Direct Dye)
         {
-            name: "Acetone",
-            formula: "C₃H₆O",
+            name: "Congo Red",
+            formula: "C₃₂H₂₂N₆Na₂O₆S₂",
+            note: "Diazo -N=N- Direct Dye",
+            chalkColor: "#fca5a5",
+            strokes: [
+                { type: 'atom', text: 'Ar', x: -38, y: 6 },
+                { type: 'line', x1: -26, y1: 4, x2: -14, y2: -6 },
+                { type: 'atom', text: 'N', x: -8, y: -8, color: "#38bdf8" },
+                { type: 'line', x1: -2, y1: -10, x2: 8, y2: -10, color: "#38bdf8" },
+                { type: 'line', x1: -2, y1: -6, x2: 8, y2: -6, color: "#38bdf8" },
+                { type: 'atom', text: 'N', x: 14, y: -8, color: "#38bdf8" },
+                { type: 'line', x1: 20, y1: -6, x2: 30, y2: 6 },
+                { type: 'atom', text: 'SO₃⁻Na⁺', x: 24, y: 20, color: "#fde047", small: true }
+            ]
+        },
+        // 7. Paracetamol (Acetaminophen)
+        {
+            name: "Paracetamol",
+            formula: "C₈H₉NO₂",
+            note: "p-Acetamidophenol",
             chalkColor: "#f8fafc",
             strokes: [
-                { type: 'atom', text: 'H₃C', x: -32, y: 16 },
-                { type: 'line', x1: -17, y1: 9, x2: 0, y2: -5 },
-                { type: 'line', x1: 0, y1: -5, x2: 17, y2: 9 },
-                { type: 'atom', text: 'CH₃', x: 32, y: 16 },
-                // Carbonyl C=O
-                { type: 'line', x1: -2.5, y1: -5, x2: -2.5, y2: -25 },
-                { type: 'line', x1: 2.5, y1: -5, x2: 2.5, y2: -25 },
-                { type: 'atom', text: 'O', x: 0, y: -34 }
+                { type: 'atom', text: 'HO', x: -42, y: 0, color: "#fb7185" },
+                { type: 'line', x1: -28, y1: 0, x2: -16, y2: 0 },
+                { type: 'line', x1: -16, y1: 0, x2: -6, y2: -16 },
+                { type: 'line', x1: -6, y1: -16, x2: 12, y2: -16 },
+                { type: 'line', x1: 12, y1: -16, x2: 22, y2: 0 },
+                { type: 'line', x1: 22, y1: 0, x2: 12, y2: 16 },
+                { type: 'line', x1: 12, y1: 16, x2: -6, y2: 16 },
+                { type: 'line', x1: -6, y1: 16, x2: -16, y2: 0 },
+                { type: 'circle', x: 3, y: 0, r: 10, dashed: true },
+                { type: 'line', x1: 22, y1: 0, x2: 32, y2: 0, color: "#38bdf8" },
+                { type: 'atom', text: 'NHAc', x: 44, y: 0, color: "#38bdf8", small: true }
             ]
         },
-        // 7. Carbon Dioxide
-        {
-            name: "Carbon Dioxide",
-            formula: "CO₂",
-            chalkColor: "#fecdd3",
-            strokes: [
-                { type: 'atom', text: 'O', x: -34, y: 0 },
-                { type: 'line', x1: -24, y1: -3, x2: -9, y2: -3 },
-                { type: 'line', x1: -24, y1: 3, x2: -9, y2: 3 },
-                { type: 'atom', text: 'C', x: 0, y: 0 },
-                { type: 'line', x1: 9, y1: -3, x2: 24, y2: -3 },
-                { type: 'line', x1: 9, y1: 3, x2: 24, y2: 3 },
-                { type: 'atom', text: 'O', x: 34, y: 0 }
-            ]
-        },
-        // 8. Ammonia
+        // 8. Ammonia (Trigonal Pyramidal + Lone Pair)
         {
             name: "Ammonia",
             formula: "NH₃",
+            note: "Pyramidal · 107.3°",
             chalkColor: "#bbf7d0",
             strokes: [
-                { type: 'atom', text: 'N', x: 0, y: -12 },
-                { type: 'dots', x1: -3, y1: -24, x2: 3, y2: -24 },
-                { type: 'line', x1: -9, y1: -3, x2: -24, y2: 15 },
-                { type: 'atom', text: 'H', x: -31, y: 24 },
-                { type: 'line', x1: 0, y1: -2, x2: 0, y2: 18 },
+                { type: 'atom', text: 'N', x: 0, y: -12, color: "#38bdf8" },
+                { type: 'dots', x1: -3, y1: -25, x2: 3, y2: -25, color: "#fde047" },
+                { type: 'line', x1: -9, y1: -3, x2: -25, y2: 16 },
+                { type: 'atom', text: 'H', x: -32, y: 24 },
+                { type: 'wedge', x1: 0, y1: -2, x2: 0, y2: 19 },
                 { type: 'atom', text: 'H', x: 0, y: 29 },
-                { type: 'line', x1: 9, y1: -3, x2: 24, y2: 15 },
-                { type: 'atom', text: 'H', x: 31, y: 24 }
+                { type: 'line', x1: 9, y1: -3, x2: 25, y2: 16 },
+                { type: 'atom', text: 'H', x: 32, y: 24 }
             ]
         },
-        // 9. Cyclohexane (Chair Conformation)
+        // 9. Cyclohexane Chair Conformation
         {
             name: "Cyclohexane",
             formula: "C₆H₁₂",
+            note: "Chair · Axial/Equatorial",
             chalkColor: "#fef08a",
             strokes: [
                 { type: 'line', x1: -34, y1: 10, x2: -14, y2: -14 },
@@ -957,16 +1547,20 @@ function resizeIframe(obj) {
                 { type: 'line', x1: 12, y1: -4, x2: 34, y2: -16 },
                 { type: 'line', x1: 34, y1: -16, x2: 14, y2: 14 },
                 { type: 'line', x1: 14, y1: 14, x2: -12, y2: 4 },
-                { type: 'line', x1: -12, y1: 4, x2: -34, y2: 10 }
+                { type: 'line', x1: -12, y1: 4, x2: -34, y2: 10 },
+                // Axial bonds highlighted
+                { type: 'line', x1: -14, y1: -14, x2: -14, y2: -30, color: "#38bdf8" },
+                { type: 'line', x1: 34, y1: -16, x2: 34, y2: -32, color: "#38bdf8" }
             ]
         },
         // 10. Glucose (Haworth Pyranose Ring)
         {
             name: "Glucose",
             formula: "C₆H₁₂O₆",
+            note: "α-D-Glucopyranose",
             chalkColor: "#e0f2fe",
             strokes: [
-                { type: 'atom', text: 'O', x: 16, y: -20 },
+                { type: 'atom', text: 'O', x: 16, y: -20, color: "#fb7185" },
                 { type: 'line', x1: 23, y1: -13, x2: 32, y2: 2 },
                 { type: 'line', x1: 32, y1: 2, x2: 16, y2: 18 },
                 { type: 'line', x1: 16, y1: 18, x2: -16, y2: 18 },
@@ -974,29 +1568,27 @@ function resizeIframe(obj) {
                 { type: 'line', x1: -32, y1: 2, x2: -16, y2: -20 },
                 { type: 'line', x1: -16, y1: -20, x2: 7, y2: -20 },
                 { type: 'line', x1: -16, y1: -20, x2: -16, y2: -32 },
-                { type: 'atom', text: 'CH₂OH', x: -16, y: -39 }
+                { type: 'atom', text: 'CH₂OH', x: -16, y: -39, color: "#fb7185", small: true }
             ]
         }
     ];
 
-    // We display 5 compounds per board full, then Professor wipes the board and draws the next 5
     const PER_BATCH = 5;
-    let batchIndex = 0; // 0 = Compounds 1..5, 1 = Compounds 6..10
-    let slotInBatch = 0; // 0..4
+    let batchIndex = 0;
+    let slotInBatch = 0;
     let boardSlots = [];
 
-    // State Machine: 'WALKING' -> 'DRAWING_MOL' -> 'WRITING_NAME' -> 'NEXT_PAUSE' -> 'ADMIRING' -> 'ERASING'
+    // Phases: 'WALKING' -> 'THINKING' -> 'DRAWING_MOL' -> 'WRITING_NAME' -> 'NEXT_PAUSE' -> 'LECTURING' -> 'ERASING'
     let phase = 'WALKING';
-    let currentStrokeIdx = 0;
-    let strokeProgress = 0; // 0..1
-    let labelProgress = 0;  // 0..1
     let pauseTimer = 0;
+    let lectureIdx = 0;
     let eraseSweepX = 0;
     let chalkDust = [];
+    let burnerSparks = [];
 
     function setupBoardSlots() {
-        scale = cw < 600 ? 0.62 : cw < 960 ? 0.82 : 1;
-        const marginX = Math.max(58 * scale, cw * 0.11);
+        scale = cw < 600 ? 0.60 : cw < 960 ? 0.80 : 1;
+        const marginX = Math.max(70 * scale, cw * 0.13);
         const usableW = cw - marginX * 2;
         const stepX = usableW / (PER_BATCH - 1);
 
@@ -1004,8 +1596,7 @@ function resizeIframe(obj) {
         boardSlots = [];
         for (let i = 0; i < PER_BATCH; i++) {
             const comp = TEN_COMPOUNDS[startIdx + i];
-            // Alternate slight vertical height so board looks balanced & natural
-            const centerY = (ch * 0.40) + (i % 2 === 0 ? -12 * scale : 8 * scale);
+            const centerY = (ch * 0.39) + (i % 2 === 0 ? -12 * scale : 8 * scale);
             boardSlots.push({
                 x: marginX + i * stepX,
                 y: centerY,
@@ -1033,8 +1624,36 @@ function resizeIframe(obj) {
 
     window.addEventListener('resize', resizeBoard, { passive: true });
 
+    // Interactive Hover & Click on Drawn Chalkboard Molecules!
+    canvas.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        const mx = e.clientX - rect.left;
+        const my = e.clientY - rect.top;
+        hoveredSlot = null;
+        for (const s of boardSlots) {
+            if (!s.erased && s.drawnStrokes > 0) {
+                if (Math.hypot(mx - s.x, my - s.y) < 52 * scale) {
+                    hoveredSlot = s;
+                    break;
+                }
+            }
+        }
+        canvas.style.cursor = hoveredSlot ? 'pointer' : 'default';
+    }, { passive: true });
+
+    canvas.addEventListener('click', () => {
+        if (hoveredSlot && hoveredSlot.compound) {
+            const compName = hoveredSlot.compound.name;
+            document.getElementById('tora-proactive-bubble')?.classList.remove('show');
+            document.getElementById('tora-chat-panel')?.classList.add('show');
+            chatOpened = true;
+            playRobotSound('open');
+            processUserQuestion(`Structure of ${compName}`);
+        }
+    });
+
     function spawnChalkDust(x, y, color) {
-        if (chalkDust.length > 40) return;
+        if (chalkDust.length > 48) return;
         chalkDust.push({
             x: x + (Math.random() - 0.5) * 4,
             y: y + (Math.random() - 0.5) * 4,
@@ -1042,15 +1661,78 @@ function resizeIframe(obj) {
             vy: Math.random() * 0.8 + 0.3,
             r: Math.random() * 1.6 + 0.6,
             color: color || "#ffffff",
-            alpha: 0.75
+            alpha: 0.78
         });
     }
 
-    // Draw a single Chalk Stroke with realistic textured appearance
-    function drawChalkStroke(ctx, cx, cy, stroke, prog, color, sc) {
+    // Draw Live Lab Apparatus on the Chalkboard Ledge (Bunsen Burner + Flask + Test Tube Rack)
+    function drawLabBenchApparatus(ctx, now) {
+        const sc = Math.max(0.65, scale);
+        const trayY = ch - 22;
+
+        // 1. Left Side: Bunsen Burner + Animated Flame + Round Flask on Stand
+        const bx = 38 * sc;
         ctx.save();
-        ctx.strokeStyle = color;
-        ctx.fillStyle = color;
+        // Burner base & chimney
+        ctx.fillStyle = "#64748b";
+        ctx.fillRect(bx - 10 * sc, trayY - 4 * sc, 20 * sc, 4 * sc);
+        ctx.fillStyle = "#94a3b8";
+        ctx.fillRect(bx - 3 * sc, trayY - 22 * sc, 6 * sc, 18 * sc);
+
+        // Flickering Bunsen Flame (Outer amber/violet + Inner cyan cone)
+        const flick = Math.sin(now * 0.025) * 2 * sc;
+        const outerGrad = ctx.createRadialGradient(bx, trayY - 28 * sc, 1, bx, trayY - 30 * sc, 12 * sc);
+        outerGrad.addColorStop(0, "rgba(0, 255, 204, 0.95)");
+        outerGrad.addColorStop(0.5, "rgba(59, 130, 246, 0.65)");
+        outerGrad.addColorStop(1, "rgba(59, 130, 246, 0)");
+        ctx.fillStyle = outerGrad;
+        ctx.beginPath();
+        ctx.moveTo(bx - 6 * sc, trayY - 22 * sc);
+        ctx.quadraticCurveTo(bx - 7 * sc, trayY - 34 * sc, bx + flick * 0.5, trayY - 40 * sc + flick);
+        ctx.quadraticCurveTo(bx + 7 * sc, trayY - 34 * sc, bx + 6 * sc, trayY - 22 * sc);
+        ctx.fill();
+
+        // Tripod stand & Boiling Flask above flame
+        ctx.strokeStyle = "#475569";
+        ctx.lineWidth = 1.5 * sc;
+        ctx.beginPath();
+        ctx.moveTo(bx - 14 * sc, trayY);
+        ctx.lineTo(bx - 8 * sc, trayY - 38 * sc);
+        ctx.lineTo(bx + 8 * sc, trayY - 38 * sc);
+        ctx.lineTo(bx + 14 * sc, trayY);
+        ctx.stroke();
+
+        // Flask with boiling emerald liquid
+        ctx.fillStyle = "rgba(16, 185, 129, 0.55)";
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.7)";
+        ctx.beginPath();
+        ctx.arc(bx, trayY - 48 * sc, 9 * sc, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        ctx.strokeRect(bx - 3 * sc, trayY - 62 * sc, 6 * sc, 6 * sc);
+
+        // 2. Right Side: Analytical Test Tube Rack with Colored Reagents
+        const rx = cw - 48 * sc;
+        ctx.fillStyle = "#5d4037";
+        ctx.fillRect(rx - 18 * sc, trayY - 18 * sc, 36 * sc, 3 * sc);
+        ctx.fillRect(rx - 18 * sc, trayY - 4 * sc, 36 * sc, 4 * sc);
+        const tubeColors = ["#38bdf8", "#a855f7", "#fb923c"]; // CuSO4, KMnO4, K2Cr2O7
+        for (let i = 0; i < 3; i++) {
+            const tx = rx - 10 * sc + i * 10 * sc;
+            ctx.fillStyle = tubeColors[i];
+            ctx.fillRect(tx - 2.5 * sc, trayY - 16 * sc, 5 * sc, 12 * sc);
+            ctx.strokeStyle = "rgba(255,255,255,0.65)";
+            ctx.lineWidth = 1;
+            ctx.strokeRect(tx - 2.5 * sc, trayY - 24 * sc, 5 * sc, 20 * sc);
+        }
+        ctx.restore();
+    }
+
+    function drawChalkStroke(ctx, cx, cy, stroke, prog, defaultColor, sc) {
+        ctx.save();
+        const col = stroke.color || defaultColor;
+        ctx.strokeStyle = col;
+        ctx.fillStyle = col;
         ctx.lineCap = "round";
         ctx.lineJoin = "round";
 
@@ -1060,40 +1742,57 @@ function resizeIframe(obj) {
             const x2 = cx + (stroke.x1 + (stroke.x2 - stroke.x1) * prog) * sc;
             const y2 = cy + (stroke.y1 + (stroke.y2 - stroke.y1) * prog) * sc;
 
-            // Main chalk line
-            ctx.globalAlpha = 0.88;
+            ctx.globalAlpha = 0.9;
             ctx.lineWidth = 2.6 * sc;
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
             ctx.stroke();
 
-            // Soft chalk halo for realistic texture
-            ctx.globalAlpha = 0.25;
-            ctx.lineWidth = 4.5 * sc;
+            ctx.globalAlpha = 0.24;
+            ctx.lineWidth = 4.6 * sc;
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
+            ctx.stroke();
+        } else if (stroke.type === 'wedge') {
+            const x1 = cx + stroke.x1 * sc;
+            const y1 = cy + stroke.y1 * sc;
+            const x2 = cx + (stroke.x1 + (stroke.x2 - stroke.x1) * prog) * sc;
+            const y2 = cy + (stroke.y1 + (stroke.y2 - stroke.y1) * prog) * sc;
+            ctx.globalAlpha = 0.9;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2 - 3.5 * sc, y2);
+            ctx.lineTo(x2 + 3.5 * sc, y2);
+            ctx.closePath();
+            ctx.fill();
+        } else if (stroke.type === 'circle') {
+            ctx.globalAlpha = 0.78;
+            ctx.lineWidth = 2 * sc;
+            if (stroke.dashed) ctx.setLineDash([3 * sc, 3 * sc]);
+            ctx.beginPath();
+            ctx.arc(cx + stroke.x * sc, cy + stroke.y * sc, stroke.r * sc, 0, Math.PI * 2 * prog);
             ctx.stroke();
         } else if (stroke.type === 'atom') {
             const ax = cx + stroke.x * sc;
             const ay = cy + stroke.y * sc;
             ctx.globalAlpha = Math.min(1, prog * 1.2);
-            ctx.font = `600 ${Math.round(13.5 * sc)}px 'Space Grotesk', sans-serif`;
+            const fSize = stroke.small ? 10.5 : 13.5;
+            ctx.font = `600 ${Math.round(fSize * sc)}px 'Space Grotesk', sans-serif`;
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             ctx.fillText(stroke.text, ax, ay);
         } else if (stroke.type === 'dots') {
             ctx.globalAlpha = Math.min(1, prog * 1.2);
             ctx.beginPath();
-            ctx.arc(cx + stroke.x1 * sc, cy + stroke.y1 * sc, 1.8 * sc, 0, Math.PI * 2);
-            ctx.arc(cx + stroke.x2 * sc, cy + stroke.y2 * sc, 1.8 * sc, 0, Math.PI * 2);
+            ctx.arc(cx + stroke.x1 * sc, cy + stroke.y1 * sc, 1.9 * sc, 0, Math.PI * 2);
+            ctx.arc(cx + stroke.x2 * sc, cy + stroke.y2 * sc, 1.9 * sc, 0, Math.PI * 2);
             ctx.fill();
         }
         ctx.restore();
     }
 
-    // Get exact world coordinate of the chalk tip for the current stroke/writing action
     function getActiveChalkTarget(slot, sc) {
         if (!slot) return { x: cw * 0.5, y: ch * 0.5 };
         const comp = slot.compound;
@@ -1102,10 +1801,16 @@ function resizeIframe(obj) {
             const st = comp.strokes[slot.drawnStrokes];
             if (!st) return { x: slot.x, y: slot.y };
             const p = slot.currentStrokeProg;
-            if (st.type === 'line') {
+            if (st.type === 'line' || st.type === 'wedge') {
                 return {
                     x: slot.x + (st.x1 + (st.x2 - st.x1) * p) * sc,
                     y: slot.y + (st.y1 + (st.y2 - st.y1) * p) * sc
+                };
+            } else if (st.type === 'circle') {
+                const ang = p * Math.PI * 2;
+                return {
+                    x: slot.x + (st.x + Math.cos(ang) * st.r) * sc,
+                    y: slot.y + (st.y + Math.sin(ang) * st.r) * sc
                 };
             } else if (st.type === 'atom') {
                 return {
@@ -1116,16 +1821,15 @@ function resizeIframe(obj) {
                 return { x: slot.x + st.x1 * sc, y: slot.y + st.y1 * sc };
             }
         } else if (phase === 'WRITING_NAME') {
-            // Writing the compound name and formula directly below the structure
-            const labelW = 86 * sc;
+            const labelW = 90 * sc;
             const writeX = (slot.x - labelW / 2) + labelW * slot.labelProg;
-            const writeY = slot.y + (60 + (slot.labelProg > 0.55 ? 16 : 0)) * sc + Math.sin(slot.labelProg * 45) * 2.2 * sc;
+            const writeY = slot.y + (58 + (slot.labelProg > 0.5 ? 15 : 0)) * sc + Math.sin(slot.labelProg * 45) * 2 * sc;
             return { x: writeX, y: writeY };
         }
         return { x: slot.x, y: slot.y };
     }
 
-    // --- Realistic Chemistry Professor Character ---
+    // --- Ultra-Advanced Multi-Jointed Chemistry Professor Character ---
     const professor = {
         x: 90,
         y: floorY,
@@ -1136,179 +1840,234 @@ function resizeIframe(obj) {
         handTarget: { x: 120, y: 180 },
         usingChalk: false,
         usingEraser: false,
+        usingPointer: false,
+        isThinking: false,
+        activeChalkColor: "#ffffff",
 
         update(dt) {
             this.y = floorY;
             const dx = this.targetX - this.x;
-            const speed = (phase === 'ERASING' ? 5.2 : 2.2) * Math.max(0.75, scale) * dt;
+            const speed = (phase === 'ERASING' ? 5.2 : 2.35) * Math.max(0.75, scale) * dt;
 
             if (Math.abs(dx) > 3) {
                 this.isWalking = true;
                 this.facing = dx > 0 ? 1 : -1;
                 this.x += Math.sign(dx) * Math.min(Math.abs(dx), speed);
-                this.walkCycle += 0.11 * dt;
+                this.walkCycle += 0.125 * dt;
             } else {
                 this.isWalking = false;
-                this.walkCycle += 0.035 * dt;
+                this.walkCycle += 0.04 * dt;
             }
         },
 
-        draw(ctx) {
+        draw(ctx, now) {
             const sc = Math.max(0.78, scale);
             const t = this.walkCycle;
-            const bounce = this.isWalking ? Math.abs(Math.sin(t)) * 2.4 * sc : Math.sin(t) * 0.9 * sc;
+            const bounce = this.isWalking ? Math.abs(Math.sin(t)) * 2.8 * sc : Math.sin(t) * 0.9 * sc;
             const baseX = this.x;
             const baseY = this.y - bounce;
 
             ctx.save();
 
             // 1. Floor Shadow
-            ctx.fillStyle = "rgba(0, 0, 0, 0.45)";
+            ctx.fillStyle = "rgba(0, 0, 0, 0.48)";
             ctx.beginPath();
-            ctx.ellipse(baseX, this.y - 2, 26 * sc, 5 * sc, 0, 0, Math.PI * 2);
+            ctx.ellipse(baseX, this.y - 2, 28 * sc, 5.5 * sc, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Leg Walk Angles
-            let lHip = 0, rHip = 0;
-            if (this.isWalking) {
-                lHip = Math.sin(t) * 0.38;
-                rHip = Math.sin(t + Math.PI) * 0.38;
-            }
+            // 2-Bone Articulated Legs (Thigh + Knee + Calf + Oxford Shoe)
+            const drawArticulatedLeg = (offsetX, phaseShift, trouserCol) => {
+                const hipAngle = this.isWalking ? Math.sin(t + phaseShift) * 0.42 : 0;
+                const kneeBend = this.isWalking ? Math.max(0, Math.sin(t + phaseShift - 0.7)) * 0.55 : 0;
 
-            const drawLeg = (offsetX, hipAngle, trouserCol) => {
                 ctx.save();
                 ctx.translate(baseX + offsetX * sc, baseY - 38 * sc);
                 ctx.rotate(hipAngle * this.facing);
-                // Slacks
+
+                // Thigh
                 ctx.fillStyle = trouserCol;
                 ctx.beginPath();
-                ctx.roundRect(-5 * sc, 0, 10 * sc, 34 * sc, 4 * sc);
+                ctx.roundRect(-5 * sc, 0, 10 * sc, 18 * sc, 4 * sc);
                 ctx.fill();
-                // Leather Oxford Shoes
+
+                // Knee & Lower Calf
+                ctx.translate(0, 16 * sc);
+                ctx.rotate(kneeBend * this.facing);
+                ctx.beginPath();
+                ctx.roundRect(-4.5 * sc, 0, 9 * sc, 18 * sc, 3 * sc);
+                ctx.fill();
+
+                // Leather Oxford Shoe with sole highlight
                 ctx.fillStyle = "#1c1917";
                 ctx.beginPath();
-                ctx.roundRect(this.facing > 0 ? -4 * sc : -10 * sc, 31 * sc, 14 * sc, 6 * sc, 3 * sc);
+                ctx.roundRect(this.facing > 0 ? -4 * sc : -11 * sc, 15 * sc, 15 * sc, 6.5 * sc, 3 * sc);
                 ctx.fill();
                 ctx.restore();
             };
 
-            // Back Leg & Front Leg
-            drawLeg(-3 * this.facing, lHip, "#1e293b");
-            drawLeg(3 * this.facing, rHip, "#334155");
+            drawArticulatedLeg(-3 * this.facing, 0, "#1e293b");
+            drawArticulatedLeg(3 * this.facing, Math.PI, "#334155");
 
-            // 2. Left Arm (Holds Chemistry Textbook / Notes while walking/drawing)
+            // 2. Left Arm (Holds Bubbling Erlenmeyer Flask / Organic Chemistry Book)
             ctx.save();
-            ctx.translate(baseX - 6 * this.facing * sc, baseY - 76 * sc);
-            ctx.rotate((this.isWalking ? Math.sin(t + Math.PI) * 0.25 : 0.22) * this.facing);
+            ctx.translate(baseX - 7 * this.facing * sc, baseY - 78 * sc);
+            ctx.rotate((this.isWalking ? Math.sin(t + Math.PI) * 0.24 : 0.22) * this.facing);
             ctx.fillStyle = "#e2e8f0";
             ctx.beginPath();
             ctx.roundRect(-4 * sc, 0, 8 * sc, 26 * sc, 4 * sc);
             ctx.fill();
-            // Red Chemistry Reference Book in hand
+
+            // Red Hardcover Organic Chemistry Book in left hand
             ctx.fillStyle = "#7f1d1d";
-            ctx.strokeStyle = "#fde68a";
-            ctx.lineWidth = 1;
+            ctx.strokeStyle = "#fbbf24";
+            ctx.lineWidth = 1.2 * sc;
             ctx.beginPath();
-            ctx.roundRect(-6 * sc, 20 * sc, 13 * sc, 16 * sc, 2 * sc);
+            ctx.roundRect(-6 * sc, 20 * sc, 14 * sc, 17 * sc, 2 * sc);
             ctx.fill();
             ctx.stroke();
             ctx.restore();
 
-            // 3. Professor's Tailored White Lab Coat & Tweed Waistcoat
-            const coatGrad = ctx.createLinearGradient(baseX - 14 * sc, baseY - 82 * sc, baseX + 14 * sc, baseY - 26 * sc);
+            // 3. Professor's Tailored White Lab Coat with Dynamic Walking Sway
+            const coatSway = this.isWalking ? Math.sin(t) * 3.5 * sc : 0;
+            const coatGrad = ctx.createLinearGradient(baseX - 15 * sc, baseY - 84 * sc, baseX + 15 * sc, baseY - 24 * sc);
             coatGrad.addColorStop(0, "#ffffff");
             coatGrad.addColorStop(0.65, "#f1f5f9");
             coatGrad.addColorStop(1, "#cbd5e1");
             ctx.fillStyle = coatGrad;
             ctx.beginPath();
-            ctx.moveTo(baseX - 12 * sc, baseY - 82 * sc);
-            ctx.lineTo(baseX + 12 * sc, baseY - 82 * sc);
-            ctx.lineTo(baseX + 15 * sc, baseY - 26 * sc);
-            ctx.lineTo(baseX - 15 * sc, baseY - 26 * sc);
+            ctx.moveTo(baseX - 12.5 * sc, baseY - 84 * sc);
+            ctx.lineTo(baseX + 12.5 * sc, baseY - 84 * sc);
+            ctx.lineTo(baseX + 16 * sc + coatSway, baseY - 24 * sc);
+            ctx.lineTo(baseX - 16 * sc + coatSway, baseY - 24 * sc);
             ctx.closePath();
             ctx.fill();
 
-            // Academic Tweed Vest & Red Tie
-            ctx.fillStyle = "#475569";
-            ctx.fillRect(baseX - 4 * sc, baseY - 80 * sc, 8 * sc, 34 * sc);
-            ctx.fillStyle = "#dc2626";
-            ctx.beginPath();
-            ctx.moveTo(baseX - 2 * sc, baseY - 80 * sc);
-            ctx.lineTo(baseX + 2 * sc, baseY - 80 * sc);
-            ctx.lineTo(baseX + 3 * sc, baseY - 58 * sc);
-            ctx.lineTo(baseX, baseY - 53 * sc);
-            ctx.lineTo(baseX - 3 * sc, baseY - 58 * sc);
-            ctx.closePath();
-            ctx.fill();
+            // Tweed Waistcoat, Gold Pocket Watch Chain & Silk Tie
+            ctx.fillStyle = "#334155";
+            ctx.fillRect(baseX - 4.5 * sc, baseY - 82 * sc, 9 * sc, 36 * sc);
 
-            // Coat Collar Lapels
-            ctx.strokeStyle = "#94a3b8";
-            ctx.lineWidth = 1.2 * sc;
+            // Gold Pocket Watch Chain
+            ctx.strokeStyle = "#fbbf24";
+            ctx.lineWidth = 1.1 * sc;
             ctx.beginPath();
-            ctx.moveTo(baseX - 7 * sc, baseY - 82 * sc);
-            ctx.lineTo(baseX - 3 * sc, baseY - 62 * sc);
-            ctx.moveTo(baseX + 7 * sc, baseY - 82 * sc);
-            ctx.lineTo(baseX + 3 * sc, baseY - 62 * sc);
+            ctx.moveTo(baseX - 4 * sc, baseY - 54 * sc);
+            ctx.quadraticCurveTo(baseX, baseY - 49 * sc, baseX + 4 * sc, baseY - 54 * sc);
             ctx.stroke();
 
-            // 4. Professor's Head, Beard, Silver Hair & Spectacles
+            // Crimson Academic Tie
+            ctx.fillStyle = "#dc2626";
+            ctx.beginPath();
+            ctx.moveTo(baseX - 2.2 * sc, baseY - 82 * sc);
+            ctx.lineTo(baseX + 2.2 * sc, baseY - 82 * sc);
+            ctx.lineTo(baseX + 3.2 * sc, baseY - 58 * sc);
+            ctx.lineTo(baseX, baseY - 53 * sc);
+            ctx.lineTo(baseX - 3.2 * sc, baseY - 58 * sc);
+            ctx.closePath();
+            ctx.fill();
+
+            // Breast Pocket with Pens
+            ctx.fillStyle = "#e2e8f0";
+            ctx.strokeStyle = "#94a3b8";
+            ctx.lineWidth = 1 * sc;
+            ctx.fillRect(baseX + 5 * sc, baseY - 70 * sc, 6.5 * sc, 8 * sc);
+            ctx.strokeRect(baseX + 5 * sc, baseY - 70 * sc, 6.5 * sc, 8 * sc);
+            ctx.fillStyle = "#ef4444";
+            ctx.fillRect(baseX + 6 * sc, baseY - 73 * sc, 1.5 * sc, 3 * sc);
+            ctx.fillStyle = "#3b82f6";
+            ctx.fillRect(baseX + 8.5 * sc, baseY - 73 * sc, 1.5 * sc, 3 * sc);
+
+            // 4. Professor's Head, Wavy Silver Einstein Hair, Beard & Glinting Gold Spectacles
             ctx.save();
-            ctx.translate(baseX, baseY - 95 * sc);
-            // Look slightly upward toward the chalk when drawing
-            if (this.usingChalk || this.usingEraser) {
+            ctx.translate(baseX, baseY - 97 * sc);
+            if (this.usingChalk || this.usingEraser || this.usingPointer) {
                 const lookDir = this.handTarget.x >= baseX ? 1 : -1;
                 this.facing = lookDir;
                 ctx.rotate(-0.14 * this.facing);
+            } else if (this.isThinking) {
+                ctx.rotate(0.08 * this.facing);
             }
 
-            // Head
+            // Back Silver Hair Tufts
+            ctx.fillStyle = "#f1f5f9";
+            ctx.beginPath();
+            ctx.arc(-9 * this.facing * sc, -4 * sc, 7 * sc, 0, Math.PI * 2);
+            ctx.arc(-11 * this.facing * sc, 2 * sc, 6 * sc, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Face
             ctx.fillStyle = "#fed7aa";
             ctx.beginPath();
-            ctx.arc(0, 0, 12.5 * sc, 0, Math.PI * 2);
+            ctx.arc(0, 0, 12.8 * sc, 0, Math.PI * 2);
             ctx.fill();
 
-            // Distinguished Silver-Grey Professor Hair & Neat Beard
+            // Distinguished Silver-White Professor Hair Dome
+            ctx.fillStyle = "#f8fafc";
+            ctx.beginPath();
+            ctx.arc(-3 * this.facing * sc, -3 * sc, 13.2 * sc, Math.PI * 0.72, Math.PI * 1.98);
+            ctx.fill();
+
+            // Expressive Eyebrow
+            ctx.strokeStyle = "#cbd5e1";
+            ctx.lineWidth = 2 * sc;
+            ctx.beginPath();
+            const browLift = (this.isThinking || this.usingPointer) ? -2 * sc : 0;
+            ctx.moveTo(3 * this.facing * sc, -6.5 * sc + browLift);
+            ctx.lineTo(9 * this.facing * sc, -5.5 * sc + browLift);
+            ctx.stroke();
+
+            // Full Neat Beard & Mustache
             ctx.fillStyle = "#e2e8f0";
             ctx.beginPath();
-            ctx.arc(-3 * this.facing * sc, -2 * sc, 13 * sc, Math.PI * 0.75, Math.PI * 1.95);
+            ctx.arc(4 * this.facing * sc, 5.5 * sc, 7.5 * sc, 0, Math.PI);
             ctx.fill();
 
-            // Beard / Mustache
-            ctx.fillStyle = "#cbd5e1";
-            ctx.beginPath();
-            ctx.arc(4 * this.facing * sc, 5 * sc, 7 * sc, 0, Math.PI);
-            ctx.fill();
-
-            // Gold-Rimmed Professor Glasses
+            // Gold-Rimmed Professor Glasses with Lens Glint
             ctx.strokeStyle = "#fbbf24";
-            ctx.lineWidth = 1.5 * sc;
-            ctx.fillStyle = "rgba(255, 255, 255, 0.25)";
+            ctx.lineWidth = 1.6 * sc;
+            ctx.fillStyle = "rgba(255, 255, 255, 0.28)";
             ctx.beginPath();
-            ctx.arc(6 * this.facing * sc, -1 * sc, 4.2 * sc, 0, Math.PI * 2);
+            ctx.arc(6.2 * this.facing * sc, -1 * sc, 4.4 * sc, 0, Math.PI * 2);
             ctx.fill();
             ctx.stroke();
             ctx.beginPath();
             ctx.moveTo(2 * this.facing * sc, -1 * sc);
             ctx.lineTo(-4 * this.facing * sc, -2 * sc);
             ctx.stroke();
+
+            // Blinking Pupil inside Glasses
+            const isBlinking = (Math.floor(now / 180) % 22 === 0);
+            ctx.fillStyle = "#0f172a";
+            if (!isBlinking) {
+                ctx.beginPath();
+                ctx.arc(7 * this.facing * sc, -1 * sc, 1.3 * sc, 0, Math.PI * 2);
+                ctx.fill();
+            }
             ctx.restore();
 
-            // 5. Right Arm (2-Bone Inverse Kinematics Reaching Directly to Chalk / Eraser Point!)
+            // 5. Right Arm (2-Bone Inverse Kinematics for Chalk, Beard-Stroking, Pointer Stick or Eraser)
             const shoulderX = baseX + 5 * this.facing * sc;
-            const shoulderY = baseY - 76 * sc;
+            const shoulderY = baseY - 78 * sc;
 
             let wristX = shoulderX + 14 * this.facing * sc;
             let wristY = shoulderY + 24 * sc;
 
-            if (this.usingChalk || this.usingEraser) {
+            if (this.isThinking) {
+                // Stroking his beard thoughtfully!
+                wristX = baseX + 8 * this.facing * sc;
+                wristY = baseY - 88 * sc + Math.sin(now * 0.015) * 2.5 * sc;
+            } else if (this.usingChalk || this.usingEraser) {
                 wristX = this.handTarget.x;
                 wristY = this.handTarget.y;
+            } else if (this.usingPointer) {
+                // Hold the wooden pointer stick aimed toward the target molecule
+                const angleToTarget = Math.atan2(this.handTarget.y - shoulderY, this.handTarget.x - shoulderX);
+                wristX = shoulderX + Math.cos(angleToTarget) * 28 * sc;
+                wristY = shoulderY + Math.sin(angleToTarget) * 28 * sc;
             } else if (this.isWalking) {
                 wristX = shoulderX + Math.sin(t) * 14 * sc;
                 wristY = shoulderY + 26 * sc;
             }
 
-            // Solve 2-segment arm elbow position smoothly
             const L1 = 24 * sc, L2 = 24 * sc;
             const dx = wristX - shoulderX;
             const dy = wristY - shoulderY;
@@ -1321,7 +2080,6 @@ function resizeIframe(obj) {
             const elbowX = shoulderX + Math.cos(elbowAngle) * L1;
             const elbowY = shoulderY + Math.sin(elbowAngle) * L1;
 
-            // Draw Upper Arm & Forearm Sleeve
             ctx.strokeStyle = "#ffffff";
             ctx.lineWidth = 8.5 * sc;
             ctx.lineCap = "round";
@@ -1335,16 +2093,30 @@ function resizeIframe(obj) {
             // Hand
             ctx.fillStyle = "#fed7aa";
             ctx.beginPath();
-            ctx.arc(wristX, wristY, 4.2 * sc, 0, Math.PI * 2);
+            ctx.arc(wristX, wristY, 4.3 * sc, 0, Math.PI * 2);
             ctx.fill();
 
-            // Chalk Stick or Felt Duster in Hand
+            // Tool in Right Hand: Colored Chalk, Wooden Lecture Pointer, or Felt Eraser
             if (this.usingChalk) {
                 ctx.save();
                 ctx.translate(wristX, wristY);
                 ctx.rotate(-0.4 * this.facing);
-                ctx.fillStyle = "#ffffff";
+                ctx.fillStyle = this.activeChalkColor || "#ffffff";
                 ctx.fillRect(0, -2 * sc, 11 * sc * this.facing, 3.5 * sc);
+                ctx.restore();
+            } else if (this.usingPointer) {
+                ctx.save();
+                ctx.strokeStyle = "#fde047";
+                ctx.lineWidth = 2.5 * sc;
+                ctx.beginPath();
+                ctx.moveTo(wristX, wristY);
+                ctx.lineTo(this.handTarget.x, this.handTarget.y);
+                ctx.stroke();
+                // Red rubber pointer tip
+                ctx.fillStyle = "#ef4444";
+                ctx.beginPath();
+                ctx.arc(this.handTarget.x, this.handTarget.y, 2.8 * sc, 0, Math.PI * 2);
+                ctx.fill();
                 ctx.restore();
             } else if (this.usingEraser) {
                 ctx.save();
@@ -1372,23 +2144,37 @@ function resizeIframe(obj) {
         const dt = Math.min((now - lastTime) / 16.667, 2.5);
         lastTime = now;
 
-        // 1. Draw Pre-rendered Realistic Blackboard Background
+        // 1. Draw Slate Blackboard
         if (boardBuffer) {
             ctx.drawImage(boardBuffer, 0, 0, cw, ch);
         }
 
+        // 2. Draw Live Lab Bench Apparatus (Bunsen Burner + Test Tubes)
+        drawLabBenchApparatus(ctx, now);
+
         const activeSlot = boardSlots[slotInBatch];
 
-        // 2. Professor & Chalkboard State Machine
+        // 3. Professor Lecture State Machine
         if (phase === 'WALKING' && activeSlot) {
             professor.usingChalk = false;
             professor.usingEraser = false;
-            // Stand slightly to the side of the molecule so the Professor doesn't block the view
+            professor.usingPointer = false;
+            professor.isThinking = false;
             const standOffset = -28 * scale;
             professor.targetX = activeSlot.x + standOffset;
 
             if (Math.abs(professor.x - professor.targetX) <= 4) {
                 professor.facing = 1;
+                phase = 'THINKING';
+                pauseTimer = 0;
+            }
+
+        } else if (phase === 'THINKING' && activeSlot) {
+            // Brief beard-stroking contemplation before drawing the molecule
+            professor.isThinking = true;
+            pauseTimer += dt;
+            if (pauseTimer > 20) {
+                professor.isThinking = false;
                 phase = 'DRAWING_MOL';
                 activeSlot.drawnStrokes = 0;
                 activeSlot.currentStrokeProg = 0;
@@ -1400,8 +2186,8 @@ function resizeIframe(obj) {
             const st = comp.strokes[activeSlot.drawnStrokes];
 
             if (st) {
-                // Realistic chalk drawing speed
-                const speed = st.type === 'line' ? 0.048 : 0.065;
+                professor.activeChalkColor = st.color || comp.chalkColor;
+                const speed = (st.type === 'line' || st.type === 'circle') ? 0.052 : 0.072;
                 activeSlot.currentStrokeProg += speed * dt;
 
                 const tip = getActiveChalkTarget(activeSlot, scale);
@@ -1409,7 +2195,7 @@ function resizeIframe(obj) {
                 professor.targetX = tip.x - 24 * scale;
 
                 if (Math.random() < 0.35) {
-                    spawnChalkDust(tip.x, tip.y, comp.chalkColor);
+                    spawnChalkDust(tip.x, tip.y, professor.activeChalkColor);
                 }
 
                 if (activeSlot.currentStrokeProg >= 1) {
@@ -1417,14 +2203,14 @@ function resizeIframe(obj) {
                     activeSlot.currentStrokeProg = 0;
                 }
             } else {
-                // Finished all strokes of this molecule -> Now write the compound name & formula below!
                 phase = 'WRITING_NAME';
                 activeSlot.labelProg = 0;
             }
 
         } else if (phase === 'WRITING_NAME' && activeSlot) {
             professor.usingChalk = true;
-            activeSlot.labelProg = Math.min(1, activeSlot.labelProg + 0.022 * dt);
+            professor.activeChalkColor = "#ffffff";
+            activeSlot.labelProg = Math.min(1, activeSlot.labelProg + 0.024 * dt);
 
             const tip = getActiveChalkTarget(activeSlot, scale);
             professor.handTarget = tip;
@@ -1442,32 +2228,45 @@ function resizeIframe(obj) {
 
         } else if (phase === 'NEXT_PAUSE') {
             pauseTimer += dt;
-            if (pauseTimer > 28) {
+            if (pauseTimer > 22) {
                 slotInBatch++;
                 if (slotInBatch >= PER_BATCH) {
-                    phase = 'ADMIRING';
+                    phase = 'LECTURING';
+                    lectureIdx = PER_BATCH - 1;
                     pauseTimer = 0;
-                    // Walk to the right edge so user can admire all 5 drawn structures clearly
-                    professor.targetX = cw - 55 * scale;
                 } else {
                     phase = 'WALKING';
                 }
             }
 
-        } else if (phase === 'ADMIRING') {
+        } else if (phase === 'LECTURING') {
+            // Professor uses his wooden lecture pointer to point out key features on the completed board!
             professor.usingChalk = false;
             professor.usingEraser = false;
+            professor.usingPointer = true;
+
+            const targetSlot = boardSlots[lectureIdx] || boardSlots[0];
+            professor.targetX = targetSlot.x - 42 * scale;
+            professor.handTarget = {
+                x: targetSlot.x,
+                y: targetSlot.y + Math.sin(now * 0.008) * 8 * scale
+            };
+
             pauseTimer += dt;
-            // Keep the completed board visible for ~4.5 seconds before erasing for the next batch of 5
-            if (pauseTimer > 270) {
+            if (pauseTimer > 95 && lectureIdx > 1) {
+                lectureIdx -= 2;
+                pauseTimer = 0;
+            } else if (pauseTimer > 130) {
+                professor.usingPointer = false;
                 phase = 'ERASING';
                 eraseSweepX = cw;
             }
 
         } else if (phase === 'ERASING') {
             professor.usingChalk = false;
+            professor.usingPointer = false;
             professor.usingEraser = true;
-            eraseSweepX -= 11 * scale * dt;
+            eraseSweepX -= 11.5 * scale * dt;
             professor.targetX = Math.max(50 * scale, eraseSweepX);
             professor.handTarget = {
                 x: eraseSweepX,
@@ -1484,64 +2283,84 @@ function resizeIframe(obj) {
 
             if (eraseSweepX <= 40 * scale) {
                 professor.usingEraser = false;
-                batchIndex = (batchIndex + 1) % 2; // Toggle between Batch 1 (1..5) and Batch 2 (6..10)
+                batchIndex = (batchIndex + 1) % 2;
                 slotInBatch = 0;
                 setupBoardSlots();
                 phase = 'WALKING';
             }
         }
 
-        // 3. Render All Drawn Chalk Molecules & Handwritten Compound Names Below Them
+        // 4. Render All Drawn Chalk Molecules, Hybridization Notes & Hover Highlights
         boardSlots.forEach((s, idx) => {
             if (s.erased) return;
             const comp = s.compound;
 
-            // Completed strokes
+            // Interactive Hover Halo when user hovers over a drawn molecule
+            if (hoveredSlot === s) {
+                ctx.save();
+                ctx.strokeStyle = "rgba(0, 255, 204, 0.55)";
+                ctx.fillStyle = "rgba(0, 255, 204, 0.08)";
+                ctx.lineWidth = 1.5 * scale;
+                ctx.setLineDash([4 * scale, 4 * scale]);
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, 48 * scale, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.setLineDash([]);
+                ctx.font = `600 ${Math.round(10 * scale)}px 'Space Grotesk', sans-serif`;
+                ctx.fillStyle = "#00ffcc";
+                ctx.textAlign = "center";
+                ctx.fillText("🔍 Click for PubChem 2D", s.x, s.y - 54 * scale);
+                ctx.restore();
+            }
+
             for (let i = 0; i < s.drawnStrokes; i++) {
                 drawChalkStroke(ctx, s.x, s.y, comp.strokes[i], 1, comp.chalkColor, scale);
             }
 
-            // Currently drawing stroke
             if (idx === slotInBatch && phase === 'DRAWING_MOL' && comp.strokes[s.drawnStrokes]) {
                 drawChalkStroke(ctx, s.x, s.y, comp.strokes[s.drawnStrokes], s.currentStrokeProg, comp.chalkColor, scale);
             }
 
-            // Progressive Chalk Writing of Compound Name & Formula Underneath
             if (s.labelProg > 0) {
                 ctx.save();
-                const clipW = 135 * scale * s.labelProg;
+                const clipW = 145 * scale * s.labelProg;
                 ctx.beginPath();
-                ctx.rect(s.x - 67.5 * scale, s.y + 42 * scale, clipW, 45 * scale);
+                ctx.rect(s.x - 72.5 * scale, s.y + 40 * scale, clipW, 56 * scale);
                 ctx.clip();
 
-                // Chalk Underline
                 ctx.strokeStyle = "rgba(255, 255, 255, 0.35)";
                 ctx.lineWidth = 1.2 * scale;
                 ctx.beginPath();
-                ctx.moveTo(s.x - 42 * scale, s.y + 46 * scale);
-                ctx.lineTo(s.x + 42 * scale, s.y + 46 * scale);
+                ctx.moveTo(s.x - 42 * scale, s.y + 45 * scale);
+                ctx.lineTo(s.x + 42 * scale, s.y + 45 * scale);
                 ctx.stroke();
 
-                // Compound Name
-                ctx.font = `600 ${Math.round(12.5 * scale)}px 'Space Grotesk', sans-serif`;
+                ctx.font = `700 ${Math.round(12.5 * scale)}px 'Space Grotesk', sans-serif`;
                 ctx.fillStyle = "#ffffff";
                 ctx.textAlign = "center";
-                ctx.fillText(comp.name, s.x, s.y + 62 * scale);
+                ctx.fillText(comp.name, s.x, s.y + 60 * scale);
 
-                // Chemical Formula below Name
-                ctx.font = `500 ${Math.round(11 * scale)}px 'Space Grotesk', sans-serif`;
+                ctx.font = `600 ${Math.round(11 * scale)}px 'Space Grotesk', sans-serif`;
                 ctx.fillStyle = comp.chalkColor;
-                ctx.fillText(`(${comp.formula})`, s.x, s.y + 77 * scale);
+                ctx.fillText(`(${comp.formula})`, s.x, s.y + 74 * scale);
+
+                if (comp.note) {
+                    ctx.font = `500 ${Math.round(9.5 * scale)}px 'JetBrains Mono', monospace`;
+                    ctx.fillStyle = "rgba(253, 224, 71, 0.85)";
+                    ctx.fillText(comp.note, s.x, s.y + 87 * scale);
+                }
 
                 ctx.restore();
             }
         });
 
-        // 4. Update & Draw the Chemistry Professor
+        // 5. Update & Draw the Chemistry Professor
         professor.update(dt);
-        professor.draw(ctx);
+        professor.draw(ctx, now);
 
-        // 5. Update & Draw Falling Chalk Dust Particles
+        // 6. Update & Draw Falling Chalk Dust Particles
         for (let i = chalkDust.length - 1; i >= 0; i--) {
             const p = chalkDust[i];
             p.x += p.vx * dt;
@@ -1564,18 +2383,48 @@ function resizeIframe(obj) {
     requestAnimationFrame(animateChalkboard);
 })();
 
-// =========================================
-// 3. NAV SCROLL HIGHLIGHT & IFRAME RESIZER
-// =========================================
+// =========================================================
+// 3. NAV SCROLL HIGHLIGHT, PROACTIVE HUD & IFRAME RESIZER
+// =========================================================
+const SECTION_HUD_TIPS = {
+    aboutme: "🎓 <strong>Prof. TORA 4.0:</strong> Click me to balance equations or draw 2D molecules!",
+    chemArenaSection: "🔬 <strong>Interactive Chalkboard:</strong> Click any drawn molecule on the board to inspect its PubChem 2D structure!",
+    Projects: "🚀 Exploring <strong>Showcase</strong>? Ask me about <strong>Modern Pixels</strong> or GreenChain!",
+    education: "🎓 Malith studies <strong>BSc (Hons) Chemical Technology</strong> at SUSL!",
+    gallery: "📸 Visual &amp; Creative Portfolio Showcase!",
+    more: "⚡ Analytical Chemistry + Full-Stack Engineering!",
+    contact: "📬 Want to collaborate with Malith? Let's connect!"
+};
+let lastHudSection = '';
+let hudTimeout = null;
+
+function showProactiveBubble(htmlText, duration = 4200) {
+    const bubble = document.getElementById('tora-proactive-bubble');
+    const panel  = document.getElementById('tora-chat-panel');
+    if (!bubble || panel.classList.contains('show')) return;
+    bubble.innerHTML = htmlText;
+    bubble.classList.add('show');
+    clearTimeout(hudTimeout);
+    hudTimeout = setTimeout(() => bubble.classList.remove('show'), duration);
+}
+
 window.addEventListener('scroll', () => {
     let cur = '';
-    document.querySelectorAll('#aboutme,#Projects,#education,#more,#contact').forEach(s => {
-        if (pageYOffset >= s.offsetTop - 250) cur = s.id;
+    document.querySelectorAll('#aboutme,#chemArenaSection,#Projects,#education,#gallery,#more,#contact').forEach(s => {
+        if (pageYOffset >= s.offsetTop - 280) cur = s.id;
     });
     document.querySelectorAll('.top-nav a').forEach(a => {
         a.classList.toggle('active', a.getAttribute('href').includes(cur) && !!cur);
     });
+    if (cur && cur !== lastHudSection && SECTION_HUD_TIPS[cur]) {
+        lastHudSection = cur;
+        showProactiveBubble(SECTION_HUD_TIPS[cur], 3800);
+    }
 }, { passive: true });
+
+setTimeout(() => {
+    showProactiveBubble("🎓 <strong>Prof. TORA 4.0 Online!</strong> Click any molecule on the chalkboard or ask me any Chemistry question!", 5400);
+}, 2400);
 
 window.addEventListener('message', e => {
     if (e.data?.type === 'resize') {
@@ -1603,14 +2452,71 @@ function slowScrollTo(id, dur = 900) {
 }
 
 // ============================================================================
-// 4. TORA 2.0 — OMNI-INTELLIGENCE ENGINE (MALITH + GLOBAL WORLD KNOWLEDGE API)
+// 4. PROF. TORA 4.0 — ULTRA-ADVANCED CHEMICAL TECHNOLOGY & ANALYTICAL AI ENGINE
 // ============================================================================
 const chatPanel = document.getElementById('tora-chat-panel');
 const msgBox    = document.getElementById('tora-messages');
 const chutiBot  = document.getElementById('chuti-bot');
 const voiceBtn  = document.getElementById('tora-voice-btn');
-let chatOpened  = false;
+const sfxBtn    = document.getElementById('tora-sfx-btn');
+const micBtn    = document.getElementById('tora-mic-btn');
+const slashMenu = document.getElementById('tora-slash-menu');
+
+let chatOpened   = false;
 let voiceEnabled = false;
+let sfxEnabled   = true;
+
+const toraMemory = {
+    visitorName: localStorage.getItem('tora_visitor_name') || null,
+    quizActive: false,
+    currentQuiz: null
+};
+
+let audioCtx = null;
+function playRobotSound(type = 'chirp') {
+    if (!sfxEnabled) return;
+    try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === 'open') {
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(540, now);
+            osc.frequency.exponentialRampToValueAtTime(1020, now + 0.09);
+            osc.frequency.exponentialRampToValueAtTime(1380, now + 0.18);
+            gain.gain.setValueAtTime(0.055, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+            osc.start(now); osc.stop(now + 0.2);
+        } else if (type === 'send') {
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(660, now);
+            osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+            gain.gain.setValueAtTime(0.045, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+            osc.start(now); osc.stop(now + 0.09);
+        } else if (type === 'reply') {
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(880, now);
+            osc.frequency.exponentialRampToValueAtTime(1240, now + 0.07);
+            osc.frequency.exponentialRampToValueAtTime(1080, now + 0.14);
+            gain.gain.setValueAtTime(0.05, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+            osc.start(now); osc.stop(now + 0.15);
+        }
+    } catch (_) {}
+}
+
+function toggleSfx(e) {
+    e.stopPropagation();
+    sfxEnabled = !sfxEnabled;
+    sfxBtn.textContent = sfxEnabled ? "🔔" : "🔕";
+    if (sfxEnabled) playRobotSound('open');
+}
 
 function toggleVoice(e) {
     e.stopPropagation();
@@ -1619,139 +2525,758 @@ function toggleVoice(e) {
     if (!voiceEnabled && window.speechSynthesis) window.speechSynthesis.cancel();
 }
 
+function toggleExpandChat(e) {
+    e.stopPropagation();
+    chatPanel.classList.toggle('expanded');
+    playRobotSound('send');
+}
+
+function clearToraChat(e) {
+    e.stopPropagation();
+    msgBox.innerHTML = '';
+    toraMemory.quizActive = false;
+    playRobotSound('open');
+    showMsg('bot',
+        `🎓 **Prof. TORA 4.0 Lab Log Cleared!** Try any of these:<br>` +
+        `• **Balance Reaction:** \`KMnO4 + HCl -> KCl + MnCl2 + H2O + Cl2\`<br>` +
+        `• **2D PubChem Structure:** \`Structure of Caffeine\` or click any molecule on the chalkboard!<br>` +
+        `• **Solution Prep:** \`Prepare 250 mL of 0.1 M NaOH\`<br>` +
+        `• **Electrochemistry:** \`Cell Zn and Cu\` or \`pH of 0.02 M H2SO4\``,
+        false
+    );
+}
+
 function speakText(text) {
     if (!voiceEnabled || !window.speechSynthesis) return;
     try {
         window.speechSynthesis.cancel();
-        const clean = text.replace(/<[^>]*>/g, '').replace(/[^\w\s.,?!'-]/g, '');
-        const utter = new SpeechSynthesisUtterance(clean);
-        utter.pitch = 1.25;
-        utter.rate = 1.05;
+        const clean = text.replace(/<[^>]*>/g, ' ').replace(/[^\w\s.,?!'-]/g, ' ').replace(/\s+/g, ' ').trim();
+        const utter = new SpeechSynthesisUtterance(clean.slice(0, 260));
+        utter.pitch = 1.05;
+        utter.rate = 1.02;
         utter.onstart = () => chutiBot.classList.add('is-talking');
         utter.onend = () => chutiBot.classList.remove('is-talking');
         window.speechSynthesis.speak(utter);
     } catch (_) {}
 }
 
-function setBotMood(mood, duration = 2200) {
-    chutiBot.classList.remove('mood-happy', 'mood-thinking', 'is-talking');
+function setBotMood(mood, duration = 2400) {
+    chutiBot.classList.remove('mood-happy', 'mood-thinking', 'mood-listening', 'mood-cyber', 'mood-love', 'is-talking');
     if (mood) {
         chutiBot.classList.add(mood);
         if (duration > 0) setTimeout(() => chutiBot.classList.remove(mood), duration);
     }
 }
 
-const ELEMENTS_DB = {
-    hydrogen: "Hydrogen (H) · Atomic #1 · Mass: 1.008 u · The most abundant element in the universe!",
-    helium: "Helium (He) · Atomic #2 · Mass: 4.0026 u · Noble gas with the lowest boiling point.",
-    carbon: "Carbon (C) · Atomic #6 · Mass: 12.011 u · The backbone of organic chemistry, diamond, and graphene!",
-    nitrogen: "Nitrogen (N) · Atomic #7 · Mass: 14.007 u · Makes up ~78% of Earth's atmosphere.",
-    oxygen: "Oxygen (O) · Atomic #8 · Mass: 15.999 u · Essential oxidizing agent for respiration and combustion.",
-    sodium: "Sodium (Na) · Atomic #11 · Mass: 22.990 u · Highly reactive alkali metal.",
-    magnesium: "Magnesium (Mg) · Atomic #12 · Mass: 24.305 u · Central atom in chlorophyll!",
-    aluminium: "Aluminium (Al) · Atomic #13 · Mass: 26.982 u · Lightweight amphoteric metal.",
-    silicon: "Silicon (Si) · Atomic #14 · Mass: 28.085 u · The foundation of semiconductors and microchips!",
-    phosphorus: "Phosphorus (P) · Atomic #15 · Mass: 30.974 u · Vital component of DNA, RNA, and ATP.",
-    sulfur: "Sulfur (S) · Atomic #16 · Mass: 32.06 u · Used in sulfuric acid production and vulcanization.",
-    chlorine: "Chlorine (Cl) · Atomic #17 · Mass: 35.45 u · Strong halogen disinfectant and oxidizing agent.",
-    potassium: "Potassium (K) · Atomic #19 · Mass: 39.098 u · Crucial electrolyte for nerve impulse transmission.",
-    calcium: "Calcium (Ca) · Atomic #20 · Mass: 40.078 u · Alkaline earth metal essential for bones and shells.",
-    iron: "Iron (Fe) · Atomic #26 · Mass: 55.845 u · Key transition metal in steel and hemoglobin.",
-    copper: "Copper (Cu) · Atomic #29 · Mass: 63.546 u · High thermal and electrical conductivity metal.",
-    zinc: "Zinc (Zn) · Atomic #30 · Mass: 65.38 u · Used in galvanizing and catalytic enzymes.",
-    silver: "Silver (Ag) · Atomic #47 · Mass: 107.87 u · Highest electrical conductivity; Malith researches Green Synthesis of AgNPs!",
-    gold: "Gold (Au) · Atomic #79 · Mass: 196.97 u · Inert noble transition metal prized in electronics and jewelry.",
-    mercury: "Mercury (Hg) · Atomic #80 · Mass: 200.59 u · The only metallic element that is liquid at standard room temperature.",
-    uranium: "Uranium (U) · Atomic #92 · Mass: 238.03 u · Heavy actinide used as nuclear fuel."
+let recognition = null;
+let isListening = false;
+function toggleSpeechRecognition(e) {
+    e.stopPropagation();
+    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRec) {
+        showMsg('bot', "🎙️ Speech Recognition requires Chrome or Edge. You can type any chemical formula or equation below!");
+        return;
+    }
+    if (isListening && recognition) {
+        recognition.stop();
+        return;
+    }
+    recognition = new SpeechRec();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => {
+        isListening = true;
+        micBtn.classList.add('listening');
+        setBotMood('mood-listening', 0);
+        document.getElementById('tora-input').placeholder = "Listening... Speak a chemical or question 🎙️";
+        playRobotSound('open');
+    };
+    recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        if (transcript) processUserQuestion(transcript);
+    };
+    recognition.onerror = () => {
+        isListening = false;
+        micBtn.classList.remove('listening');
+        setBotMood(null);
+    };
+    recognition.onend = () => {
+        isListening = false;
+        micBtn.classList.remove('listening');
+        setBotMood('mood-happy', 1500);
+        document.getElementById('tora-input').placeholder = "Ask Prof. TORA: reaction (Fe+O2->Fe2O3), Caffeine, prep 250mL 0.1M NaOH…";
+    };
+    recognition.start();
+}
+
+// ============================================================================
+// ENGINE 1: COMPLETE 118-ELEMENT PERIODIC TABLE & COORDINATION FORMULA PARSER
+// ============================================================================
+const ELEMENTS_118 = {
+    H:[1,"Hydrogen",1.008,"1s¹",2.20,"+1, -1"], He:[2,"Helium",4.0026,"1s²",null,"0"],
+    Li:[3,"Lithium",6.94,"[He] 2s¹",0.98,"+1"], Be:[4,"Beryllium",9.0122,"[He] 2s²",1.57,"+2"],
+    B:[5,"Boron",10.81,"[He] 2s² 2p¹",2.04,"+3"], C:[6,"Carbon",12.011,"[He] 2s² 2p²",2.55,"+4, +2, -4"],
+    N:[7,"Nitrogen",14.007,"[He] 2s² 2p³",3.04,"+5, +3, -3"], O:[8,"Oxygen",15.999,"[He] 2s² 2p⁴",3.44,"-2, -1"],
+    F:[9,"Fluorine",18.998,"[He] 2s² 2p⁵",3.98,"-1"], Ne:[10,"Neon",20.180,"[He] 2s² 2p⁶",null,"0"],
+    Na:[11,"Sodium",22.990,"[Ne] 3s¹",0.93,"+1"], Mg:[12,"Magnesium",24.305,"[Ne] 3s²",1.31,"+2"],
+    Al:[13,"Aluminium",26.982,"[Ne] 3s² 3p¹",1.61,"+3"], Si:[14,"Silicon",28.085,"[Ne] 3s² 3p²",1.90,"+4, -4"],
+    P:[15,"Phosphorus",30.974,"[Ne] 3s² 3p³",2.19,"+5, +3, -3"], S:[16,"Sulfur",32.06,"[Ne] 3s² 3p⁴",2.58,"+6, +4, -2"],
+    Cl:[17,"Chlorine",35.45,"[Ne] 3s² 3p⁵",3.16,"+7, +5, +1, -1"], Ar:[18,"Argon",39.948,"[Ne] 3s² 3p⁶",null,"0"],
+    K:[19,"Potassium",39.098,"[Ar] 4s¹",0.82,"+1"], Ca:[20,"Calcium",40.078,"[Ar] 4s²",1.00,"+2"],
+    Sc:[21,"Scandium",44.956,"[Ar] 3d¹ 4s²",1.36,"+3"], Ti:[22,"Titanium",47.867,"[Ar] 3d² 4s²",1.54,"+4, +3"],
+    V:[23,"Vanadium",50.942,"[Ar] 3d³ 4s²",1.63,"+5, +4, +3, +2"], Cr:[24,"Chromium",51.996,"[Ar] 3d⁵ 4s¹",1.66,"+6, +3, +2"],
+    Mn:[25,"Manganese",54.938,"[Ar] 3d⁵ 4s²",1.55,"+7, +4, +2"], Fe:[26,"Iron",55.845,"[Ar] 3d⁶ 4s²",1.83,"+3, +2"],
+    Co:[27,"Cobalt",58.933,"[Ar] 3d⁷ 4s²",1.88,"+3, +2"], Ni:[28,"Nickel",58.693,"[Ar] 3d⁸ 4s²",1.91,"+2, +3"],
+    Cu:[29,"Copper",63.546,"[Ar] 3d¹⁰ 4s¹",1.90,"+2, +1"], Zn:[30,"Zinc",65.38,"[Ar] 3d¹⁰ 4s²",1.65,"+2"],
+    Ga:[31,"Gallium",69.723,"[Ar] 3d¹⁰ 4s² 4p¹",1.81,"+3"], Ge:[32,"Germanium",72.630,"[Ar] 3d¹⁰ 4s² 4p²",2.01,"+4, +2"],
+    As:[33,"Arsenic",74.922,"[Ar] 3d¹⁰ 4s² 4p³",2.18,"+5, +3, -3"], Se:[34,"Selenium",78.971,"[Ar] 3d¹⁰ 4s² 4p⁴",2.55,"+6, +4, -2"],
+    Br:[35,"Bromine",79.904,"[Ar] 3d¹⁰ 4s² 4p⁵",2.96,"+5, +1, -1"], Kr:[36,"Krypton",83.798,"[Ar] 3d¹⁰ 4s² 4p⁶",3.00,"+2"],
+    Rb:[37,"Rubidium",85.468,"[Kr] 5s¹",0.82,"+1"], Sr:[38,"Strontium",87.62,"[Kr] 5s²",0.95,"+2"],
+    Y:[39,"Yttrium",88.906,"[Kr] 4d¹ 5s²",1.22,"+3"], Zr:[40,"Zirconium",91.224,"[Kr] 4d² 5s²",1.33,"+4"],
+    Nb:[41,"Niobium",92.906,"[Kr] 4d⁴ 5s¹",1.6,"+5"], Mo:[42,"Molybdenum",95.95,"[Kr] 4d⁵ 5s¹",2.16,"+6, +4"],
+    Tc:[43,"Technetium",98,"[Kr] 4d⁵ 5s²",1.9,"+7"], Ru:[44,"Ruthenium",101.07,"[Kr] 4d⁷ 5s¹",2.2,"+4, +3"],
+    Rh:[45,"Rhodium",102.91,"[Kr] 4d⁸ 5s¹",2.28,"+3"], Pd:[46,"Palladium",106.42,"[Kr] 4d¹⁰",2.20,"+2, +4"],
+    Ag:[47,"Silver",107.87,"[Kr] 4d¹⁰ 5s¹",1.93,"+1"], Cd:[48,"Cadmium",112.41,"[Kr] 4d¹⁰ 5s²",1.69,"+2"],
+    In:[49,"Indium",114.82,"[Kr] 4d¹⁰ 5s² 5p¹",1.78,"+3"], Sn:[50,"Tin",118.71,"[Kr] 4d¹⁰ 5s² 5p²",1.96,"+4, +2"],
+    Sb:[51,"Antimony",121.76,"[Kr] 4d¹⁰ 5s² 5p³",2.05,"+5, +3"], Te:[52,"Tellurium",127.60,"[Kr] 4d¹⁰ 5s² 5p⁴",2.1,"+6, +4, -2"],
+    I:[53,"Iodine",126.90,"[Kr] 4d¹⁰ 5s² 5p⁵",2.66,"+7, +5, +1, -1"], Xe:[54,"Xenon",131.29,"[Kr] 4d¹⁰ 5s² 5p⁶",2.6,"+6, +4, +2"],
+    Cs:[55,"Cesium",132.91,"[Xe] 6s¹",0.79,"+1"], Ba:[56,"Barium",137.33,"[Xe] 6s²",0.89,"+2"],
+    La:[57,"Lanthanum",138.91,"[Xe] 5d¹ 6s²",1.10,"+3"], Ce:[58,"Cerium",140.12,"[Xe] 4f¹ 5d¹ 6s²",1.12,"+4, +3"],
+    Nd:[60,"Neodymium",144.24,"[Xe] 4f⁴ 6s²",1.14,"+3"], Sm:[62,"Samarium",150.36,"[Xe] 4f⁶ 6s²",1.17,"+3"],
+    Eu:[63,"Europium",151.96,"[Xe] 4f⁷ 6s²",1.2,"+3, +2"], Gd:[64,"Gadolinium",157.25,"[Xe] 4f⁷ 5d¹ 6s²",1.2,"+3"],
+    Hf:[72,"Hafnium",178.49,"[Xe] 4f¹⁴ 5d² 6s²",1.3,"+4"], Ta:[73,"Tantalum",180.95,"[Xe] 4f¹⁴ 5d³ 6s²",1.5,"+5"],
+    W:[74,"Tungsten",183.84,"[Xe] 4f¹⁴ 5d⁴ 6s²",2.36,"+6"], Re:[75,"Rhenium",186.21,"[Xe] 4f¹⁴ 5d⁵ 6s²",1.9,"+7"],
+    Os:[76,"Osmium",190.23,"[Xe] 4f¹⁴ 5d⁶ 6s²",2.2,"+8, +4"], Ir:[77,"Iridium",192.22,"[Xe] 4f¹⁴ 5d⁷ 6s²",2.20,"+4, +3"],
+    Pt:[78,"Platinum",195.08,"[Xe] 4f¹⁴ 5d⁹ 6s¹",2.28,"+4, +2"], Au:[79,"Gold",196.97,"[Xe] 4f¹⁴ 5d¹⁰ 6s¹",2.54,"+3, +1"],
+    Hg:[80,"Mercury",200.59,"[Xe] 4f¹⁴ 5d¹⁰ 6s²",2.00,"+2, +1"], Tl:[81,"Thallium",204.38,"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p¹",1.62,"+3, +1"],
+    Pb:[82,"Lead",207.2,"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p²",2.33,"+4, +2"], Bi:[83,"Bismuth",208.98,"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³",2.02,"+3"],
+    Po:[84,"Polonium",209,"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁴",2.0,"+4, +2"], At:[85,"Astatine",210,"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁵",2.2,"-1"],
+    Rn:[86,"Radon",222,"[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁶",null,"0"], Ra:[88,"Radium",226,"[Rn] 7s²",0.9,"+2"],
+    Th:[90,"Thorium",232.04,"[Rn] 6d² 7s²",1.3,"+4"], U:[92,"Uranium",238.03,"[Rn] 5f³ 6d¹ 7s²",1.38,"+6, +4"],
+    Pu:[94,"Plutonium",244,"[Rn] 5f⁶ 7s²",1.28,"+4, +6"]
 };
 
+const KNOWN_FORMULAS = {
+    "H2O":"Water (Oxidane)", "C6H12O6":"D-Glucose / Hexose", "H2SO4":"Sulfuric Acid", "HCl":"Hydrochloric Acid",
+    "HNO3":"Nitric Acid", "CH3COOH":"Acetic Acid (Ethanoic Acid)", "NaOH":"Sodium Hydroxide", "KOH":"Potassium Hydroxide",
+    "NaCl":"Sodium Chloride", "KMnO4":"Potassium Permanganate", "K2Cr2O7":"Potassium Dichromate", "Na2CO3":"Sodium Carbonate",
+    "NaHCO3":"Sodium Bicarbonate", "CaCO3":"Calcium Carbonate", "Ca(OH)2":"Calcium Hydroxide", "NH3":"Ammonia",
+    "CO2":"Carbon Dioxide", "C6H6":"Benzene", "C2H5OH":"Ethanol", "CH4":"Methane", "AgNO3":"Silver Nitrate",
+    "CuSO4":"Copper(II) Sulfate", "K4[Fe(CN)6]":"Potassium Ferrocyanide", "K3[Fe(CN)6]":"Potassium Ferricyanide",
+    "Fe2O3":"Iron(III) Oxide (Hematite)", "Fe3O4":"Magnetite", "Al2O3":"Aluminium Oxide", "TiO2":"Titanium Dioxide",
+    "H3PO4":"Orthophosphoric Acid", "Na2S2O3":"Sodium Thiosulfate", "KI":"Potassium Iodide", "H2O2":"Hydrogen Peroxide"
+};
+
+function parseFormulaCounts(rawFormula) {
+    let norm = rawFormula
+        .replace(/[₀-₉]/g, c => "₀₁₂₃₄₅₆₇₈₉".indexOf(c))
+        .replace(/\[/g, '(')
+        .replace(/\]/g, ')')
+        .trim();
+
+    if (norm.includes('.') || norm.includes('·')) {
+        const parts = norm.split(/[.·]/);
+        const total = {};
+        for (let p of parts) {
+            p = p.trim();
+            const m = p.match(/^(\d+)(.+)$/);
+            const mult = m ? parseInt(m[1], 10) : 1;
+            const subF = m ? m[2] : p;
+            const subCounts = parseFormulaCounts(subF);
+            if (!subCounts) return null;
+            for (const k in subCounts) total[k] = (total[k] || 0) + subCounts[k] * mult;
+        }
+        return total;
+    }
+
+    if (!/^[A-Za-z0-9()]+$/.test(norm) || !/[A-Z]/.test(norm)) return null;
+
+    const stack = [{}];
+    const tokenRegex = /([A-Z][a-z]?|\(|\)|\d+)/g;
+    let match, lastItem = null, rebuilt = "";
+
+    while ((match = tokenRegex.exec(norm)) !== null) {
+        const tok = match[1];
+        rebuilt += tok;
+        if (tok === '(') {
+            if (lastItem && typeof lastItem === 'object') {
+                const top = stack[stack.length - 1];
+                for (const k in lastItem) top[k] = (top[k] || 0) + lastItem[k];
+            }
+            stack.push({});
+            lastItem = null;
+        } else if (tok === ')') {
+            if (stack.length < 2) return null;
+            if (lastItem && typeof lastItem === 'object') {
+                const top = stack[stack.length - 1];
+                for (const k in lastItem) top[k] = (top[k] || 0) + lastItem[k];
+            }
+            lastItem = stack.pop();
+        } else if (/^\d+$/.test(tok)) {
+            const mult = parseInt(tok, 10);
+            if (!lastItem) return null;
+            const top = stack[stack.length - 1];
+            if (typeof lastItem === 'string') {
+                top[lastItem] = (top[lastItem] || 0) + (mult - 1);
+            } else {
+                for (const k in lastItem) top[k] = (top[k] || 0) + lastItem[k] * mult;
+            }
+            lastItem = null;
+        } else {
+            if (!ELEMENTS_118[tok]) return null;
+            if (lastItem && typeof lastItem === 'object') {
+                const top = stack[stack.length - 1];
+                for (const k in lastItem) top[k] = (top[k] || 0) + lastItem[k];
+            }
+            const top = stack[stack.length - 1];
+            top[tok] = (top[tok] || 0) + 1;
+            lastItem = tok;
+        }
+    }
+    if (rebuilt !== norm || stack.length !== 1) return null;
+    if (lastItem && typeof lastItem === 'object') {
+        const top = stack[0];
+        for (const k in lastItem) top[k] = (top[k] || 0) + lastItem[k];
+    }
+    return stack[0];
+}
+
+function formatFormulaSubscripts(f) {
+    return f.replace(/([A-Za-z)\]])(\d+)/g, '$1<sub>$2</sub>');
+}
+
+// ============================================================================
+// ENGINE 2: MATRIX GAUSSIAN ELIMINATION CHEMICAL EQUATION BALANCER
+// ============================================================================
+function gcd(a, b) { a = Math.abs(a); b = Math.abs(b); while (b) { [a, b] = [b, a % b]; } return a || 1; }
+function lcm(a, b) { return Math.abs(a * b) / gcd(a, b); }
+
+function balanceChemicalEquation(rawInput) {
+    const cleaned = rawInput
+        .replace(/^(balance|balance equation|equation|reaction|\/balance)\s*:?\s*/i, '')
+        .trim();
+
+    if (!/(->|→|<=>|⇌|=)/.test(cleaned) || !cleaned.includes('+')) return null;
+
+    const parts = cleaned.split(/\s*(?:->|→|<=>|⇌|=)\s*/);
+    if (parts.length !== 2) return null;
+
+    const lhsRaw = parts[0].split(/\s*\+\s*/).map(s => s.replace(/^\d+\s*/, '').trim()).filter(Boolean);
+    const rhsRaw = parts[1].split(/\s*\+\s*/).map(s => s.replace(/^\d+\s*/, '').trim()).filter(Boolean);
+    if (!lhsRaw.length || !rhsRaw.length) return null;
+
+    const allFormulas = [...lhsRaw, ...rhsRaw];
+    const parsedList = [];
+    const elementSet = new Set();
+
+    for (const f of allFormulas) {
+        const counts = parseFormulaCounts(f);
+        if (!counts) return null;
+        parsedList.push(counts);
+        Object.keys(counts).forEach(el => elementSet.add(el));
+    }
+
+    const elements = Array.from(elementSet);
+    const numCols = allFormulas.length;
+    const numRows = elements.length;
+
+    const mat = elements.map(el => {
+        return allFormulas.map((_, colIdx) => {
+            const c = parsedList[colIdx][el] || 0;
+            return { n: colIdx < lhsRaw.length ? c : -c, d: 1 };
+        });
+    });
+
+    const simp = (frac) => {
+        if (frac.n === 0) return { n: 0, d: 1 };
+        const g = gcd(frac.n, frac.d);
+        const sign = frac.d < 0 ? -1 : 1;
+        return { n: (frac.n / g) * sign, d: Math.abs(frac.d / g) };
+    };
+    const subF = (a, b) => simp({ n: a.n * b.d - b.n * a.d, d: a.d * b.d });
+    const mulF = (a, b) => simp({ n: a.n * b.n, d: a.d * b.d });
+    const divF = (a, b) => simp({ n: a.n * b.d, d: a.d * b.n });
+
+    let pivotRow = 0;
+    const pivotCols = [];
+    for (let col = 0; col < numCols - 1 && pivotRow < numRows; col++) {
+        let sel = pivotRow;
+        while (sel < numRows && mat[sel][col].n === 0) sel++;
+        if (sel === numRows) continue;
+        [mat[pivotRow], mat[sel]] = [mat[sel], mat[pivotRow]];
+        pivotCols.push({ row: pivotRow, col });
+
+        const pivVal = mat[pivotRow][col];
+        for (let j = col; j < numCols; j++) mat[pivotRow][j] = divF(mat[pivotRow][j], pivVal);
+
+        for (let i = 0; i < numRows; i++) {
+            if (i !== pivotRow && mat[i][col].n !== 0) {
+                const factor = mat[i][col];
+                for (let j = col; j < numCols; j++) {
+                    mat[i][j] = subF(mat[i][j], mulF(factor, mat[pivotRow][j]));
+                }
+            }
+        }
+        pivotRow++;
+    }
+
+    const sol = Array(numCols).fill({ n: 0, d: 1 });
+    sol[numCols - 1] = { n: 1, d: 1 };
+    for (const { row, col } of pivotCols) {
+        sol[col] = simp({ n: -mat[row][numCols - 1].n, d: mat[row][numCols - 1].d });
+    }
+
+    let commonDenom = 1;
+    for (const s of sol) {
+        if (s.n <= 0) return null;
+        commonDenom = lcm(commonDenom, s.d);
+    }
+    let coeffs = sol.map(s => (s.n * commonDenom) / s.d);
+    const overallGcd = coeffs.reduce((a, b) => gcd(a, b), coeffs[0]);
+    coeffs = coeffs.map(c => c / overallGcd);
+
+    const lhsFormatted = lhsRaw.map((f, i) => {
+        const c = coeffs[i];
+        return (c > 1 ? `<span class="t-coeff">${c}</span> ` : '') + formatFormulaSubscripts(f);
+    }).join(' + ');
+
+    const rhsFormatted = rhsRaw.map((f, i) => {
+        const c = coeffs[lhsRaw.length + i];
+        return (c > 1 ? `<span class="t-coeff">${c}</span> ` : '') + formatFormulaSubscripts(f);
+    }).join(' + ');
+
+    const atomSummary = elements.map(el => {
+        let count = 0;
+        for (let i = 0; i < lhsRaw.length; i++) count += coeffs[i] * (parsedList[i][el] || 0);
+        return `<b>${el}</b>: ${count}`;
+    }).join(' · ');
+
+    setBotMood('mood-cyber', 2400);
+    return `<span class="t-wiki-badge t-chem-badge">⚖️ Prof. TORA · Stoichiometric Matrix Solver</span><br>` +
+           `**Balanced Chemical Equation:**` +
+           `<div class="t-reaction-box">${lhsFormatted} &longrightarrow; ${rhsFormatted}</div>` +
+           `<div class="t-mini-card">` +
+           `<div class="t-mini-card-title">Stoichiometric Mole Ratio: ${coeffs.join(' : ')}</div>` +
+           `<div class="t-mini-card-sub">Atom Conservation Verified (${atomSummary})</div>` +
+           `</div>`;
+}
+
+// ============================================================================
+// ENGINE 3: LAB SOLUTION PREPARATION, DILUTION & pH / pOH CALCULATOR
+// ============================================================================
+function trySolutionAndPhLab(rawText) {
+    const clean = rawText.trim();
+
+    const prepMatch = clean.match(/(?:prepare|make|how to prepare|prep|calculate mass for)?\s*(\d+(?:\.\d+)?)\s*(ml|l|cm3|dm3)\s+(?:of\s+)?(\d+(?:\.\d+)?)\s*(?:m|mol\/l|mol dm-3|molar)\s+([A-Za-z0-9().[\]₀-₉]+)/i) ||
+                      clean.match(/(?:prepare|make|prep)\s+(\d+(?:\.\d+)?)\s*(?:m|molar)\s+([A-Za-z0-9().[\]₀-₉]+)\s+(\d+(?:\.\d+)?)\s*(ml|l)/i);
+
+    if (prepMatch) {
+        let volVal, volUnit, molarity, formula;
+        if (/ml|l|cm3|dm3/i.test(prepMatch[2])) {
+            volVal = parseFloat(prepMatch[1]);
+            volUnit = prepMatch[2].toLowerCase();
+            molarity = parseFloat(prepMatch[3]);
+            formula = prepMatch[4];
+        } else {
+            molarity = parseFloat(prepMatch[1]);
+            formula = prepMatch[2];
+            volVal = parseFloat(prepMatch[3]);
+            volUnit = prepMatch[4].toLowerCase();
+        }
+
+        const counts = parseFormulaCounts(formula);
+        if (counts) {
+            let mm = 0;
+            for (const el in counts) mm += ELEMENTS_118[el][2] * counts[el];
+            const volLiters = (volUnit === 'ml' || volUnit === 'cm3') ? volVal / 1000 : volVal;
+            const moles = molarity * volLiters;
+            const massGrams = moles * mm;
+            const massMg = massGrams * 1000;
+
+            setBotMood('mood-cyber', 2400);
+            return `<span class="t-wiki-badge t-chem-badge">🧪 Analytical Lab Solution Prep</span><br>` +
+                   `To prepare **${volVal} ${volUnit.toUpperCase()}** of **${molarity} M ${formatFormulaSubscripts(formula)}**:` +
+                   `<div class="t-card-grid">` +
+                   `<div class="t-mini-card"><div class="t-mini-card-title">⚖️ Required Mass to Weigh: ${massGrams.toFixed(4)} g (${massMg.toFixed(1)} mg)</div>` +
+                   `<div class="t-mini-card-sub">• Molar Mass of ${formatFormulaSubscripts(formula)}: <b>${mm.toFixed(3)} g/mol</b><br>` +
+                   `• Moles ($n = C \\times V$): <b>${moles.toFixed(5)} mol</b></div></div>` +
+                   `<div class="t-mini-card"><div class="t-mini-card-title">📋 Standard Lab Procedure</div>` +
+                   `<div class="t-mini-card-sub">1. Weigh exactly <b>${massGrams.toFixed(4)} g</b> on an analytical balance.<br>` +
+                   `2. Dissolve in ~${Math.round(volVal * 0.6)} ${volUnit} deionized water in a beaker.<br>` +
+                   `3. Transfer quantitatively to a <b>${volVal} ${volUnit} volumetric flask</b> and dilute to the meniscus mark.</div></div>` +
+                   `</div>`;
+        }
+    }
+
+    const phMatch = clean.match(/ph\s+(?:of\s+)?(\d+(?:\.\d+)?)\s*(?:m|mol\/l)?\s*([A-Za-z0-9()₀-₉]+)/i);
+    if (phMatch) {
+        const conc = parseFloat(phMatch[1]);
+        const species = phMatch[2].replace(/[₀-₉]/g, c => "₀₁₂₃₄₅₆₇₈₉".indexOf(c));
+        if (conc > 0) {
+            let hConc = null, typeLabel = "";
+            const strongMonoprotic = ['HCl', 'HNO3', 'HBr', 'HI', 'HClO4'];
+            const strongDiprotic = ['H2SO4'];
+            const strongBases1 = ['NaOH', 'KOH', 'LiOH'];
+            const strongBases2 = ['Ca(OH)2', 'Ba(OH)2', 'Sr(OH)2'];
+
+            if (strongMonoprotic.includes(species)) {
+                hConc = conc; typeLabel = "Strong Monoprotic Acid";
+            } else if (strongDiprotic.includes(species)) {
+                hConc = conc * 2; typeLabel = "Diprotic Acid (Complete Dissociation)";
+            } else if (strongBases1.includes(species)) {
+                const oh = conc;
+                const pOH = -Math.log10(oh);
+                const pH = 14 - pOH;
+                setBotMood('mood-cyber', 2200);
+                return `<span class="t-wiki-badge t-chem-badge">💧 Electroanalytical pH / pOH Engine</span><br>` +
+                       `**Solution:** ${conc} M ${formatFormulaSubscripts(species)} (*Strong Monobasic Alkali*)<br>` +
+                       `<div class="t-mini-card" style="margin-top:6px">` +
+                       `<div class="t-mini-card-title">pH = ${pH.toFixed(2)}  |  pOH = ${pOH.toFixed(2)}</div>` +
+                       `<div class="t-mini-card-sub">• $[OH^-] = ${oh.toExponential(2)}\\text{ M}$<br>• $[H^+] = ${(1e-14/oh).toExponential(2)}\\text{ M}$ (at $25^\\circ\\text{C}$)</div></div>`;
+            } else if (strongBases2.includes(species)) {
+                const oh = conc * 2;
+                const pOH = -Math.log10(oh);
+                const pH = 14 - pOH;
+                return `<span class="t-wiki-badge t-chem-badge">💧 Electroanalytical pH / pOH Engine</span><br>` +
+                       `**Solution:** ${conc} M ${formatFormulaSubscripts(species)} (*Strong Dibasic Alkali*)<br>` +
+                       `<div class="t-mini-card" style="margin-top:6px">` +
+                       `<div class="t-mini-card-title">pH = ${pH.toFixed(2)}  |  pOH = ${pOH.toFixed(2)}</div>` +
+                       `<div class="t-mini-card-sub">• $[OH^-] = ${oh.toExponential(2)}\\text{ M}$</div></div>`;
+            } else if (species === 'CH3COOH' || species.toLowerCase() === 'acetic') {
+                const Ka = 1.75e-5;
+                hConc = Math.sqrt(Ka * conc);
+                typeLabel = "Weak Acid ($K_a = 1.75 \\times 10^{-5}$)";
+            }
+
+            if (hConc) {
+                const pH = -Math.log10(hConc);
+                const pOH = 14 - pH;
+                setBotMood('mood-cyber', 2200);
+                return `<span class="t-wiki-badge t-chem-badge">💧 Electroanalytical pH / pOH Engine</span><br>` +
+                       `**Solution:** ${conc} M ${formatFormulaSubscripts(species)} (*${typeLabel}*)<br>` +
+                       `<div class="t-mini-card" style="margin-top:6px">` +
+                       `<div class="t-mini-card-title">pH = ${pH.toFixed(2)}  |  pOH = ${pOH.toFixed(2)}</div>` +
+                       `<div class="t-mini-card-sub">• $[H_3O^+] = ${hConc.toExponential(2)}\\text{ mol dm}^{-3}$<br>• $\\text{pH} = -\\log_{10}[H_3O^+]$</div></div>`;
+            }
+        }
+    }
+    return null;
+}
+
+// ============================================================================
+// ENGINE 4: ELECTROANALYTICAL & GALVANIC CELL (E°cell, ΔG°, Nernst) ENGINE
+// ============================================================================
+const HALF_CELLS = {
+    Li:  { pair: "Li⁺/Li",     e0: -3.04, n: 1 },
+    K:   { pair: "K⁺/K",       e0: -2.93, n: 1 },
+    Ca:  { pair: "Ca²⁺/Ca",    e0: -2.87, n: 2 },
+    Na:  { pair: "Na⁺/Na",     e0: -2.71, n: 1 },
+    Mg:  { pair: "Mg²⁺/Mg",    e0: -2.37, n: 2 },
+    Al:  { pair: "Al³⁺/Al",    e0: -1.66, n: 3 },
+    Zn:  { pair: "Zn²⁺/Zn",    e0: -0.76, n: 2 },
+    Fe:  { pair: "Fe²⁺/Fe",    e0: -0.44, n: 2 },
+    Ni:  { pair: "Ni²⁺/Ni",    e0: -0.25, n: 2 },
+    Sn:  { pair: "Sn²⁺/Sn",    e0: -0.14, n: 2 },
+    Pb:  { pair: "Pb²⁺/Pb",    e0: -0.13, n: 2 },
+    H:   { pair: "2H⁺/H₂",     e0:  0.00, n: 2 },
+    Cu:  { pair: "Cu²⁺/Cu",    e0: +0.34, n: 2 },
+    Fe3: { pair: "Fe³⁺/Fe²⁺",  e0: +0.77, n: 1 },
+    Ag:  { pair: "Ag⁺/Ag",     e0: +0.80, n: 1 },
+    Pt:  { pair: "Pt²⁺/Pt",    e0: +1.18, n: 2 },
+    Au:  { pair: "Au³⁺/Au",    e0: +1.50, n: 3 }
+};
+
+function tryElectrochemistryEngine(rawText) {
+    const lower = rawText.toLowerCase();
+
+    if (lower.includes('cell') || lower.includes('e0') || lower.includes('galvanic') || lower.includes('emf')) {
+        const found = [];
+        for (const sym of Object.keys(HALF_CELLS)) {
+            const nameLower = ELEMENTS_118[sym]?.[1]?.toLowerCase() || '';
+            const regexSym = new RegExp(`\\b${sym.toLowerCase()}\\b`);
+            if (regexSym.test(lower) || (nameLower && lower.includes(nameLower))) {
+                found.push(sym);
+            }
+        }
+        if (found.length >= 2) {
+            const m1 = HALF_CELLS[found[0]];
+            const m2 = HALF_CELLS[found[1]];
+            const cathode = m1.e0 >= m2.e0 ? { sym: found[0], ...m1 } : { sym: found[1], ...m2 };
+            const anode   = m1.e0 >= m2.e0 ? { sym: found[1], ...m2 } : { sym: found[0], ...m1 };
+            const eCell   = cathode.e0 - anode.e0;
+            const nElec   = lcm(cathode.n, anode.n);
+            const deltaG  = (-nElec * 96485 * eCell) / 1000;
+            const logK    = (nElec * eCell) / 0.05916;
+
+            setBotMood('mood-cyber', 2500);
+            return `<span class="t-wiki-badge t-chem-badge">⚡ Electroanalytical Galvanic Cell Engine</span><br>` +
+                   `**Cell Notation:** \`${anode.sym}(s) | ${anode.pair.split('/')[0]}(aq) || ${cathode.pair.split('/')[0]}(aq) | ${cathode.sym}(s)\`<br>` +
+                   `<div class="t-card-grid">` +
+                   `<div class="t-mini-card"><div class="t-mini-card-title">Standard EMF ($E^\\circ_{\\text{cell}}$) = +${eCell.toFixed(2)} V (Spontaneous)</div>` +
+                   `<div class="t-mini-card-sub">• **Cathode (Reduction):** ${cathode.pair} ($E^\\circ = ${cathode.e0 >= 0 ? '+' : ''}${cathode.e0.toFixed(2)}\\text{ V}$)<br>` +
+                   `• **Anode (Oxidation):** ${anode.pair} ($E^\\circ = ${anode.e0 >= 0 ? '+' : ''}${anode.e0.toFixed(2)}\\text{ V}$)</div></div>` +
+                   `<div class="t-mini-card"><div class="t-mini-card-title">Thermodynamics &amp; Nernst Parameters ($298\\text{ K}$)</div>` +
+                   `<div class="t-mini-card-sub">• **Electrons Transferred ($n$):** ${nElec} mol $e^-$<br>` +
+                   `• **Gibbs Free Energy ($\\Delta G^\\circ = -nFE^\\circ$):** <b>${deltaG.toFixed(1)} kJ/mol</b><br>` +
+                   `• **Equilibrium Constant ($\\log_{10} K$):** <b>${logK.toFixed(2)}</b> ($K \\approx 10^{${Math.round(logK)}}$)</div></div>` +
+                   `</div>`;
+        }
+    }
+
+    if (lower.includes('nernst') || lower.includes('cyclic voltammetry') || lower.includes('potentiometry') || lower.includes('polarography') || lower.includes('electroanalytical')) {
+        return `<span class="t-wiki-badge t-chem-badge">⚡ Electroanalytical Techniques Reference</span><br>` +
+               `<div class="t-card-grid">` +
+               `<div class="t-mini-card"><div class="t-mini-card-title">1. Nernst Equation (At 298.15 K)</div>` +
+               `<div class="t-mini-card-sub">$$E = E^\\circ - \\frac{0.05916}{n} \\log_{10} Q$$ Relates half-cell potential to ion activities.</div></div>` +
+               `<div class="t-mini-card"><div class="t-mini-card-title">2. Potentiometry &amp; ISE</div>` +
+               `<div class="t-mini-card-sub">Zero-current potential measurement between Reference Electrode (Ag/AgCl or SCE) and Indicator Electrode (e.g., pH glass membrane).</div></div>` +
+               `<div class="t-mini-card"><div class="t-mini-card-title">3. Cyclic Voltammetry (CV) &amp; Randles-Sevcik</div>` +
+               `<div class="t-mini-card-sub">Peak current $i_p = (2.69 \\times 10^5) n^{3/2} A D^{1/2} C v^{1/2}$. Reversible redox couple has $\\Delta E_p = |E_{pa} - E_{pc}| \\approx \\frac{59\\text{ mV}}{n}$.</div></div>` +
+               `</div>`;
+    }
+
+    if (lower.includes('ir ') || lower.includes('ftir') || lower.includes('cm-1') || lower.includes('wavenumber') || lower.includes('beer') || lower.includes('lod') || lower.includes('loq')) {
+        return `<span class="t-wiki-badge t-chem-badge">📊 Spectroscopy &amp; Analytical QA/QC Engine</span><br>` +
+               `<div class="t-card-grid">` +
+               `<div class="t-mini-card"><div class="t-mini-card-title">Characteristic FTIR Diagnostic Peaks</div>` +
+               `<div class="t-mini-card-sub">• **3200–3550 cm⁻¹ (Broad):** O–H stretch (Alcohols / H-bonded)<br>` +
+               `• **2500–3300 cm⁻¹ (Very Broad):** Carboxylic Acid O–H stretch<br>` +
+               `• **2850–3000 cm⁻¹:** $sp^3$ C–H stretch  |  **3000–3100 cm⁻¹:** $sp^2$ Aryl/Alkene C–H<br>` +
+               `• **1680–1750 cm⁻¹ (Strong Sharp):** Carbonyl C=O stretch (Ketone ~1715, Ester ~1735)<br>` +
+               `• **1600–1680 cm⁻¹:** C=C alkene / aromatic ring stretch</div></div>` +
+               `<div class="t-mini-card"><div class="t-mini-card-title">UV-Vis Beer-Lambert Law &amp; Method Validation (QA/QC)</div>` +
+               `<div class="t-mini-card-sub">• **Beer-Lambert:** $A = \\varepsilon b c = -\\log_{10}(I/I_0)$<br>` +
+               `• **Limit of Detection (LOD):** $3.3 \\times (\\sigma_{\\text{blank}} / S)$<br>` +
+               `• **Limit of Quantitation (LOQ):** $10 \\times (\\sigma_{\\text{blank}} / S)$</div></div>` +
+               `</div>`;
+    }
+
+    return null;
+}
+
+// ============================================================================
+// ENGINE 5: MOLAR MASS & ELEMENTAL COMPOSITION ANALYZER
+// ============================================================================
+function tryMolarMassAndElementLookup(rawText) {
+    const cleaned = rawText
+        .replace(/^(analyze|calculate|molar mass of|molecular weight of|formula of|what is the molar mass of|mass|\/mass|\/chem)\s+/i, '')
+        .replace(/[?!.]+$/g, '')
+        .trim();
+
+    const lower = cleaned.toLowerCase().replace(/\belement\b/g, '').trim();
+    for (const [sym, info] of Object.entries(ELEMENTS_118)) {
+        if (info[1].toLowerCase() === lower || (sym.toLowerCase() === lower && rawText.toLowerCase().includes('element'))) {
+            return `<span class="t-wiki-badge t-chem-badge">⚛️ Element Z = ${info[0]} · ${info[1]} (${sym})</span><br>` +
+                   `<div class="t-mini-card">` +
+                   `<div class="t-mini-card-title">${info[1]} (${sym}) — Atomic Mass: ${info[2]} g/mol</div>` +
+                   `<div class="t-mini-card-sub">• **Atomic Number ($Z$):** ${info[0]}<br>` +
+                   `• **Electron Configuration:** \`${info[3]}\`<br>` +
+                   `• **Pauling Electronegativity:** ${info[4] ?? 'Noble / N/A'}<br>` +
+                   `• **Common Oxidation States:** ${info[5]}</div></div>`;
+        }
+    }
+
+    const candidateMatch = cleaned.match(/\b([A-Z][A-Za-z0-9()[\].·₀-₉]{1,24})\b/);
+    if (!candidateMatch) return null;
+    const candidate = candidateMatch[1];
+    if (/^[A-Z][a-z]{2,}$/.test(candidate)) return null;
+
+    const counts = parseFormulaCounts(candidate);
+    if (!counts) return null;
+    const totalAtoms = Object.values(counts).reduce((a, b) => a + b, 0);
+    if (totalAtoms <= 1 && candidate.length > 2) return null;
+
+    let molarMass = 0;
+    const breakdown = [];
+    for (const sym in counts) {
+        const info = ELEMENTS_118[sym];
+        const subMass = info[2] * counts[sym];
+        molarMass += subMass;
+        breakdown.push({ sym, name: info[1], count: counts[sym], subMass });
+    }
+
+    let barsHtml = '';
+    breakdown.forEach(item => {
+        const pct = ((item.subMass / molarMass) * 100).toFixed(2);
+        barsHtml += `
+            <div class="t-mass-bar-wrap">
+                <div class="t-mass-bar-label">
+                    <span><b>${item.sym}</b> (${item.name} × ${item.count})</span>
+                    <span>${item.subMass.toFixed(3)} g/mol (${pct}%)</span>
+                </div>
+                <div class="t-mass-bar-bg"><div class="t-mass-bar-fill" style="width:${pct}%"></div></div>
+            </div>`;
+    });
+
+    const knownName = KNOWN_FORMULAS[candidate] || "Stoichiometric Formula";
+    setBotMood('mood-cyber', 2200);
+    return `<span class="t-wiki-badge t-chem-badge">🧮 Exact Molar Mass &amp; Mass % Analyzer</span><br>` +
+           `**${formatFormulaSubscripts(candidate)}** — *${esc(knownName)}*` +
+           `<div class="t-mini-card" style="margin-top:6px">` +
+           `<div class="t-mini-card-title">Molar Mass ($M$): ${molarMass.toFixed(4)} g/mol</div>` +
+           `${barsHtml}</div>`;
+}
+
+// ============================================================================
+// ENGINE 6: LIVE NIH PUBCHEM REST API (2D CHEMICAL STRUCTURE + IUPAC + MW)
+// ============================================================================
+function extractCompoundQuery(raw) {
+    return raw
+        .replace(/^(structure of|2d structure of|draw structure of|show structure of|pubchem|chemical|compound|formula of|iupac of|what is|tell me about|explain|\/structure)\s+/i, '')
+        .replace(/\b(structure|molecule|compound|chemical|formula|gana|kiyanna|mokakda)\b/gi, '')
+        .replace(/[?!.]+$/g, '')
+        .trim();
+}
+
+async function fetchPubChemCompound(userText) {
+    const query = extractCompoundQuery(userText);
+    if (!query || query.length < 2 || query.split(/\s+/).length > 4) return null;
+
+    try {
+        const propUrl = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(query)}/property/MolecularFormula,MolecularWeight,IUPACName/JSON`;
+        const res = await fetch(propUrl);
+        if (!res.ok) return null;
+        const data = await res.json();
+        const prop = data?.PropertyTable?.Properties?.[0];
+        if (!prop || !prop.CID) return null;
+
+        const imgUrl = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${prop.CID}/PNG?record_type=2d&image_size=300x300`;
+        const prettyFormula = formatFormulaSubscripts(prop.MolecularFormula || '');
+
+        setBotMood('mood-cyber', 2600);
+        return `<span class="t-wiki-badge t-chem-badge">🔬 NIH PubChem CID #${prop.CID} · 2D Structure</span><br>` +
+               `**${esc(query.toUpperCase())}** (${prettyFormula})` +
+               `<div class="t-pubchem-img-wrap"><img class="t-pubchem-img" src="${imgUrl}" alt="2D Chemical Structure of ${esc(query)}" loading="lazy" /></div>` +
+               `<div class="t-mini-card">` +
+               `<div class="t-mini-card-title">Molecular Weight: ${prop.MolecularWeight} g/mol</div>` +
+               `<div class="t-mini-card-sub">• **Molecular Formula:** ${prettyFormula}<br>` +
+               `• **IUPAC Systematic Name:** <em>${esc(prop.IUPACName || 'N/A')}</em></div>` +
+               `</div>`;
+    } catch (_) {
+        return null;
+    }
+}
+
+// ============================================================================
+// ENGINE 7: ADVANCED CHEMICAL TECHNOLOGY TRIVIA QUIZ
+// ============================================================================
+const QUIZ_BANK = [
+    {
+        q: "In Cyclic Voltammetry (CV) at 298 K, what is the theoretical peak potential separation (ΔEp = |Epa - Epc|) for a Nernstian 1-electron reversible redox process?",
+        options: ["A) ~59 mV", "B) ~120 mV", "C) ~0 mV"],
+        ans: "A",
+        explain: "Correct! For a reversible Nernstian wave at 298 K, **ΔEp ≈ 59 mV / n**."
+    },
+    {
+        q: "Which diazo dye is used as a direct dye for cotton cellulose via hydrogen bonding without requiring a mordant?",
+        options: ["A) Picric Acid", "B) Congo Red", "C) Para Red"],
+        ans: "B",
+        explain: "Spot on! **Congo Red** is a substantive (direct) diazo dye that binds directly to cotton cellulose fibers via H-bonding!"
+    },
+    {
+        q: "According to the Beer-Lambert Law (A = εbc), if a 1.0 cm cuvette of 2.0 × 10⁻⁴ M dye has an absorbance of 0.80, what is its molar absorptivity (ε)?",
+        options: ["A) 1600 L mol⁻¹ cm⁻¹", "B) 4000 L mol⁻¹ cm⁻¹", "C) 2500 L mol⁻¹ cm⁻¹"],
+        ans: "B",
+        explain: "Exact! **ε = A / (b × c) = 0.80 / (1.0 × 2.0 × 10⁻⁴) = 4000 L mol⁻¹ cm⁻¹**."
+    },
+    {
+        q: "What is the oxidation state of Manganese (Mn) in Potassium Permanganate (KMnO₄)?",
+        options: ["A) +4", "B) +6", "C) +7"],
+        ans: "C",
+        explain: "Correct! Since K is +1 and four O atoms are 4(-2) = -8, Mn is in its highest **+7 oxidation state**."
+    }
+];
+
+function startTriviaQuiz() {
+    const item = QUIZ_BANK[Math.floor(Math.random() * QUIZ_BANK.length)];
+    toraMemory.quizActive = true;
+    toraMemory.currentQuiz = item;
+    setBotMood('mood-cyber', 2200);
+    return `<span class="t-wiki-badge t-chem-badge">🎯 Prof. TORA · ChemTech Quiz</span><br>` +
+           `**${item.q}**<br>` +
+           `<div style="margin-top:6px">` +
+           item.options.map(opt => {
+               const letter = opt[0];
+               return `<button class="t-action-btn" onclick="answerQuiz('${letter}')">${opt}</button>`;
+           }).join(' ') +
+           `</div>`;
+}
+
+window.answerQuiz = function(choice) {
+    if (!toraMemory.quizActive || !toraMemory.currentQuiz) return;
+    const q = toraMemory.currentQuiz;
+    toraMemory.quizActive = false;
+    showMsg('user', `Answer: ${choice}`);
+    if (choice === q.ans) {
+        setBotMood('mood-love', 2500);
+        playRobotSound('open');
+        showMsg('bot', `🎉 **First Class Answer!** ${q.explain}<br><button class="t-action-btn" onclick="askChip('/quiz')">🔄 Next Chem Question</button>`);
+    } else {
+        setBotMood('mood-thinking', 2000);
+        playRobotSound('reply');
+        showMsg('bot', `🧪 Good attempt! The correct answer is **${q.ans}**. ${q.explain}<br><button class="t-action-btn" onclick="askChip('/quiz')">🔄 Next Chem Question</button>`);
+    }
+};
+
+// ============================================================================
+// MALITH ERANGA, SUSL CHEMTECH & MODERN PIXELS KNOWLEDGE BASE
+// ============================================================================
 const BRAIN_TOPICS = [
     {
         id: 'greeting_si',
-        keywords: ['kohomada', 'ayubowan', 'mk', 'mokada karanne', 'sinduwak', 'machan', 'halo', 'ammata'],
-        reply: () => "ආයුබෝවන්! 👋 මම හොඳින් ඉන්නවා! මම TORA 2.0 — Malith ගේ Omni-AI Assistant. ඔයාට Malith ගැන වගේම ලෝකේ තියෙන ඕනෑම දෙයක් (Science, History, Countries, Tech, Math, Chemistry) මගෙන් අහන්න පුළුවන්! 🚀"
+        keywords: ['kohomada', 'ayubowan', 'mk', 'mokada karanne', 'machan', 'halo', 'suba dawasak'],
+        reply: () => `ආයුබෝවන්! 🎓 මම **Prof. TORA 4.0 — Malith ගේ Chemical Technology & Analytical AI Professor**! ඔයාට පුළුවන්:<br>` +
+            `• **රසායනික සමීකරණ තුලිත කරන්න:** \`Fe + O2 -> Fe2O3\`<br>` +
+            `• **Chalkboard එකේ ඇඳෙන ඕනෑම අණුවක් උඩ Click කරලා** හෝ නම ගහලා **2D PubChem ව්‍යුහය** බලන්න<br>` +
+            `• **Lab Solution ගණනය කරන්න:** \`Prepare 250 mL of 0.1 M NaOH\`<br>` +
+            `• **Malith හෝ Modern Pixels** ගැන ඕනෑම දෙයක් අහන්න!`
     },
     {
-        id: 'who_si',
-        keywords: ['malith kawda', 'kawda malith', 'monawada karanne', 'wisthara', 'gana kiyanna'],
-        reply: () => "Malith Eranga Kumarasekara කියන්නේ Sabaragamuwa University (SUSL) එකේ Chemical Technology හදාරන Undergraduate කෙනෙක්. ඒ වගේම එයා **Modern Pixels** ආයතනයේ නිර්මාතෘ, Web Developer කෙනෙක් සහ Graphic Designer කෙනෙක්! 🧪💻"
-    },
-    {
-        id: 'greeting_en',
-        keywords: ['hi', 'hello', 'hey', 'sup', 'good morning', 'good evening', 'greetings', 'yo'],
-        reply: () => {
-            const hr = new Date().getHours();
-            const timeGreet = hr < 12 ? "Good morning" : hr < 18 ? "Good afternoon" : "Good evening";
-            return `${timeGreet}! 👋 I'm **TORA 2.0**, Malith's Omni-AI companion. Ask me about **Malith, his Chemistry degree, Modern Pixels**, or ask me **any question in the world** (Science, History, People, Math, Coding, or Chemistry)!`;
-        }
+        id: 'congo_red_dye',
+        keywords: ['congo red', 'fabric dyeing', 'picric acid', 'para red', 'azo dye'],
+        reply: () => `<span class="t-wiki-badge t-chem-badge">🧪 Textile &amp; Dye Chemistry Reference</span><br>` +
+            `• **Congo Red:** Direct (substantive) diazo dye that binds directly to cotton cellulose fibers via H-bonding in alkaline medium without a mordant.<br>` +
+            `• **Picric Acid (2,4,6-Trinitrophenol):** Acidic nitro dye suitable for protein fibers (wool/silk) via ionic interactions.<br>` +
+            `• **Para Red:** Ingrain azo dye synthesized *in situ* on fabric via diazotization of *p*-nitroaniline coupled with $\\beta$-naphthol.<br>` +
+            `<button class='t-action-btn' onclick="askChip('Structure of Congo Red')">🔬 View Congo Red 2D Structure</button>`
     },
     {
         id: 'who_malith',
-        keywords: ['who is malith', 'about malith', 'malith eranga', 'kumarasekara', 'his bio', 'malith background'],
-        reply: () => "**Malith Eranga Kumarasekara** is a passionate **BSc (Hons) Chemical Technology** undergraduate at Sabaragamuwa University of Sri Lanka (SUSL), a full-stack web developer, graphic designer, and the founder of **Modern Pixels**! 🚀<br><button class='t-action-btn' onclick=\"slowScrollTo('aboutme')\">⬆️ View Hero Section</button>"
-    },
-    {
-        id: 'modern_pixels',
-        keywords: ['modern pixels', 'agency', 'freelance', 'logo design', 'branding', 'video editing', 'photo editing'],
-        reply: () => "**Modern Pixels** 🎨 is Malith's creative digital agency! He offers:<br>• Custom Graphic Design & Branding (Photoshop & Illustrator)<br>• UI/UX & Responsive Web Development<br>• Photo Retouching (Camera Raw) & Video Editing<br><button class='t-action-btn' onclick=\"slowScrollTo('Projects')\">🚀 See Modern Pixels in Showcase</button>"
+        keywords: ['who is malith', 'about malith', 'malith eranga', 'kumarasekara', 'malith kawda', 'kawda malith'],
+        reply: () => "**Malith Eranga Kumarasekara** is a **BSc (Hons) Chemical Technology** undergraduate at Sabaragamuwa University of Sri Lanka (SUSL), science communicator (**ChemAZ** series), competitive programmer, and founder of **Modern Pixels**! 🧪💻<br><button class='t-action-btn' onclick=\"slowScrollTo('education')\">🎓 Qualifications</button><button class='t-action-btn' onclick=\"slowScrollTo('Projects')\">🚀 Projects</button>"
     },
     {
         id: 'degree_chem',
-        keywords: ['his degree', 'susl', 'sabaragamuwa', 'chemical technology', 'applied sciences', 'malith university', 'malith study'],
-        reply: () => "Malith studies **BSc (Hons) in Chemical Technology** at the Department of Physical Sciences & Technology, Faculty of Applied Sciences, **Sabaragamuwa University of Sri Lanka (SUSL)**. 🧪<br>He works on fascinating areas like Green Synthesis of Silver Nanoparticles, Biochemistry, Spectroscopy, and Lab Quality Assurance!<br><button class='t-action-btn' onclick=\"slowScrollTo('education')\">🎓 View Qualifications</button>"
+        keywords: ['his degree', 'susl', 'sabaragamuwa', 'chemical technology', 'applied sciences', 'chemistry degree', 'coursework'],
+        reply: () => "Malith pursues a **Special Degree in Chemical Technology** at the Department of Physical Sciences & Technology, Faculty of Applied Sciences, **Sabaragamuwa University of Sri Lanka (SUSL)**. 🧪<br>Key areas include **Electroanalytical Techniques, Biochemistry, Laboratory Quality Control & Assurance (ISO/IEC 17025), Organic Synthesis, and Green Nanotechnology**.<br><button class='t-action-btn' onclick=\"slowScrollTo('education')\">🎓 View Qualifications</button>"
     },
     {
-        id: 'chemaz',
-        keywords: ['chemaz', 'linkedin series', 'insights blog', 'science communication'],
-        reply: () => "**ChemAZ** 🧬 is Malith's original science communication series published on LinkedIn and his **Insights Blog**! It breaks down Atomic Structure, the Periodic Table, States of Matter, Chemical Reactions, and Organic Chemistry into engaging reads."
+        id: 'modern_pixels',
+        keywords: ['modern pixels', 'agency', 'freelance', 'packages', 'website ekak', 'web development'],
+        reply: () => "**Modern Pixels** 🎨 is Malith's creative digital agency offering:<br>• **Starter Front-End Package (LKR 12,000):** Custom HTML5/CSS3/JS site hosted on GitHub Pages<br>• **Dynamic Business / E-Commerce:** Google Sheets API / PHP & MySQL platforms<br>• **Full-Stack & Brand Identity:** UI/UX, Graphic Design & Video Editing<br><button class='t-action-btn' onclick=\"slowScrollTo('Projects')\">🚀 View Portfolio</button><button class='t-action-btn' onclick=\"slowScrollTo('contact')\">📬 Contact Malith</button>"
     },
     {
         id: 'projects',
-        keywords: ['top projects', 'his projects', 'showcase', 'portfolio', 'safe heaven', 'safeheaven', 'greenchain', 'carbon tracker'],
-        reply: () => "Here are Malith's standout projects:<br>1. **Modern Pixels** (Creative Agency Portfolio)<br>2. **Insights Blog** (ChemAZ & Tech Articles)<br>3. **Photo Frames E-Commerce Store** (Client Store)<br>4. **Safe Heaven Pet Care** (Vet & Pet Platform)<br>5. **GreenChain Carbon Tracker** (Data Structures Environmental App)<br><button class='t-action-btn' onclick=\"slowScrollTo('Projects')\">📂 Scroll to Projects</button>"
-    },
-    {
-        id: 'web_skills',
-        keywords: ['malith skill', 'his skills', 'tech stack', 'web packages', 'html', 'css', 'javascript', 'php', 'mysql'],
-        reply: () => "Malith builds fast, futuristic web apps using **HTML5, CSS3, JavaScript, PHP, MySQL, C, C++, C#, VS Code, and GitHub Pages**! 💻<br><button class='t-action-btn' onclick=\"slowScrollTo('more')\">⚡ Explore Skills</button>"
-    },
-    {
-        id: 'setup_gear',
-        keywords: ['malith setup', 'his laptop', 'asus tuf', 'galaxy tab', 'rtx 3050'],
-        reply: () => "Malith's daily driver setup:<br>💻 **ASUS TUF Gaming F15** (NVIDIA RTX 3050, 16GB RAM)<br>📱 **Samsung Galaxy Tab S10 Lite** for academic notes, UI sketching & research!"
-    },
-    {
-        id: 'joke',
-        keywords: ['joke', 'funny', 'laugh', 'humor'],
-        reply: () => {
-            const jokes = [
-                "Why do chemists like nitrates so much? Because they're cheaper than day rates! 🧪😂",
-                "What do you do with a sick chemist? If you can't Helium, and you can't Curium, then you might as well Barium! ⚛️😄",
-                "Why did Carbon marry Hydrogen? They bonded well from the very first moment! 💍✨",
-                "Never trust an atom... they make up everything! 🤖⚡"
-            ];
-            return jokes[Math.floor(Math.random() * jokes.length)];
-        }
-    },
-    {
-        id: 'time_date',
-        keywords: ['what time', 'current time', 'what date', 'today date', 'day is it'],
-        reply: () => `Right now it's **${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}** on **${new Date().toDateString()}**! ⏱️`
+        keywords: ['top projects', 'his projects', 'showcase', 'portfolio', 'safe heaven', 'greenchain'],
+        reply: () => `<span class="t-wiki-badge">🚀 Malith's Featured Projects</span><br>` +
+            `1. **Modern Pixels** (Digital Agency Platform)<br>` +
+            `2. **Insights & ChemAZ Blog** (Chemistry & Tech Articles)<br>` +
+            `3. **Safe Heaven Pet Care** (Full-Stack PHP/MySQL Vet Platform)<br>` +
+            `4. **GreenChain Carbon Tracker** (C Singly Linked List Carbon Analytics)<br>` +
+            `<button class='t-action-btn' onclick="slowScrollTo('Projects')">📂 Scroll to Showcase</button>`
     },
     {
         id: 'contact_hire',
         keywords: ['contact', 'hire', 'email malith', 'reach him', 'resume', 'cv'],
-        reply: () => "Want to collaborate with Malith or hire **Modern Pixels**? 📬 You can grab his CV from the **MY RESUME** button or jump straight to the Contact section below!<br><button class='t-action-btn' onclick=\"slowScrollTo('contact')\">📬 Go to Contact Section</button>"
-    },
-    {
-        id: 'thanks',
-        keywords: ['thank', 'thanks', 'thx', 'awesome', 'supiri', 'hodai', 'patta', 'niyamai'],
-        reply: () => "You're most welcome! 😊 Ask me anything else—from Malith's work to any topic in the universe!"
+        reply: () => "You can download Malith's CV using the **MY RESUME** button at the top-right or jump straight to the Contact section below!<br><button class='t-action-btn' onclick=\"slowScrollTo('contact')\">📬 Go to Contact Section</button>"
     }
 ];
 
 function tryEvaluateMath(lower) {
     let expr = lower
+        .replace(/^\/calc\s+/i, '')
         .replace(/what is|calculate|solve|compute|equals|equal to/g, '')
         .replace(/square root of|sqrt\(/g, 'Math.sqrt(')
         .replace(/\bpi\b/g, 'Math.PI')
@@ -1759,6 +3284,7 @@ function tryEvaluateMath(lower) {
         .replace(/\bcos\(/g, 'Math.cos(')
         .replace(/\btan\(/g, 'Math.tan(')
         .replace(/\blog\(/g, 'Math.log10(')
+        .replace(/\bln\(/g, 'Math.log(')
         .replace(/\^/g, '**')
         .trim();
 
@@ -1767,64 +3293,40 @@ function tryEvaluateMath(lower) {
             const result = Function(`"use strict"; return (${expr})`)();
             if (typeof result === 'number' && isFinite(result)) {
                 const rounded = Number.isInteger(result) ? result : Number(result.toFixed(6));
-                return `🧮 **Quantum Math Engine:**<br>**${esc(lower.replace(/what is|calculate|solve/g,'').trim())} = ${rounded}**`;
+                setBotMood('mood-cyber', 2000);
+                return `<span class="t-wiki-badge">🧮 Scientific Math Engine</span><br>**${esc(expr)} = ${rounded}**`;
             }
         } catch (_) {}
     }
     return null;
 }
 
-function extractSearchSubject(raw) {
-    return raw
-        .replace(/^(who|what|where|when|why|how)\s+(is|are|was|were|does|do|did|can|could|the)\s+/i, '')
-        .replace(/^(tell me about|explain|define|meaning of|search for|do you know about|do you know)\s+/i, '')
-        .replace(/\b(kiyanna|gana|mokakda|kawda|koheda|monawada)\b/gi, '')
-        .replace(/[?!.]+$/g, '')
-        .trim();
-}
-
-async function fetchWorldKnowledge(userText) {
-    const subject = extractSearchSubject(userText);
+async function fetchScientificWikipedia(userText) {
+    const subject = extractCompoundQuery(userText);
     if (!subject || subject.length < 2) return null;
 
-    const subLower = subject.toLowerCase().replace(/\belement\b/g, '').trim();
-    if (ELEMENTS_DB[subLower]) {
-        return `<span class="t-wiki-badge">⚛️ Periodic Table Core</span><br>**${ELEMENTS_DB[subLower]}**`;
-    }
-
     try {
-        const searchUrl = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(subject)}&limit=1&namespace=0&format=json&origin=*`;
+        const searchUrl = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${encodeURIComponent(subject)}&limit=3&namespace=0&format=json&origin=*`;
         const sRes = await fetch(searchUrl);
-        if (sRes.ok) {
-            const sData = await sRes.json();
-            const bestTitle = sData?.[1]?.[0];
-            if (bestTitle) {
-                const sumUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(bestTitle)}`;
-                const sumRes = await fetch(sumUrl);
-                if (sumRes.ok) {
-                    const sumData = await sumRes.json();
-                    if (sumData.extract && sumData.type !== 'disambiguation') {
-                        const sentences = sumData.extract.match(/[^.!?]+[.!?]+/g) || [sumData.extract];
-                        const shortExtract = sentences.slice(0, 2).join(' ').trim();
-                        return `<span class="t-wiki-badge">🌐 Global Knowledge · ${esc(sumData.title)}</span><br>${esc(shortExtract)}`;
-                    }
-                }
+        if (!sRes.ok) return null;
+        const sData = await sRes.json();
+        const titles = sData?.[1] || [];
+
+        for (const title of titles) {
+            if (/film\)|movie\)|album\)|song\)|television|tv series/i.test(title)) continue;
+            const sumUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
+            const sumRes = await fetch(sumUrl);
+            if (!sumRes.ok) continue;
+            const sumData = await sumRes.json();
+            const desc = (sumData.description || '') + ' ' + (sumData.extract || '');
+            if (/\b(film|movie|box office|starring|directed by|studio album|television series)\b/i.test(desc)) continue;
+            if (sumData.extract && sumData.type !== 'disambiguation') {
+                const sentences = sumData.extract.match(/[^.!?]+[.!?]+/g) || [sumData.extract];
+                const shortExtract = sentences.slice(0, 3).join(' ').trim();
+                return `<span class="t-wiki-badge">🔬 Scientific Reference · ${esc(sumData.title)}</span><br>${esc(shortExtract)}`;
             }
         }
     } catch (_) {}
-
-    try {
-        const ddgUrl = `https://api.duckduckgo.com/?q=${encodeURIComponent(subject)}&format=json&no_html=1&skip_disambig=1`;
-        const dRes = await fetch(ddgUrl);
-        if (dRes.ok) {
-            const dData = await dRes.json();
-            const text = dData.AbstractText || dData.Answer || (dData.RelatedTopics?.[0]?.Text);
-            if (text) {
-                return `<span class="t-wiki-badge">🌐 Omni-Search Core</span><br>${esc(text)}`;
-            }
-        }
-    } catch (_) {}
-
     return null;
 }
 
@@ -1832,61 +3334,93 @@ async function generateSmartReply(userText) {
     const clean = userText.trim();
     const lower = clean.toLowerCase();
 
+    if (lower === '/quiz' || lower.includes('chem quiz') || lower.includes('trivia')) {
+        return startTriviaQuiz();
+    }
+
+    const balanced = balanceChemicalEquation(clean);
+    if (balanced) return balanced;
+
+    const labSol = trySolutionAndPhLab(clean);
+    if (labSol) return labSol;
+
+    const electro = tryElectrochemistryEngine(clean);
+    if (electro) return electro;
+
+    const massOrElem = tryMolarMassAndElementLookup(clean);
+    if (massOrElem && !lower.startsWith('structure of')) return massOrElem;
+
     const mathAns = tryEvaluateMath(lower);
     if (mathAns) return mathAns;
 
-    let bestTopic = null;
-    let bestScore = 0;
+    let bestTopic = null, bestScore = 0;
     for (const topic of BRAIN_TOPICS) {
         let score = 0;
         for (const kw of topic.keywords) {
             if (lower === kw) score += kw.length * 3;
             else if (lower.includes(kw)) score += kw.length;
         }
-        if (score > bestScore) {
-            bestScore = score;
-            bestTopic = topic;
-        }
+        if (score > bestScore) { bestScore = score; bestTopic = topic; }
     }
+    if (bestTopic && bestScore >= 4) return bestTopic.reply(clean);
 
-    if (bestTopic && bestScore >= 4) {
-        return bestTopic.reply(clean);
-    }
+    const pubchemAns = await fetchPubChemCompound(clean);
+    if (pubchemAns) return pubchemAns;
 
-    const worldAnswer = await fetchWorldKnowledge(clean);
-    if (worldAnswer) return worldAnswer;
+    const sciWiki = await fetchScientificWikipedia(clean);
+    if (sciWiki) return sciWiki;
 
-    if (bestTopic) return bestTopic.reply(clean);
-
-    return `I searched my quantum banks for **"${esc(clean)}"**! 🤔<br>Try phrasing it as a topic name (e.g., *"Quantum Mechanics"*, *"Albert Einstein"*, *"Sri Lanka"*, *"Benzene"*) or ask me anything about **Malith Eranga, Modern Pixels, or his Chemical Technology degree**!<br><button class='t-action-btn' onclick=\"slowScrollTo('Projects')\">🚀 Explore Showcase</button>`;
+    return `<span class="t-wiki-badge t-chem-badge">🎓 Prof. TORA 4.0 · Lecture &amp; Lab Guide</span><br>` +
+           `Try testing my computational chemistry modules directly:<br>` +
+           `• **⚖️ Balance Any Reaction:** \`KMnO4 + HCl -> KCl + MnCl2 + H2O + Cl2\`<br>` +
+           `• **🔬 2D PubChem Structure:** \`Structure of Aspirin\` or click any molecule on the chalkboard!<br>` +
+           `• **🧪 Lab Solution Prep:** \`Prepare 250 mL of 0.1 M NaOH\`<br>` +
+           `• **⚡ Galvanic Cell $E^\\circ$:** \`Cell Zn and Cu\` or \`pH of 0.02 M H2SO4\`<br>` +
+           `• **🧮 Complex Molar Mass:** \`K4[Fe(CN)6]\` or \`CuSO4.5H2O\``;
 }
 
 chutiBot.addEventListener('click', e => {
     if (e.target.closest('.tora-chat-panel')) return;
+    document.getElementById('tora-proactive-bubble')?.classList.remove('show');
     chatPanel.classList.add('show');
-    setBotMood('mood-happy', 2000);
+    playRobotSound('open');
+    setBotMood('mood-happy', 2200);
     if (!chatOpened) {
         chatOpened = true;
-        showMsg('bot', "Hey there! 👋 I'm **TORA 2.0**, Malith's upgraded **Omni-AI**! Ask me anything about **Malith, his Projects & Chemistry**, or ask me **any question in the world** (Science, History, People, Math, Elements)!");
+        showMsg('bot',
+            `Greetings! I am **Prof. TORA 4.0 — ChemTech Quantum Core**! 👨‍🔬🎓<br>` +
+            `• **⚖️ Equation Balancer:** Type \`Fe + O2 -> Fe2O3\`<br>` +
+            `• **🔬 NIH PubChem 2D Structure:** Type \`Structure of Caffeine\` (or click any molecule on the chalkboard!)<br>` +
+            `• **🧪 Lab Solution Prep:** Type \`Prepare 250 mL of 0.1 M NaOH\`<br>` +
+            `• **⚡ Electrochemistry &amp; pH:** Type \`Cell Zn and Cu\` or \`pH of 0.01 M HCl\``,
+            true
+        );
     }
 });
 
-function closeChat(e) { e.stopPropagation(); chatPanel.classList.remove('show'); }
+function closeChat(e) {
+    e.stopPropagation();
+    chatPanel.classList.remove('show');
+    playRobotSound('send');
+}
 
 async function processUserQuestion(questionText) {
-    showMsg('user', questionText);
-    setBotMood('mood-thinking', 1500);
+    slashMenu.classList.remove('show');
+    showMsg('user', questionText, false);
+    playRobotSound('send');
+    setBotMood('mood-thinking', 1800);
     const typingRow = showTypingIndicator();
     const startT = performance.now();
 
     const answer = await generateSmartReply(questionText);
     const elapsed = performance.now() - startT;
-    const waitMore = Math.max(0, 480 - elapsed);
+    const waitMore = Math.max(0, 380 - elapsed);
 
     setTimeout(() => {
         typingRow.remove();
-        setBotMood('mood-happy', 1800);
-        showMsg('bot', answer);
+        setBotMood('mood-happy', 2000);
+        playRobotSound('reply');
+        showMsg('bot', answer, true);
         speakText(answer);
     }, waitMore);
 }
@@ -1895,17 +3429,35 @@ function askChip(questionText) {
     processUserQuestion(questionText);
 }
 
+function runSlash(cmdText) {
+    const input = document.getElementById('tora-input');
+    input.value = '';
+    slashMenu.classList.remove('show');
+    processUserQuestion(cmdText);
+}
+
 function handleTyped() {
     const input = document.getElementById('tora-input');
     const msg   = input.value.trim();
     if (!msg) return;
     input.value = '';
     autoResize(input);
+    slashMenu.classList.remove('show');
     processUserQuestion(msg);
 }
 
 function handleKey(e) {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleTyped(); }
+}
+
+function handleInputChange(el) {
+    autoResize(el);
+    const val = el.value.trim();
+    if (val.startsWith('/')) {
+        slashMenu.classList.add('show');
+    } else {
+        slashMenu.classList.remove('show');
+    }
 }
 
 function autoResize(el) {
@@ -1914,23 +3466,69 @@ function autoResize(el) {
 }
 
 function formatMarkdown(str) {
-    return str.replace(/\*\*(.*?)\*\*/g, '<strong style="color:#00ffcc">$1</strong>');
+    return str
+        .replace(/\*\*(.*?)\*\*/g, '<strong style="color:#00ffcc">$1</strong>')
+        .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+        .replace(/`([^`]+)`/g, '<code style="background:rgba(0,255,204,0.12);color:#00ffcc;padding:1px 5px;border-radius:4px;font-family:\'JetBrains Mono\',monospace;font-size:11px">$1</code>');
 }
 
-function showMsg(role, htmlText) {
+function showMsg(role, htmlText, stream = false) {
     const row = document.createElement('div');
     row.className = `t-msg ${role}`;
-    const content = role === 'bot' ? formatMarkdown(htmlText) : esc(htmlText);
-    row.innerHTML = `<div class="t-msg-icon ${role}">${role === 'bot' ? '🤖' : '🧑'}</div>
-                     <div class="t-bubble">${content}</div>`;
+    const bubble = document.createElement('div');
+    bubble.className = 't-bubble';
+
+    const icon = document.createElement('div');
+    icon.className = `t-msg-icon ${role}`;
+    icon.textContent = role === 'bot' ? '👨‍🔬' : '🧑';
+
+    row.appendChild(icon);
+    row.appendChild(bubble);
     msgBox.appendChild(row);
-    msgBox.scrollTop = msgBox.scrollHeight;
+
+    if (role !== 'bot' || !stream) {
+        bubble.innerHTML = role === 'bot' ? formatMarkdown(htmlText) : esc(htmlText);
+        msgBox.scrollTop = msgBox.scrollHeight;
+        return;
+    }
+
+    const formatted = formatMarkdown(htmlText);
+    const tokens = formatted.match(/(<[^>]+>|[^<]+)/g) || [formatted];
+    let out = '';
+    let tIdx = 0;
+    let cIdx = 0;
+
+    function stepStream() {
+        let charsAdded = 0;
+        while (tIdx < tokens.length && charsAdded < 6) {
+            const tok = tokens[tIdx];
+            if (tok.startsWith('<')) {
+                out += tok;
+                tIdx++;
+            } else {
+                const slice = tok.slice(cIdx, cIdx + 6);
+                out += slice;
+                cIdx += 6;
+                charsAdded += slice.length;
+                if (cIdx >= tok.length) {
+                    tIdx++;
+                    cIdx = 0;
+                }
+            }
+        }
+        bubble.innerHTML = out;
+        msgBox.scrollTop = msgBox.scrollHeight;
+        if (tIdx < tokens.length) {
+            requestAnimationFrame(stepStream);
+        }
+    }
+    requestAnimationFrame(stepStream);
 }
 
 function showTypingIndicator() {
     const row = document.createElement('div');
     row.className = 't-msg bot';
-    row.innerHTML = `<div class="t-msg-icon bot">🤖</div>
+    row.innerHTML = `<div class="t-msg-icon bot">👨‍🔬</div>
                      <div class="typing-dots"><span></span><span></span><span></span></div>`;
     msgBox.appendChild(row);
     msgBox.scrollTop = msgBox.scrollHeight;
@@ -1942,7 +3540,7 @@ function esc(t) {
 }
 
 // =========================================================
-// 5. SMOOTH HARDWARE-ACCELERATED MOUSE TRACKING FOR TORA 2.0
+// 5. SMOOTH HARDWARE-ACCELERATED MOUSE TRACKING FOR PROF. TORA
 // =========================================================
 const chutiHead = document.getElementById('chuti-head');
 const chutiEyes = document.getElementById('chuti-eyes');
@@ -1972,13 +3570,13 @@ function animateChuti() {
     if (!document.hidden) {
         const r    = chutiBot.getBoundingClientRect();
         const dist = Math.hypot(rx - (r.left + r.width/2), ry - (r.top + r.height/2));
-        chutiBot.classList.toggle('tora-active', dist < 160);
+        chutiBot.classList.toggle('tora-active', dist < 170);
 
         cx += (tx - cx) * 0.1;
         cy += (ty - cy) * 0.1;
 
-        chutiHead.style.transform = `translate3d(${cx*8}px,${cy*5}px,0) rotate(${cx*14}deg)`;
-        chutiEyes.style.transform = `translate3d(${cx*9}px,${cy*4}px,0)`;
+        chutiHead.style.transform = `translate3d(${cx*8.5}px,${cy*5.5}px,0) rotate(${cx*14}deg)`;
+        chutiEyes.style.transform = `translate3d(${cx*9.5}px,${cy*4.5}px,0)`;
     }
     requestAnimationFrame(animateChuti);
 }

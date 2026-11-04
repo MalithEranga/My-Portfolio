@@ -46,7 +46,7 @@
         /* Main Wrapper */
         .wrapper { 
             position: relative; 
-            padding: 80px 5% 20px 5%; /* 60px wenuwata 20px danna */
+            padding: 80px 5% 40px 5%; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -139,7 +139,7 @@
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
             gap: 24px; 
-            margin-bottom: 30px; /* 60px wenuwata 30px danna */
+            margin-bottom: 30px; 
         }
 
         .glass-card { 
@@ -276,7 +276,7 @@
         }
 
         .curriculum-wrapper.open {
-            max-height: 6000px;
+            max-height: 8000px;
             opacity: 1;
             margin-top: 35px;
             padding-top: 30px;
@@ -396,9 +396,9 @@
         }
 
         .portal-badge.dev {
-            background: rgba(255, 255, 255, 0.05);
-            color: #94a3b8;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(59, 130, 246, 0.1);
+            color: #93c5fd;
+            border: 1px solid rgba(59, 130, 246, 0.25);
         }
 
         .module-name {
@@ -447,12 +447,14 @@
             border: 1px solid rgba(255, 255, 255, 0.04);
             border-radius: 12px;
             padding: 13px 15px;
-            transition: border-color 0.3s ease, background 0.3s ease;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .other-module-item:hover {
-            border-color: rgba(59, 130, 246, 0.35);
-            background: rgba(59, 130, 246, 0.04);
+            border-color: rgba(59, 130, 246, 0.45);
+            background: rgba(59, 130, 246, 0.06);
+            transform: translateY(-2px);
         }
 
         .other-module-code {
@@ -460,8 +462,21 @@
             color: var(--primary);
             font-weight: 600;
             letter-spacing: 0.5px;
-            display: block;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 4px;
+        }
+
+        .other-module-code::after {
+            content: "Syllabus →";
+            font-size: 0.65rem;
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        .other-module-item:hover .other-module-code::after {
+            color: var(--primary);
         }
 
         .other-module-name {
@@ -470,69 +485,199 @@
             line-height: 1.35;
         }
 
-        /* Toast Notification for Unlinked Modules */
-        .portal-toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: rgba(10, 15, 30, 0.92);
-            border: 1px solid var(--secondary);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            color: #fff;
-            padding: 16px 22px;
-            border-radius: 14px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 204, 0, 0.15);
+        /* --- Syllabus Popup Modal --- */
+        .syllabus-modal-overlay {
+            display: none;
+            position: absolute;
             z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            max-width: 380px;
-            transform: translateY(120%);
+            top: 0; left: 0;
+            width: 100%; 
+            height: 100%;
+            background: rgba(4, 8, 18, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            justify-content: center;
+            padding: 20px;
             opacity: 0;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            pointer-events: none;
+            transition: opacity 0.3s ease;
         }
 
-        .portal-toast.active {
-            transform: translateY(0);
+        .syllabus-modal-overlay.show {
+            display: flex;
             opacity: 1;
         }
 
-        .toast-icon {
+        .syllabus-modal-card {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%) scale(0.95);
+            background: #080f20;
+            border: 1px solid rgba(255, 204, 0, 0.45);
+            border-radius: 22px;
+            width: 92%;
+            max-width: 680px;
+            max-height: 520px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 204, 0, 0.15);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), top 0.2s ease;
+            overflow: hidden;
+        }
+
+        .syllabus-modal-overlay.show .syllabus-modal-card {
+            transform: translateX(-50%) scale(1);
+        }
+
+        .syllabus-modal-header {
+            padding: 24px 28px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.015);
+        }
+
+        .syllabus-badge-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .syllabus-code-tag {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--secondary);
+            background: rgba(255, 204, 0, 0.12);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            padding: 4px 12px;
+            border-radius: 8px;
+            letter-spacing: 1px;
+        }
+
+        .syllabus-meta-tag {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+
+        .syllabus-modal-title {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.05rem;
+            color: #fff;
+            line-height: 1.4;
+            letter-spacing: 0.5px;
+        }
+
+        .syllabus-close-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
             width: 36px;
             height: 36px;
             border-radius: 10px;
-            background: rgba(255, 204, 0, 0.12);
-            border: 1px solid rgba(255, 204, 0, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
             flex-shrink: 0;
+            transition: all 0.25s ease;
+        }
+
+        .syllabus-close-btn:hover {
+            background: rgba(255, 204, 0, 0.15);
+            border-color: var(--secondary);
             color: var(--secondary);
         }
 
-        .toast-text h4 {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 0.75rem;
-            color: var(--secondary);
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
-
-        .toast-text p {
-            font-size: 0.82rem;
+        .syllabus-modal-body {
+            padding: 24px 28px;
+            overflow-y: auto;
             color: var(--text-muted);
-            line-height: 1.4;
+            font-size: 0.95rem;
+            line-height: 1.75;
+        }
+
+        .syllabus-section-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .syllabus-topic-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .syllabus-topic-list li {
+            position: relative;
+            padding-left: 20px;
+            color: #e2e8f0;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .syllabus-topic-list li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .syllabus-modal-footer {
+            padding: 16px 28px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.01);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .syllabus-source-note {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        .syllabus-portal-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #ffcc00, #ffaa00);
+            color: #040812;
+            font-weight: 600;
+            font-size: 0.82rem;
+            padding: 9px 18px;
+            border-radius: 10px;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .syllabus-portal-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.3);
         }
         
         /* Modernized Timeline */
         .timeline { 
-        position: relative; 
-        width: 100%; 
-        margin: 0 auto; 
-        padding-bottom: 10px; /* 40px wenuwata 10px danna */
-    }
+            position: relative; 
+            width: 100%; 
+            margin: 0 auto; 
+            padding-bottom: 10px;
+        }
 
         .timeline::after { 
             content: ''; 
@@ -584,71 +729,72 @@
             margin-bottom: 15px; 
         }
 
-        @media screen and (max-width: 768px) {
-            .timeline::after { left: 31px; }
-            .container { 
-                width: 100%; 
-                padding-left: 70px; 
-                padding-right: 0px; 
-            }
-            .container::after { left: 23px; top: 32px;}
-            .right { left: 0; }
-            .portal-toast {
-                left: 20px;
-                right: 20px;
-                bottom: 20px;
-                max-width: none;
-            }
-        }
-
-        /* Certificate Gallery */
-        .cert-gallery { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 24px; 
-            align-items: start;
-        }
-
-        .cert-container {
+        /* =========================================================
+           GALLERY/POST MULTI-ROW STREAMS & CERTIFICATE STREAM
+           (CONTAINER ADAPTS AUTOMATICALLY TO EACH IMAGE'S EXACT SIZE)
+           ========================================================= */
+        .post-streams-wrapper {
             position: relative;
-            border-radius: 16px;
+            z-index: 2;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
             overflow: hidden;
-            border: 1px solid var(--card-border);
-            cursor: pointer;
-            transition: all 0.3s ease;
+            margin-bottom: 14px;
+            user-select: none;
         }
 
-        .cert-container img { 
-            width: 100%; 
-            height: auto;
-            border-radius: 10px; 
-            display: block; 
+        .post-stream-row,
+        .cert-stream-section {
+            position: relative;
+            z-index: 2;
+            width: 100vw;
+            overflow: hidden;
+            padding: 6px 0;
+            user-select: none;
         }
 
-        /* Hover Overlay for Certificates */
-        .cert-container::after {
-            content: 'View Certificate';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(4, 8, 18, 0.7);
-            color: white;
+        .cert-stream-section {
+            margin-left: calc(-50vw + 50%);
+            margin-right: calc(-50vw + 50%);
+            padding: 10px 0 20px 0;
+        }
+
+        .cert-scroll-track {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: 24px;
+            width: max-content;
+            will-change: transform;
+            transform: translateZ(0);
+            pointer-events: none; /* Mouse එක ගෙනිච්චට හෝ Click කළාට නවතින්නේ නැත */
+        }
+
+        /* ඒ ඒ Image එකේ ප්‍රමාණයටම Container එක ඉබේම හැදේ */
+        .cert-auto-card {
+            height: 260px;
+            width: auto;
+            flex-shrink: 0;
+            border-radius: 14px;
+            overflow: hidden;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Syncopate', sans-serif;
-            font-size: 0.9rem;
-            opacity: 0;
-            border-radius: 16px;
-            transition: opacity 0.3s ease;
-            backdrop-filter: blur(3px);
+            transform: translateZ(0);
         }
 
-        .cert-container:hover::after { opacity: 1; }
-
-        .cert-container:hover { 
-            border-color: var(--secondary); 
-            transform: translateY(-5px) scale(1.02); 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+        .cert-auto-card img {
+            height: 100%;
+            width: auto;
+            display: block;
+            object-fit: contain;
         }
 
         /* Scroll Animations Classes */
@@ -663,42 +809,19 @@
             transform: translateY(0);
         }
 
-        /* Premium Lightbox Modal */
-        .modal { 
-            display: none; 
-            position: fixed;
-            z-index: 999; 
-            left: 0; top: 0; 
-            width: 100vw; height: 100vh; 
-            background-color: rgba(0,0,0,0); 
-            cursor: pointer;
-            transition: background-color 0.4s ease;
+        @media screen and (max-width: 768px) {
+            .timeline::after { left: 31px; }
+            .container { 
+                width: 100%; 
+                padding-left: 70px; 
+                padding-right: 0px; 
+            }
+            .container::after { left: 23px; top: 32px;}
+            .right { left: 0; }
+            .post-streams-wrapper { gap: 14px; margin-bottom: 8px; }
+            .cert-scroll-track { gap: 14px; }
+            .cert-auto-card { height: 175px; border-radius: 10px; }
         }
-
-        .modal.show {
-            background-color: rgba(4, 8, 18, 0.9); 
-            backdrop-filter: blur(10px); 
-        }
-
-        .modal-content { 
-            position: absolute; 
-            top: 50%; left: 50%;
-            width: auto; height: auto;
-            max-width: 90vw; max-height: 85vh; 
-            border-radius: 12px; 
-            border: 1px solid rgba(255, 204, 0, 0.3); 
-            box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 50px rgba(255,204,0,0.15); 
-            opacity: 0; 
-            transform: translate(-50%, -45%) scale(0.95); 
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
-        }
-
-        .modal.show .modal-content {
-            opacity: 1; 
-            transform: translate(-50%, -50%) scale(1); 
-        }
-        
-        .close { display: none; } 
     </style>
 </head>
 <body>
@@ -740,19 +863,19 @@
                     <!-- Collapsible Modules Container -->
                     <div class="curriculum-wrapper" id="curriculumWrapper">
                         
-                        <!-- PART 1: CHEMISTRY & CHEMICAL TECHNOLOGY MODULES (INTERACTIVE) -->
+                        <!-- PART 1: CHEMISTRY & CHEMICAL TECHNOLOGY MODULES -->
                         <div class="curriculum-category-header">
                             <div class="curriculum-category-title">
                                 <span>01.</span> Core Chemistry & Chemical Technology Modules
                             </div>
-                            <p class="curriculum-category-note">Click on any module card below to explore its dedicated digital learning & project portal.</p>
+                            <p class="curriculum-category-note">Click on any module card below to view its complete academic syllabus and course content.</p>
                         </div>
 
                         <!-- Year 1 Semester 1 -->
                         <div class="semester-block">
                             <div class="semester-label">Year 01 — Semester 01</div>
                             <div class="module-grid">
-                                <div class="chem-module-item" data-link="Learn/GeneralChemistry.html" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 11204</span>
                                         <span class="portal-badge"></span>
@@ -763,7 +886,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 11205</span>
                                         <span class="portal-badge"></span>
@@ -774,7 +897,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 11106</span>
                                         <span class="portal-badge"></span>
@@ -792,7 +915,7 @@
                         <div class="semester-block">
                             <div class="semester-label">Year 01 — Semester 02</div>
                             <div class="module-grid">
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 12205</span>
                                         <span class="portal-badge"></span>
@@ -803,7 +926,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 12206</span>
                                         <span class="portal-badge"></span>
@@ -814,7 +937,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 12107</span>
                                         <span class="portal-badge"></span>
@@ -832,7 +955,7 @@
                         <div class="semester-block">
                             <div class="semester-label">Year 02 — Semester 01</div>
                             <div class="module-grid">
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 21204</span>
                                         <span class="portal-badge"></span>
@@ -843,7 +966,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 21205</span>
                                         <span class="portal-badge"></span>
@@ -854,7 +977,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 21106</span>
                                         <span class="portal-badge"></span>
@@ -865,7 +988,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 21111</span>
                                         <span class="portal-badge"></span>
@@ -883,7 +1006,7 @@
                         <div class="semester-block">
                             <div class="semester-label">Year 02 — Semester 02</div>
                             <div class="module-grid">
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 22204</span>
                                         <span class="portal-badge"></span>
@@ -894,7 +1017,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 22205</span>
                                         <span class="portal-badge"></span>
@@ -905,7 +1028,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 22106</span>
                                         <span class="portal-badge"></span>
@@ -916,7 +1039,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 22107</span>
                                         <span class="portal-badge"></span>
@@ -927,7 +1050,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 22219</span>
                                         <span class="portal-badge"></span>
@@ -945,7 +1068,7 @@
                         <div class="semester-block">
                             <div class="semester-label">Year 03 — Semester 01</div>
                             <div class="module-grid">
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 31216</span>
                                         <span class="portal-badge"></span>
@@ -956,7 +1079,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 31217</span>
                                         <span class="portal-badge"></span>
@@ -967,7 +1090,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 31218</span>
                                         <span class="portal-badge"></span>
@@ -978,7 +1101,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 31219</span>
                                         <span class="portal-badge"></span>
@@ -989,9 +1112,9 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
-                                        <span class="module-code">PST 31120</span>
+                                        <span class="module-code">PST 31220</span>
                                         <span class="portal-badge"></span>
                                     </div>
                                     <div class="module-name">Coordination Chemistry</div>
@@ -1000,7 +1123,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 31121</span>
                                         <span class="portal-badge"></span>
@@ -1011,7 +1134,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 31122</span>
                                         <span class="portal-badge"></span>
@@ -1022,7 +1145,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 31123</span>
                                         <span class="portal-badge"></span>
@@ -1033,7 +1156,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 31107</span>
                                         <span class="portal-badge"></span>
@@ -1044,14 +1167,14 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 31014</span>
                                         <span class="portal-badge"></span>
                                     </div>
                                     <div class="module-name">Industrial Visits</div>
                                     <div class="module-footer">
-                                        <span>Field Excursion</span>
+                                        <span>0 Credits • Field Visit</span>
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
@@ -1062,7 +1185,7 @@
                         <div class="semester-block">
                             <div class="semester-label">Year 03 — Semester 02</div>
                             <div class="module-grid">
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 32214</span>
                                         <span class="portal-badge"></span>
@@ -1073,7 +1196,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 32215</span>
                                         <span class="portal-badge"></span>
@@ -1084,7 +1207,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 32216</span>
                                         <span class="portal-badge"></span>
@@ -1095,7 +1218,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 32217</span>
                                         <span class="portal-badge"></span>
@@ -1106,7 +1229,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 32118</span>
                                         <span class="portal-badge"></span>
@@ -1117,7 +1240,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 32219</span>
                                         <span class="portal-badge"></span>
@@ -1128,7 +1251,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 32220</span>
                                         <span class="portal-badge"></span>
@@ -1139,7 +1262,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 32121</span>
                                         <span class="portal-badge"></span>
@@ -1150,7 +1273,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 32122</span>
                                         <span class="portal-badge"></span>
@@ -1161,7 +1284,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 32223</span>
                                         <span class="portal-badge"></span>
@@ -1172,7 +1295,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 32213</span>
                                         <span class="portal-badge"></span>
@@ -1190,7 +1313,7 @@
                         <div class="semester-block">
                             <div class="semester-label">Year 04 — Semester 01</div>
                             <div class="module-grid">
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 41217</span>
                                         <span class="portal-badge"></span>
@@ -1201,7 +1324,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 41218</span>
                                         <span class="portal-badge"></span>
@@ -1212,7 +1335,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 41219</span>
                                         <span class="portal-badge"></span>
@@ -1223,7 +1346,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 41120</span>
                                         <span class="portal-badge"></span>
@@ -1234,7 +1357,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 41221</span>
                                         <span class="portal-badge"></span>
@@ -1245,7 +1368,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 41222</span>
                                         <span class="portal-badge"></span>
@@ -1256,7 +1379,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 41223</span>
                                         <span class="portal-badge"></span>
@@ -1267,7 +1390,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 41207</span>
                                         <span class="portal-badge"></span>
@@ -1278,7 +1401,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 41212</span>
                                         <span class="portal-badge"></span>
@@ -1289,7 +1412,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 41226</span>
                                         <span class="portal-badge"></span>
@@ -1300,7 +1423,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 41124</span>
                                         <span class="portal-badge"></span>
@@ -1311,7 +1434,7 @@
                                         <span class="module-arrow">→</span>
                                     </div>
                                 </div>
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 41225</span>
                                         <span class="portal-badge"></span>
@@ -1329,7 +1452,7 @@
                         <div class="semester-block">
                             <div class="semester-label">Year 04 — Semester 02</div>
                             <div class="module-grid">
-                                <div class="chem-module-item" data-link="" onclick="openModuleSite(this)">
+                                <div class="chem-module-item" data-link="" onclick="openModuleModal(this)">
                                     <div class="module-top">
                                         <span class="module-code">PST 42804</span>
                                         <span class="portal-badge"></span>
@@ -1345,71 +1468,71 @@
 
                         <hr class="other-modules-divider">
 
-                        <!-- PART 2: INTERDISCIPLINARY & SUPPORTING MODULES (NON-CHEMISTRY) -->
+                        <!-- PART 2: INTERDISCIPLINARY & SUPPORTING MODULES -->
                         <div class="curriculum-category-header">
                             <div class="curriculum-category-title">
                                 <span>02.</span> Interdisciplinary & Supporting Modules Completed
                             </div>
-                            <p class="curriculum-category-note">Physics, Computing, Mathematics, Statistics, Management & Communication modules completed under the degree program.</p>
+                            <p class="curriculum-category-note">Click on any supporting module below to view its syllabus from the academic handbook.</p>
                         </div>
 
                         <!-- Physics & Electronics -->
                         <div class="semester-block">
                             <div class="semester-label">Physics & Electronics</div>
                             <div class="other-module-grid">
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 11201', 'Mechanics and Properties of Matter', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 11201</span>
                                     <div class="other-module-name">Mechanics and Properties of Matter</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 11202', 'Introduction to Electricity and Magnetism', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 11202</span>
                                     <div class="other-module-name">Introduction to Electricity and Magnetism</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 11103', 'Physics Laboratory 1-I', '1 Credit • Practical')">
                                     <span class="other-module-code">PST 11103</span>
                                     <div class="other-module-name">Physics Laboratory 1-I</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 12201', 'Physics of Heat and Waves', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 12201</span>
                                     <div class="other-module-name">Physics of Heat and Waves</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 12102', 'Semi-Conductor Physics', '1 Credit • Theory')">
                                     <span class="other-module-code">PST 12102</span>
                                     <div class="other-module-name">Semi-Conductor Physics</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 12103', 'AC Theory & Circuits', '1 Credit • Theory')">
                                     <span class="other-module-code">PST 12103</span>
                                     <div class="other-module-name">AC Theory & Circuits</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 12104', 'Physics Laboratory 1-II', '1 Credit • Practical')">
                                     <span class="other-module-code">PST 12104</span>
                                     <div class="other-module-name">Physics Laboratory 1-II</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 21201', 'Electronics', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 21201</span>
                                     <div class="other-module-name">Electronics</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 21202', 'Geometrical and Physical Optics', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 21202</span>
                                     <div class="other-module-name">Geometrical and Physical Optics</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 21103', 'Physics Laboratory 2-I', '1 Credit • Practical')">
                                     <span class="other-module-code">PST 21103</span>
                                     <div class="other-module-name">Physics Laboratory 2-I</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 22201', 'Physics of Electromagnetic Radiation & Intro to Laser', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 22201</span>
                                     <div class="other-module-name">Physics of Electromagnetic Radiation & Intro to Laser</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 22202', 'Quantum Physics, Atomic & Nuclear Physics', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 22202</span>
                                     <div class="other-module-name">Quantum Physics, Atomic & Nuclear Physics</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 22103', 'Physics Laboratory 2-II', '1 Credit • Practical')">
                                     <span class="other-module-code">PST 22103</span>
                                     <div class="other-module-name">Physics Laboratory 2-II</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 22217', 'Industrial Metrology', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 22217</span>
                                     <div class="other-module-name">Industrial Metrology</div>
                                 </div>
@@ -1420,51 +1543,51 @@
                         <div class="semester-block">
                             <div class="semester-label">Computer Science & Programming</div>
                             <div class="other-module-grid">
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 11107', 'Structured Programming', '1 Credit • Theory')">
                                     <span class="other-module-code">PST 11107</span>
                                     <div class="other-module-name">Structured Programming</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 11208', 'Computer Hardware and Software', '2 Credits • Theory & Practical')">
                                     <span class="other-module-code">PST 11208</span>
                                     <div class="other-module-name">Computer Hardware and Software</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 11109', 'Computer Laboratory 1-I (C Programming)', '1 Credit • Practical')">
                                     <span class="other-module-code">PST 11109</span>
                                     <div class="other-module-name">Computer Laboratory 1-I (C Programming)</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 12108', 'Object Oriented Programming', '1 Credit • Theory')">
                                     <span class="other-module-code">PST 12108</span>
                                     <div class="other-module-name">Object Oriented Programming</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 12110', 'Computer Laboratory 1-II (Java)', '1 Credit • Practical')">
                                     <span class="other-module-code">PST 12110</span>
                                     <div class="other-module-name">Computer Laboratory 1-II (Java)</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 12211', 'Database Management Systems', '2 Credits • Theory & Practical')">
                                     <span class="other-module-code">PST 12211</span>
                                     <div class="other-module-name">Database Management Systems</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 21207', 'Data Structures & Algorithms', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 21207</span>
                                     <div class="other-module-name">Data Structures & Algorithms</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 21208', 'Computer Architecture and Assembly Language', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 21208</span>
                                     <div class="other-module-name">Computer Architecture and Assembly Language</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 21110', 'Computer Laboratory 2-I (Web Development)', '1 Credit • Practical')">
                                     <span class="other-module-code">PST 21110</span>
                                     <div class="other-module-name">Computer Laboratory 2-I (Web Development)</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 22208', 'Software Engineering', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 22208</span>
                                     <div class="other-module-name">Software Engineering</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 22110', 'Computer Laboratory 2-II (C# & .NET)', '1 Credit • Practical')">
                                     <span class="other-module-code">PST 22110</span>
                                     <div class="other-module-name">Computer Laboratory 2-II (C# & .NET)</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 22211', 'Operating Systems', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 22211</span>
                                     <div class="other-module-name">Operating Systems</div>
                                 </div>
@@ -1475,31 +1598,31 @@
                         <div class="semester-block">
                             <div class="semester-label">Mathematics & Statistics</div>
                             <div class="other-module-grid">
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 11210', 'Calculus and Differential Equations', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 11210</span>
                                     <div class="other-module-name">Calculus and Differential Equations</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 12209', 'Fundamentals of Statistics', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 12209</span>
                                     <div class="other-module-name">Fundamentals of Statistics</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 21209', 'Statistics for Experimental Analysis', '2 Credits • Theory & Practical')">
                                     <span class="other-module-code">PST 21209</span>
                                     <div class="other-module-name">Statistics for Experimental Analysis</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 22209', 'Statistical Methodology', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 22209</span>
                                     <div class="other-module-name">Statistical Methodology</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 31211', 'Mathematical Programming', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 31211</span>
                                     <div class="other-module-name">Mathematical Programming</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 31212', 'Numerical Methods', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 31212</span>
                                     <div class="other-module-name">Numerical Methods</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 32210', 'Statistics in Quality Control', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 32210</span>
                                     <div class="other-module-name">Statistics in Quality Control</div>
                                 </div>
@@ -1510,47 +1633,47 @@
                         <div class="semester-block" style="margin-bottom: 10px;">
                             <div class="semester-label">Management, Research & Communication</div>
                             <div class="other-module-grid">
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 41201', 'Research Methodology & Scientific Communication', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 41201</span>
                                     <div class="other-module-name">Research Methodology & Scientific Communication</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 31213', 'Economics', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 31213</span>
                                     <div class="other-module-name">Economics</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 32109', 'Human Resource Management', '1 Credit • Theory')">
                                     <span class="other-module-code">PST 32109</span>
                                     <div class="other-module-name">Human Resource Management</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 41215', 'Industrial Management', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 41215</span>
                                     <div class="other-module-name">Industrial Management</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 41235', 'Critical Thinking', '1 Credit • Elective')">
                                     <span class="other-module-code">PST 41235</span>
                                     <div class="other-module-name">Critical Thinking</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 22112', 'Leadership and Communication', '1 Credit • Theory & Practical')">
                                     <span class="other-module-code">PST 22112</span>
                                     <div class="other-module-name">Leadership and Communication</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 22213', 'Biology for Physical Sciences', '2 Credits • Theory')">
                                     <span class="other-module-code">PST 22213</span>
                                     <div class="other-module-name">Biology for Physical Sciences</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST 22114', 'Soft Skill Development', '1 Credit • Theory & Practical')">
                                     <span class="other-module-code">PST 22114</span>
                                     <div class="other-module-name">Soft Skill Development</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST-EGP-1101 / 1201', 'General English I & II', '4 Credits • Compulsory (Non-GPA)')">
                                     <span class="other-module-code">PST-EGP-1101 / 1201</span>
                                     <div class="other-module-name">General English I & II</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST-EAP-2101 / 2201', 'Academic English I & II', '4 Credits • Compulsory (Non-GPA)')">
                                     <span class="other-module-code">PST-EAP-2101 / 2201</span>
                                     <div class="other-module-name">Academic English I & II</div>
                                 </div>
-                                <div class="other-module-item">
+                                <div class="other-module-item" onclick="openOtherModuleModal(this, 'PST-EBP-3101', 'Business English', '2 Credits • Compulsory (Non-GPA)')">
                                     <span class="other-module-code">PST-EBP-3101</span>
                                     <div class="other-module-name">Business English</div>
                                 </div>
@@ -1623,47 +1746,503 @@
             </div>
 
             <div class="section-header animate-on-scroll">
-                <h2 class="section-title">Verified <span>Certificates</span></h2>
+                <h2 class="section-title"> My <span>Achievements</span></h2>
                 <div class="subtitle">Achievements Gallery</div>
             </div>
 
-            <div class="cert-gallery">
-                <div class="cert-container animate-on-scroll" onclick="openModal(this, event)">
-                    <img src="Certificate/c1.png" alt="Certificate 1">
+        </div>
+
+        <!-- 1. GALLERY/POST IMAGES STREAM (CERTIFICATE පේළියට උඩින් යන පේළි) -->
+        <div class="post-streams-wrapper" id="post-streams-wrapper"></div>
+
+        <!-- 2. AUTO-SCROLLING CERTIFICATES (ADAPTS TO EXACT IMAGE DIMENSIONS) -->
+        <div class="cert-stream-section">
+            <div class="cert-scroll-track" id="cert-track"></div>
+        </div>
+
+    </div>
+
+    <!-- Popup Modal for Module Syllabus Content -->
+    <div id="syllabusModal" class="syllabus-modal-overlay" onclick="closeSyllabusModal(event)">
+        <div class="syllabus-modal-card" onclick="event.stopPropagation()">
+            <div class="syllabus-modal-header">
+                <div>
+                    <div class="syllabus-badge-row">
+                        <span class="syllabus-code-tag" id="modalModuleCode">PST 11204</span>
+                        <span class="syllabus-meta-tag" id="modalModuleMeta">2 Credits • Theory</span>
+                    </div>
+                    <h3 class="syllabus-modal-title" id="modalModuleTitle">General Chemistry</h3>
                 </div>
-                <div class="cert-container animate-on-scroll" onclick="openModal(this, event)">
-                    <img src="Certificate/c2.png" alt="Certificate 2">
-                </div>
-                <div class="cert-container animate-on-scroll" onclick="openModal(this, event)">
-                    <img src="Certificate/c3.png" alt="Certificate 3">
-                </div>
+                <button class="syllabus-close-btn" onclick="closeSyllabusModal()">&times;</button>
             </div>
-
-        </div>
-    </div>
-
-    <!-- Lightbox Modal for Certificates -->
-    <div id="imageModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modalImg">
-    </div>
-
-    <!-- Custom Toast Notification for Unlinked Chemistry Modules -->
-    <div id="portalToast" class="portal-toast">
-        <div class="toast-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="8" x2="12" y2="12"></line>
-                <line x1="12" y1="16" x2="12.01" y2="16"></line>
-            </svg>
-        </div>
-        <div class="toast-text">
-            <h4 id="toastTitle">Portal In Progress</h4>
-            <p id="toastMessage">Digital module portal is currently under development and will be published soon.</p>
+            <div class="syllabus-modal-body">
+                <div class="syllabus-section-label">Course Syllabus & Topics Covered</div>
+                <ul class="syllabus-topic-list" id="modalSyllabusList"></ul>
+            </div>
+            <div class="syllabus-modal-footer">
+                <span class="syllabus-source-note">SUSL Faculty of Applied Sciences — Academic Handbook</span>
+                <a href="#" target="_blank" id="modalPortalBtn" class="syllabus-portal-link" style="display: none;">
+                    <span>Launch Interactive Web Portal</span>
+                    <span>↗</span>
+                </a>
+            </div>
         </div>
     </div>
 
     <script>
+        // =========================================================================
+        // GALLERY/POST ෆෝල්ඩර් එකේ පේළි පාලනය කරන තැන (POST_ROWS CONFIGURATION)
+        // -------------------------------------------------------------------------
+        // ඔයාට පහළට තව පේළියක් එකතු කරන්න ඕන වුණාම මේකට අලුත් {...} පේළියක් දාන්න!
+        //
+        // • prefix    : ෆොටෝ නම් කරලා තියෙන මුල් අකුර:
+        //               '' දුන්නොත් 1.webp, 2.webp (හෝ P1.webp, p1.webp, c1.webp) ඉබේම හොයාගනී.
+        //               වෙනම අකුරක් දුන්නොත් (උදා: 'A') A1.webp, A2.webp... හොයාගනී.
+        // • direction : 'left' (වමට යන්න) හෝ 'right' (දකුණට යන්න)
+        // • from / to : (අත්‍යවශ්‍ය නෑ) එකම අකුරේ ෆොටෝ පරාසයක් විතරක් පේළියකට දාන්න ඕන නම් විතරක් දාන්න
+        // =========================================================================
+        const POST_FOLDER = 'Gallery/Post';
+        const POST_ROWS = [
+            // 1 වෙනි පේළිය (Gallery/Post ඇතුළේ තියෙන ෆොටෝ)
+            { prefix: '', direction: 'right' },
+
+            // --- තව පේළියක් පහළට එකතු කරන්න ඕන නම් යට තියෙන '//' අයින් කරලා පාවිච්චි කරන්න ---
+            // { prefix: 'P', direction: 'left' },
+            // { prefix: 'L', direction: 'right' },
+            // { prefix: '', from: 1, to: 6, direction: 'left' }
+        ];
+
+        // --- Complete Syllabus Data from SUSL Academic Handbook ---
+        const moduleSyllabi = {
+            "PST 11204": [
+                "Review of classical atomic theory (Atoms and molecules, Orbitals, Pauli exclusion principle, De Broglie relationship, Heisenberg's uncertainty principle, Schrödinger equation)",
+                "Atomic spectra and Sub-atomic particles",
+                "Chemical bonds (Covalent bonds, Intra- and inter-molecular forces), Lewis theory, Valence bond theory, Molecular orbital theory",
+                "Shapes of molecules from VSEPR theory and Hybridisation",
+                "Size and energy factors in Chemistry & Born-Haber cycle",
+                "Oxidation-reduction reactions, Concepts of acid-base, Redox reactions, Balancing chemical equations and Half-reactions",
+                "Nernst equation and applications of electrode potential data"
+            ],
+            "PST 11205": [
+                "Structure and Bonding of organic molecules: Review of atomic structure of Carbon, atomic and molecular orbitals, sigma and pi-bonds, hybridization, Lewis bonding theory, ionic & covalent bonds, formal charge, Resonance and hyperconjugation",
+                "Functional groups & IUPAC nomenclature of organic compounds: alkanes, alkenes, alkynes, alkyl halides, alcohols, carboxylic acids, amines",
+                "Intermolecular interactions: electronegativity, dipole moments, polarity, dipole-dipole interactions, Hydrogen bonding, Van der Waals interactions, solubility, melting and boiling points",
+                "Acid-base properties of organic compounds: Lowry-Bronsted and Lewis theories, acid-base trends, inductive effect, resonance effect",
+                "Isomerism: structural and stereoisomerism, geometrical isomerism (cis/trans vs E/Z nomenclature), conformational analysis of open-chain and cyclic compounds",
+                "Optical isomerism: chirality and stereocenters, enantiomers and diastereomers, R and S nomenclature, Fisher projections, racemic and meso compounds, Atropisomerism, separation of racemic compounds, biological importance of isomers"
+            ],
+            "PST 11106": [
+                "Qualitative analysis: Systematic analysis of inorganic anions, cations and their mixtures",
+                "Quantitative inorganic analysis by volumetric titrations",
+                "Laboratory apparatus handling, accurate measurements, error analysis, and introduction to analytical methods"
+            ],
+            "PST 12205": [
+                "States of matter: The perfect gas and associated gas laws, Real gases and their behaviour",
+                "Thermodynamics and state variables: Basic concepts of work, heat and energy; Zeroth, First, Second & Third laws of thermodynamics; Thermochemistry",
+                "Chemical potential and mass action law",
+                "Reaction kinetics: Basic concepts, integrated rate laws of zeroth, first and second order reactions, factors affecting reaction rates",
+                "Pseudo state and Pseudo Steady State Approximation (PSSA)"
+            ],
+            "PST 12206": [
+                "Introduction to chemical analyses, sampling methods, types of errors, error analysis, and statistical treatment of analytical data",
+                "Classical analytical methods: Titrimetric analysis (Acid-base, Complexometric, Gravimetric, etc.)",
+                "Electromagnetic spectrum & Introduction to spectroscopic methods (UV-Visible, AAS, Emission spectroscopy)",
+                "Solvent extraction & Principles of separation techniques (solvent-solvent, solvent-solid, solid-solid)",
+                "Calibration methods: External & internal standard methods, and standard addition"
+            ],
+            "PST 12107": [
+                "Laboratory safety, physical nature of organic compounds, acid-base properties and solubility behaviour",
+                "Elemental detection: Beilstein Test and preparation of Lassaigne's fusion extract",
+                "Functional group analysis: Unsaturated organic compounds, alkyl and aryl halides, alcohols (primary, secondary, tertiary), aldehydes and ketones, phenols, carboxylic acids and derivatives (amides, esters, ammonium salts), amines, and carbohydrate analysis"
+            ],
+            "PST 21204": [
+                "Alkyl halides and Alcohols: Nucleophilic substitution reactions (SN1, SN2, and SNi mechanisms), Elimination reactions (E1 and E2 mechanisms), and competitive E1/SN1 & E2/SN2 reactions",
+                "Aromatic compounds: Molecular orbital description of benzene, Aromaticity, Frost Diagrams, Hückel's rules, aromatic, antiaromatic and non-aromatic compounds",
+                "Reactions of benzene: Electrophilic aromatic substitution (halogenation, nitration, sulfonation, alkylation, acylation), reactions and orientation in substituted benzenes",
+                "Phenols and aryl halides: Nucleophilic aromatic substitution reactions",
+                "Carbonyl compounds: Structure and reactivity (nucleophilic addition, keto-enol isomerism, alpha-substitution, aldol condensation) of aldehydes and ketones; Conjugated enones (1,2- vs 1,4-additions)",
+                "Carboxylic acids and derivatives: Nucleophilic acyl substitution reactions; Chemistry of aliphatic and aryl amines"
+            ],
+            "PST 21205": [
+                "Importance of chemical processes used in industry and aspects of industrial Research & Development (R&D)",
+                "Industrial organic chemistry & Sri Lankan plantation crop industries: Coconut, Tea, and Sugar cane processing",
+                "Chemistry of essential oils, oils and fats, edible margarine industry, soaps and detergents",
+                "Petroleum products and biofuels, organic dyes, pesticides, and tannery industry"
+            ],
+            "PST 21106": [
+                "Purification and separation techniques: Recrystallization, separation of binary mixtures (acid/base/neutral), solvent extraction, and chromatography",
+                "Synthesis of organic compounds: Acetanilide, benzanilide, dibenzalacetone, acetylsalicylic acid (aspirin), benzoin, acetaminophen, etc.",
+                "Extraction of natural products: Caffeine from tea, trimyristin from nutmeg, piperine from black pepper",
+                "Synthesis of industrially important products (soap, nylon, etc.)"
+            ],
+            "PST 21111": [
+                "Treatment of experimental data: Presentation of data and error analysis",
+                "Experiments in physical chemistry: Gas laws, Thermochemistry, Chemical kinetics, Colligative properties, Phase diagrams, and Surface phenomena",
+                "Instrumental experiments: UV-Visible spectroscopy, Vibrational spectroscopy, Conductometric and pH titrations, and Electrochemistry"
+            ],
+            "PST 22204": [
+                "Main group chemistry: General and systematic chemistry of the groups of elements",
+                "s-block elements: Physical and chemical properties of alkali metals and alkaline earth elements",
+                "p-block elements: Physical and chemical properties of Group 13 to Group 18 elements",
+                "Introduction to d-block and f-block transition elements and their applications"
+            ],
+            "PST 22205": [
+                "Quantum Mechanics: Revision of evidence for quantization, dynamics of microscopic systems, Schrödinger equation, quantum mechanical principles (operators, observables, superposition, expectation values, uncertainty principle)",
+                "Solutions of the Schrödinger equation for a particle in 1D, 2D, and 3D boxes",
+                "Phase Equilibria: One-component systems, miscible, partially miscible & immiscible liquid mixtures, condensed phases, eutectic systems and compound formation",
+                "Solid solutions, simple three-component systems, and distillation of liquid mixtures (congruent and non-congruent)"
+            ],
+            "PST 22106": [
+                "Gravimetric analysis: Quantitative determination of anions and cations by gravimetry",
+                "Complexometric titrations including EDTA titrations",
+                "Synthesis of inorganic complexes and their quantitative/qualitative analysis",
+                "Qualitative analysis of simple mixtures, rare elements, insoluble mixtures, and synthesis of special inorganic compounds"
+            ],
+            "PST 22107": [
+                "Measurements and error evaluation in analytical data",
+                "Liquid-liquid extraction and applications in basic chromatographic techniques",
+                "Colorimetry, UV-Visible spectroscopy, conductometric and pH titrations",
+                "Application of wet chemical and instrumental techniques for water quality determination"
+            ],
+            "PST 22219": [
+                "Molecular properties: Electrical and magnetic properties, intermolecular forces, Electron Paramagnetic Resonance (EPR), magnetic susceptibility and magnetic moment",
+                "Theory and applications of rotational, vibrational, microwave, and electronic spectra",
+                "Sample preparation for IR, Raman, UV-Visible, 1H-NMR, 13C-NMR, and Mass Spectroscopy",
+                "Application of spectroscopic methods for structure elucidation of organic molecules"
+            ],
+            "PST 31216": [
+                "Structure, functional roles, and biochemical properties of proteins, carbohydrates, lipids, and nucleic acids",
+                "Methods of isolation, characterization, and quantitative determination of biological macromolecules",
+                "Vitamins and coenzymes: Structure and biochemical functions",
+                "Enzyme biochemistry: Enzyme kinetics and inhibition mechanisms"
+            ],
+            "PST 31217": [
+                "Faraday's laws of electrolysis, strong and weak electrolytes and their conductivity, Kohlrausch's law of independent migration of ions",
+                "Determination of ionic concentrations, equilibrium constants, rate constants, and transference numbers",
+                "Conductometry, potentiometry, Nernst equation, concept of EMF, electrochemical cells and applications",
+                "Electroanalytical methods: Polarography, cyclic voltammetry, amperometry, electro-gravimetry, coulometry, and electrophoresis",
+                "Electrochemical energy sources (fuel cells), electroplating, and electrochemistry of corrosion"
+            ],
+            "PST 31218": [
+                "Industrial inorganic chemistry and mineral-based industries of Sri Lanka",
+                "Glass, Silica, Clay, Ceramics, Mineral sands, Cement, and Fertilizers (Apatite, Dolomite, etc.)",
+                "Chemistry of gems and value addition",
+                "Chlor-alkali industry, metal extraction metallurgy, steel and cast iron production"
+            ],
+            "PST 31219": [
+                "Air pollution: Structure of the atmosphere, generation and sources of air pollutants, photochemical smog, Air Quality Standards & Index (AQI), indoor air pollution, greenhouse effect, global warming, Kyoto protocol, ozone depletion, acid rain",
+                "Water pollution: Origin of water pollutants, water quality standards and analysis, water treatment, eutrophication and algal blooms, industrial pollution control, soil pollutants and analysis",
+                "Waste management: Open dumping, sanitary landfills, incineration, biogas generation, treatment of hospital, chemical, oil and radioactive wastes, 3R system, and waste as a resource"
+            ],
+            "PST 31220": [
+                "Coordination complexes: Structures, stability constants, chelate effect, nomenclature, coordination numbers, and geometries",
+                "Reaction mechanisms of coordination compounds",
+                "Bonding theories: Crystal Field Theory (CFT), Ligand Field Theory (LFT), Valence Bond Theory (VBT), d-orbital splitting in various geometries, Jahn-Teller effect",
+                "Consequences of d-orbital splitting (ionic radii, thermodynamic data) and electronic spectra of coordination complexes"
+            ],
+            "PST 31121": [
+                "Principles of Quality Control (QC): Matrix interference, spike analysis, precision & accuracy, blind samples, sensitivity, selectivity, detection limits, standard reference materials, control charts, instrument calibration, SOPs, and QC plans",
+                "Principles of Quality Assurance (QA): Method validation, inter-laboratory checks, laboratory layouts, QA plans, data auditing, and legal accreditation (ISO, SLSI, etc.)"
+            ],
+            "PST 31122": [
+                "Advanced chemical kinetics experiments",
+                "Electrochemistry of two-electrode and three-electrode systems",
+                "Fourier Transform Infrared (FTIR) spectroscopy and computer-assisted molecular characterization"
+            ],
+            "PST 31123": [
+                "Advanced instrumental analysis techniques and novel instrumental architecture",
+                "Organic electronics practicals: Preparation and characterization of solid-state thin films",
+                "Fabrication and evaluation of standard Organic Light-Emitting Diodes (OLEDs) and Organic Solar Cells (OSCs)"
+            ],
+            "PST 31107": [
+                "History of industrial revolutions, understanding the nanoscale, Feynman's challenges, and classification of nanoscale objects",
+                "Surface effects, size-dependent properties, nanotechnology in nature and everyday life, and economics of nanotechnology",
+                "Miniaturization, Moore's Law, scaling laws in mechanics, electricity, magnetism, optics, heat transfer, and biology",
+                "Quantum tunneling of electrons; Principles, operation, and limitations of STM, AFM, SEM, and TEM",
+                "Nanofabrication methods: Bottom-up and top-down approaches, self-assembly, and introduction to lithography"
+            ],
+            "PST 31014": [
+                "Field visits to major chemical industries in Sri Lanka (Sugar cane, Glass, Rubber, Fertilizers, etc.)",
+                "Exposure to national Research, Development, and Service Laboratories (including NERD Centre) and industrial engineering organizations"
+            ],
+            "PST 32214": [
+                "Principles of medicinal chemistry, drug discovery, lead identification, and lead optimization",
+                "Structure-Activity Relationships (SAR) and Quantitative Structure-Activity Relationships (QSAR)",
+                "Pharmacokinetics (ADME: Absorption, Distribution, Metabolism, Excretion) and Pharmacodynamics (drug-receptor interactions, enzyme inhibitors)",
+                "Chemical synthesis and mechanisms of action of major therapeutic drug classes"
+            ],
+            "PST 32215": [
+                "Classification of polymers, polymer chain microstructure, molecular weight distribution, and step-growth vs. chain-growth polymerization mechanisms",
+                "Kinetics of polymerization, copolymerization, and industrial polymerization techniques (bulk, solution, suspension, emulsion)",
+                "Crystalline and amorphous states, glass transition temperature (Tg), thermal, mechanical, and rheological properties of polymers",
+                "Polymer processing technologies (extrusion, injection molding, blow molding), rubbers, elastomers, polymer additives, blends, and composites"
+            ],
+            "PST 32216": [
+                "Surface tension, capillarity, Kelvin equation, and thermodynamics of surfaces (Gibbs adsorption isotherm)",
+                "Surfactants, micelles, Critical Micelle Concentration (CMC), detergency, and emulsions/microemulsions",
+                "Solid-gas interfaces: Physisorption and chemisorption, Langmuir, Freundlich, and BET adsorption isotherms, surface area determination, and heterogeneous catalysis",
+                "Colloidal systems: Classification, preparation, optical, kinetic, and electrical properties (Zeta potential, DLVO theory), stability, and flocculation"
+            ],
+            "PST 32217": [
+                "Bioenergetics and intermediary metabolism: Glycolysis, gluconeogenesis, citric acid cycle (Krebs cycle), and pentose phosphate pathway",
+                "Electron transport chain (ETC) and oxidative phosphorylation",
+                "Lipid metabolism (beta-oxidation and biosynthesis of fatty acids) and protein/amino acid catabolism (urea cycle)",
+                "Integration, hormonal regulation of metabolic pathways, and molecular biology of replication, transcription, and translation"
+            ],
+            "PST 32118": [
+                "Advanced stereochemistry, conformational analysis, and stereoelectronic effects",
+                "Pericyclic reactions: Electrocyclic reactions, cycloadditions (Diels-Alder), and sigmatropic rearrangements (Woodward-Hoffmann rules, Frontier Molecular Orbital theory)",
+                "Reactive intermediates (carbenes, nitrenes, radicals, benzyne), named organic reactions, and retrosynthetic analysis / disconnection approach"
+            ],
+            "PST 32219": [
+                "Conjugated polymers and small molecules: Electronic structure, band gap engineering, and charge transport in organic semiconductors",
+                "Materials, device physics, and fabrication of Organic Light-Emitting Diodes (OLEDs), Organic Photovoltaic Cells (OPVs / Dye-Sensitized Solar Cells), and Organic Field-Effect Transistors (OFETs)",
+                "Characterization techniques for organic electronic materials and thin-film devices"
+            ],
+            "PST 32220": [
+                "Crystal structures, close packing, unit cells, lattice energy, and crystallographic defects (point, line, and planar defects)",
+                "Electronic structure of solids: Band theory, conductors, semiconductors, insulators, and superconductivity",
+                "Optical, magnetic, and dielectric properties of solids, non-stoichiometric compounds, and phase transitions"
+            ],
+            "PST 32121": [
+                "Synthesis, purification, and characterization of transition metal coordination complexes",
+                "Spectroscopic, magnetic susceptibility, and conductometric evaluation of synthesized inorganic materials",
+                "Advanced gravimetric/volumetric multi-component inorganic analyses"
+            ],
+            "PST 32122": [
+                "Qualitative and quantitative biochemical assays for carbohydrates, proteins, lipids, and nucleic acids",
+                "Enzyme extraction, purification, assay of enzyme activity, and determination of kinetic parameters (Km and Vmax)",
+                "Biochemical separation techniques: Gel electrophoresis, dialysis, and column/thin-layer chromatography"
+            ],
+            "PST 32223": [
+                "Classification of organometallic ligands, 18-electron rule, bonding in metal carbonyls, nitrosyls, phosphines, and pi-complexes (alkenes, alkynes, metallocenes)",
+                "Fundamental organometallic reactions: Oxidative addition, reductive elimination, migratory insertion, and beta-hydride elimination",
+                "Homogeneous catalysis by transition metal complexes: Hydrogenation (Wilkinson's catalyst), hydroformylation, Monsanto acetic acid process, Wacker process, Heck/Suzuki cross-coupling, and Ziegler-Natta polymerization"
+            ],
+            "PST 32213": [
+                "Metrics of resource consumption (ecological, water, and carbon footprints) and principles of Cleaner Production (CP)",
+                "Green Productivity (GP), Environmental Management Systems (ISO 14001), Occupational Health & Safety (ISO 45001), and Quality Management (ISO 9001)",
+                "Circular economy, life cycle assessment (LCA), eco-design, environmental auditing, and industrial chemical management"
+            ],
+            "PST 41217": [
+                "Primary and secondary metabolites, building blocks, and construction mechanisms in biosynthesis (alkylation, Wagner-Meerwein rearrangement, Aldol/Claisen reactions)",
+                "Acetate pathway: Biosynthesis of fatty acids, prostaglandins, and aromatic polyketides",
+                "Shikimate pathway: Aromatic amino acids, phenylpropanoids, lignans, and coumarins",
+                "Mevalonate and deoxyxylulose phosphate pathways: Terpenoids (mono-, sesqui-, di-, and triterpenoids), carotenoids, and steroids",
+                "Alkaloids derived from amino acids; Extraction, isolation, bioassay-guided fractionation, and structure elucidation of natural products"
+            ],
+            "PST 41218": [
+                "Recombinant DNA technology, restriction enzymes, cloning vectors, PCR, gene libraries, and DNA sequencing",
+                "Microbial biotechnology: Industrial fermentation processes, upstream and downstream processing, bioreactor design, and production of enzymes, antibiotics, and organic acids",
+                "Plant, animal, and environmental biotechnology (bioremediation, biosensors, biofuels) and biosafety/bioethics"
+            ],
+            "PST 41219": [
+                "Preparative methods in solid-state chemistry: Ceramic, sol-gel, hydrothermal, precursor, and chemical vapor deposition (CVD) methods",
+                "Characterization of solids: Powder and single-crystal X-ray diffraction (XRD), electron microscopy, and thermal analysis (TGA, DTA, DSC)",
+                "Solid electrolytes, fast ion conductors, zeolites, porous materials, and functional ceramics"
+            ],
+            "PST 41120": [
+                "Essential trace elements in biological systems, metal ion transport and storage (ferritin, transferrin, siderophores)",
+                "Dioxygen transport and storage: Hemoglobin, myoglobin, hemocyanin, and hemerythrin",
+                "Electron transfer metalloproteins (cytochromes, iron-sulfur proteins, blue copper proteins) and metalloenzymes (zinc enzymes, vitamin B12, nitrogenase, photosynthesis)",
+                "Metals in medicine: Platinum anticancer drugs (cisplatin), radiopharmaceuticals, and chelation therapy"
+            ],
+            "PST 41221": [
+                "Advanced Atomic Spectroscopy: AAS, Flame Photometry, ICP-OES, and ICP-MS",
+                "Advanced Molecular Spectroscopy: UV-Vis, Fluorescence, FTIR, Raman, NMR, and Mass Spectrometry instrumentation",
+                "Chromatographic & Electrophoretic methods: Gas Chromatography (GC, GC-MS), High-Performance Liquid Chromatography (HPLC), Ion Chromatography, Supercritical Fluid Chromatography, and Capillary Electrophoresis",
+                "Surface and thermal analytical instrumentation (XPS, SEM/EDX, TGA/DSC)"
+            ],
+            "PST 41222": [
+                "Introduction to computational chemistry, potential energy surfaces, stationary points, and geometry optimization",
+                "Molecular mechanics (force fields) and Molecular Dynamics (MD) simulations",
+                "Ab initio methods (Hartree-Fock), Semi-empirical methods, and Density Functional Theory (DFT); Basis sets and calculation of molecular properties & spectra"
+            ],
+            "PST 41223": [
+                "Intermolecular forces, kinetic theory, and transport properties of gases and liquids",
+                "Structure of liquids, radial distribution functions, liquid crystals (nematic, smectic, cholesteric phases) and their applications",
+                "Supercritical fluids, glasses, and thermodynamic/statistical treatment of condensed matter"
+            ],
+            "PST 41207": [
+                "Advanced synthesis, surface functionalization, and stabilization of zero-, one-, and two-dimensional nanomaterials (quantum dots, nanowires, CNTs, graphene)",
+                "Optical, plasmonic, electronic, and catalytic properties of nanomaterials",
+                "Applications of nanotechnology in energy conversion/storage, targeted drug delivery, nanosensors, water purification, and nanotoxicology"
+            ],
+            "PST 41212": [
+                "Thermodynamics and kinetics of electrochemical energy conversion and storage systems",
+                "Primary and secondary batteries: Lead-acid, Ni-MH, Lithium-ion, and next-generation battery technologies",
+                "Fuel cells (PEMFC, SOFC, AFC, DMFC), electrochemical supercapacitors, and photoelectrochemical / solar-to-chemical energy conversion"
+            ],
+            "PST 41226": [
+                "Data acquisition systems, sensors, transducers, signal conditioning, and analog-to-digital (ADC/DAC) conversion in chemical instrumentation",
+                "Microcontroller/computer interfacing, automated laboratory systems, and chemometrics / digital signal processing for analytical data"
+            ],
+            "PST 41124": [
+                "Comprehensive scientific literature survey on a specialized topic in Chemistry / Chemical Technology",
+                "Critical analysis of peer-reviewed journals, scientific writing of a review monograph, abstract preparation, and oral seminar defense"
+            ],
+            "PST 41225": [
+                "Formulation of an independent research problem in Chemical Technology, experimental design, and laboratory investigation",
+                "Data collection, spectroscopic/analytical characterization, interpretation of findings, thesis compilation, and viva-voce presentation"
+            ],
+            "PST 42804": [
+                "15-week full-time industrial/research placement at a chemical industry, research institute, or university research laboratory",
+                "Proposal presentation, maintenance of research record book, periodic progress evaluations, final BSc Honours thesis submission, and defense before the Examination Committee"
+            ],
+            "PST 11201": [
+                "Displacement, velocity, acceleration, vectors, projectile motion, relative velocity, and Newton's laws of motion",
+                "Circular motion, centripetal force, friction, work, kinetic & potential energy, conservation of energy, power, linear momentum and collisions",
+                "Center of mass, moment of inertia, rotational equations of motion, torque, angular momentum, law of gravitation, elasticity, viscosity, and surface tension"
+            ],
+            "PST 11202": [
+                "Electricity: Coulomb's Law, Electric Field & Gauss's Law, Electric Potential, Capacitors & Dielectrics, Electric Dipole, Current Density, Drift Velocity, Resistance & Conductivity",
+                "Magnetism: Magnetic Field, Lorentz Force, Hall Effect, Torque on a Current Loop, Biot-Savart Law, Ampere's Law, Solenoids & Toroids, Faraday's Law of Induction, Lenz's Law, and Atomic/Nuclear Magnetism"
+            ],
+            "PST 11103": [
+                "Laboratory practicals covering Mechanics, Thermal Physics, Geometrical Optics, Waves, Electricity, and Magnetism"
+            ],
+            "PST 12201": [
+                "Waves and Vibrations: Simple Harmonic Motion (SHM), damped and forced oscillations, wave propagation in strings, superposition, standing waves, beats, Doppler Effect, shock waves",
+                "Thermal Physics: Zeroth, First, and Second Laws of Thermodynamics, thermal expansion, calorimetry, kinetic theory of gases, phase diagrams, Maxwell speed distribution, Carnot engine, and entropy"
+            ],
+            "PST 12102": [
+                "Free electron theory, density of states, Fermi energy, band theory of conductors, insulators, and intrinsic/extrinsic semiconductors",
+                "p-n junctions, rectifying diodes, Zener/Avalanche breakdown, Schottky & heterojunctions, PNP & NPN bipolar transistors, photodiodes, LEDs, and solar cells"
+            ],
+            "PST 12103": [
+                "Alternating currents, sinusoidal waveforms, Thevenin's theorem, Delta-Star transformations, RC, RL, and LCR circuits in AC signals",
+                "Phasor diagrams, complex impedance, resonance in LCR circuits, power factor, transformers, and filter circuits"
+            ],
+            "PST 12104": [
+                "Practical experiments in AC Circuits, Semiconductor Physics, Geometrical Optics, Electricity & Magnetism, Basic Electronics, and Computer Sensors"
+            ],
+            "PST 21201": [
+                "Diodes, Bipolar Junction Transistors (BJT biasing, load line, hybrid models, frequency response), feedback, oscillators, and Operational Amplifiers (Op-Amps)",
+                "Digital Electronics: Number systems, Boolean algebra, Karnaugh maps (K-Maps), combinational logic (adders, decoders, multiplexers), sequential logic (Flip-Flops, registers, counters)"
+            ],
+            "PST 21202": [
+                "Geometrical Optics: Ray tracing, reflection & refraction laws, mirrors, prisms, thin lenses, and optical instruments (telescopes, microscopes)",
+                "Physical Optics: Huygens' principle, interference (Young's double slit, Michelson interferometer, Newton's rings), Fresnel & Fraunhofer diffraction, dispersion, polarization, and scattering"
+            ],
+            "PST 21103": [
+                "Intermediate laboratory sessions in AC Circuits, Semiconductor Physics, Geometrical & Physical Optics, Electronics, and Computer Sensors"
+            ],
+            "PST 22201": [
+                "Electromagnetic Radiation: Cathode ray oscillograph, mass spectrograph, paramagnetism, diamagnetism, ferromagnetism, hysteresis, Maxwell's equations, and EM waves",
+                "Laser Physics: Spatial & temporal coherence, spontaneous & stimulated emission, Einstein coefficients, population inversion, 2-, 3-, and 4-level laser systems, and laser applications"
+            ],
+            "PST 22202": [
+                "Bohr atom, atomic spectra, orbital angular momentum, spin, Pauli exclusion principle, relativistic mass-energy, photoelectric & Compton effects, De Broglie waves, Heisenberg uncertainty principle, Schrödinger wave equation",
+                "Nuclear binding energy, liquid drop & shell models, radioactive decay (alpha, beta, gamma), nuclear fission, fusion, and elementary particles"
+            ],
+            "PST 22103": [
+                "Advanced laboratory experiments in AC Circuits, Semiconductor Physics, Geometrical & Physical Optics, Advanced Electronics, Computer Sensors, and Arduino interfacing"
+            ],
+            "PST 22217": [
+                "SI base and derived units, measurement standards, random & systematic errors, accuracy, precision, traceability, and uncertainty estimation",
+                "Industrial measurement equipment and calibration methods for temperature (thermometers, ovens, autoclaves), mass (balances), dimensional (vernier, micrometer), electrical, and pressure instruments"
+            ],
+            "PST 11107": [
+                "Introduction to compilers and interpreters, pseudocode, data types, variables, operators, branching, and loops",
+                "User-defined functions, scope rules, arrays, structures, pointers, recursion, testing, debugging, and file handling"
+            ],
+            "PST 11208": [
+                "Computer architecture, hardware & software, memory hierarchy, operating systems, file management, and database fundamentals",
+                "Number systems, logic gates & circuit design, computer networking, internet applications, computer graphics, intellectual property, and cybersecurity"
+            ],
+            "PST 11109": [
+                "Hands-on C programming: Data types, control structures, arrays, strings, pointers, structures & unions, user-defined functions, dynamic memory allocation (malloc/calloc), and file I/O"
+            ],
+            "PST 12108": [
+                "Object-Oriented Programming (OOP) principles: Abstraction, Encapsulation, Inheritance, and Polymorphism",
+                "Classes, objects, interfaces, packages, constructors, access modifiers, abstract classes, and dynamic binding"
+            ],
+            "PST 12110": [
+                "Java programming laboratory: JDK, classes & objects, method declaration, exception handling, arrays & strings, inheritance, polymorphism, and Java API libraries"
+            ],
+            "PST 12211": [
+                "Database system architecture, Entity-Relationship (ER) modeling, relational database design, integrity constraints, and normalization",
+                "Relational algebra, SQL (DDL, DML), triggers, database tuning, and indexing"
+            ],
+            "PST 21207": [
+                "Data structures: Strings, arrays, stacks, queues, singly/doubly linked lists, binary search trees, balanced trees, and splay trees",
+                "Searching & sorting algorithms (Sequential, Binary search, Bubble, Insertion, Selection, Quicksort, Merge sort) and time/space complexity analysis"
+            ],
+            "PST 21208": [
+                "Microprocessor architecture, instruction sets & cycles, interrupts, registers, memory organization, address segmentation, I/O schemes, and 80x86 Assembly language programming"
+            ],
+            "PST 21110": [
+                "Full-stack web development practicals: HTML5, CSS3 layouts, JavaScript, DOM manipulation, jQuery, PHP server-side scripting, form validation, sessions/cookies, and MySQL database integration"
+            ],
+            "PST 22208": [
+                "Software development life cycle (SDLC) processes, requirements engineering, software design, CASE tools, software metrics, testing, quality assurance (SQA), and project team management"
+            ],
+            "PST 22110": [
+                "Application development with C# and .NET framework: Windows Forms, event handling, ADO.NET, SQL Server connectivity, and ASP.NET web applications"
+            ],
+            "PST 22211": [
+                "Operating system principles, processes & threads, CPU scheduling algorithms, concurrency, memory & device management, file systems, inter-process communication, and Linux case study"
+            ],
+            "PST 11210": [
+                "Calculus: Sets, relations, functions, limits, continuity, differentiability, 2D/3D coordinate systems, partial derivatives, and chain rule",
+                "Differential Equations: Ordinary and partial differential equations, first-order linear/non-linear equations, separation of variables, homogeneous, Bernoulli's, and exact differential equations"
+            ],
+            "PST 12209": [
+                "Data collection, sampling techniques, descriptive statistics (central tendency, dispersion), elementary probability, conditional probability, and Bayes' theorem",
+                "Discrete (Bernoulli, Binomial, Poisson) and Continuous (Uniform, Normal, Exponential) probability distributions, and statistical software data management"
+            ],
+            "PST 21209": [
+                "Point and interval estimation, hypothesis testing (single and two-sample tests), and design of experiments (CRD, RCBD, Latin Square, factorial designs)",
+                "One-way and two-way Analysis of Variance (ANOVA), multiple comparison tests, and statistical software data analysis"
+            ],
+            "PST 22209": [
+                "Simple and multiple linear regression, Ordinary Least Squares (OLS), model adequacy checking, dummy variables, and model selection",
+                "Nonparametric tests (Sign, Wilcoxon, Kruskal-Wallis, Friedman, Spearman/Kendall rank correlation), Chi-squared tests, and time-series forecasting"
+            ],
+            "PST 31211": [
+                "Linear programming (Graphical method, Simplex algorithm, Duality), Integer programming (Gomory's cut, Branch and Bound), Transportation & Assignment models (Hungarian method), and unconstrained optimization"
+            ],
+            "PST 31212": [
+                "Computational error analysis, Taylor series, root-finding algorithms (Bisection, Newton-Raphson, Secant), polynomial interpolation (Lagrange, Newton, Hermite), and numerical solution of linear systems (Gaussian elimination, Gauss-Seidel, Jacobi)"
+            ],
+            "PST 32210": [
+                "Statistical Quality Control (SQC) and Statistical Process Control (SPC): Control charts for variables (X-bar, R, S charts) and attributes (p, c, u charts), process capability analysis, and acceptance sampling plans"
+            ],
+            "PST 41201": [
+                "Scientific method, qualitative & quantitative research design, literature review, research proposal writing, statistical data interpretation, thesis writing, oral/poster presentations, and scientific integrity"
+            ],
+            "PST 31213": [
+                "Microeconomics & Macroeconomics: Consumer behavior, market price determination, production & cost theory, market structures, national income accounting, inflation, and monetary/exchange rate policies"
+            ],
+            "PST 32109": [
+                "Strategic Human Resource Management (HRM), job analysis, HR planning, recruitment, selection, training & development, performance appraisal, reward systems, and labour relations"
+            ],
+            "PST 41215": [
+                "Principles of industrial organization, operations & production management, plant layout, supply chain & inventory control, project management (CPM/PERT), and industrial safety"
+            ],
+            "PST 41235": [
+                "Foundations of logical reasoning, argument analysis, cognitive biases, structured problem-solving, and evidence-based decision-making"
+            ],
+            "PST 22112": [
+                "Leadership theories and qualities, team building & dynamics, effective interpersonal communication, active listening, presentation skills, and professional email/telephone etiquette"
+            ],
+            "PST 22213": [
+                "Cell structure and organelles, cellular water relations, protein synthesis, enzyme action, Mendelian genetics, composition of living matter, and animal tissue characteristics"
+            ],
+            "PST 22114": [
+                "Public speaking, presentation slide design, technical article writing, debating, interview preparation, professional conversation, and interpersonal skills"
+            ],
+            "PST-EGP-1101 / 1201": [
+                "Academic reading, listening, speaking, grammar accuracy, vocabulary expansion, and foundational professional writing in English"
+            ],
+            "PST-EAP-2101 / 2201": [
+                "Academic writing genres, synthesizing scientific sources, essay & report structuring, academic presentations, and critical reading"
+            ],
+            "PST-EBP-3101": [
+                "Business communication, professional correspondence, CV and cover letter writing, meeting protocols, and corporate presentation skills"
+            ]
+        };
+
         // --- 1. Mouse Spotlight Effect for Glass Cards ---
         document.querySelectorAll('.glass-card').forEach(card => {
             card.addEventListener('mousemove', e => {
@@ -1685,7 +2264,7 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target); // Only animate once
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
@@ -1694,39 +2273,231 @@
             observer.observe(el);
         });
 
-        // --- 3. Lightbox Modal Logic (Improved for Fixed Position) ---
-        const modal = document.getElementById("imageModal");
-        const modalImg = document.getElementById("modalImg");
-
-        function openModal(element, event) {
-            modal.style.display = "block";
-            modalImg.src = element.querySelector("img").src;
-            
-            // Small delay to allow CSS display:block to apply before animating opacity
-            setTimeout(() => {
-                modal.classList.add("show");
-            }, 10);
-            
-            event.stopPropagation();
+        // --- 3. Auto-Discovery & Continuous Auto-Scroll for Gallery/Post & Certificates ---
+        function checkFileExists(src) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve(src);
+                img.onerror = () => resolve(null);
+                img.src = src;
+            });
         }
 
-        function closeModal() {
-            modal.classList.remove("show");
-            setTimeout(() => {
-                modal.style.display = "none";
-            }, 400); 
-        }
-
-        modal.addEventListener('click', closeModal);
-
-        // Optional: Close modal on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === "Escape" && modal.classList.contains("show")) {
-                closeModal();
+        async function findSinglePostImage(prefix, num) {
+            const exts = ['webp', 'png', 'jpg'];
+            const prefixesToTry = prefix ? [prefix] : ['', 'P', 'p', 'L', 'l', 'c', 'post'];
+            for (const pre of prefixesToTry) {
+                for (const ext of exts) {
+                    const found = await checkFileExists(`${POST_FOLDER}/${pre}${num}.${ext}`);
+                    if (found) return found;
+                }
             }
-        });
+            return null;
+        }
 
-        // --- 4. Curriculum Toggle & Module Portal Navigation ---
+        async function discoverPostRowImages(rowConfig) {
+            const foundImages = [];
+            const prefix = rowConfig.prefix || '';
+            const startNum = rowConfig.from || 1;
+            const maxNum = rowConfig.to || Infinity;
+
+            let index = startNum;
+            const batchSize = 8;
+
+            while (index <= maxNum) {
+                const checks = [];
+                const endBatch = Math.min(index + batchSize - 1, maxNum);
+
+                for (let i = index; i <= endBatch; i++) {
+                    checks.push(findSinglePostImage(prefix, i));
+                }
+
+                const results = await Promise.all(checks);
+                let stopped = false;
+
+                for (const path of results) {
+                    if (path) {
+                        foundImages.push(path);
+                    } else {
+                        stopped = true;
+                        break;
+                    }
+                }
+
+                if (stopped) break;
+                index += batchSize;
+            }
+
+            // අලුතෙන්ම දාපු පින්තූරය මුලින්ම පෙන්වන්න Reverse කරනවා
+            return foundImages.reverse();
+        }
+
+        async function findSingleCert(num) {
+            const exts = ['png', 'webp', 'jpg'];
+            for (const ext of exts) {
+                const found = await checkFileExists(`Certificate/c${num}.${ext}`);
+                if (found) return found;
+            }
+            return null;
+        }
+
+        async function discoverAllCertificates() {
+            const foundCerts = [];
+            let index = 1;
+            const batchSize = 8;
+
+            while (true) {
+                const checks = [];
+                for (let i = index; i < index + batchSize; i++) {
+                    checks.push(findSingleCert(i));
+                }
+
+                const results = await Promise.all(checks);
+                let stopped = false;
+
+                for (const path of results) {
+                    if (path) {
+                        foundCerts.push(path);
+                    } else {
+                        stopped = true;
+                        break;
+                    }
+                }
+
+                if (stopped) break;
+                index += batchSize;
+            }
+
+            return foundCerts.reverse();
+        }
+
+        function startStreamContinuousScroll(track, direction = 'left') {
+            let speedPerSecond = window.innerWidth <= 768 ? 25 : 40;
+            let exactScroll = direction === 'right' ? track.scrollWidth / 2 : 0;
+            let lastTime = 0;
+
+            window.addEventListener('resize', () => {
+                speedPerSecond = window.innerWidth <= 768 ? 25 : 40;
+                sendHeightToParent();
+            }, { passive: true });
+
+            function step(currentTime) {
+                if (!lastTime) lastTime = currentTime;
+                let deltaTime = currentTime - lastTime;
+                lastTime = currentTime;
+                if (deltaTime > 50) deltaTime = 16;
+
+                if (track.children.length > 1) {
+                    const gap = window.innerWidth <= 768 ? 14 : 24;
+                    const scrollAmount = (speedPerSecond * deltaTime) / 1000;
+
+                    if (direction === 'left') {
+                        exactScroll += scrollAmount;
+                        const firstItem = track.firstElementChild;
+                        if (firstItem && exactScroll >= (firstItem.offsetWidth + gap)) {
+                            exactScroll -= (firstItem.offsetWidth + gap);
+                            track.appendChild(firstItem);
+                        }
+                    } else {
+                        const lastItem = track.lastElementChild;
+                        if (lastItem && exactScroll <= 0) {
+                            const w = lastItem.offsetWidth + gap;
+                            track.prepend(lastItem);
+                            exactScroll += w;
+                        }
+                        exactScroll -= scrollAmount;
+                    }
+
+                    track.style.transform = `translate3d(${-exactScroll}px, 0, 0)`;
+                }
+                requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        async function waitTrackImagesLoaded(track) {
+            const imgs = Array.from(track.querySelectorAll('img'));
+            await Promise.all(imgs.map(img => {
+                if (img.complete) return Promise.resolve();
+                return new Promise(res => {
+                    img.onload = res;
+                    img.onerror = res;
+                });
+            }));
+        }
+
+        // Gallery/Post ඇතුළේ තියෙන පේළි ඔක්කොම ඉබේම හදන Function එක
+        async function initPostStreams() {
+            const wrapper = document.getElementById('post-streams-wrapper');
+            wrapper.innerHTML = '';
+
+            for (const rowConfig of POST_ROWS) {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'post-stream-row';
+
+                const track = document.createElement('div');
+                track.className = 'cert-scroll-track';
+                rowDiv.appendChild(track);
+                wrapper.appendChild(rowDiv);
+
+                const postList = await discoverPostRowImages(rowConfig);
+
+                if (postList.length === 0) {
+                    rowDiv.style.display = 'none';
+                    continue;
+                }
+
+                const minItemsNeeded = 14;
+                const loopList = [];
+                while (loopList.length < minItemsNeeded || loopList.length < postList.length * 2) {
+                    loopList.push(...postList);
+                }
+
+                track.innerHTML = loopList.map((src, i) => `
+                    <div class="cert-auto-card">
+                        <img decoding="async" src="${src}" alt="Post ${i + 1}">
+                    </div>
+                `).join('');
+
+                await waitTrackImagesLoaded(track);
+                const direction = rowConfig.direction === 'right' ? 'right' : 'left';
+                startStreamContinuousScroll(track, direction);
+                sendHeightToParent();
+            }
+
+            if (!wrapper.querySelector('.post-stream-row:not([style*="display: none"])')) {
+                wrapper.style.display = 'none';
+            }
+        }
+
+        async function initCertificateStream() {
+            const track = document.getElementById('cert-track');
+            const certList = await discoverAllCertificates();
+
+            if (certList.length === 0) {
+                track.parentElement.style.display = 'none';
+                sendHeightToParent();
+                return;
+            }
+
+            const minItemsNeeded = 14;
+            const loopList = [];
+            while (loopList.length < minItemsNeeded || loopList.length < certList.length * 2) {
+                loopList.push(...certList);
+            }
+
+            track.innerHTML = loopList.map((src, i) => `
+                <div class="cert-auto-card">
+                    <img decoding="async" src="${src}" alt="Certificate ${i + 1}">
+                </div>
+            `).join('');
+
+            await waitTrackImagesLoaded(track);
+            sendHeightToParent();
+            startStreamContinuousScroll(track, 'left');
+        }
+
+        // --- 4. Curriculum Toggle & Syllabus Popup Modal Logic ---
         function toggleCurriculum() {
             const wrapper = document.getElementById('curriculumWrapper');
             const btn = document.getElementById('toggleCurriculumBtn');
@@ -1741,49 +2512,89 @@
                 btnText.textContent = 'Explore Degree Curriculum & Modules';
             }
 
-            // Update parent iframe height smoothly during transition
             setTimeout(sendHeightToParent, 350);
             setTimeout(sendHeightToParent, 750);
         }
 
-        // Automatically set badges ("Live Portal" vs "In Progress") based on whether data-link has a URL
         document.querySelectorAll('.chem-module-item').forEach(item => {
             const link = item.getAttribute('data-link');
             const badge = item.querySelector('.portal-badge');
             if (link && link.trim() !== "") {
-                badge.textContent = "Live Portal";
+                badge.textContent = "Syllabus + Portal";
                 badge.classList.add('live');
             } else {
-                badge.textContent = "In Progress";
+                badge.textContent = "View Syllabus";
                 badge.classList.add('dev');
             }
         });
 
-        let toastTimeout;
-        function openModuleSite(element) {
-            const link = element.getAttribute('data-link');
-            const moduleCode = element.querySelector('.module-code').textContent;
-            const moduleName = element.querySelector('.module-name').textContent;
+        const syllabusModal = document.getElementById('syllabusModal');
+        const modalModuleCode = document.getElementById('modalModuleCode');
+        const modalModuleMeta = document.getElementById('modalModuleMeta');
+        const modalModuleTitle = document.getElementById('modalModuleTitle');
+        const modalSyllabusList = document.getElementById('modalSyllabusList');
+        const modalPortalBtn = document.getElementById('modalPortalBtn');
+
+        function populateAndShowSyllabus(code, title, meta, link, clickedElement) {
+            modalModuleCode.textContent = code;
+            modalModuleMeta.textContent = meta;
+            modalModuleTitle.textContent = title;
+
+            modalSyllabusList.innerHTML = '';
+            const topics = moduleSyllabi[code] || ["Detailed syllabus topics as prescribed by the Department of Physical Sciences and Technology."];
+            topics.forEach(topic => {
+                const li = document.createElement('li');
+                li.textContent = topic;
+                modalSyllabusList.appendChild(li);
+            });
 
             if (link && link.trim() !== "") {
-                // Aluth tab eke open wenna me peliya danna
-                window.open(link.trim(), '_blank');
+                modalPortalBtn.href = link.trim();
+                modalPortalBtn.style.display = 'inline-flex';
             } else {
-                // Show professional status notification if link is not yet added
-                const toast = document.getElementById('portalToast');
-                const toastTitle = document.getElementById('toastTitle');
-                const toastMessage = document.getElementById('toastMessage');
+                modalPortalBtn.style.display = 'none';
+            }
 
-                toastTitle.textContent = `${moduleCode} • In Development`;
-                toastMessage.textContent = `The interactive web portal for "${moduleName}" is currently being curated and will be available soon.`;
+            syllabusModal.classList.add('show');
 
-                toast.classList.add('active');
-                clearTimeout(toastTimeout);
-                toastTimeout = setTimeout(() => {
-                    toast.classList.remove('active');
-                }, 3800);
+            const modalCard = syllabusModal.querySelector('.syllabus-modal-card');
+            if (clickedElement) {
+                const rect = clickedElement.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const pageHeight = document.documentElement.scrollHeight;
+                
+                let targetTop = rect.top + scrollTop - 80; 
+                
+                if (targetTop < 40) targetTop = 40;
+                if (targetTop + 520 > pageHeight) {
+                    targetTop = Math.max(40, pageHeight - 550);
+                }
+                
+                modalCard.style.top = `${targetTop}px`;
             }
         }
+
+        function openModuleModal(element) {
+            const code = element.querySelector('.module-code').textContent.trim();
+            const title = element.querySelector('.module-name').textContent.trim();
+            const meta = element.querySelector('.module-footer span:first-child').textContent.trim();
+            const link = element.getAttribute('data-link');
+            populateAndShowSyllabus(code, title, meta, link, element);
+        }
+
+        function openOtherModuleModal(element, code, title, meta) {
+            populateAndShowSyllabus(code, title, meta, "", element);
+        }
+
+        function closeSyllabusModal(event) {
+            syllabusModal.classList.remove('show');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") {
+                if (syllabusModal.classList.contains("show")) closeSyllabusModal();
+            }
+        });
 
         // --- 5. Iframe Resizer ---
         function sendHeightToParent() {
@@ -1795,7 +2606,15 @@
             }, '*');
         }
 
-        window.addEventListener('load', sendHeightToParent);
+        window.addEventListener('load', async () => {
+            sendHeightToParent();
+            await Promise.all([
+                initPostStreams(),
+                initCertificateStream()
+            ]);
+            sendHeightToParent();
+            setTimeout(sendHeightToParent, 600);
+        });
         new ResizeObserver(sendHeightToParent).observe(document.body);
     </script>
 </body>
