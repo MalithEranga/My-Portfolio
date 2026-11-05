@@ -39,170 +39,105 @@
             font-family: 'Poppins', sans-serif;
             color: var(--text-light);
             touch-action: none;
+            cursor: default;
             -webkit-font-smoothing: antialiased;
         }
 
         /* ==========================================
-           1. CUSTOM AQUATIC CURSOR (DESKTOP ONLY)
+           1. FULL-SCREEN MOLECULAR SYNTHESIS OVERLAY
+              (Zero bottom text, zero progress bars,
+               seamless coordinate lock with #display-heading)
         ========================================== */
-        .cursor-ring {
-            position: fixed;
-            width: 34px;
-            height: 34px;
-            border: 1.5px solid rgba(0, 245, 212, 0.4);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 999;
-            transform: translate(-50%, -50%);
-            transition: width 0.25s ease, height 0.25s ease, border-color 0.25s ease, background 0.25s ease;
-        }
-
-        .cursor-dot {
-            position: fixed;
-            width: 6px;
-            height: 6px;
-            background: var(--primary);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 1000;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px var(--primary);
-        }
-
-        .cursor-ring.hovering {
-            width: 52px;
-            height: 52px;
-            background: rgba(0, 245, 212, 0.08);
-            border-color: var(--primary);
-        }
-
-        @media (pointer: coarse), (hover: none) {
-            .cursor-ring, .cursor-dot { display: none !important; }
-        }
-
         /* ==========================================
-           2. CLEAN MINIMAL BENZENE PRELOADER
+           1. BIOLUMINESCENT KOI TOUCH SYNTHESIS STAGE
+              (Continuous single-scene intro — no cut,
+               no bottom loading bars, default cursor)
         ========================================== */
-        #loader {
+        #benzene-emblem-stage {
             position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 50% 50%, #071930 0%, #02060d 65%, #000205 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            z-index: 500;
-            transition: opacity 0.8s cubic-bezier(0.85, 0, 0.15, 1),
-                        transform 1s cubic-bezier(0.85, 0, 0.15, 1),
-                        visibility 0.8s;
-        }
-
-        #loader.complete {
+            left: 50%;
+            top: 22%;
+            transform: translate(-50%, -50%) scale(0.84);
+            width: clamp(92px, 14vw, 132px);
+            height: clamp(92px, 14vw, 132px);
+            z-index: 25;
+            pointer-events: none;
             opacity: 0;
-            transform: scale(1.08);
-            visibility: hidden;
-            pointer-events: none;
+            transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 0.85s ease;
+            filter: drop-shadow(0 0 32px rgba(0, 245, 212, 0.85));
         }
 
-        .quantum-core {
-            position: relative;
-            width: clamp(160px, 42vw, 210px);
-            height: clamp(160px, 42vw, 210px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 24px;
+        #benzene-emblem-stage.ignited {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
         }
 
-        .orbit-ring {
+        #benzene-emblem-stage.settled {
+            opacity: 0.92;
+            transform: translate(-50%, -50%) scale(0.96);
+            filter: drop-shadow(0 0 18px rgba(0, 245, 212, 0.38));
+        }
+
+        .emblem-orbit {
             position: absolute;
-            inset: 0;
+            inset: -10%;
             border-radius: 50%;
-            border: 1px solid rgba(0, 245, 212, 0.12);
+            border: 1px solid rgba(0, 245, 212, 0.22);
         }
 
-        .orbit-ring.r1 {
-            animation: orbit3D-1 6s linear infinite;
+        .emblem-orbit.o1 {
             border-top-color: var(--primary);
-            border-bottom-color: rgba(0, 187, 249, 0.4);
+            border-bottom-color: rgba(0, 187, 249, 0.5);
+            animation: orbitSpin1 7s linear infinite;
         }
 
-        .orbit-ring.r2 {
-            inset: 14px;
-            animation: orbit3D-2 8s linear infinite;
+        .emblem-orbit.o2 {
+            inset: -2%;
             border-left-color: var(--secondary);
-            border-right-color: rgba(0, 245, 212, 0.4);
+            border-right-color: rgba(0, 245, 212, 0.45);
+            animation: orbitSpin2 9s linear infinite;
         }
 
-        @keyframes orbit3D-1 {
-            0% { transform: rotateX(65deg) rotateY(15deg) rotateZ(0deg); }
-            100% { transform: rotateX(65deg) rotateY(15deg) rotateZ(360deg); }
-        }
-        @keyframes orbit3D-2 {
-            0% { transform: rotateX(25deg) rotateY(65deg) rotateZ(360deg); }
-            100% { transform: rotateX(25deg) rotateY(65deg) rotateZ(0deg); }
+        @keyframes orbitSpin1 {
+            0% { transform: rotateX(66deg) rotateY(18deg) rotateZ(0deg); }
+            100% { transform: rotateX(66deg) rotateY(18deg) rotateZ(360deg); }
         }
 
-        #benzene-svg {
-            width: 64%;
-            height: 64%;
-            filter: drop-shadow(0 0 16px rgba(0, 245, 212, 0.35));
-            animation: pulseCore 3s ease-in-out infinite;
+        @keyframes orbitSpin2 {
+            0% { transform: rotateX(24deg) rotateY(66deg) rotateZ(360deg); }
+            100% { transform: rotateX(24deg) rotateY(66deg) rotateZ(0deg); }
         }
 
-        @keyframes pulseCore {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.04); }
-        }
-
-        #progress-hex, #progress-circle {
-            stroke-dasharray: 100;
-            stroke-dashoffset: 100;
-            transition: stroke-dashoffset 0.1s linear;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .carbon-node {
-            fill: var(--bg-abyss);
-            stroke: var(--primary);
-            stroke-width: 1.8;
-            transition: all 0.3s ease;
-        }
-
-        .carbon-node.lit {
-            fill: var(--primary);
-            filter: drop-shadow(0 0 6px var(--primary));
-        }
-
-        .loader-percent-big {
-            position: absolute;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            font-size: clamp(1.3rem, 4vw, 1.6rem);
-            color: #ffffff;
-            letter-spacing: 0.5px;
-        }
-
-        .loader-bar-wrap {
-            width: min(220px, 75vw);
-            height: 4px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 99px;
-            overflow: hidden;
-        }
-
-        #hud-bar-fill {
-            width: 0%;
+        #benzene-emblem-svg {
+            width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, var(--secondary), var(--primary));
-            border-radius: 99px;
-            transition: width 0.08s linear;
+            overflow: visible;
+        }
+
+        .pi-ring-rot {
+            transform-origin: 50px 50px;
+            animation: piRotate 10s linear infinite;
+        }
+
+        @keyframes piRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Individual vertex ignition for Benzene Ring */
+        .bz-node {
+            opacity: 0.15;
+            transition: opacity 0.4s ease, filter 0.4s ease;
+        }
+        .bz-node.lit {
+            opacity: 1;
+            filter: drop-shadow(0 0 6px #00f5d4);
         }
 
         /* ==========================================
-           3. MAIN SCENE & STATIC CENTER STAGE
+           2. MAIN SCENE & STATIC CENTER STAGE
         ========================================== */
         #main-scene {
             position: relative;
@@ -214,15 +149,10 @@
             justify-content: center;
             align-items: center;
             padding: 24px;
-            opacity: 0;
-            transition: opacity 1s ease-out;
+            z-index: 10;
         }
 
-        #main-scene.active {
-            opacity: 1;
-        }
-
-        canvas {
+        #particleCanvas {
             position: absolute;
             inset: 0;
             width: 100%;
@@ -230,10 +160,10 @@
             z-index: 1;
         }
 
-        /* Static Hero Stage (No Mouse Tilt) */
+        /* Static Hero Stage */
         #hero-stage {
             position: relative;
-            z-index: 15;
+            z-index: 20;
             width: 100%;
             max-width: 1100px;
             display: flex;
@@ -250,10 +180,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
         }
 
-        /* POPPINS BOLD DISPLAY HERO TITLE */
+        /* EXACT POPPINS 800 DISPLAY HERO TITLE — Ignited letter-by-letter by Koi wake */
         .display-title {
+            position: relative;
             font-family: 'Poppins', sans-serif;
             font-size: clamp(2.5rem, 8.2vw, 6.8rem);
             font-weight: 800;
@@ -266,7 +198,7 @@
             justify-content: center;
             column-gap: 0.28em;
             row-gap: 0.05em;
-            filter: drop-shadow(0 16px 36px rgba(0, 0, 0, 0.8));
+            filter: drop-shadow(0 16px 36px rgba(0, 0, 0, 0.85));
         }
 
         .word-box {
@@ -274,20 +206,32 @@
             white-space: nowrap;
         }
 
+        /* Submerged state before the Koi swims across the letter */
         .b-char {
             display: inline-block;
             background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 55%, #67e8f9 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            position: relative;
             opacity: 0;
-            transform: translateY(36px);
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                        opacity 0.8s ease;
+            transform: translateY(18px) scale(0.92);
+            filter: blur(8px) brightness(1.9) drop-shadow(0 0 28px rgba(0, 245, 212, 0.95));
+            transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform, filter;
         }
 
-        #main-scene.active .b-char {
+        /* Ignited state triggered the instant the Bioluminescent Koi touches the letter */
+        .b-char.koi-ignited {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
+            filter: blur(0px) brightness(1) drop-shadow(0 0 14px rgba(0, 245, 212, 0.22));
+        }
+
+        /* Brief bioluminescent flare right as the Koi passes over */
+        .b-char.koi-flare {
+            filter: blur(0px) brightness(1.45) drop-shadow(0 0 26px rgba(0, 245, 212, 0.9));
         }
 
         .subtitle {
@@ -301,7 +245,8 @@
             max-width: 680px;
             opacity: 0;
             transform: translateY(20px);
-            transition: all 0.9s 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
             text-shadow: 0 4px 18px rgba(0, 0, 0, 0.9);
         }
 
@@ -316,7 +261,7 @@
         }
 
         /* ==========================================
-           4. PROFESSIONAL BUTTONS WITH DESCRIPTIONS
+           3. PROFESSIONAL BUTTONS WITH DESCRIPTIONS
         ========================================== */
         .buttons-container {
             margin-top: clamp(26px, 4.5vh, 42px);
@@ -328,13 +273,15 @@
             gap: 20px;
             opacity: 0;
             transform: translateY(25px);
-            transition: all 0.9s 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-            pointer-events: auto;
+            transition: opacity 0.9s 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.9s 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
         }
 
         #main-scene.active .buttons-container {
             opacity: 1;
             transform: translateY(0);
+            pointer-events: auto;
         }
 
         .button-group {
@@ -431,7 +378,7 @@
         }
 
         /* ==========================================
-           5. WATERFALL PAGE TRANSITION
+           4. WATERFALL PAGE TRANSITION
         ========================================== */
         #waterfall-overlay {
             position: fixed;
@@ -439,7 +386,7 @@
             left: 0;
             width: 100%;
             height: 130vh;
-            z-index: 9999;
+            z-index: 9998;
             display: flex;
             flex-direction: column;
             pointer-events: none;
@@ -481,7 +428,7 @@
         }
 
         /* ==========================================
-           6. MOBILE & TABLET RESPONSIVE BREAKPOINTS
+           5. MOBILE & TABLET RESPONSIVE BREAKPOINTS
         ========================================== */
         @media (max-width: 768px) {
             #enter-btn {
@@ -566,10 +513,6 @@
 </head>
 <body>
 
-    <!-- Custom Cursor -->
-    <div class="cursor-ring" id="cursor-ring"></div>
-    <div class="cursor-dot" id="cursor-dot"></div>
-
     <!-- Waterfall Page Transition -->
     <div id="waterfall-overlay">
         <div class="water-fill"></div>
@@ -586,33 +529,58 @@
         </svg>
     </div>
 
-    <!-- Clean Minimal Preloader -->
-    <div id="loader">
-        <div class="quantum-core">
-            <div class="orbit-ring r1"></div>
-            <div class="orbit-ring r2"></div>
-
-            <svg id="benzene-svg" viewBox="0 0 100 100">
-                <polygon points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" fill="none" stroke="rgba(0, 245, 212, 0.12)" stroke-width="2"/>
-                <circle cx="50" cy="50" r="22" fill="none" stroke="rgba(0, 187, 249, 0.15)" stroke-width="1.8" stroke-dasharray="4 3"/>
-
-                <polygon id="progress-hex" points="50,10 84.6,30 84.6,70 50,90 15.4,70 15.4,30" fill="none" stroke="var(--primary)" stroke-width="2.8" pathLength="100"/>
-                <circle id="progress-circle" cx="50" cy="50" r="22" fill="none" stroke="var(--secondary)" stroke-width="2.2" pathLength="100"/>
-
-                <circle class="carbon-node" cx="50" cy="10" r="3.2"/>
-                <circle class="carbon-node" cx="84.6" cy="30" r="3.2"/>
-                <circle class="carbon-node" cx="84.6" cy="70" r="3.2"/>
-                <circle class="carbon-node" cx="50" cy="90" r="3.2"/>
-                <circle class="carbon-node" cx="15.4" cy="70" r="3.2"/>
-                <circle class="carbon-node" cx="15.4" cy="30" r="3.2"/>
-            </svg>
-
-            <div class="loader-percent-big"><span id="percent">0</span>%</div>
-        </div>
-
-        <div class="loader-bar-wrap">
-            <div id="hud-bar-fill"></div>
-        </div>
+    <!-- Crystalline C6H6 Benzene Emblem (Ignited by the Koi's upper arc pass) -->
+    <div id="benzene-emblem-stage" aria-hidden="true">
+        <div class="emblem-orbit o1"></div>
+        <div class="emblem-orbit o2"></div>
+        <svg id="benzene-emblem-svg" viewBox="0 0 100 100">
+            <!-- Radial C-H Covalent Spokes -->
+            <g stroke="rgba(148, 163, 184, 0.68)" stroke-width="1.4" stroke-linecap="round">
+                <line x1="50" y1="12" x2="50" y2="2"/>
+                <line x1="82.9" y1="31" x2="91.6" y2="26"/>
+                <line x1="82.9" y1="69" x2="91.6" y2="74"/>
+                <line x1="50" y1="88" x2="50" y2="98"/>
+                <line x1="17.1" y1="69" x2="8.4" y2="74"/>
+                <line x1="17.1" y1="31" x2="8.4" y2="26"/>
+            </g>
+            <!-- Outer Hexagonal Carbon-Carbon Ring -->
+            <polygon points="50,12 82.9,31 82.9,69 50,88 17.1,69 17.1,31"
+                     fill="rgba(0, 245, 212, 0.05)"
+                     stroke="#00f5d4"
+                     stroke-width="2.6"
+                     stroke-linejoin="round"/>
+            <!-- Kekulé Alternating Double-Bond Inner Bars -->
+            <g stroke="#e0f2fe" stroke-width="1.8" stroke-linecap="round" opacity="0.88">
+                <line x1="53.5" y1="18.8" x2="76.2" y2="31.9"/>
+                <line x1="76.8" y1="66.2" x2="54.1" y2="79.3"/>
+                <line x1="23.2" y1="63.8" x2="23.2" y2="36.2"/>
+            </g>
+            <!-- Delocalized Pi-Electron Aromatic Ring -->
+            <circle class="pi-ring-rot" cx="50" cy="50" r="19"
+                    fill="none"
+                    stroke="#00bbf9"
+                    stroke-width="1.6"
+                    stroke-dasharray="5 3.5"
+                    opacity="0.85"/>
+            <!-- 6 Carbon (sp2) Vertex Nodes -->
+            <g fill="#020813" stroke="#00f5d4" stroke-width="2.1">
+                <circle class="bz-node" cx="50" cy="12" r="3.6"/>
+                <circle class="bz-node" cx="82.9" cy="31" r="3.6"/>
+                <circle class="bz-node" cx="82.9" cy="69" r="3.6"/>
+                <circle class="bz-node" cx="50" cy="88" r="3.6"/>
+                <circle class="bz-node" cx="17.1" cy="69" r="3.6"/>
+                <circle class="bz-node" cx="17.1" cy="31" r="3.6"/>
+            </g>
+            <!-- 6 Outer Hydrogen (H) Terminals -->
+            <g fill="#e0f2fe">
+                <circle cx="50" cy="2" r="2.1"/>
+                <circle cx="91.6" cy="26" r="2.1"/>
+                <circle cx="91.6" cy="74" r="2.1"/>
+                <circle cx="50" cy="98" r="2.1"/>
+                <circle cx="8.4" cy="74" r="2.1"/>
+                <circle cx="8.4" cy="26" r="2.1"/>
+            </g>
+        </svg>
     </div>
 
     <!-- Main Interactive Scene -->
@@ -631,7 +599,7 @@
             <!-- Navigation Buttons with Clear Descriptions -->
             <div class="buttons-container">
                 <div class="button-group">
-                    <button id="enter-btn" class="nav-trigger interactable" data-target="main.html">
+                    <button id="enter-btn" class="nav-trigger" data-target="main.html">
                         <span>Explore Portfolio</span>
                         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -643,12 +611,12 @@
 
                 <div class="secondary-buttons-row">
                     <div class="button-group">
-                        <button class="secondary-btn nav-trigger interactable" data-target="modernpixels.html">Modern Pixels</button>
+                        <button class="secondary-btn nav-trigger" data-target="modernpixels.html">Modern Pixels</button>
                         <span class="btn-desc">Creative graphic design &amp; web studio</span>
                     </div>
 
                     <div class="button-group">
-                        <button class="secondary-btn nav-trigger interactable" data-target="Article.html">Insights Blog</button>
+                        <button class="secondary-btn nav-trigger" data-target="Article.html">Insights Blog</button>
                         <span class="btn-desc">Articles on technology, chemistry &amp; design</span>
                     </div>
                 </div>
@@ -658,75 +626,10 @@
 
     <script>
         /* ==========================================================
-           0. DEVICE & VIEWPORT INITIALIZATION
+           0. VIEWPORT & POINTER INITIALIZATION (Standard System Cursor)
         ========================================================== */
-        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
         let viewW = window.innerWidth;
         let viewH = window.innerHeight;
-
-        /* ==========================================================
-           1. STAGGERED CHARACTER REVEAL FOR POPPINS HEADING
-        ========================================================== */
-        const headingEl = document.getElementById('display-heading');
-        const titleWords = ["MALITH", "ERANGA"];
-        let globalCharCount = 0;
-
-        titleWords.forEach(word => {
-            const wBox = document.createElement('span');
-            wBox.className = 'word-box';
-            for (let ch of word) {
-                const cSpan = document.createElement('span');
-                cSpan.className = 'b-char';
-                cSpan.textContent = ch;
-                cSpan.style.transitionDelay = `${0.15 + globalCharCount * 0.04}s`;
-                wBox.appendChild(cSpan);
-                globalCharCount++;
-            }
-            headingEl.appendChild(wBox);
-        });
-
-        /* ==========================================================
-           2. MINIMAL BENZENE PRELOADER
-        ========================================================== */
-        let loadProgress = 0;
-        const percentEl = document.getElementById('percent');
-        const hudBarFill = document.getElementById('hud-bar-fill');
-        const loader = document.getElementById('loader');
-        const mainScene = document.getElementById('main-scene');
-        const progressHex = document.getElementById('progress-hex');
-        const progressCircle = document.getElementById('progress-circle');
-        const carbonNodes = document.querySelectorAll('.carbon-node');
-
-        const loadingTimer = setInterval(() => {
-            let step = Math.random() > 0.35 ? Math.floor(Math.random() * 8) + 2 : 1;
-            loadProgress = Math.min(100, loadProgress + step);
-
-            percentEl.textContent = loadProgress;
-            hudBarFill.style.width = `${loadProgress}%`;
-            progressHex.style.strokeDashoffset = 100 - loadProgress;
-            progressCircle.style.strokeDashoffset = 100 - loadProgress;
-
-            const litCount = Math.floor((loadProgress / 100) * carbonNodes.length);
-            carbonNodes.forEach((node, idx) => {
-                if (idx < litCount) node.classList.add('lit');
-            });
-
-            if (loadProgress >= 100) {
-                clearInterval(loadingTimer);
-                setTimeout(() => {
-                    loader.classList.add('complete');
-                    mainScene.classList.add('active');
-                }, 400);
-            }
-        }, 35);
-
-        /* ==========================================================
-           3. POINTER / TOUCH TRACKING & HIGH-DPI CANVAS SETUP
-        ========================================================== */
-        const canvas = document.getElementById('particleCanvas');
-        const ctx = canvas.getContext('2d');
-        const cursorRing = document.getElementById('cursor-ring');
-        const cursorDot = document.getElementById('cursor-dot');
 
         let mouse = {
             x: viewW * 0.5,
@@ -736,6 +639,311 @@
             lastMoveTime: 0,
             isMoving: false
         };
+
+        /* ==========================================================
+           1. BUILD MAIN HERO HEADING ("MALITH ERANGA" IN POPPINS 800)
+        ========================================================== */
+        const headingEl = document.getElementById('display-heading');
+        const mainScene = document.getElementById('main-scene');
+        const benzeneEmblemStage = document.getElementById('benzene-emblem-stage');
+        const bzNodes = document.querySelectorAll('.bz-node');
+        const titleWords = ["MALITH", "ERANGA"];
+        const charMetrics = [];
+
+        titleWords.forEach(word => {
+            const wBox = document.createElement('span');
+            wBox.className = 'word-box';
+            for (let ch of word) {
+                const cSpan = document.createElement('span');
+                cSpan.className = 'b-char';
+                cSpan.textContent = ch;
+                wBox.appendChild(cSpan);
+                charMetrics.push({
+                    el: cSpan,
+                    cx: 0,
+                    cy: 0,
+                    ignited: false,
+                    ignitedAt: 0
+                });
+            }
+            headingEl.appendChild(wBox);
+        });
+
+        /* ==========================================================
+           2. BIOLUMINESCENT KOI TOUCH SYNTHESIS CHOREOGRAPHY
+              - Measures exact screen coordinates of the Benzene Ring
+                and every `.b-char` letter in `#display-heading`.
+              - Guides the Koi along a smooth Catmull-Rom spline from
+                the upper-right abyss, looping around the Benzene Ring
+                emblem to ignite its C6H6 structure, then sweeping
+                sinusoidally left-to-right across "MALITH ERANGA" to
+                physically wake and illuminate each letter!
+        ========================================================== */
+        let ringCenter = { x: viewW * 0.5, y: viewH * 0.22, r: 52 };
+        let headingBounds = { left: viewW * 0.15, right: viewW * 0.85, cy: viewH * 0.45 };
+        let introStartTime = null;
+        let introCompleted = false;
+        let emblemIgnited = false;
+        const INTRO_DURATION_MS = 3350;
+
+        // Glowing micro-benzene & bioluminescent wake sparks shed by the Koi during synthesis
+        let synthesisSparks = [];
+        let wakeRibbonPoints = [];
+
+        function measureStageLayout() {
+            viewW = window.innerWidth;
+            viewH = window.innerHeight;
+
+            const headingRect = headingEl.getBoundingClientRect();
+            const emblemSize = Math.min(Math.max(88, viewW * 0.12), 128);
+            const emblemCenterX = viewW * 0.5;
+            const emblemCenterY = Math.max(
+                emblemSize * 0.62,
+                headingRect.top - emblemSize * 0.58 - 10
+            );
+
+            ringCenter = {
+                x: emblemCenterX,
+                y: emblemCenterY,
+                r: emblemSize * 0.38
+            };
+
+            benzeneEmblemStage.style.width = `${emblemSize}px`;
+            benzeneEmblemStage.style.height = `${emblemSize}px`;
+            benzeneEmblemStage.style.left = `${emblemCenterX}px`;
+            benzeneEmblemStage.style.top = `${emblemCenterY}px`;
+
+            let minX = viewW, maxX = 0, sumY = 0, validCount = 0;
+            charMetrics.forEach(item => {
+                const r = item.el.getBoundingClientRect();
+                if (r.width > 0) {
+                    item.cx = r.left + r.width * 0.5;
+                    item.cy = r.top + r.height * 0.5;
+                    minX = Math.min(minX, item.cx);
+                    maxX = Math.max(maxX, item.cx);
+                    sumY += item.cy;
+                    validCount++;
+                }
+            });
+
+            if (validCount > 0) {
+                headingBounds = {
+                    left: minX,
+                    right: maxX,
+                    cy: sumY / validCount
+                };
+            }
+        }
+
+        // Smooth Catmull-Rom point evaluation along the Koi's synthesis trajectory
+        function evalCatmullRomPoint(pts, t) {
+            const n = pts.length - 1;
+            const scaled = Math.max(0, Math.min(n - 0.0001, t * n));
+            const idx = Math.floor(scaled);
+            const u = scaled - idx;
+
+            const p0 = pts[Math.max(0, idx - 1)];
+            const p1 = pts[idx];
+            const p2 = pts[Math.min(n, idx + 1)];
+            const p3 = pts[Math.min(n, idx + 2)];
+
+            const u2 = u * u;
+            const u3 = u2 * u;
+
+            const x = 0.5 * (
+                (2 * p1.x) +
+                (-p0.x + p2.x) * u +
+                (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * u2 +
+                (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * u3
+            );
+            const y = 0.5 * (
+                (2 * p1.y) +
+                (-p0.y + p2.y) * u +
+                (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * u2 +
+                (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * u3
+            );
+            return { x, y };
+        }
+
+        function getIntroWaypoints() {
+            const lx = Math.max(40, headingBounds.left - 45);
+            const rx = Math.min(viewW - 40, headingBounds.right + 55);
+            const cy = headingBounds.cy;
+            const amp = Math.min(34, viewH * 0.045);
+
+            return [
+                // 0. Enter gracefully from top-right deep water
+                { x: viewW * 0.86, y: Math.max(30, ringCenter.y - 60) },
+                // 1. Sweep directly across the C6H6 Benzene Ring Emblem to ignite it
+                { x: ringCenter.x, y: ringCenter.y + 6 },
+                // 2. Bank smoothly down-left toward the first letter 'M' of MALITH
+                { x: lx, y: cy - amp * 0.6 },
+                // 3. Carve across "MALITH"
+                { x: lx + (rx - lx) * 0.33, y: cy + amp },
+                // 4. Carve across the center gap into "ERANGA"
+                { x: lx + (rx - lx) * 0.68, y: cy - amp },
+                // 5. Complete ignition past the final 'A' of ERANGA
+                { x: rx, y: cy + amp * 0.45 },
+                // 6. Glide out into natural pond roaming
+                { x: viewW * 0.72, y: Math.min(viewH * 0.78, cy + 135) }
+            ];
+        }
+
+        function spawnSynthesisSpark(x, y, vx, vy, isHex = false) {
+            synthesisSparks.push({
+                x,
+                y,
+                vx,
+                vy,
+                isHex,
+                size: isHex ? (Math.random() * 5 + 5) : (Math.random() * 2.4 + 1.2),
+                rot: Math.random() * Math.PI * 2,
+                rotSpd: (Math.random() - 0.5) * 0.06,
+                alpha: isHex ? 0.85 : 0.92,
+                decay: isHex ? 0.014 : 0.018,
+                color: Math.random() < 0.6 ? '0, 245, 212' : '0, 187, 249'
+            });
+        }
+
+        function igniteCharacter(item, now) {
+            if (item.ignited) return;
+            item.ignited = true;
+            item.ignitedAt = now;
+            item.el.classList.add('koi-ignited', 'koi-flare');
+
+            setTimeout(() => {
+                item.el.classList.remove('koi-flare');
+            }, 650);
+
+            // Burst of bioluminescent water ripple + micro-benzene rings at the letter's position
+            waterRipples.push(new WaterRipple(item.cx, item.cy, 95, 2.1, '0, 245, 212'));
+            for (let k = 0; k < 4; k++) {
+                const ang = (k / 4) * Math.PI * 2 + Math.random() * 0.5;
+                const spd = 0.8 + Math.random() * 1.6;
+                spawnSynthesisSpark(
+                    item.cx + (Math.random() - 0.5) * 18,
+                    item.cy + (Math.random() - 0.5) * 18,
+                    Math.cos(ang) * spd,
+                    Math.sin(ang) * spd - 0.3,
+                    k % 2 === 0
+                );
+            }
+        }
+
+        function checkKoiTouchIgnition(koiX, koiY, progress, now) {
+            // 1. Check proximity to the C6H6 Benzene Ring Emblem
+            const distToRing = Math.hypot(koiX - ringCenter.x, koiY - ringCenter.y);
+            if (!emblemIgnited && (distToRing < ringCenter.r * 2.1 || progress > 0.22)) {
+                emblemIgnited = true;
+                benzeneEmblemStage.classList.add('ignited');
+                waterRipples.push(new WaterRipple(ringCenter.x, ringCenter.y, 145, 2.3, '0, 245, 212'));
+                waterRipples.push(new WaterRipple(ringCenter.x, ringCenter.y, 95, 1.5, '0, 187, 249'));
+
+                bzNodes.forEach((node, idx) => {
+                    setTimeout(() => node.classList.add('lit'), idx * 55);
+                });
+
+                for (let i = 0; i < 10; i++) {
+                    const a = (i / 10) * Math.PI * 2;
+                    spawnSynthesisSpark(
+                        ringCenter.x + Math.cos(a) * ringCenter.r * 0.6,
+                        ringCenter.y + Math.sin(a) * ringCenter.r * 0.6,
+                        Math.cos(a) * 1.7,
+                        Math.sin(a) * 1.7,
+                        i % 2 === 0
+                    );
+                }
+            }
+
+            // 2. Check proximity of Koi head & pectoral fins to each letter in "MALITH ERANGA"
+            const touchRadius = Math.max(68, (headingBounds.right - headingBounds.left) * 0.085);
+            charMetrics.forEach((item, index) => {
+                if (item.ignited) return;
+                const d = Math.hypot(koiX - item.cx, koiY - item.cy);
+                // Ignite if Koi touches the letter OR if the Koi's horizontal sweep passes the letter's X coordinate
+                const sweepThreshold = 0.30 + (index / Math.max(1, charMetrics.length - 1)) * 0.52;
+                if (d < touchRadius || (progress >= sweepThreshold && koiX >= item.cx - 18)) {
+                    igniteCharacter(item, now);
+                }
+            });
+        }
+
+        function renderBioluminescentWakeAndSparks(ctx) {
+            // Draw glowing fluid ribbon behind the Koi during the synthesis pass
+            if (wakeRibbonPoints.length > 2) {
+                ctx.save();
+                for (let i = 1; i < wakeRibbonPoints.length; i++) {
+                    const p0 = wakeRibbonPoints[i - 1];
+                    const p1 = wakeRibbonPoints[i];
+                    if (p1.alpha <= 0.01) continue;
+
+                    ctx.strokeStyle = `rgba(0, 245, 212, ${p1.alpha * 0.55})`;
+                    ctx.lineWidth = p1.width;
+                    ctx.lineCap = 'round';
+                    ctx.beginPath();
+                    ctx.moveTo(p0.x, p0.y);
+                    ctx.lineTo(p1.x, p1.y);
+                    ctx.stroke();
+                }
+                ctx.restore();
+            }
+
+            for (let i = wakeRibbonPoints.length - 1; i >= 0; i--) {
+                wakeRibbonPoints[i].alpha -= 0.016;
+                wakeRibbonPoints[i].width *= 0.988;
+                if (wakeRibbonPoints[i].alpha <= 0.01) {
+                    wakeRibbonPoints.splice(i, 1);
+                }
+            }
+
+            // Draw shed micro-benzene hexagons & bioluminescent sparks
+            for (let i = synthesisSparks.length - 1; i >= 0; i--) {
+                const sp = synthesisSparks[i];
+                sp.x += sp.vx;
+                sp.y += sp.vy;
+                sp.vx *= 0.97;
+                sp.vy *= 0.97;
+                sp.rot += sp.rotSpd;
+                sp.alpha -= sp.decay;
+
+                if (sp.alpha <= 0.01) {
+                    synthesisSparks.splice(i, 1);
+                    continue;
+                }
+
+                ctx.save();
+                ctx.translate(sp.x, sp.y);
+                ctx.rotate(sp.rot);
+                if (sp.isHex) {
+                    ctx.strokeStyle = `rgba(${sp.color}, ${sp.alpha})`;
+                    ctx.lineWidth = 1.1;
+                    ctx.beginPath();
+                    for (let k = 0; k < 6; k++) {
+                        const a = (k * Math.PI) / 3;
+                        const hx = Math.cos(a) * sp.size;
+                        const hy = Math.sin(a) * sp.size;
+                        if (k === 0) ctx.moveTo(hx, hy);
+                        else ctx.lineTo(hx, hy);
+                    }
+                    ctx.closePath();
+                    ctx.stroke();
+                } else {
+                    ctx.fillStyle = `rgba(${sp.color}, ${sp.alpha})`;
+                    ctx.shadowColor = `rgba(${sp.color}, ${sp.alpha})`;
+                    ctx.shadowBlur = 8;
+                    ctx.beginPath();
+                    ctx.arc(0, 0, sp.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+        }
+
+        /* ==========================================================
+           3. POINTER / TOUCH TRACKING & HIGH-DPI CANVAS SETUP
+        ========================================================== */
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
 
         function resizeCanvas() {
             viewW = window.innerWidth;
@@ -754,13 +962,6 @@
             mouse.x = clientX;
             mouse.y = clientY;
 
-            if (!isTouchDevice) {
-                cursorDot.style.left = `${clientX}px`;
-                cursorDot.style.top = `${clientY}px`;
-                cursorRing.style.left = `${clientX}px`;
-                cursorRing.style.top = `${clientY}px`;
-            }
-
             if (moveDist > 1.5) {
                 mouse.lastMoveTime = performance.now();
                 mouse.isMoving = true;
@@ -776,11 +977,6 @@
 
         window.addEventListener('touchend', () => {
             mouse.isMoving = false;
-        });
-
-        document.querySelectorAll('.interactable').forEach(el => {
-            el.addEventListener('mouseenter', () => cursorRing.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovering'));
         });
 
         /* ==========================================================
@@ -962,6 +1158,16 @@
            5. ULTRA-REALISTIC IMPERIAL KOI ENGINE
         ========================================================== */
         const koiPalettes = [
+            // Palette 0: Bioluminescent Cyan/Aqua Catalyst (Active during Intro Synthesis)
+            {
+                base1: [240, 255, 254],
+                base2: [0, 245, 212],
+                tail: [0, 187, 249],
+                fin: [185, 250, 255],
+                patch: [14, 165, 233],
+                glow: [0, 245, 212]
+            },
+            // Palette 1: Imperial Kohaku Red-Gold
             {
                 base1: [255, 250, 245],
                 base2: [255, 82, 32],
@@ -970,14 +1176,7 @@
                 patch: [235, 45, 18],
                 glow: [255, 105, 45]
             },
-            {
-                base1: [235, 255, 252],
-                base2: [0, 245, 212],
-                tail: [0, 180, 216],
-                fin: [180, 248, 255],
-                patch: [14, 165, 233],
-                glow: [0, 245, 212]
-            },
+            // Palette 2: Yamabuki Ogon Imperial Gold
             {
                 base1: [255, 253, 230],
                 base2: [250, 190, 20],
@@ -986,6 +1185,7 @@
                 patch: [234, 88, 12],
                 glow: [250, 204, 21]
             },
+            // Palette 3: Showa Neon Rose-Violet
             {
                 base1: [255, 240, 248],
                 base2: [244, 63, 94],
@@ -1060,11 +1260,11 @@
                 this.updateScale();
 
                 this.spine = [];
-                this.x = viewW * 0.7;
-                this.y = viewH * 0.3;
+                this.x = viewW * 0.86;
+                this.y = viewH * 0.18;
                 this.angle = Math.PI;
 
-                this.velocity = 2.4;
+                this.velocity = 3.2;
                 this.glideImpulse = 0;
                 this.swimCycle = 0;
                 this.finCycle = 0;
@@ -1108,8 +1308,112 @@
                 return { x: nx, y: ny };
             }
 
-            update(time) {
+            update(time, timestamp) {
                 const now = performance.now();
+
+                // PHASE 1: CHOREOGRAPHED BIOLUMINESCENT KOI TOUCH SYNTHESIS INTRO
+                if (!introCompleted) {
+                    if (!introStartTime) {
+                        introStartTime = timestamp || now;
+                        const startWp = getIntroWaypoints()[0];
+                        this.x = startWp.x;
+                        this.y = startWp.y;
+                        for (let i = 0; i < this.numSegs; i++) {
+                            this.spine[i].x = this.x + i * this.segLen * 0.8;
+                            this.spine[i].y = this.y - i * this.segLen * 0.2;
+                        }
+                    }
+
+                    const elapsed = (timestamp || now) - introStartTime;
+                    const rawP = Math.min(1, elapsed / INTRO_DURATION_MS);
+                    // Smooth ease-in-out curve for graceful acceleration and deceleration
+                    const easedP = rawP < 0.5
+                        ? 2 * rawP * rawP
+                        : 1 - Math.pow(-2 * rawP + 2, 2) / 2;
+
+                    const waypoints = getIntroWaypoints();
+                    const lookAheadP = Math.min(1, easedP + 0.045);
+                    const targetPt = evalCatmullRomPoint(waypoints, lookAheadP);
+                    const currCurvePt = evalCatmullRomPoint(waypoints, easedP);
+
+                    const dx = targetPt.x - this.x;
+                    const dy = targetPt.y - this.y;
+                    const desiredAngle = Math.atan2(dy, dx);
+                    let angleDiff = normAngle(desiredAngle - this.angle);
+                    this.angle = normAngle(this.angle + angleDiff * 0.24);
+
+                    // Gently pull Koi onto the choreographed spline while preserving natural swim undulation
+                    const distToCurve = Math.hypot(currCurvePt.x - this.x, currCurvePt.y - this.y);
+                    const baseIntroSpeed = (Math.max(viewW, 650) / 105) * (0.85 + Math.sin(rawP * Math.PI) * 0.45);
+                    this.velocity = baseIntroSpeed + distToCurve * 0.08;
+
+                    this.swimCycle += 0.14 + (this.velocity / this.scale) * 0.025;
+                    this.finCycle += 0.11 + (this.velocity / this.scale) * 0.018;
+
+                    const headSway = Math.sin(this.swimCycle) * 0.032;
+                    const moveAngle = this.angle + headSway;
+
+                    this.x = currCurvePt.x * 0.28 + (this.x + Math.cos(moveAngle) * this.velocity) * 0.72;
+                    this.y = currCurvePt.y * 0.28 + (this.y + Math.sin(moveAngle) * this.velocity) * 0.72;
+
+                    this.spine[0].x = this.x;
+                    this.spine[0].y = this.y;
+                    this.spine[0].angle = moveAngle;
+
+                    for (let i = 1; i < this.numSegs; i++) {
+                        const prev = this.spine[i - 1];
+                        const curr = this.spine[i];
+                        const sdx = prev.x - curr.x;
+                        const sdy = prev.y - curr.y;
+                        let segAngle = Math.atan2(sdy, sdx);
+
+                        const ratio = i / this.numSegs;
+                        const waveAmp = Math.pow(ratio, 1.35) * 0.12;
+                        segAngle += Math.sin(this.swimCycle - i * 0.32) * waveAmp;
+
+                        let rel = normAngle(segAngle - prev.angle);
+                        const maxBend = 0.23;
+                        if (rel > maxBend) segAngle = prev.angle + maxBend;
+                        if (rel < -maxBend) segAngle = prev.angle - maxBend;
+
+                        curr.angle = segAngle;
+                        curr.x = prev.x - Math.cos(segAngle) * this.segLen;
+                        curr.y = prev.y - Math.sin(segAngle) * this.segLen;
+                    }
+
+                    // Record glowing wake ribbon & shed bioluminescent micro-structures
+                    wakeRibbonPoints.push({
+                        x: this.spine[3].x,
+                        y: this.spine[3].y,
+                        alpha: 0.78,
+                        width: 11 * this.scale
+                    });
+
+                    if (Math.random() < 0.55) {
+                        const tailSeg = this.spine[14];
+                        spawnSynthesisSpark(
+                            tailSeg.x + (Math.random() - 0.5) * 20,
+                            tailSeg.y + (Math.random() - 0.5) * 20,
+                            (Math.random() - 0.5) * 0.9,
+                            (Math.random() - 0.5) * 0.9,
+                            Math.random() < 0.42
+                        );
+                    }
+
+                    // Ignite the Benzene Ring and each letter of "MALITH ERANGA" as the Koi touches them
+                    checkKoiTouchIgnition(this.x, this.y, rawP, now);
+
+                    if (rawP >= 1) {
+                        introCompleted = true;
+                        charMetrics.forEach(item => igniteCharacter(item, now));
+                        benzeneEmblemStage.classList.add('ignited', 'settled');
+                        mainScene.classList.add('active');
+                        this.roamTarget = this.pickNewRoamPoint();
+                    }
+                    return;
+                }
+
+                // PHASE 2: INTERACTIVE POND ROAMING, CURSOR FOLLOWING & BIO-PELLET FEEDING
                 const isMouseActivelyMoving = mouse.isMoving && (now - mouse.lastMoveTime < 380);
                 if (!isMouseActivelyMoving) {
                     mouse.isMoving = false;
@@ -1674,6 +1978,7 @@
             resizeCanvas();
             koi.updateScale();
             initEcosystem();
+            measureStageLayout();
         });
 
         /* ==========================================================
@@ -1697,8 +2002,11 @@
             ctx.fillStyle = bgGrad;
             ctx.fillRect(0, 0, viewW, viewH);
 
-            const spotGrad = ctx.createRadialGradient(mouse.x, mouse.y, 10, mouse.x, mouse.y, 340);
-            spotGrad.addColorStop(0, rgba(curPal.glow, 0.065));
+            // Dynamic bioluminescent spotlight that follows the Koi during intro, then the pointer
+            const lightX = !introCompleted ? koi.x : mouse.x;
+            const lightY = !introCompleted ? koi.y : mouse.y;
+            const spotGrad = ctx.createRadialGradient(lightX, lightY, 10, lightX, lightY, 360);
+            spotGrad.addColorStop(0, rgba(curPal.glow, !introCompleted ? 0.13 : 0.065));
             spotGrad.addColorStop(1, 'transparent');
             ctx.fillStyle = spotGrad;
             ctx.fillRect(0, 0, viewW, viewH);
@@ -1729,6 +2037,8 @@
                 if (waterRipples[i].alpha <= 0.01) waterRipples.splice(i, 1);
             }
 
+            renderBioluminescentWakeAndSparks(ctx);
+
             for (let i = 0; i < foodPellets.length; i++) {
                 foodPellets[i].update();
                 foodPellets[i].draw();
@@ -1753,10 +2063,9 @@
                 ctx.restore();
             }
 
-            if (mainScene.classList.contains('active')) {
-                koi.update(time);
-                koi.draw();
-            }
+            // Always update and draw the Imperial Koi (from the very first frame of the intro!)
+            koi.update(time, timestamp);
+            koi.draw();
 
             for (let i = 0; i < floatingPetals.length; i++) {
                 floatingPetals[i].update(koi.spine[0]);
@@ -1766,7 +2075,21 @@
             requestAnimationFrame(animate);
         }
 
-        requestAnimationFrame(animate);
+        // Wait for Poppins 800 font before measuring `#display-heading` character coordinates
+        function startExperience() {
+            const fontReady = (document.fonts && document.fonts.ready)
+                ? Promise.race([
+                    document.fonts.ready,
+                    new Promise(resolve => setTimeout(resolve, 350))
+                ])
+                : Promise.resolve();
+
+            fontReady.then(() => {
+                measureStageLayout();
+                requestAnimationFrame(animate);
+            });
+        }
+        startExperience();
 
         /* ==========================================================
            7. WATERFALL NAVIGATION TRIGGER
