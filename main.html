@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>Malith Eranga</title>
+
+<!-- INSTANT HIGH-PRIORITY PRELOAD FOR HERO & ALL SECTIONS -->
+<link rel="preload" as="image" href="Backgrounds/background1.webp" fetchpriority="high">
+<link rel="preload" as="document" href="Projects.html">
+<link rel="preload" as="document" href="Education.html">
+<link rel="preload" as="document" href="Gallery.html">
+<link rel="preload" as="document" href="Skills.html">
+<link rel="preload" as="document" href="Contact.html">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syncopate:wght@600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -20,7 +31,7 @@
     --bot-glow: #00ffcc;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
 @keyframes fadeInPage { 0% { opacity: 0; } 100% { opacity: 1; } }
 @keyframes navSlideDown { 0% { opacity: 0; transform: translate(-50%, -30px); } 100% { opacity: 1; transform: translate(-50%, 0); } }
@@ -34,7 +45,7 @@ body {
     color: var(--text-main);
     overflow-x: hidden;
     opacity: 0;
-    animation: fadeInPage 1.6s ease-in-out forwards;
+    animation: fadeInPage 0.9s ease-out forwards;
 }
 
 /* ===================================================
@@ -51,6 +62,7 @@ body {
     background-position: center center;
     background-repeat: no-repeat;
     overflow: hidden;
+    will-change: transform;
 }
 
 @media (min-width: 1200px) {
@@ -63,22 +75,23 @@ body {
 
 .top-nav {
     position: fixed; top: 30px; left: 50%; z-index: 100;
-    background: rgba(15, 23, 42, 0.35);
-    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-bottom: 2px solid var(--secondary); 
     border-radius: 30px; padding: 10px 30px; 
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     opacity: 0;
-    animation: navSlideDown 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; 
+    animation: navSlideDown 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; 
     max-width: 94vw;
+    transform: translateZ(0);
 }
 
 .top-nav ul { list-style: none; display: flex; gap: 25px; align-items: center; }
 .top-nav li a {
     text-decoration: none; color: var(--text-muted); font-size: 0.75rem; 
     font-weight: 600; text-transform: uppercase; letter-spacing: 2px; 
-    transition: all 0.4s ease; position: relative; padding: 5px 0; white-space: nowrap;
+    transition: color 0.3s ease, text-shadow 0.3s ease; position: relative; padding: 5px 0; white-space: nowrap;
 }
 .top-nav li a:hover, .top-nav li a.active { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 .top-nav li a::after {
@@ -101,7 +114,7 @@ body {
 .chem-arena-section {
     position: relative;
     width: 100%;
-    height: 365px;
+    height: 375px;
     background: #0a0f18;
     border-top: 8px solid #3e2723;
     border-bottom: 12px solid #4e342e;
@@ -112,6 +125,7 @@ body {
     align-items: center;
     justify-content: center;
     user-select: none;
+    touch-action: pan-y;
 }
 
 #chemGalleryCanvas {
@@ -121,147 +135,225 @@ body {
     cursor: default;
 }
 
-.Projects-iframe { width: 100%; border: none; position: relative; z-index: 20; display: block; overflow: hidden; }
+.Projects-iframe {
+    width: 100%;
+    border: none;
+    position: relative;
+    z-index: 20;
+    display: block;
+    overflow: hidden;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
 
-/* ===================================================
-   PROF. TORA 4.0 — CYBER-PROFESSOR ROBOT DESIGN
-   =================================================== */
+/* ============================================================================
+   PROF. TORA 4.0 — ULTRA-CUTE CHUBBY UNIFIED "BOLA" 3D PROFESSOR ROBOT DESIGN
+   (Zero detached gaps — Seamless Pudgy Body, Big Expressive Eyes & Animations)
+   ============================================================================ */
 #chuti-bot {
-    position: fixed; bottom: 28px; right: 38px;
-    width: 96px; height: 120px;
+    position: fixed; bottom: 24px; right: 32px;
+    width: 108px; height: 132px;
     z-index: 1000; pointer-events: auto; cursor: pointer;
-    filter: drop-shadow(0 14px 24px rgba(0,0,0,0.85));
     user-select: none;
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 .tora-proactive-bubble {
     position: absolute;
-    bottom: 132px; right: 0;
-    background: rgba(6, 14, 32, 0.95);
+    bottom: 142px; right: 0;
+    background: rgba(8, 16, 36, 0.95);
     backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(251, 191, 36, 0.55);
-    border-radius: 14px 14px 3px 14px;
-    padding: 8px 13px;
-    color: #e2e8f0;
+    border: 1px solid rgba(0, 255, 204, 0.5);
+    border-radius: 16px 16px 4px 16px;
+    padding: 9px 14px;
+    color: #f1f5f9;
     font-size: 11.5px;
-    line-height: 1.4;
+    line-height: 1.42;
     width: max-content;
-    max-width: 250px;
-    box-shadow: 0 10px 28px rgba(0,0,0,0.75), 0 0 16px rgba(0,255,204,0.2);
+    max-width: 260px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.7), 0 0 18px rgba(0,255,204,0.2);
     opacity: 0;
-    transform: translateY(10px) scale(0.9);
+    transform: translate3d(0, 10px, 0) scale(0.92);
     pointer-events: none;
-    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 25;
 }
 .tora-proactive-bubble.show {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translate3d(0, 0, 0) scale(1);
 }
 .tora-proactive-bubble strong { color: var(--secondary); }
 
+/* Cute Floating Pill Name Badge */
 .chuti-name {
-    position: absolute; top: -26px; left: 50%; transform: translateX(-50%);
-    font-family: 'Syncopate', sans-serif; font-size: 7.5px; font-weight: 700;
-    color: var(--gold); letter-spacing: 1.5px; text-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
-    background: rgba(4, 8, 18, 0.94);
-    border: 1px solid rgba(251, 191, 36, 0.55);
-    padding: 3px 9px; border-radius: 12px;
+    position: absolute; top: -22px; left: 50%; transform: translateX(-50%);
+    font-family: 'Syncopate', sans-serif; font-size: 7px; font-weight: 700;
+    color: #fef08a; letter-spacing: 1.4px;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 0.98));
+    border: 1px solid rgba(251, 191, 36, 0.65);
+    padding: 3.5px 10px; border-radius: 99px;
     white-space: nowrap;
-    opacity: 0.98; z-index: 20; transition: all 0.4s ease;
-    display: flex; align-items: center; gap: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6), 0 0 10px rgba(251, 191, 36, 0.28);
+    z-index: 30; transition: all 0.35s ease;
+    display: flex; align-items: center; gap: 5px;
 }
 .chuti-name::before {
-    content: ''; width: 5px; height: 5px; border-radius: 50%;
-    background: var(--secondary); box-shadow: 0 0 6px var(--secondary);
-    animation: statusBlink 1.8s infinite;
+    content: ''; width: 5.5px; height: 5.5px; border-radius: 50%;
+    background: var(--secondary); box-shadow: 0 0 8px var(--secondary);
+    animation: statusBlink 1.8s infinite ease-in-out;
 }
-@keyframes statusBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+@keyframes statusBlink { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.35; transform: scale(0.75); } }
 
-/* Dual Orbiting Quantum Rings */
+/* Ground Hover Glow Ring & Shadow */
 .chuti-halo {
-    position: absolute; top: 48px; left: 50%;
-    width: 88px; height: 24px;
-    margin-left: -44px;
+    position: absolute; bottom: 4px; left: 50%;
+    width: 76px; height: 15px;
+    margin-left: -38px;
     border-radius: 50%;
-    border: 1.5px dashed rgba(0, 255, 204, 0.45);
-    box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
-    transform: rotateX(68deg);
-    animation: haloSpin 6s linear infinite;
+    border: 1.5px solid rgba(0, 255, 204, 0.38);
+    box-shadow: 0 0 14px rgba(0, 255, 204, 0.28);
+    transform: rotateX(74deg);
+    animation: haloPulse 3s ease-in-out infinite;
     pointer-events: none;
-    z-index: 12;
+    z-index: 2;
 }
-.chuti-halo-inner {
-    position: absolute; top: 60px; left: 50%;
-    width: 68px; height: 18px;
-    margin-left: -34px;
-    border-radius: 50%;
-    border: 1px solid rgba(251, 191, 36, 0.4);
-    transform: rotateX(70deg);
-    animation: haloSpinReverse 4.5s linear infinite;
-    pointer-events: none;
-    z-index: 3;
-}
-
-@keyframes haloSpin {
-    0% { transform: rotateX(68deg) rotateZ(0deg); }
-    100% { transform: rotateX(68deg) rotateZ(360deg); }
-}
-@keyframes haloSpinReverse {
-    0% { transform: rotateX(70deg) rotateZ(360deg); }
-    100% { transform: rotateX(70deg) rotateZ(0deg); }
+@keyframes haloPulse {
+    0%, 100% { transform: rotateX(74deg) scale(1); opacity: 0.8; }
+    50% { transform: rotateX(74deg) scale(0.84); opacity: 0.35; }
 }
 
 .chuti-shadow {
-    position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%);
-    width: 62px; height: 11px; background: radial-gradient(circle, rgba(0,255,204,0.55) 0%, rgba(251,191,36,0.2) 50%, transparent 78%);
-    border-radius: 50%; filter: blur(3px);
-    animation: chutiShadowPulse 3.2s ease-in-out infinite; transition: all 0.4s ease;
-}
-
-.chuti-wrapper { position: relative; width: 100%; height: 100%; animation: chutiFloat 3.2s ease-in-out infinite; }
-
-/* =========================================================
-   PROFESSOR MORTARBOARD (GRADUATION CAP) & GOLD TASSEL
-   ========================================================= */
-.chuti-mortarboard {
-    position: absolute;
-    top: -13px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 64px;
-    height: 18px;
-    z-index: 18;
+    position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%);
+    width: 64px; height: 13px;
+    background: radial-gradient(ellipse at center, rgba(0, 255, 204, 0.5) 0%, rgba(15, 23, 42, 0.7) 58%, transparent 80%);
+    border-radius: 50%;
+    animation: chutiShadowPulse 3.2s ease-in-out infinite;
     pointer-events: none;
 }
-/* Diamond Academic Cap Top */
+
+/* Unified Squishy Bouncing Robot Wrapper */
+.chuti-wrapper {
+    position: relative; width: 100%; height: 100%;
+    animation: chutiBouncyFloat 3.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    transform-origin: center bottom;
+    will-change: transform;
+}
+@keyframes chutiBouncyFloat {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1, 1); }
+    25% { transform: translate3d(0, -5px, 0) scale(0.99, 1.015); }
+    50% { transform: translate3d(0, -10px, 0) scale(1.01, 0.99); }
+    75% { transform: translate3d(0, -4px, 0) scale(0.995, 1.01); }
+}
+
+/* ===================================================================
+   SEAMLESS UNIFIED CHUBBY "BOLA" HEAD + TORSO + ATTACHED ARMS & FEET
+   =================================================================== */
+
+/* 1. Big Chubby Round Head (Overlaps seamlessly onto the chubby body) */
+.chuti-head {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    margin-left: -41px;
+    width: 82px;
+    height: 62px;
+    /* 3D Glossy Porcelain-Pearl Spherical Gradient */
+    background: radial-gradient(circle at 34% 24%, #ffffff 0%, #f8fafc 42%, #e2e8f0 78%, #94a3b8 100%);
+    border-radius: 42px 42px 36px 36px;
+    border: 1.5px solid rgba(255, 255, 255, 0.95);
+    box-shadow:
+        0 8px 18px rgba(2, 6, 23, 0.45),
+        inset 0 4px 8px rgba(255, 255, 255, 1),
+        inset 0 -6px 10px rgba(100, 116, 139, 0.35);
+    z-index: 12;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    will-change: transform;
+    transform-origin: center 85%;
+    transition: box-shadow 0.3s ease;
+}
+
+/* 3D Glossy Forehead Specular Shine */
+.chuti-head::before {
+    content: '';
+    position: absolute;
+    top: 5px; left: 17px;
+    width: 32px; height: 8px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0));
+    border-radius: 99px;
+    pointer-events: none;
+    z-index: 14;
+}
+
+/* Cute Round Side Ear-Muff Sensors (Attached directly to head sides) */
+.chuti-ear {
+    position: absolute;
+    top: 23px;
+    width: 9px;
+    height: 20px;
+    background: radial-gradient(circle at 50% 40%, #38bdf8, #0284c7);
+    border: 1.5px solid #ffffff;
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.55);
+    z-index: 11;
+    animation: earGlowPulse 2.4s infinite alternate;
+}
+.chuti-ear.left { left: -6px; border-radius: 10px 0 0 10px; }
+.chuti-ear.right { right: -6px; border-radius: 0 10px 10px 0; }
+@keyframes earGlowPulse {
+    0% { box-shadow: 0 0 6px rgba(0, 255, 204, 0.4); }
+    100% { box-shadow: 0 0 14px rgba(0, 255, 204, 0.9); }
+}
+
+/* Fluffy Cute Einstein Side Hair Puffs (Snug against head) */
+.chuti-prof-hair {
+    position: absolute;
+    top: 13px;
+    width: 12px;
+    height: 15px;
+    background: radial-gradient(circle at 40% 40%, #ffffff 45%, #cbd5e1 100%);
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.chuti-prof-hair.left { left: -5px; border-radius: 50% 30% 40% 50%; transform: rotate(-12deg); }
+.chuti-prof-hair.right { right: -5px; border-radius: 30% 50% 50% 40%; transform: rotate(12deg); }
+
+/* Cute 3D Academic Mortarboard Cap Sitting Snugly on Head */
+.chuti-mortarboard {
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    transform: translateX(-50%) rotateZ(-2deg);
+    width: 64px;
+    height: 18px;
+    z-index: 20;
+    pointer-events: none;
+}
 .chuti-mortarboard-top {
     position: absolute;
-    top: 0;
+    top: -10px;
     left: 50%;
-    width: 46px;
-    height: 46px;
-    margin-left: -23px;
-    margin-top: -14px;
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 60%, #020617 100%);
-    border: 1.5px solid var(--gold);
-    border-radius: 4px;
-    transform: rotateX(66deg) rotateZ(45deg);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.8), 0 0 10px rgba(251, 191, 36, 0.3);
+    width: 44px;
+    height: 44px;
+    margin-left: -22px;
+    background: linear-gradient(135deg, #334155 0%, #0f172a 60%, #020617 100%);
+    border: 1.6px solid #fbbf24;
+    border-radius: 6px;
+    transform: rotateX(68deg) rotateZ(45deg);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.55);
 }
-/* Cap Skull Base */
 .chuti-mortarboard-base {
     position: absolute;
-    bottom: 0;
+    bottom: 1px;
     left: 50%;
     transform: translateX(-50%);
     width: 38px;
-    height: 9px;
-    background: linear-gradient(to right, #0f172a, #334155, #0f172a);
-    border: 1px solid rgba(251, 191, 36, 0.65);
-    border-radius: 4px 4px 2px 2px;
+    height: 8px;
+    background: linear-gradient(90deg, #0f172a, #334155, #0f172a);
+    border: 1px solid rgba(251, 191, 36, 0.75);
+    border-radius: 8px 8px 3px 3px;
 }
-/* Center Gold Button & Swinging Gold Tassel */
 .chuti-mortarboard-btn {
     position: absolute;
     top: 6px;
@@ -270,211 +362,92 @@ body {
     width: 6px;
     height: 4px;
     border-radius: 50%;
-    background: var(--gold);
-    box-shadow: 0 0 6px var(--gold);
-    z-index: 20;
+    background: #fbbf24;
+    box-shadow: 0 0 6px #fbbf24;
+    z-index: 21;
 }
 .chuti-tassel {
     position: absolute;
     top: 7px;
     left: 50%;
-    width: 24px;
-    height: 22px;
-    border-top: 2px solid var(--gold);
-    border-right: 2px solid var(--gold);
+    width: 25px;
+    height: 18px;
+    border-top: 2px solid #fbbf24;
+    border-right: 2px solid #fbbf24;
     border-top-right-radius: 10px;
     transform-origin: top left;
-    animation: tasselSwing 2.6s ease-in-out infinite alternate;
-    z-index: 21;
+    animation: tasselSwing 2.5s ease-in-out infinite alternate;
+    z-index: 22;
 }
 .chuti-tassel::after {
     content: '';
     position: absolute;
     bottom: -5px;
-    right: -4px;
-    width: 6px;
-    height: 8px;
-    background: linear-gradient(to bottom, #fde047, #d97706);
-    clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
-    box-shadow: 0 0 6px var(--gold);
-}
-@keyframes tasselSwing {
-    0% { transform: rotate(-5deg); }
-    100% { transform: rotate(8deg); }
-}
-
-/* Fluffy Silver Einstein/Professor Side Hair Tufts */
-.chuti-prof-hair {
-    position: absolute;
-    top: 12px;
-    width: 13px;
-    height: 16px;
-    background: radial-gradient(circle, #ffffff 30%, #cbd5e1 100%);
-    border-radius: 50%;
-    z-index: 8;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
-}
-.chuti-prof-hair.left {
-    left: -8px;
-    border-radius: 60% 40% 50% 70%;
-    transform: rotate(-18deg);
-}
-.chuti-prof-hair.right {
-    right: -8px;
-    border-radius: 40% 60% 70% 50%;
-    transform: rotate(18deg);
-}
-
-/* =========================================================
-   PROFESSOR LAB COAT, RED BOW-TIE & POCKET PROTECTOR BODY
-   ========================================================= */
-.chuti-body {
-    position: absolute; top: 56px; left: 50%; margin-left: -25px;
-    width: 50px; height: 42px;
-    background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 60%, #cbd5e1 100%);
-    border-radius: 14px 14px 16px 16px;
-    border: 1.5px solid #94a3b8;
-    box-shadow: inset 0 -4px 8px rgba(0,0,0,0.25), 0 6px 16px rgba(0,0,0,0.5);
-    display: flex; align-items: center; justify-content: center; z-index: 5;
-    overflow: hidden;
-}
-
-/* Inner Tweed Vest V-Neck */
-.chuti-vest {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 18px;
-    height: 100%;
-    background: linear-gradient(to bottom, #1e293b, #0f172a);
-    border-left: 1.5px solid #e2e8f0;
-    border-right: 1.5px solid #e2e8f0;
-}
-
-/* Lab Coat V-Lapels */
-.chuti-lapel {
-    position: absolute;
-    top: -2px;
-    width: 14px;
-    height: 24px;
-    background: #ffffff;
-    border: 1px solid #cbd5e1;
-    z-index: 6;
-}
-.chuti-lapel.left {
-    left: 7px;
-    transform: rotate(-18deg);
-    border-radius: 0 0 4px 0;
-}
-.chuti-lapel.right {
-    right: 7px;
-    transform: rotate(18deg);
-    border-radius: 0 0 0 4px;
-}
-
-/* Professor Red Bow-Tie at Collar */
-.chuti-bowtie {
-    position: absolute;
-    top: 3px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 16px;
-    height: 8px;
-    z-index: 9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.chuti-bowtie::before, .chuti-bowtie::after {
-    content: '';
-    width: 7px;
+    right: -3.5px;
+    width: 5px;
     height: 7px;
-    background: linear-gradient(135deg, #ef4444, #991b1b);
-    border: 0.5px solid #fca5a5;
-}
-.chuti-bowtie::before {
-    clip-path: polygon(0 0, 100% 25%, 100% 75%, 0 100%);
-    border-radius: 2px 0 0 2px;
-}
-.chuti-bowtie::after {
-    clip-path: polygon(0 25%, 100% 0, 100% 100%, 0 75%);
-    border-radius: 0 2px 2px 0;
-}
-.chuti-bowtie-knot {
-    width: 3.5px;
-    height: 4.5px;
-    background: #dc2626;
+    background: linear-gradient(to bottom, #fef08a, #ea580c);
     border-radius: 2px;
-    z-index: 10;
-    box-shadow: 0 0 4px rgba(239,68,68,0.6);
+}
+@keyframes tasselSwing { 0% { transform: rotate(-5deg); } 100% { transform: rotate(8deg); } }
+
+/* Big Cute Curved OLED Face Visor */
+.chuti-visor {
+    width: 68px;
+    height: 42px;
+    margin-top: 3px;
+    background: radial-gradient(circle at 50% 35%, #111c35 0%, #030712 88%);
+    border-radius: 24px 24px 22px 22px;
+    border: 1.8px solid #1e293b;
+    box-shadow:
+        inset 0 2px 9px rgba(0, 255, 204, 0.25),
+        inset 0 -3px 8px rgba(0, 0, 0, 0.95),
+        0 1px 3px rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
 }
 
-/* Lab Coat Pocket Protector with 3 Colored Pens */
-.chuti-pocket {
-    position: absolute;
-    bottom: 7px;
-    right: 4px;
-    width: 10px;
-    height: 11px;
-    background: #f8fafc;
-    border: 1px solid #94a3b8;
-    border-top: 2px solid #3b82f6;
-    border-radius: 1px 1px 3px 3px;
-    z-index: 8;
-}
-.chuti-pocket::before {
+/* Curved Glass Screen Shine */
+.chuti-visor::before {
     content: '';
     position: absolute;
-    top: -5px;
-    left: 1px;
-    width: 2px;
-    height: 4px;
-    background: #ef4444;
-    box-shadow: 3px 0 0 #22c55e, 6px 0 0 #eab308;
-    border-radius: 1px;
+    top: 3px; left: 9px;
+    width: 50px; height: 12px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 100%);
+    border-radius: 16px 16px 50% 50%;
+    pointer-events: none;
+    z-index: 16;
 }
 
-.chuti-core {
-    width: 14px; height: 14px;
-    margin-top: 8px;
-    background: radial-gradient(circle, #ffffff 18%, var(--secondary) 58%, #0284c7 100%);
+/* Cute Glowing Pink Cheek Blushes */
+.chuti-visor::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 7px;
+    width: 8.5px;
+    height: 4.5px;
     border-radius: 50%;
-    border: 1.5px solid #0f172a;
-    box-shadow: 0 0 14px var(--secondary), inset 0 0 4px #fff;
-    animation: heartBeat 1.8s infinite;
-    position: relative;
-    z-index: 8;
+    background: rgba(244, 114, 182, 0.68);
+    box-shadow: 43px 0 0 rgba(244, 114, 182, 0.68), 0 0 8px rgba(244, 114, 182, 0.75);
+    pointer-events: none;
+    z-index: 13;
+    animation: blushPulse 3s infinite alternate;
 }
+@keyframes blushPulse { 0% { opacity: 0.65; } 100% { opacity: 1; } }
 
-.chuti-head {
-    position: absolute; top: 10px; left: 50%; margin-left: -34px;
-    width: 68px; height: 46px;
-    background: linear-gradient(145deg, #ffffff 0%, #e2e8f0 55%, #64748b 100%);
-    border-radius: 25px 25px 21px 21px; border: 1.5px solid rgba(251, 191, 36, 0.7);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.55), inset 0 2px 6px #fff;
-    z-index: 10; display: flex; justify-content: center; align-items: center;
-    will-change: transform; transform-origin: center bottom;
-}
-
-.chuti-visor {
-    width: 86%; height: 30px; background: radial-gradient(circle at 50% 30%, #0f172a, #020617);
-    border-radius: 14px; border: 1.5px solid #334155;
-    box-shadow: inset 0 0 12px rgba(0, 255, 204, 0.25);
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    overflow: visible; position: relative;
-}
-
-/* =========================================================
-   GOLD-RIMMED PROFESSOR SPECTACLES (GLASSES) & MUSTACHE
-   ========================================================= */
+/* Cute Round Gold-Wire Professor Spectacles */
 .chuti-glasses {
     position: absolute;
-    top: 3px;
+    top: 6px;
     left: 50%;
     transform: translateX(-50%);
-    width: 48px;
-    height: 18px;
+    width: 56px;
+    height: 23px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -482,210 +455,358 @@ body {
     pointer-events: none;
 }
 .chuti-lens {
-    width: 20px;
-    height: 16px;
-    border: 1.8px solid var(--gold);
-    border-radius: 50% 50% 46% 46%;
-    background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(251,191,36,0.05) 50%, transparent 100%);
-    box-shadow: 0 0 6px rgba(251, 191, 36, 0.45), inset 0 1px 2px rgba(255,255,255,0.5);
+    width: 24px;
+    height: 21px;
+    border: 1.5px solid rgba(251, 191, 36, 0.92);
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.16) 0%, transparent 55%);
+    box-shadow: 0 0 6px rgba(251, 191, 36, 0.25);
 }
 .chuti-glasses-bridge {
     width: 8px;
-    height: 2px;
-    background: var(--gold);
+    height: 1.6px;
+    background: #fbbf24;
     margin-top: -2px;
-    box-shadow: 0 0 4px var(--gold);
 }
 
-/* Cute Silver Professor Mustache below Eyes */
-.chuti-mustache {
-    position: absolute;
-    bottom: -3px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 26px;
-    height: 7px;
-    z-index: 16;
+/* Big Adorable Anime-Style Glowing Robot Eyes */
+.chuti-eyes-container {
     display: flex;
-    justify-content: center;
-    pointer-events: none;
+    gap: 14px;
+    will-change: transform;
+    align-items: center;
+    margin-top: -1px;
+    z-index: 14;
 }
-.chuti-mustache::before, .chuti-mustache::after {
-    content: '';
-    width: 13px;
-    height: 6px;
-    background: linear-gradient(to bottom, #ffffff, #cbd5e1);
-    border: 0.5px solid #94a3b8;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-.chuti-mustache::before {
-    border-radius: 8px 4px 2px 8px;
-    transform: rotate(-10deg) translateX(1px);
-}
-.chuti-mustache::after {
-    border-radius: 4px 8px 8px 2px;
-    transform: rotate(10deg) translateX(-1px);
-}
-
-.chuti-eyes-container { display: flex; gap: 14px; will-change: transform; align-items: center; margin-top: -2px; }
 
 .chuti-eye {
-    width: 9px; height: 11px; background: var(--secondary);
-    border-radius: 10px; box-shadow: 0 0 10px var(--secondary), 0 0 18px #fff;
-    animation: cuteBlink 4s infinite;
+    width: 13px;
+    height: 16px;
+    background: radial-gradient(circle at 50% 65%, #ffffff 8%, #00ffcc 55%, #0284c7 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--secondary), 0 0 20px rgba(0, 255, 204, 0.5);
+    animation: cuteBlink 4s infinite ease-in-out;
     position: relative;
+    transition: all 0.24s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* Big & Small Cute Eye Catchlight Sparkles */
+.chuti-eye::before {
+    content: '';
+    position: absolute;
+    top: 2.5px; left: 2.5px;
+    width: 4.5px; height: 4.5px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 4px #ffffff;
+}
 .chuti-eye::after {
-    content: ''; position: absolute; top: 1.5px; right: 1.5px;
-    width: 3px; height: 3px; border-radius: 50%; background: #fff;
+    content: '';
+    position: absolute;
+    bottom: 3px; right: 2.5px;
+    width: 2.2px; height: 2.2px;
+    border-radius: 50%;
+    background: #ffffff;
 }
 
-#chuti-bot.mood-happy .chuti-eye {
-    height: 6px; border-radius: 10px 10px 2px 2px;
-    background: #22c55e; box-shadow: 0 0 14px #22c55e;
+/* Expressive Mood States */
+#chuti-bot.mood-happy .chuti-eye,
+#chuti-bot.tora-active .chuti-eye {
+    height: 9px;
+    border-radius: 14px 14px 4px 4px;
+    background: #34d399;
+    box-shadow: 0 0 14px #34d399;
+    transform: translateY(-1px) scaleX(1.06);
 }
-#chuti-bot.mood-thinking .chuti-eye:first-child { height: 5px; background: #fbbf24; box-shadow: 0 0 12px #fbbf24; }
-#chuti-bot.mood-thinking .chuti-eye:last-child { height: 11px; background: #fbbf24; box-shadow: 0 0 12px #fbbf24; }
-
+#chuti-bot.mood-thinking .chuti-eye:first-child { height: 8px; background: #fbbf24; box-shadow: 0 0 12px #fbbf24; }
+#chuti-bot.mood-thinking .chuti-eye:last-child { height: 15px; background: #fbbf24; box-shadow: 0 0 12px #fbbf24; }
 #chuti-bot.mood-listening .chuti-eye {
-    background: #f43f5e; box-shadow: 0 0 15px #f43f5e;
-    transform: scale(1.15);
+    background: #fb7185; box-shadow: 0 0 15px #fb7185;
+    transform: scale(1.16);
 }
 #chuti-bot.mood-cyber .chuti-eye {
-    width: 11px; height: 5px; border-radius: 2px;
-    background: #a855f7; box-shadow: 0 0 14px #a855f7;
+    width: 13px; height: 9px; border-radius: 5px;
+    background: #c084fc; box-shadow: 0 0 14px #c084fc;
 }
 #chuti-bot.mood-love .chuti-eye {
-    background: #ec4899; box-shadow: 0 0 15px #ec4899;
-    border-radius: 50% 50% 40% 40%;
+    background: #f472b6; box-shadow: 0 0 16px #f472b6;
+    transform: scale(1.15);
 }
 
+/* Cute Smiling Mouth / Talking Equalizer */
 .chuti-voice-wave {
-    display: flex; gap: 2.5px; align-items: center; height: 4px; margin-top: 1px; opacity: 0.45;
+    display: flex; gap: 2.5px; align-items: center; justify-content: center;
+    height: 6px; margin-top: 3px; opacity: 0.85; z-index: 14;
 }
 .chuti-voice-wave span {
-    width: 2px; height: 2px; background: var(--secondary); border-radius: 2px;
+    width: 2.5px; height: 2.5px; background: var(--secondary); border-radius: 99px;
+    box-shadow: 0 0 4px var(--secondary);
     transition: height 0.15s ease;
 }
-#chuti-bot.is-talking .chuti-voice-wave,
-#chuti-bot.mood-listening .chuti-voice-wave { opacity: 1; }
+.chuti-voice-wave span:nth-child(2),
+.chuti-voice-wave span:nth-child(3) {
+    transform: translateY(1.2px); /* Forms a cute gentle smile curve by default! */
+}
 #chuti-bot.is-talking .chuti-voice-wave span,
 #chuti-bot.mood-listening .chuti-voice-wave span {
-    animation: voiceWaveAnim 0.3s infinite alternate;
+    animation: voiceWaveAnim 0.25s infinite alternate;
 }
-@keyframes voiceWaveAnim { 0% { height: 2px; } 100% { height: 6px; } }
+@keyframes voiceWaveAnim { 0% { height: 2px; } 100% { height: 7px; } }
 
-.chuti-ear {
-    position: absolute; top: 15px; width: 6px; height: 15px;
-    background: linear-gradient(to bottom, var(--gold), #b45309);
-    border-radius: 4px; box-shadow: 0 0 8px rgba(251, 191, 36, 0.5);
+.chuti-mustache { display: none; }
+
+/* 2. Chubby Unified Egg/Pudgy Belly Torso (Connected directly under head with ZERO gap!) */
+.chuti-body {
+    position: absolute;
+    top: 60px; /* Overlaps head bottom (10 + 62 = 72) by 12px so neck & body are 100% unified! */
+    left: 50%;
+    margin-left: -33px;
+    width: 66px;
+    height: 56px;
+    background: radial-gradient(circle at 36% 30%, #ffffff 0%, #f1f5f9 55%, #cbd5e1 92%, #94a3b8 100%);
+    border-radius: 26px 26px 34px 34px;
+    border: 1.5px solid rgba(255, 255, 255, 0.92);
+    box-shadow:
+        0 10px 20px rgba(2, 6, 23, 0.55),
+        inset 0 4px 8px #ffffff,
+        inset 0 -6px 12px rgba(71, 85, 105, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 8;
+    overflow: hidden;
 }
-.chuti-ear.left { left: -5px; border-radius: 6px 0 0 6px; }
-.chuti-ear.right { right: -5px; border-radius: 0 6px 6px 0; }
 
-/* White Lab Coat Sleeves on Robot Arms */
+/* Inner Professor Vest & Lab Coat Lapels */
+.chuti-vest {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 100%;
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+    border-left: 1.5px solid #e2e8f0;
+    border-right: 1.5px solid #e2e8f0;
+}
+.chuti-lapel {
+    position: absolute;
+    top: 4px;
+    width: 14px;
+    height: 26px;
+    background: linear-gradient(180deg, #ffffff, #f1f5f9);
+    border: 1px solid #cbd5e1;
+    z-index: 6;
+}
+.chuti-lapel.left { left: 11px; transform: rotate(-15deg); border-radius: 0 0 6px 0; }
+.chuti-lapel.right { right: 11px; transform: rotate(15deg); border-radius: 0 0 0 6px; }
+
+/* Cute Plump 3D Red Bow-Tie Sitting Right at the Neck Collar */
+.chuti-bowtie {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 10px;
+    z-index: 15;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.chuti-bowtie::before, .chuti-bowtie::after {
+    content: '';
+    width: 9px;
+    height: 8.5px;
+    background: radial-gradient(circle at 30% 30%, #fb7185, #e11d48 70%, #9f1239 100%);
+    border-radius: 3px;
+}
+.chuti-bowtie::before { clip-path: polygon(0 0, 100% 22%, 100% 78%, 0 100%); }
+.chuti-bowtie::after { clip-path: polygon(0 22%, 100% 0, 100% 100%, 0 78%); }
+.chuti-bowtie-knot {
+    width: 5px;
+    height: 5.5px;
+    background: #f43f5e;
+    border-radius: 50%;
+    z-index: 16;
+    box-shadow: 0 0 5px rgba(244,63,94,0.7);
+}
+
+/* Lab Coat Pocket with Mini Pens */
+.chuti-pocket {
+    position: absolute;
+    bottom: 10px;
+    right: 7px;
+    width: 11px;
+    height: 10px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-top: 2px solid #3b82f6;
+    border-radius: 2px 2px 4px 4px;
+    z-index: 9;
+}
+.chuti-pocket::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 1.5px;
+    width: 2px;
+    height: 3.5px;
+    background: #ef4444;
+    box-shadow: 3.5px 0 0 #10b981;
+    border-radius: 1px;
+}
+
+/* Glowing Heart/Quantum Core on Belly */
+.chuti-core {
+    width: 15px;
+    height: 15px;
+    margin-top: 14px;
+    background: radial-gradient(circle at 35% 35%, #ffffff 22%, var(--secondary) 62%, #0284c7 100%);
+    border-radius: 50%;
+    border: 1.5px solid #0f172a;
+    box-shadow: 0 0 14px var(--secondary);
+    animation: heartBeat 1.9s infinite ease-in-out;
+    position: relative;
+    z-index: 9;
+}
+
+/* 3. Chubby Stubby Arms Socketed Directly to the Body Shoulders (No Gap!) */
 .chuti-arm {
-    position: absolute; top: 58px; width: 11px; height: 27px;
-    background: linear-gradient(145deg, #ffffff, #cbd5e1);
-    border-radius: 8px; border: 1.5px solid #94a3b8; z-index: 6;
-    animation: armSwing 3s ease-in-out infinite;
+    position: absolute;
+    top: 66px;
+    width: 17px;
+    height: 32px;
+    background: radial-gradient(circle at 40% 30%, #ffffff 0%, #e2e8f0 72%, #94a3b8 100%);
+    border: 1.2px solid rgba(255, 255, 255, 0.95);
+    box-shadow: 0 5px 10px rgba(2, 6, 23, 0.4), inset 0 2px 4px #ffffff;
+    z-index: 9;
 }
-.chuti-arm.left { left: 7px; transform-origin: top center; }
-.chuti-arm.right { right: 7px; transform-origin: top center; animation-delay: 1.5s; }
+.chuti-arm.left {
+    left: 11px;
+    border-radius: 14px 8px 14px 16px;
+    transform-origin: top right;
+    transform: rotate(14deg);
+    animation: cuteLeftArm 3.2s ease-in-out infinite;
+}
+.chuti-arm.right {
+    right: 11px;
+    border-radius: 8px 14px 16px 14px;
+    transform-origin: top left;
+    transform: rotate(-14deg);
+    animation: cuteRightArm 3.2s ease-in-out infinite;
+}
+@keyframes cuteLeftArm { 0%, 100% { transform: rotate(12deg); } 50% { transform: rotate(22deg); } }
+@keyframes cuteRightArm { 0%, 100% { transform: rotate(-12deg); } 50% { transform: rotate(-24deg); } }
 
-/* Glowing Bubbling Erlenmeyer Flask in Professor Robot's Left Hand */
+/* Glowing Bubbling Erlenmeyer Flask Held Snugly in Left Hand + Rising Bubbles! */
 .chuti-flask {
     position: absolute;
-    bottom: -10px;
-    left: -5px;
-    width: 18px;
-    height: 20px;
+    bottom: -8px;
+    left: -4px;
+    width: 19px;
+    height: 21px;
     clip-path: polygon(35% 0%, 65% 0%, 65% 28%, 100% 100%, 0% 100%, 35% 28%);
-    background: linear-gradient(to bottom, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.2) 45%, #00ffcc 48%, #10b981 100%);
-    border: 1px solid rgba(255,255,255,0.8);
-    filter: drop-shadow(0 0 8px rgba(0, 255, 204, 0.8));
-    animation: flaskGlow 2s infinite alternate;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.25) 42%, #00ffcc 45%, #10b981 100%);
+    box-shadow: 0 0 12px rgba(0, 255, 204, 0.8);
 }
-@keyframes flaskGlow {
-    0% { filter: drop-shadow(0 0 5px rgba(0, 255, 204, 0.6)); }
-    100% { filter: drop-shadow(0 0 12px rgba(0, 255, 204, 1)); }
+.chuti-arm.left::after {
+    content: '';
+    position: absolute;
+    bottom: 14px;
+    left: 3px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #00ffcc;
+    box-shadow: 4px -8px 0 -0.5px #38bdf8, -2px -15px 0 -1px #fde047;
+    animation: flaskBubblesRise 2.2s linear infinite;
+    pointer-events: none;
+}
+@keyframes flaskBubblesRise {
+    0% { transform: translateY(0) scale(0.8); opacity: 0.95; }
+    100% { transform: translateY(-14px) scale(1.15); opacity: 0; }
 }
 
-/* Pointer Stick in Right Hand */
+/* Cute Golden Pointer Wand in Right Hand */
 .chuti-pointer-stick {
     position: absolute;
-    bottom: 2px;
-    right: -12px;
-    width: 18px;
-    height: 2.5px;
+    bottom: 3px;
+    right: -10px;
+    width: 17px;
+    height: 3px;
     background: linear-gradient(to right, #d97706, #fef08a);
-    border-radius: 2px;
-    transform: rotate(-30deg);
+    border-radius: 3px;
+    transform: rotate(-25deg);
     transform-origin: left center;
 }
 
+/* 4. Chubby Round Little Feet Tucked Directly Under the Belly (Connected!) */
 .chuti-leg {
-    position: absolute; bottom: 4px; width: 12px; height: 16px;
-    background: linear-gradient(to bottom, #334155, #0f172a);
-    border-radius: 4px 4px 8px 8px;
-    border: 1px solid var(--gold); z-index: 4;
-    animation: legDangle 3s ease-in-out infinite;
+    position: absolute;
+    bottom: 6px;
+    width: 18px;
+    height: 15px;
+    background: radial-gradient(circle at 40% 35%, #475569 0%, #1e293b 65%, #0f172a 100%);
+    border-radius: 10px 10px 12px 12px;
+    border: 1.2px solid rgba(251, 191, 36, 0.8);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.3);
+    z-index: 7;
+    animation: cuteFeetTap 3.2s ease-in-out infinite;
 }
+.chuti-leg.left { left: 31px; transform-origin: top center; }
+.chuti-leg.right { right: 31px; transform-origin: top center; animation-delay: 1.6s; }
 .chuti-leg::after {
-    content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
-    width: 7px; height: 9px; border-radius: 0 0 50% 50%;
-    background: linear-gradient(to bottom, #00ffcc, #3b82f6, transparent);
-    filter: blur(1px);
-    animation: thrusterFlame 0.25s infinite alternate;
+    content: '';
+    position: absolute;
+    bottom: -5px; left: 50%; transform: translateX(-50%);
+    width: 9px; height: 5px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #00ffcc 0%, rgba(0, 255, 204, 0) 80%);
+    animation: thrusterFlame 0.4s infinite alternate;
 }
-@keyframes thrusterFlame { 0% { height: 7px; opacity: 0.75; } 100% { height: 11px; opacity: 1; } }
+@keyframes cuteFeetTap { 0%, 100% { transform: rotate(4deg) translateY(0); } 50% { transform: rotate(-5deg) translateY(-2px); } }
+@keyframes thrusterFlame { 0% { opacity: 0.6; transform: translateX(-50%) scale(0.85); } 100% { opacity: 1; transform: translateX(-50%) scale(1.15); } }
 
-.chuti-leg.left { left: 28px; transform-origin: top center; }
-.chuti-leg.right { right: 28px; transform-origin: top center; animation-delay: 1.5s; }
+/* Active / Hover Excitement Waving State */
+#chuti-bot.tora-active .chuti-name { color: #00ffcc; border-color: #00ffcc; box-shadow: 0 0 14px rgba(0,255,204,0.5); } 
+#chuti-bot.tora-active .chuti-head { box-shadow: 0 10px 24px rgba(2, 6, 23, 0.6), 0 0 22px rgba(0,255,204,0.45), inset 0 4px 8px #fff; }
+#chuti-bot.tora-active .chuti-arm.right { animation: waveHandCute 0.48s ease-in-out infinite alternate; }
 
-#chuti-bot.tora-active .chuti-name { color: #00ffcc; border-color: #00ffcc; box-shadow: 0 0 14px rgba(0,255,204,0.45); } 
-#chuti-bot.tora-active .chuti-head { border-color: #00ffcc; box-shadow: 0 0 22px rgba(0,255,204,0.4), inset 0 2px 6px #fff; }
-#chuti-bot.tora-active .chuti-arm.right { animation: waveHand 0.55s ease-in-out infinite alternate; }
-
-@keyframes waveHand {
-    0% { transform: rotate(-20deg); }
+@keyframes waveHandCute {
+    0% { transform: rotate(-25deg); }
     100% { transform: rotate(-110deg); }
 }
-
-@keyframes chutiFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
-@keyframes chutiShadowPulse { 0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.85; } 50% { transform: translateX(-50%) scale(0.68); opacity: 0.35; } }
-@keyframes cuteBlink { 0%, 90%, 94%, 100% { transform: scaleY(1); } 92%, 96% { transform: scaleY(0.1); } }
-@keyframes heartBeat { 0%, 100% { transform: scale(1); opacity: 0.85; } 50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 20px var(--secondary); } }
-@keyframes armSwing { 0%, 100% { transform: rotate(10deg); } 50% { transform: rotate(-10deg); } }
-@keyframes legDangle { 0%, 100% { transform: rotate(5deg); } 50% { transform: rotate(-5deg); } }
+@keyframes chutiShadowPulse { 0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.82; } 50% { transform: translateX(-50%) scale(0.74); opacity: 0.38; } }
+@keyframes cuteBlink { 0%, 92%, 96%, 100% { transform: scaleY(1); } 94% { transform: scaleY(0.08); } }
+@keyframes heartBeat { 0%, 100% { transform: scale(1); opacity: 0.9; } 50% { transform: scale(1.18); opacity: 1; } }
 
 /* ===================================================
    PROF. TORA 4.0 — CHEMTECH QUANTUM AI COMMAND PANEL
    =================================================== */
 .tora-chat-panel {
     position: fixed;
-    bottom: 155px; right: 28px;
+    bottom: 162px; right: 28px;
     width: 405px; height: 575px;
     background: rgba(5, 10, 25, 0.97);
-    backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
     border: 1px solid rgba(251, 191, 36, 0.45);
     border-radius: 22px;
     box-shadow: 0 28px 70px rgba(0,0,0,0.92), 0 0 42px rgba(0,255,204,0.18);
     font-family: 'Space Grotesk', sans-serif;
     opacity: 0; pointer-events: none;
-    transform: translateY(22px) scale(0.92);
-    transition: all 0.38s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translate3d(0, 22px, 0) scale(0.92);
+    transition: opacity 0.32s ease, transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     z-index: 2000;
     display: flex; flex-direction: column; overflow: hidden;
     cursor: default;
 }
-.tora-chat-panel.show { opacity: 1; pointer-events: auto; transform: translateY(0) scale(1); }
+.tora-chat-panel.show { opacity: 1; pointer-events: auto; transform: translate3d(0, 0, 0) scale(1); }
 
 .tora-chat-panel.expanded {
     width: min(720px, 95vw);
     height: min(80vh, 720px);
-    bottom: 150px;
+    bottom: 158px;
     right: 28px;
 }
 
@@ -741,7 +862,7 @@ body {
     flex-shrink: 0;
     gap: 5px;
 }
-.tora-mode-pills { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.tora-mode-pills { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
 .tora-mode-pills::-webkit-scrollbar { display: none; }
 .t-mode-pill {
     padding: 3px 8px; border-radius: 6px; cursor: pointer;
@@ -760,6 +881,7 @@ body {
     flex: 1; overflow-y: auto;
     padding: 14px 12px; display: flex; flex-direction: column; gap: 11px;
     scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
 }
 .tora-messages::-webkit-scrollbar { width: 4px; }
 .tora-messages::-webkit-scrollbar-track { background: transparent; }
@@ -885,7 +1007,7 @@ body {
 
 .tora-chips {
     display: flex; gap: 6px; overflow-x: auto; padding: 5px 12px 9px;
-    scrollbar-width: none; flex-shrink: 0;
+    scrollbar-width: none; flex-shrink: 0; -webkit-overflow-scrolling: touch;
 }
 .tora-chips::-webkit-scrollbar { display: none; }
 .t-chip {
@@ -947,7 +1069,7 @@ body {
 .resume-btn {
     position: fixed; top: 30px; right: 40px; z-index: 1000;
     padding: 12px 24px;
-    background: rgba(15,23,42,0.4); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    background: rgba(15,23,42,0.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(0,255,204,0.5); border-radius: 10px;
     color: var(--text-main); font-family: 'Space Grotesk', sans-serif;
     font-size: 12px; font-weight: 600; text-decoration: none;
@@ -955,6 +1077,7 @@ body {
     display: flex; align-items: center; justify-content: center; overflow: hidden;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     box-shadow: 0 5px 15px rgba(0,0,0,0.5), 0 0 10px rgba(0,255,204,0.2);
+    transform: translateZ(0);
 }
 .resume-btn:hover {
     background: rgba(0,255,204,0.15); border-color: var(--secondary);
@@ -971,7 +1094,7 @@ body {
 .resume-btn:hover::after { left: 150%; transition: all 0.7s ease; }
 
 /* ===================================================
-   MOBILE & TABLET RESPONSIVE OPTIMIZATIONS
+   MOBILE & TABLET RESPONSIVE OPTIMIZATIONS (60 FPS)
    =================================================== */
 @media (max-width: 1024px) {
     .hero-section {
@@ -1006,6 +1129,9 @@ body {
         padding: 7px 12px;
         overflow-x: auto;
         scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
     .top-nav::-webkit-scrollbar { display: none; }
     .top-nav ul {
@@ -1024,22 +1150,31 @@ body {
         font-size: 10px;
         letter-spacing: 1.5px;
         z-index: 999;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
     }
-    .chem-arena-section { height: 300px; }
+    .chem-arena-section { height: 305px; }
 
     #chuti-bot {
-        bottom: 16px;
-        right: 16px;
-        transform: scale(0.86);
+        bottom: 14px;
+        right: 14px;
+        transform: scale(0.86) translateZ(0);
         transform-origin: bottom right;
+    }
+    .tora-proactive-bubble {
+        max-width: 215px;
+        font-size: 11px;
+        bottom: 138px;
     }
     .tora-chat-panel, .tora-chat-panel.expanded {
         right: 10px;
-        bottom: 126px;
+        bottom: 128px;
         width: calc(100vw - 20px);
         max-width: 390px;
-        height: 72vh;
-        max-height: 520px;
+        height: 70vh;
+        max-height: 510px;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
     }
 }
 </style>
@@ -1067,7 +1202,7 @@ body {
     </ul>
 </nav>
 
-<!-- ========== PROF. TORA 4.0 — CYBER-PROFESSOR CHEMTECH AI ========== -->
+<!-- ========== PROF. TORA 4.0 — CUTE UNIFIED CHUBBY "BOLA" CHEMTECH AI ========== -->
 <div id="chuti-bot">
 
     <div class="tora-proactive-bubble" id="tora-proactive-bubble">
@@ -1119,7 +1254,7 @@ body {
 
         <div class="tora-chips" id="tora-chips">
             <span class="t-chip" onclick="askChip('Balance KMnO4 + HCl -> KCl + MnCl2 + H2O + Cl2')">⚖️ Balance KMnO₄ + HCl</span>
-            <span class="t-chip" onclick="askChip('Structure of Congo Red')">🔬 Congo Red 2D Structure</span>
+            <span class="t-chip" onclick="askChip('Structure of Dopamine')">🔬 Dopamine 2D Structure</span>
             <span class="t-chip" onclick="askChip('Prepare 250 mL of 0.1 M NaOH')">🧪 Prep 250mL 0.1M NaOH</span>
             <span class="t-chip" onclick="askChip('Cell Zn and Cu')">⚡ Zn/Cu Galvanic Cell E°</span>
             <span class="t-chip" onclick="askChip('Analyze K4[Fe(CN)6]')">🧮 Molar Mass K₄[Fe(CN)₆]</span>
@@ -1140,24 +1275,24 @@ body {
         </div>
     </div>
 
-    <!-- ========== CYBER-PROFESSOR ROBOT BODY ========== -->
+    <!-- ========== SEAMLESS CHUBBY "BOLA" CYBER-PROFESSOR ROBOT BODY ========== -->
     <div class="chuti-name" id="tora-name">PROF. TORA</div>
     <div class="chuti-halo"></div>
-    <div class="chuti-halo-inner"></div>
     <div class="chuti-shadow"></div>
     <div class="chuti-wrapper">
-        <!-- Left Arm holding Glowing Erlenmeyer Flask -->
+        <!-- Attached Chubby Left Arm holding Bubbling Erlenmeyer Flask -->
         <div class="chuti-arm left">
             <div class="chuti-flask"></div>
         </div>
-        <!-- Right Arm with Lecture Pointer -->
+        <!-- Attached Chubby Right Arm with Golden Lecture Wand -->
         <div class="chuti-arm right">
             <div class="chuti-pointer-stick"></div>
         </div>
+        <!-- Tucked Chubby Feet -->
         <div class="chuti-leg left"></div>
         <div class="chuti-leg right"></div>
 
-        <!-- Lab Coat Body + Tweed Vest + Red Bow-Tie + Pocket Protector -->
+        <!-- Unified Chubby Egg Belly + Lab Coat + Red Bow-Tie + Quantum Core -->
         <div class="chuti-body">
             <div class="chuti-vest"></div>
             <div class="chuti-lapel left"></div>
@@ -1167,23 +1302,20 @@ body {
             <div class="chuti-pocket"></div>
         </div>
 
-        <!-- Professor Head with Mortarboard Cap, Fluffy Hair, Gold Glasses & Mustache -->
+        <!-- Big Chubby Round Head overlapping seamlessly onto Body -->
         <div class="chuti-head" id="chuti-head">
-            <!-- Academic Mortarboard Cap + Swinging Gold Tassel -->
             <div class="chuti-mortarboard">
                 <div class="chuti-mortarboard-top"></div>
                 <div class="chuti-mortarboard-base"></div>
                 <div class="chuti-mortarboard-btn"></div>
                 <div class="chuti-tassel"></div>
             </div>
-            <!-- Silver Einstein Side Hair Tufts -->
             <div class="chuti-prof-hair left"></div>
             <div class="chuti-prof-hair right"></div>
 
             <div class="chuti-ear left"></div>
             <div class="chuti-ear right"></div>
             <div class="chuti-visor">
-                <!-- Gold-Rimmed Professor Glasses -->
                 <div class="chuti-glasses">
                     <div class="chuti-lens"></div>
                     <div class="chuti-glasses-bridge"></div>
@@ -1196,8 +1328,6 @@ body {
                 <div class="chuti-voice-wave">
                     <span></span><span></span><span></span><span></span>
                 </div>
-                <!-- Silver Professor Mustache -->
-                <div class="chuti-mustache"></div>
             </div>
         </div>
     </div>
@@ -1205,17 +1335,102 @@ body {
 
 <a href="MALITH ERANGA CV.pdf" target="_blank" class="resume-btn">MY RESUME</a>
 
-<iframe id="Projects"  src="Projects.html"  class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
-<iframe id="education" src="Education.html" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
-<iframe id="gallery"   src="Gallery.html"   class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
-<iframe id="more"      src="Skills.html"    class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
-<iframe id="contact"   src="Contact.html"   class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
+<iframe id="Projects"  src="Projects.html"  loading="eager" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
+<iframe id="education" src="Education.html" loading="eager" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
+<iframe id="gallery"   src="Gallery.html"   loading="eager" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
+<iframe id="more"      src="Skills.html"    loading="eager" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
+<iframe id="contact"   src="Contact.html"   loading="eager" class="Projects-iframe" scrolling="no" onload="resizeIframe(this)"></iframe>
 
 <script>
+// =========================================================================
+// 0. INSTANT IMAGE PRELOADER & MOBILE GAME PERFORMANCE BOOSTER FOR IFRAMES
+// =========================================================================
+let userInteractingWithIframe = false;
+let iframeInteractTimer = null;
+
+function markIframeActive() {
+    userInteractingWithIframe = true;
+    clearTimeout(iframeInteractTimer);
+    iframeInteractTimer = setTimeout(() => {
+        userInteractingWithIframe = false;
+    }, 1800);
+}
+
+(function preloadHeroImmediately() {
+    const heroImg = new Image();
+    heroImg.fetchPriority = 'high';
+    heroImg.decoding = 'async';
+    heroImg.src = 'Backgrounds/background1.webp';
+})();
+
+function optimizeAndPreloadIframe(iframe) {
+    try {
+        const doc = iframe.contentWindow && iframe.contentWindow.document;
+        if (!doc) return;
+
+        const imgs = doc.querySelectorAll('img');
+        imgs.forEach(img => {
+            if (img.getAttribute('loading') === 'lazy') {
+                img.setAttribute('loading', 'eager');
+            }
+            img.decoding = 'async';
+            img.fetchPriority = 'high';
+
+            const dataSrc = img.getAttribute('data-src') || img.getAttribute('data-lazy');
+            if (dataSrc && !img.src) {
+                img.src = dataSrc;
+            }
+            if (img.src) {
+                const preload = new Image();
+                preload.decoding = 'async';
+                preload.src = img.src;
+                if (preload.decode) preload.decode().catch(() => {});
+            }
+        });
+
+        doc.querySelectorAll('[style*="background"]').forEach(el => {
+            const bg = el.style.backgroundImage || '';
+            const match = bg.match(/url\(['"]?([^'"]+)['"]?\)/i);
+            if (match && match[1]) {
+                const pre = new Image();
+                pre.decoding = 'async';
+                pre.src = match[1];
+            }
+        });
+
+        if (!doc.getElementById('tora-mobile-boost')) {
+            const style = doc.createElement('style');
+            style.id = 'tora-mobile-boost';
+            style.textContent = `
+                * { -webkit-tap-highlight-color: transparent; }
+                canvas, button, a, .card, .game-container {
+                    touch-action: manipulation;
+                    transform: translateZ(0);
+                    backface-visibility: hidden;
+                }
+            `;
+            doc.head && doc.head.appendChild(style);
+        }
+
+        ['touchstart', 'touchmove', 'pointerdown', 'keydown'].forEach(evt => {
+            doc.addEventListener(evt, markIframeActive, { passive: true });
+        });
+    } catch (_) {}
+}
+
 function resizeIframe(obj) {
     try {
         if (obj.contentWindow && obj.contentWindow.document.body) {
-            obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+            optimizeAndPreloadIframe(obj);
+            const updateH = () => {
+                try {
+                    const h = obj.contentWindow.document.documentElement.scrollHeight;
+                    if (h > 0) obj.style.height = h + 'px';
+                } catch (_) {}
+            };
+            updateH();
+            setTimeout(updateH, 350);
+            setTimeout(updateH, 1200);
         }
     } catch (_) {}
 }
@@ -1239,7 +1454,7 @@ function resizeIframe(obj) {
     function initStars() {
         stars = [];
         const isMobile = window.innerWidth < 768;
-        const count = isMobile ? 75 : 140;
+        const count = isMobile ? 55 : 130;
         for (let i = 0; i < count; i++) {
             stars.push({
                 x: Math.random() * canvas.width,
@@ -1258,7 +1473,7 @@ function resizeIframe(obj) {
     obs.observe(hero);
 
     function animateStars() {
-        if (heroVisible && !document.hidden) {
+        if (heroVisible && !document.hidden && !userInteractingWithIframe) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "#ffffff";
             for (let i = 0; i < stars.length; i++) {
@@ -1280,18 +1495,16 @@ function resizeIframe(obj) {
     animateStars();
 })();
 
-// ================================================================================
-// 2. ULTRA-ADVANCED INTERACTIVE LECTURE HALL CHALKBOARD PROFESSOR SIMULATION
-//    - Multi-Jointed 2-Bone Legs & Knees + Swaying Lab Coat + Thinking Beard Pose
-//    - Wooden Pointer Stick Lecture Tour + Live Bunsen Burner & Test Tube Rack
-//    - Color-Coded Heteroatoms, Aromatic Rings, Bond Angles & Click-to-Analyze!
-// ================================================================================
+// ======================================================================================
+// 2. ULTRA-REALISTIC UNIVERSITY LECTURE HALL CHALKBOARD PROFESSOR & 100% ACCURATE IUPAC
+//    MOLECULAR STRUCTURES (Kekulé Double Bonds, Stereo Wedges/Hashes, Lone-Pair Orbitals)
+// ======================================================================================
 (function initChalkboardProfessor() {
     const section = document.getElementById('chemArenaSection');
     const canvas = document.getElementById('chemGalleryCanvas');
     const ctx = canvas.getContext('2d');
 
-    let cw = 1200, ch = 365, floorY = 340;
+    let cw = 1200, ch = 375, floorY = 348;
     let isVisible = true;
     let scale = 1;
     let hoveredSlot = null;
@@ -1308,43 +1521,45 @@ function resizeIframe(obj) {
         off.height = Math.max(1, Math.floor(h));
         const oCtx = off.getContext('2d');
 
-        // Deep realistic university slate-green chalkboard gradient
         const bgGrad = oCtx.createRadialGradient(w * 0.5, h * 0.42, 30, w * 0.5, h * 0.5, Math.max(w, h) * 0.78);
-        bgGrad.addColorStop(0, "#1c3329");
-        bgGrad.addColorStop(0.55, "#12231c");
-        bgGrad.addColorStop(1, "#09130f");
+        bgGrad.addColorStop(0, "#193026");
+        bgGrad.addColorStop(0.58, "#10211a");
+        bgGrad.addColorStop(1, "#08120e");
         oCtx.fillStyle = bgGrad;
         oCtx.fillRect(0, 0, w, h);
 
-        // Faint coordinate grid & erased ghost equations in background
-        oCtx.strokeStyle = "rgba(255, 255, 255, 0.014)";
-        oCtx.lineWidth = 26;
+        // Realistic erased chalk smudge clouds
+        oCtx.strokeStyle = "rgba(255, 255, 255, 0.015)";
+        oCtx.lineWidth = 28;
         oCtx.lineCap = "round";
-        for (let i = 0; i < 18; i++) {
-            const sx = (i / 18) * w + 15;
-            const sy = 25 + (i % 3) * 75;
+        for (let i = 0; i < 16; i++) {
+            const sx = (i / 16) * w + 20;
+            const sy = 28 + (i % 3) * 78;
             oCtx.beginPath();
             oCtx.moveTo(sx, sy);
-            oCtx.lineTo(sx + 95, sy - 22);
+            oCtx.lineTo(sx + 100, sy - 20);
             oCtx.stroke();
         }
 
-        // Subtle watermarked thermodynamic & quantum formulas in deep chalk ghosting
+        // Top Chalkboard Lecture Header Banner & Ghost Equations
         oCtx.save();
-        oCtx.font = "italic 13px 'Space Grotesk', sans-serif";
-        oCtx.fillStyle = "rgba(255, 255, 255, 0.035)";
-        oCtx.fillText("ΔG° = -nFE°cell = -RT ln K", w * 0.05, 32);
-        oCtx.fillText("Ĥψ = Eψ   |   A = εbc", w * 0.42, 28);
-        oCtx.fillText("E = E° - (0.0592/n) log Q", w * 0.76, 32);
+        oCtx.font = "600 11px 'JetBrains Mono', monospace";
+        oCtx.fillStyle = "rgba(255, 255, 255, 0.14)";
+        oCtx.fillText("CHEM 401 · ORGANIC & STRUCTURAL STEREOCHEMISTRY LECTURE", 22, 22);
+        oCtx.font = "italic 12px 'Space Grotesk', sans-serif";
+        oCtx.fillStyle = "rgba(255, 255, 255, 0.045)";
+        oCtx.fillText("ΔG° = -nFE°cell = -RT ln K", w * 0.48, 22);
+        oCtx.fillText("Ĥψ = Eψ   |   A = εbc   |   E = E° - (0.0592/n) log Q", w * 0.70, 22);
         oCtx.restore();
 
-        // Fine slate grain
-        oCtx.fillStyle = "rgba(255, 255, 255, 0.015)";
-        for (let i = 0; i < 380; i++) {
-            oCtx.fillRect(Math.random() * w, Math.random() * h, 1.5, 1.5);
+        // Subtle slate grain
+        oCtx.fillStyle = "rgba(255, 255, 255, 0.014)";
+        const grainCount = w < 768 ? 140 : 340;
+        for (let i = 0; i < grainCount; i++) {
+            oCtx.fillRect(Math.random() * w, Math.random() * h, 1.4, 1.4);
         }
 
-        // Wooden Chalk Tray at the bottom
+        // Bottom Wooden Chalk Ledge
         const trayY = h - 22;
         const woodGrad = oCtx.createLinearGradient(0, trayY, 0, h);
         woodGrad.addColorStop(0, "#795548");
@@ -1353,14 +1568,13 @@ function resizeIframe(obj) {
         oCtx.fillStyle = woodGrad;
         oCtx.fillRect(0, trayY, w, 22);
 
-        oCtx.strokeStyle = "rgba(255, 255, 255, 0.15)";
+        oCtx.strokeStyle = "rgba(255, 255, 255, 0.16)";
         oCtx.lineWidth = 1;
         oCtx.beginPath();
         oCtx.moveTo(0, trayY);
         oCtx.lineTo(w, trayY);
         oCtx.stroke();
 
-        // Colored chalk sticks resting on the ledge
         const chalkColors = ["#ffffff", "#38bdf8", "#fb7185", "#fde047", "#4ade80"];
         for (let i = 0; i < 9; i++) {
             const cx = w * 0.14 + i * (w * 0.09);
@@ -1368,7 +1582,6 @@ function resizeIframe(obj) {
             oCtx.fillRect(cx, trayY - 3.5, 17, 3.5);
         }
 
-        // Classic felt wooden board duster
         oCtx.fillStyle = "#8d6e63";
         oCtx.fillRect(w * 0.80, trayY - 9, 34, 6);
         oCtx.fillStyle = "#37474f";
@@ -1377,198 +1590,258 @@ function resizeIframe(obj) {
         boardBuffer = off;
     }
 
-    // 10 Advanced Chemical Structures with Multi-Color Heteroatoms, Rings, Wedge/Dash & Hybridization Notes
+    // =========================================================================
+    // 10 CHEMICALLY ACCURATE IUPAC MOLECULAR STRUCTURES
+    // Supporting: 'line', 'doubleLine' (true parallel pi-bonds), 'wedge', 'hash'
+    // (stereochemical dashed wedge), 'orbital' (sp3 lone pair lobe + 2 dots),
+    // 'arc' (bond angle indicator), 'circle', and 'atom'
+    // =========================================================================
     const TEN_COMPOUNDS = [
-        // 1. Benzene (Aromatic Kekule + Delocalized pi-circle)
+        // 1. Benzene (C6H6) — Exact 120° Regular Hexagon + 3 Conjugated Kekulé Double Bonds + Delocalized Ring
         {
             name: "Benzene",
             formula: "C₆H₆",
-            note: "sp² · Aromatic 6π e⁻",
+            note: "sp² · 120° · 6π Aromatic",
+            lectureTip: "Hückel (4n+2)π = 6π delocalized electrons · All C–C bonds = 1.39 Å",
             chalkColor: "#f8fafc",
             strokes: [
-                { type: 'line', x1: 0, y1: -34, x2: 29, y2: -17 },
-                { type: 'line', x1: 29, y1: -17, x2: 29, y2: 17 },
-                { type: 'line', x1: 29, y1: 17, x2: 0, y2: 34 },
-                { type: 'line', x1: 0, y1: 34, x2: -29, y2: 17 },
-                { type: 'line', x1: -29, y1: 17, x2: -29, y2: -17 },
-                { type: 'line', x1: -29, y1: -17, x2: 0, y2: -34 },
-                { type: 'circle', x: 0, y: 0, r: 17, dashed: true, color: "#fde047" }
+                { type: 'doubleLine', x1: 0, y1: -32, x2: 28, y2: -16, offset: -3.8 },
+                { type: 'line', x1: 28, y1: -16, x2: 28, y2: 16 },
+                { type: 'doubleLine', x1: 28, y1: 16, x2: 0, y2: 32, offset: -3.8 },
+                { type: 'line', x1: 0, y1: 32, x2: -28, y2: 16 },
+                { type: 'doubleLine', x1: -28, y1: 16, x2: -28, y2: -16, offset: -3.8 },
+                { type: 'line', x1: -28, y1: -16, x2: 0, y2: -32 },
+                { type: 'circle', x: 0, y: 0, r: 12, dashed: true, color: "#fde047" }
             ]
         },
-        // 2. Caffeine (Purine Xanthine Alkaloid Bicyclic Ring!)
+        // 2. Caffeine (1,3,7-Trimethylxanthine, C8H10N4O2) — True Fused 6-5 Bicyclic Purine Ring, 2 C=O, 3 -CH3
         {
             name: "Caffeine",
             formula: "C₈H₁₀N₄O₂",
-            note: "Purine Alkaloid",
+            note: "1,3,7-Trimethylxanthine",
+            lectureTip: "Bicyclic Purine Alkaloid · 2 Amide C=O groups + 4 Planar sp² Nitrogens",
             chalkColor: "#e0f2fe",
             strokes: [
-                // 6-membered pyrimidine ring
-                { type: 'line', x1: -26, y1: -14, x2: -4, y2: -26 },
-                { type: 'line', x1: -4, y1: -26, x2: 14, y2: -14 },
-                { type: 'line', x1: 14, y1: -14, x2: 14, y2: 12 },
-                { type: 'line', x1: 14, y1: 12, x2: -4, y2: 24 },
-                { type: 'line', x1: -4, y1: 24, x2: -26, y2: 12 },
-                { type: 'line', x1: -26, y1: 12, x2: -26, y2: -14 },
+                // 6-membered pyrimidinedione ring
+                { type: 'line', x1: -24, y1: -12, x2: -4, y2: -24 },
+                { type: 'line', x1: -4, y1: -24, x2: 14, y2: -12 },
+                { type: 'doubleLine', x1: 14, y1: -12, x2: 14, y2: 10, offset: -3.5 },
+                { type: 'line', x1: 14, y1: 10, x2: -4, y2: 22 },
+                { type: 'line', x1: -4, y1: 22, x2: -24, y2: 10 },
+                { type: 'line', x1: -24, y1: 10, x2: -24, y2: -12 },
                 // Fused 5-membered imidazole ring
-                { type: 'line', x1: 14, y1: -14, x2: 34, y2: -6 },
-                { type: 'line', x1: 34, y1: -6, x2: 34, y2: 4 },
-                { type: 'line', x1: 14, y1: 12, x2: 34, y2: 4 },
-                // Carbonyls C=O in coral red
-                { type: 'line', x1: -4, y1: -26, x2: -4, y2: -37, color: "#fb7185" },
-                { type: 'atom', text: 'O', x: -4, y: -44, color: "#fb7185" },
-                { type: 'line', x1: -26, y1: 12, x2: -36, y2: 20, color: "#fb7185" },
-                { type: 'atom', text: 'O', x: -42, y: 25, color: "#fb7185" },
-                // Nitrogen heteroatoms in sky blue
-                { type: 'atom', text: 'N', x: -26, y: -14, color: "#38bdf8" },
-                { type: 'atom', text: 'N', x: 26, y: -12, color: "#38bdf8" },
-                { type: 'atom', text: 'N', x: 26, y: 10, color: "#38bdf8" }
+                { type: 'line', x1: 14, y1: -12, x2: 33, y2: -18 },
+                { type: 'line', x1: 33, y1: -18, x2: 43, y2: -1 },
+                { type: 'doubleLine', x1: 43, y1: -1, x2: 33, y2: 16, offset: -3.2, color: "#38bdf8" },
+                { type: 'line', x1: 33, y1: 16, x2: 14, y2: 10 },
+                // Exocyclic C=O double bonds (C6 and C2)
+                { type: 'doubleLine', x1: -4, y1: -24, x2: -4, y2: -36, offset: 2.2, color: "#fb7185" },
+                { type: 'atom', text: 'O', x: -4, y: -43, color: "#fb7185", small: true },
+                { type: 'doubleLine', x1: -24, y1: 10, x2: -35, y2: 17, offset: 2.2, color: "#fb7185" },
+                { type: 'atom', text: 'O', x: -42, y: 21, color: "#fb7185", small: true },
+                // 4 Nitrogen Heteroatoms & 3 Methyl (-CH3) Groups at N1, N3, N7
+                { type: 'atom', text: 'N', x: -24, y: -12, color: "#38bdf8", small: true },
+                { type: 'line', x1: -30, y1: -16, x2: -38, y2: -22 },
+                { type: 'atom', text: 'CH₃', x: -45, y: -27, color: "#fde047", small: true },
+                { type: 'atom', text: 'N', x: -4, y: 22, color: "#38bdf8", small: true },
+                { type: 'line', x1: -4, y1: 28, x2: -4, y2: 36 },
+                { type: 'atom', text: 'CH₃', x: -4, y: 43, color: "#fde047", small: true },
+                { type: 'atom', text: 'N', x: 33, y: -18, color: "#38bdf8", small: true },
+                { type: 'line', x1: 36, y1: -24, x2: 41, y2: -32 },
+                { type: 'atom', text: 'CH₃', x: 44, y: -39, color: "#fde047", small: true },
+                { type: 'atom', text: 'N', x: 33, y: 16, color: "#38bdf8", small: true }
             ]
         },
-        // 3. Aspirin (Acetylsalicylic Acid)
+        // 3. Aspirin (2-Acetoxybenzoic Acid, C9H8O4) — Explicit Ortho -C(=O)OH and -O-C(=O)CH3 Bonds
         {
             name: "Aspirin",
             formula: "C₉H₈O₄",
-            note: "Ester + -COOH",
+            note: "2-Acetoxybenzoic Acid",
+            lectureTip: "Synthesized via Esterification of Salicylic Acid + Acetic Anhydride (H₃PO₄ cat.)",
             chalkColor: "#fef08a",
             strokes: [
-                // Benzene ring
-                { type: 'line', x1: -12, y1: -26, x2: 12, y2: -14 },
-                { type: 'line', x1: 12, y1: -14, x2: 12, y2: 12 },
-                { type: 'line', x1: 12, y1: 12, x2: -12, y2: 24 },
-                { type: 'line', x1: -12, y1: 24, x2: -34, y2: 12 },
-                { type: 'line', x1: -34, y1: 12, x2: -34, y2: -14 },
-                { type: 'line', x1: -34, y1: -14, x2: -12, y2: -26 },
-                { type: 'circle', x: -11, y: -1, r: 12, dashed: true },
-                // -COOH group
-                { type: 'line', x1: 12, y1: -14, x2: 26, y2: -24 },
-                { type: 'atom', text: 'COOH', x: 38, y: -30, color: "#fb7185" },
-                // -OAc ester group
-                { type: 'line', x1: 12, y1: 12, x2: 26, y2: 20 },
-                { type: 'atom', text: 'OAc', x: 37, y: 24, color: "#38bdf8" }
+                // Kekulé Benzene Ring
+                { type: 'doubleLine', x1: -18, y1: -24, x2: 4, y2: -12, offset: -3.4 },
+                { type: 'line', x1: 4, y1: -12, x2: 4, y2: 14 },
+                { type: 'doubleLine', x1: 4, y1: 14, x2: -18, y2: 26, offset: -3.4 },
+                { type: 'line', x1: -18, y1: 26, x2: -40, y2: 14 },
+                { type: 'doubleLine', x1: -40, y1: 14, x2: -40, y2: -12, offset: -3.4 },
+                { type: 'line', x1: -40, y1: -12, x2: -18, y2: -24 },
+                // Ortho Carboxylic Acid (-C(=O)OH) at C1
+                { type: 'line', x1: 4, y1: -12, x2: 20, y2: -21 },
+                { type: 'doubleLine', x1: 20, y1: -21, x2: 20, y2: -34, offset: 2.2, color: "#fb7185" },
+                { type: 'atom', text: 'O', x: 20, y: -41, color: "#fb7185", small: true },
+                { type: 'line', x1: 20, y1: -21, x2: 33, y2: -14, color: "#fb7185" },
+                { type: 'atom', text: 'OH', x: 43, y: -11, color: "#fb7185", small: true },
+                // Ortho Ester (-O-C(=O)CH3) at C2
+                { type: 'line', x1: 4, y1: 14, x2: 16, y2: 21 },
+                { type: 'atom', text: 'O', x: 22, y: 24, color: "#38bdf8", small: true },
+                { type: 'line', x1: 28, y1: 21, x2: 38, y2: 15 },
+                { type: 'doubleLine', x1: 38, y1: 15, x2: 38, y2: 3, offset: 2.0, color: "#fb7185" },
+                { type: 'atom', text: 'O', x: 38, y: -3, color: "#fb7185", small: true },
+                { type: 'line', x1: 38, y1: 15, x2: 49, y2: 23 },
+                { type: 'atom', text: 'CH₃', x: 54, y: 30, color: "#fde047", small: true }
             ]
         },
-        // 4. Water (Dipole + Bond Angle 104.5°)
+        // 4. Water (H2O) — True VSEPR Bent 104.5° Geometry + sp3 Lone Pair Orbitals + Angle Arc
         {
             name: "Water",
             formula: "H₂O",
-            note: "Bent · 104.5° · sp³",
+            note: "Bent VSEPR · 104.5° · sp³",
+            lectureTip: "2 Bonding Pairs + 2 Lone Pairs (AX₂E₂) compress tetrahedral 109.5° → 104.5°",
             chalkColor: "#e0f2fe",
             strokes: [
-                { type: 'atom', text: 'O', x: 0, y: -12, color: "#fb7185" },
-                { type: 'line', x1: -9, y1: -4, x2: -27, y2: 16 },
-                { type: 'atom', text: 'H', x: -34, y: 25 },
-                { type: 'line', x1: 9, y1: -4, x2: 27, y2: 16 },
-                { type: 'atom', text: 'H', x: 34, y: 25 },
-                { type: 'dots', x1: -7, y1: -25, x2: -2, y2: -25, color: "#fde047" },
-                { type: 'dots', x1: 2, y1: -25, x2: 7, y2: -25, color: "#fde047" },
-                { type: 'atom', text: '104.5°', x: 0, y: 14, color: "#fde047", small: true }
+                { type: 'orbital', x: 0, y: -8, angle: -2.1, color: "#fde047" },
+                { type: 'orbital', x: 0, y: -8, angle: -1.04, color: "#fde047" },
+                { type: 'atom', text: 'O', x: 0, y: -6, color: "#fb7185" },
+                { type: 'line', x1: -8, y1: 1, x2: -28, y2: 20 },
+                { type: 'atom', text: 'H', x: -35, y: 27 },
+                { type: 'line', x1: 8, y1: 1, x2: 28, y2: 20 },
+                { type: 'atom', text: 'H', x: 35, y: 27 },
+                { type: 'arc', x: 0, y: -6, r: 19, startAngle: 0.72, endAngle: 2.42, color: "#38bdf8" },
+                { type: 'atom', text: '104.5°', x: 0, y: 24, color: "#38bdf8", small: true }
             ]
         },
-        // 5. Acetic Acid (Carboxylic Dimer / Carbonyl)
+        // 5. Acetic Acid (CH3COOH) — True 120° Trigonal Planar Carbonyl Carbon + Lone Pairs
         {
             name: "Acetic Acid",
             formula: "CH₃COOH",
-            note: "pKa = 4.76 · Weak Acid",
+            note: "Ethanoic Acid · pKa 4.76",
+            lectureTip: "Carbonyl carbon is sp² planar (120°) · Forms cyclic H-bonded dimers",
             chalkColor: "#fde68a",
             strokes: [
-                { type: 'atom', text: 'H₃C', x: -32, y: 12 },
-                { type: 'line', x1: -16, y1: 6, x2: 0, y2: -6 },
-                { type: 'atom', text: 'C', x: 4, y: -6 },
-                { type: 'line', x1: 2, y1: -15, x2: 2, y2: -28, color: "#fb7185" },
-                { type: 'line', x1: 6, y1: -15, x2: 6, y2: -28, color: "#fb7185" },
-                { type: 'atom', text: 'O', x: 4, y: -36, color: "#fb7185" },
-                { type: 'line', x1: 12, y1: -2, x2: 24, y2: 10 },
-                { type: 'atom', text: 'OH', x: 36, y: 16, color: "#fb7185" }
+                { type: 'atom', text: 'H₃C', x: -30, y: 12 },
+                { type: 'line', x1: -15, y1: 7, x2: 2, y2: -3 },
+                { type: 'atom', text: 'C', x: 6, y: -5 },
+                { type: 'doubleLine', x1: 6, y1: -14, x2: 6, y2: -29, offset: 2.3, color: "#fb7185" },
+                { type: 'atom', text: 'O', x: 6, y: -37, color: "#fb7185" },
+                { type: 'line', x1: 13, y1: -1, x2: 27, y2: 9, color: "#fb7185" },
+                { type: 'atom', text: 'OH', x: 38, y: 14, color: "#fb7185" }
             ]
         },
-        // 6. Congo Red Diazo Chromophore (-N=N- Direct Dye)
+        // 6. Dopamine (C8H11NO2) — Catechol Ring + Ethylamine Side Chain (100% True Skeletal Structure)
         {
-            name: "Congo Red",
-            formula: "C₃₂H₂₂N₆Na₂O₆S₂",
-            note: "Diazo -N=N- Direct Dye",
+            name: "Dopamine",
+            formula: "C₈H₁₁NO₂",
+            note: "Catecholamine Neurotransmitter",
+            lectureTip: "4-(2-Aminoethyl)benzene-1,2-diol · Electroactive catechol oxidizes to o-quinone (+2e⁻, +2H⁺)",
             chalkColor: "#fca5a5",
             strokes: [
-                { type: 'atom', text: 'Ar', x: -38, y: 6 },
-                { type: 'line', x1: -26, y1: 4, x2: -14, y2: -6 },
-                { type: 'atom', text: 'N', x: -8, y: -8, color: "#38bdf8" },
-                { type: 'line', x1: -2, y1: -10, x2: 8, y2: -10, color: "#38bdf8" },
-                { type: 'line', x1: -2, y1: -6, x2: 8, y2: -6, color: "#38bdf8" },
-                { type: 'atom', text: 'N', x: 14, y: -8, color: "#38bdf8" },
-                { type: 'line', x1: 20, y1: -6, x2: 30, y2: 6 },
-                { type: 'atom', text: 'SO₃⁻Na⁺', x: 24, y: 20, color: "#fde047", small: true }
+                // Benzene ring
+                { type: 'doubleLine', x1: -24, y1: -18, x2: -6, y2: -28, offset: -3.2 },
+                { type: 'line', x1: -6, y1: -28, x2: 12, y2: -18 },
+                { type: 'doubleLine', x1: 12, y1: -18, x2: 12, y2: 4, offset: -3.2 },
+                { type: 'line', x1: 12, y1: 4, x2: -6, y2: 14 },
+                { type: 'doubleLine', x1: -6, y1: 14, x2: -24, y2: 4, offset: -3.2 },
+                { type: 'line', x1: -24, y1: 4, x2: -24, y2: -18 },
+                // Two Catechol -OH groups
+                { type: 'line', x1: -24, y1: -18, x2: -35, y2: -24, color: "#fb7185" },
+                { type: 'atom', text: 'HO', x: -45, y: -27, color: "#fb7185", small: true },
+                { type: 'line', x1: -24, y1: 4, x2: -35, y2: 10, color: "#fb7185" },
+                { type: 'atom', text: 'HO', x: -45, y: 13, color: "#fb7185", small: true },
+                // Ethylamine chain (-CH2-CH2-NH2)
+                { type: 'line', x1: 12, y1: 4, x2: 26, y2: 13 },
+                { type: 'line', x1: 26, y1: 13, x2: 40, y2: 4 },
+                { type: 'line', x1: 40, y1: 4, x2: 50, y2: 10, color: "#38bdf8" },
+                { type: 'atom', text: 'NH₂', x: 54, y: 18, color: "#38bdf8", small: true }
             ]
         },
-        // 7. Paracetamol (Acetaminophen)
+        // 7. Paracetamol (N-(4-hydroxyphenyl)acetamide, C8H9NO2) — Explicit Amide C=O & Phenol OH
         {
             name: "Paracetamol",
             formula: "C₈H₉NO₂",
             note: "p-Acetamidophenol",
+            lectureTip: "Synthesized by acetylation of p-aminophenol · Strong amide C=O IR peak at ~1650 cm⁻¹",
             chalkColor: "#f8fafc",
             strokes: [
-                { type: 'atom', text: 'HO', x: -42, y: 0, color: "#fb7185" },
-                { type: 'line', x1: -28, y1: 0, x2: -16, y2: 0 },
-                { type: 'line', x1: -16, y1: 0, x2: -6, y2: -16 },
-                { type: 'line', x1: -6, y1: -16, x2: 12, y2: -16 },
-                { type: 'line', x1: 12, y1: -16, x2: 22, y2: 0 },
-                { type: 'line', x1: 22, y1: 0, x2: 12, y2: 16 },
-                { type: 'line', x1: 12, y1: 16, x2: -6, y2: 16 },
-                { type: 'line', x1: -6, y1: 16, x2: -16, y2: 0 },
-                { type: 'circle', x: 3, y: 0, r: 10, dashed: true },
-                { type: 'line', x1: 22, y1: 0, x2: 32, y2: 0, color: "#38bdf8" },
-                { type: 'atom', text: 'NHAc', x: 44, y: 0, color: "#38bdf8", small: true }
+                { type: 'atom', text: 'HO', x: -46, y: 2, color: "#fb7185", small: true },
+                { type: 'line', x1: -35, y1: 2, x2: -24, y2: 2, color: "#fb7185" },
+                // Para-substituted Benzene Ring
+                { type: 'doubleLine', x1: -24, y1: 2, x2: -14, y2: -14, offset: -3.2 },
+                { type: 'line', x1: -14, y1: -14, x2: 6, y2: -14 },
+                { type: 'doubleLine', x1: 6, y1: -14, x2: 16, y2: 2, offset: -3.2 },
+                { type: 'line', x1: 16, y1: 2, x2: 6, y2: 18 },
+                { type: 'doubleLine', x1: 6, y1: 18, x2: -14, y2: 18, offset: -3.2 },
+                { type: 'line', x1: -14, y1: 18, x2: -24, y2: 2 },
+                // Explicit Amide (-NH-C(=O)-CH3)
+                { type: 'line', x1: 16, y1: 2, x2: 26, y2: 2, color: "#38bdf8" },
+                { type: 'atom', text: 'NH', x: 33, y: 2, color: "#38bdf8", small: true },
+                { type: 'line', x1: 39, y1: -3, x2: 47, y2: -12 },
+                { type: 'doubleLine', x1: 47, y1: -12, x2: 47, y2: -24, offset: 2.0, color: "#fb7185" },
+                { type: 'atom', text: 'O', x: 47, y: -31, color: "#fb7185", small: true },
+                { type: 'line', x1: 47, y1: -12, x2: 57, y2: -6 },
+                { type: 'atom', text: 'CH₃', x: 58, y: 4, color: "#fde047", small: true }
             ]
         },
-        // 8. Ammonia (Trigonal Pyramidal + Lone Pair)
+        // 8. Ammonia (NH3) — True 3D Trigonal Pyramidal Cram Projection (Solid Wedge + Hashed Bond + sp3 Orbital)
         {
             name: "Ammonia",
             formula: "NH₃",
-            note: "Pyramidal · 107.3°",
+            note: "Trigonal Pyramidal · 107.3°",
+            lectureTip: "AX₃E VSEPR geometry · sp³ lone pair lobe givesNH₃ its Lewis base & ligand character",
             chalkColor: "#bbf7d0",
             strokes: [
-                { type: 'atom', text: 'N', x: 0, y: -12, color: "#38bdf8" },
-                { type: 'dots', x1: -3, y1: -25, x2: 3, y2: -25, color: "#fde047" },
-                { type: 'line', x1: -9, y1: -3, x2: -25, y2: 16 },
-                { type: 'atom', text: 'H', x: -32, y: 24 },
-                { type: 'wedge', x1: 0, y1: -2, x2: 0, y2: 19 },
-                { type: 'atom', text: 'H', x: 0, y: 29 },
-                { type: 'line', x1: 9, y1: -3, x2: 25, y2: 16 },
-                { type: 'atom', text: 'H', x: 32, y: 24 }
+                { type: 'orbital', x: 0, y: -10, angle: -Math.PI / 2, color: "#fde047" },
+                { type: 'atom', text: 'N', x: 0, y: -5, color: "#38bdf8" },
+                { type: 'line', x1: -9, y1: 1, x2: -28, y2: 16 },
+                { type: 'atom', text: 'H', x: -35, y: 22 },
+                { type: 'wedge', x1: -1, y1: 3, x2: -6, y2: 24, color: "#ffffff" },
+                { type: 'atom', text: 'H', x: -8, y: 33 },
+                { type: 'hash', x1: 8, y1: 1, x2: 28, y2: 18, color: "#bae6fd" },
+                { type: 'atom', text: 'H', x: 35, y: 24 },
+                { type: 'atom', text: '107.3°', x: 18, y: 33, color: "#fde047", small: true }
             ]
         },
-        // 9. Cyclohexane Chair Conformation
+        // 9. Cyclohexane (C6H12) — Accurate 3D Chair Conformation + Color-Coded Axial & Equatorial Bonds
         {
             name: "Cyclohexane",
             formula: "C₆H₁₂",
-            note: "Chair · Axial/Equatorial",
+            note: "3D Chair · Zero Ring Strain",
+            lectureTip: "All C–C–C angles = 109.5° (sp³) · Staggered conformation eliminates torsional & Baeyer strain",
             chalkColor: "#fef08a",
             strokes: [
-                { type: 'line', x1: -34, y1: 10, x2: -14, y2: -14 },
-                { type: 'line', x1: -14, y1: -14, x2: 12, y2: -4 },
-                { type: 'line', x1: 12, y1: -4, x2: 34, y2: -16 },
-                { type: 'line', x1: 34, y1: -16, x2: 14, y2: 14 },
-                { type: 'line', x1: 14, y1: 14, x2: -12, y2: 4 },
-                { type: 'line', x1: -12, y1: 4, x2: -34, y2: 10 },
-                // Axial bonds highlighted
-                { type: 'line', x1: -14, y1: -14, x2: -14, y2: -30, color: "#38bdf8" },
-                { type: 'line', x1: 34, y1: -16, x2: 34, y2: -32, color: "#38bdf8" }
+                // Chair 6-carbon ring (parallel opposite bonds!)
+                { type: 'line', x1: -36, y1: 10, x2: -15, y2: -12 },
+                { type: 'line', x1: -15, y1: -12, x2: 11, y2: -3 },
+                { type: 'line', x1: 11, y1: -3, x2: 36, y2: -12 },
+                { type: 'line', x1: 36, y1: -12, x2: 15, y2: 10 },
+                { type: 'line', x1: 15, y1: 10, x2: -11, y2: 1 },
+                { type: 'line', x1: -11, y1: 1, x2: -36, y2: 10 },
+                // Axial C-H Bonds (Vertical in Sky Blue)
+                { type: 'line', x1: -15, y1: -12, x2: -15, y2: -28, color: "#38bdf8" },
+                { type: 'line', x1: 36, y1: -12, x2: 36, y2: -28, color: "#38bdf8" },
+                { type: 'line', x1: -36, y1: 10, x2: -36, y2: 26, color: "#38bdf8" },
+                { type: 'line', x1: 15, y1: 10, x2: 15, y2: 26, color: "#38bdf8" },
+                // Equatorial C-H Bonds (Coral Red)
+                { type: 'line', x1: 36, y1: -12, x2: 49, y2: -6, color: "#fb7185" },
+                { type: 'line', x1: -36, y1: 10, x2: -49, y2: 4, color: "#fb7185" }
             ]
         },
-        // 10. Glucose (Haworth Pyranose Ring)
+        // 10. alpha-D-Glucopyranose (C6H12O6) — Accurate Haworth Projection with Stereo -OH & -CH2OH
         {
-            name: "Glucose",
+            name: "α-D-Glucose",
             formula: "C₆H₁₂O₆",
-            note: "α-D-Glucopyranose",
+            note: "Haworth Pyranose Ring",
+            lectureTip: "Anomeric C1 –OH is trans (down) to C5 –CH₂OH · Mutarotates in water between α (36%) & β (64%)",
             chalkColor: "#e0f2fe",
             strokes: [
-                { type: 'atom', text: 'O', x: 16, y: -20, color: "#fb7185" },
-                { type: 'line', x1: 23, y1: -13, x2: 32, y2: 2 },
-                { type: 'line', x1: 32, y1: 2, x2: 16, y2: 18 },
-                { type: 'line', x1: 16, y1: 18, x2: -16, y2: 18 },
-                { type: 'line', x1: -16, y1: 18, x2: -32, y2: 2 },
-                { type: 'line', x1: -32, y1: 2, x2: -16, y2: -20 },
-                { type: 'line', x1: -16, y1: -20, x2: 7, y2: -20 },
-                { type: 'line', x1: -16, y1: -20, x2: -16, y2: -32 },
-                { type: 'atom', text: 'CH₂OH', x: -16, y: -39, color: "#fb7185", small: true }
+                // 6-membered Pyranose Ring with Oxygen at top-right
+                { type: 'atom', text: 'O', x: 16, y: -18, color: "#fb7185", small: true },
+                { type: 'line', x1: 22, y1: -12, x2: 34, y2: 2 },
+                { type: 'wedge', x1: 34, y1: 2, x2: 18, y2: 18, color: "#ffffff" },
+                { type: 'line', x1: 18, y1: 18, x2: -18, y2: 18 },
+                { type: 'wedge', x1: -34, y1: 2, x2: -18, y2: 18, color: "#ffffff" },
+                { type: 'line', x1: -34, y1: 2, x2: -18, y2: -18 },
+                { type: 'line', x1: -18, y1: -18, x2: 9, y2: -18 },
+                // C5 -CH2OH group pointing UP
+                { type: 'line', x1: -18, y1: -18, x2: -18, y2: -31 },
+                { type: 'atom', text: 'CH₂OH', x: -18, y: -38, color: "#fde047", small: true },
+                // Stereospecific Axial/Vertical -OH groups (C1 down, C2 down, C3 up, C4 down)
+                { type: 'line', x1: 34, y1: 2, x2: 34, y2: 16, color: "#fb7185" },
+                { type: 'atom', text: 'OH', x: 38, y: 23, color: "#fb7185", small: true },
+                { type: 'line', x1: 18, y1: 18, x2: 18, y2: 30, color: "#fb7185" },
+                { type: 'line', x1: -18, y1: 18, x2: -18, y2: 6, color: "#38bdf8" },
+                { type: 'line', x1: -34, y1: 2, x2: -34, y2: 16, color: "#fb7185" }
             ]
         }
     ];
@@ -1578,17 +1851,15 @@ function resizeIframe(obj) {
     let slotInBatch = 0;
     let boardSlots = [];
 
-    // Phases: 'WALKING' -> 'THINKING' -> 'DRAWING_MOL' -> 'WRITING_NAME' -> 'NEXT_PAUSE' -> 'LECTURING' -> 'ERASING'
     let phase = 'WALKING';
     let pauseTimer = 0;
     let lectureIdx = 0;
     let eraseSweepX = 0;
     let chalkDust = [];
-    let burnerSparks = [];
 
     function setupBoardSlots() {
-        scale = cw < 600 ? 0.60 : cw < 960 ? 0.80 : 1;
-        const marginX = Math.max(70 * scale, cw * 0.13);
+        scale = cw < 600 ? 0.58 : cw < 960 ? 0.78 : 1;
+        const marginX = Math.max(72 * scale, cw * 0.125);
         const usableW = cw - marginX * 2;
         const stepX = usableW / (PER_BATCH - 1);
 
@@ -1596,7 +1867,7 @@ function resizeIframe(obj) {
         boardSlots = [];
         for (let i = 0; i < PER_BATCH; i++) {
             const comp = TEN_COMPOUNDS[startIdx + i];
-            const centerY = (ch * 0.39) + (i % 2 === 0 ? -12 * scale : 8 * scale);
+            const centerY = (ch * 0.42) + (i % 2 === 0 ? -10 * scale : 8 * scale);
             boardSlots.push({
                 x: marginX + i * stepX,
                 y: centerY,
@@ -1611,7 +1882,8 @@ function resizeIframe(obj) {
 
     function resizeBoard() {
         const rect = section.getBoundingClientRect();
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const isMobile = window.innerWidth < 768;
+        const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.25 : 2);
         cw = rect.width;
         ch = rect.height;
         canvas.width = cw * dpr;
@@ -1624,62 +1896,77 @@ function resizeIframe(obj) {
 
     window.addEventListener('resize', resizeBoard, { passive: true });
 
-    // Interactive Hover & Click on Drawn Chalkboard Molecules!
-    canvas.addEventListener('mousemove', e => {
-        const rect = canvas.getBoundingClientRect();
-        const mx = e.clientX - rect.left;
-        const my = e.clientY - rect.top;
-        hoveredSlot = null;
+    function findSlotAtPoint(mx, my) {
+        const hitRadius = (window.innerWidth < 768 ? 64 : 54) * scale;
         for (const s of boardSlots) {
             if (!s.erased && s.drawnStrokes > 0) {
-                if (Math.hypot(mx - s.x, my - s.y) < 52 * scale) {
-                    hoveredSlot = s;
-                    break;
+                if (Math.hypot(mx - s.x, my - s.y) < hitRadius) {
+                    return s;
                 }
             }
         }
+        return null;
+    }
+
+    canvas.addEventListener('mousemove', e => {
+        const rect = canvas.getBoundingClientRect();
+        hoveredSlot = findSlotAtPoint(e.clientX - rect.left, e.clientY - rect.top);
         canvas.style.cursor = hoveredSlot ? 'pointer' : 'default';
     }, { passive: true });
 
-    canvas.addEventListener('click', () => {
-        if (hoveredSlot && hoveredSlot.compound) {
-            const compName = hoveredSlot.compound.name;
+    function triggerSlotInspect(slot) {
+        if (slot && slot.compound) {
+            const compName = slot.compound.name.replace('α-D-', '');
             document.getElementById('tora-proactive-bubble')?.classList.remove('show');
             document.getElementById('tora-chat-panel')?.classList.add('show');
             chatOpened = true;
             playRobotSound('open');
             processUserQuestion(`Structure of ${compName}`);
         }
+    }
+
+    canvas.addEventListener('click', e => {
+        const rect = canvas.getBoundingClientRect();
+        const slot = hoveredSlot || findSlotAtPoint(e.clientX - rect.left, e.clientY - rect.top);
+        triggerSlotInspect(slot);
     });
 
+    canvas.addEventListener('touchstart', e => {
+        if (!e.touches || !e.touches[0]) return;
+        const rect = canvas.getBoundingClientRect();
+        const touch = e.touches[0];
+        const slot = findSlotAtPoint(touch.clientX - rect.left, touch.clientY - rect.top);
+        if (slot) {
+            hoveredSlot = slot;
+            triggerSlotInspect(slot);
+        }
+    }, { passive: true });
+
     function spawnChalkDust(x, y, color) {
-        if (chalkDust.length > 48) return;
+        const maxParticles = window.innerWidth < 768 ? 24 : 52;
+        if (chalkDust.length > maxParticles) return;
         chalkDust.push({
             x: x + (Math.random() - 0.5) * 4,
             y: y + (Math.random() - 0.5) * 4,
-            vx: (Math.random() - 0.5) * 0.6,
-            vy: Math.random() * 0.8 + 0.3,
+            vx: (Math.random() - 0.5) * 0.65,
+            vy: Math.random() * 0.85 + 0.3,
             r: Math.random() * 1.6 + 0.6,
             color: color || "#ffffff",
-            alpha: 0.78
+            alpha: 0.8
         });
     }
 
-    // Draw Live Lab Apparatus on the Chalkboard Ledge (Bunsen Burner + Flask + Test Tube Rack)
     function drawLabBenchApparatus(ctx, now) {
         const sc = Math.max(0.65, scale);
         const trayY = ch - 22;
 
-        // 1. Left Side: Bunsen Burner + Animated Flame + Round Flask on Stand
         const bx = 38 * sc;
         ctx.save();
-        // Burner base & chimney
         ctx.fillStyle = "#64748b";
         ctx.fillRect(bx - 10 * sc, trayY - 4 * sc, 20 * sc, 4 * sc);
         ctx.fillStyle = "#94a3b8";
         ctx.fillRect(bx - 3 * sc, trayY - 22 * sc, 6 * sc, 18 * sc);
 
-        // Flickering Bunsen Flame (Outer amber/violet + Inner cyan cone)
         const flick = Math.sin(now * 0.025) * 2 * sc;
         const outerGrad = ctx.createRadialGradient(bx, trayY - 28 * sc, 1, bx, trayY - 30 * sc, 12 * sc);
         outerGrad.addColorStop(0, "rgba(0, 255, 204, 0.95)");
@@ -1692,7 +1979,6 @@ function resizeIframe(obj) {
         ctx.quadraticCurveTo(bx + 7 * sc, trayY - 34 * sc, bx + 6 * sc, trayY - 22 * sc);
         ctx.fill();
 
-        // Tripod stand & Boiling Flask above flame
         ctx.strokeStyle = "#475569";
         ctx.lineWidth = 1.5 * sc;
         ctx.beginPath();
@@ -1702,7 +1988,6 @@ function resizeIframe(obj) {
         ctx.lineTo(bx + 14 * sc, trayY);
         ctx.stroke();
 
-        // Flask with boiling emerald liquid
         ctx.fillStyle = "rgba(16, 185, 129, 0.55)";
         ctx.strokeStyle = "rgba(255, 255, 255, 0.7)";
         ctx.beginPath();
@@ -1711,12 +1996,11 @@ function resizeIframe(obj) {
         ctx.stroke();
         ctx.strokeRect(bx - 3 * sc, trayY - 62 * sc, 6 * sc, 6 * sc);
 
-        // 2. Right Side: Analytical Test Tube Rack with Colored Reagents
         const rx = cw - 48 * sc;
         ctx.fillStyle = "#5d4037";
         ctx.fillRect(rx - 18 * sc, trayY - 18 * sc, 36 * sc, 3 * sc);
         ctx.fillRect(rx - 18 * sc, trayY - 4 * sc, 36 * sc, 4 * sc);
-        const tubeColors = ["#38bdf8", "#a855f7", "#fb923c"]; // CuSO4, KMnO4, K2Cr2O7
+        const tubeColors = ["#38bdf8", "#a855f7", "#fb923c"];
         for (let i = 0; i < 3; i++) {
             const tx = rx - 10 * sc + i * 10 * sc;
             ctx.fillStyle = tubeColors[i];
@@ -1728,6 +2012,7 @@ function resizeIframe(obj) {
         ctx.restore();
     }
 
+    // Advanced Chalk Stroke Renderer with Double Bonds, Stereo Wedges/Hashes, Lone-Pair Orbitals & Arcs
     function drawChalkStroke(ctx, cx, cy, stroke, prog, defaultColor, sc) {
         ctx.save();
         const col = stroke.color || defaultColor;
@@ -1742,53 +2027,137 @@ function resizeIframe(obj) {
             const x2 = cx + (stroke.x1 + (stroke.x2 - stroke.x1) * prog) * sc;
             const y2 = cy + (stroke.y1 + (stroke.y2 - stroke.y1) * prog) * sc;
 
-            ctx.globalAlpha = 0.9;
-            ctx.lineWidth = 2.6 * sc;
+            ctx.globalAlpha = 0.92;
+            ctx.lineWidth = 2.4 * sc;
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
             ctx.stroke();
 
-            ctx.globalAlpha = 0.24;
-            ctx.lineWidth = 4.6 * sc;
+            ctx.globalAlpha = 0.22;
+            ctx.lineWidth = 4.4 * sc;
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
             ctx.stroke();
-        } else if (stroke.type === 'wedge') {
+
+        } else if (stroke.type === 'doubleLine') {
+            const dx = stroke.x2 - stroke.x1;
+            const dy = stroke.y2 - stroke.y1;
+            const len = Math.hypot(dx, dy) || 1;
+            const nx = (-dy / len) * (stroke.offset || 3.2) * sc;
+            const ny = (dx / len) * (stroke.offset || 3.2) * sc;
+
             const x1 = cx + stroke.x1 * sc;
             const y1 = cy + stroke.y1 * sc;
-            const x2 = cx + (stroke.x1 + (stroke.x2 - stroke.x1) * prog) * sc;
-            const y2 = cy + (stroke.y1 + (stroke.y2 - stroke.y1) * prog) * sc;
-            ctx.globalAlpha = 0.9;
+            const x2 = cx + (stroke.x1 + dx * prog) * sc;
+            const y2 = cy + (stroke.y1 + dy * prog) * sc;
+
+            ctx.globalAlpha = 0.92;
+            ctx.lineWidth = 2.2 * sc;
             ctx.beginPath();
             ctx.moveTo(x1, y1);
-            ctx.lineTo(x2 - 3.5 * sc, y2);
-            ctx.lineTo(x2 + 3.5 * sc, y2);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+
+            // Inner conjugated pi-bond (slightly shorter for authentic Kekulé ring look)
+            const shrink = Math.abs(stroke.offset || 0) > 3 ? 0.14 : 0;
+            const sx1 = cx + (stroke.x1 + dx * shrink) * sc + nx;
+            const sy1 = cy + (stroke.y1 + dy * shrink) * sc + ny;
+            const sx2 = cx + (stroke.x1 + dx * (shrink + (1 - shrink * 2) * prog)) * sc + nx;
+            const sy2 = cy + (stroke.y1 + dy * (shrink + (1 - shrink * 2) * prog)) * sc + ny;
+
+            ctx.beginPath();
+            ctx.moveTo(sx1, sy1);
+            ctx.lineTo(sx2, sy2);
+            ctx.stroke();
+
+        } else if (stroke.type === 'wedge') {
+            const dx = (stroke.x2 - stroke.x1) * prog;
+            const dy = (stroke.y2 - stroke.y1) * prog;
+            const len = Math.hypot(dx, dy) || 1;
+            const px = (-dy / len) * 3.8 * sc;
+            const py = (dx / len) * 3.8 * sc;
+
+            const x1 = cx + stroke.x1 * sc;
+            const y1 = cy + stroke.y1 * sc;
+            const x2 = cx + (stroke.x1 + dx) * sc;
+            const y2 = cy + (stroke.y1 + dy) * sc;
+
+            ctx.globalAlpha = 0.92;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2 + px, y2 + py);
+            ctx.lineTo(x2 - px, y2 - py);
             ctx.closePath();
             ctx.fill();
+
+        } else if (stroke.type === 'hash') {
+            // Dashed stereochemical bond going away from viewer
+            const steps = Math.max(1, Math.floor(5 * prog));
+            const dx = stroke.x2 - stroke.x1;
+            const dy = stroke.y2 - stroke.y1;
+            const len = Math.hypot(dx, dy) || 1;
+            const px = -dy / len;
+            const py = dx / len;
+
+            ctx.globalAlpha = 0.9;
+            ctx.lineWidth = 1.6 * sc;
+            for (let i = 1; i <= steps; i++) {
+                const f = i / 5;
+                const hx = cx + (stroke.x1 + dx * f) * sc;
+                const hy = cy + (stroke.y1 + dy * f) * sc;
+                const w = (1.2 + f * 2.8) * sc;
+                ctx.beginPath();
+                ctx.moveTo(hx - px * w, hy - py * w);
+                ctx.lineTo(hx + px * w, hy + py * w);
+                ctx.stroke();
+            }
+
+        } else if (stroke.type === 'orbital') {
+            // sp3 Lone-Pair Orbital Lobe + 2 Electron Dots
+            ctx.save();
+            ctx.translate(cx + stroke.x * sc, cy + stroke.y * sc);
+            ctx.rotate(stroke.angle || 0);
+            ctx.globalAlpha = 0.35 * prog;
+            ctx.lineWidth = 1.3 * sc;
+            ctx.beginPath();
+            ctx.ellipse(12 * sc, 0, 8 * sc, 4.5 * sc, 0, 0, Math.PI * 2);
+            ctx.stroke();
+
+            ctx.globalAlpha = 0.95 * prog;
+            ctx.beginPath();
+            ctx.arc(13 * sc, -2 * sc, 1.6 * sc, 0, Math.PI * 2);
+            ctx.arc(13 * sc, 2 * sc, 1.6 * sc, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+
+        } else if (stroke.type === 'arc') {
+            ctx.globalAlpha = 0.75;
+            ctx.lineWidth = 1.4 * sc;
+            ctx.setLineDash([2 * sc, 2 * sc]);
+            const endA = stroke.startAngle + (stroke.endAngle - stroke.startAngle) * prog;
+            ctx.beginPath();
+            ctx.arc(cx + stroke.x * sc, cy + stroke.y * sc, stroke.r * sc, stroke.startAngle, endA);
+            ctx.stroke();
+
         } else if (stroke.type === 'circle') {
             ctx.globalAlpha = 0.78;
-            ctx.lineWidth = 2 * sc;
+            ctx.lineWidth = 1.8 * sc;
             if (stroke.dashed) ctx.setLineDash([3 * sc, 3 * sc]);
             ctx.beginPath();
             ctx.arc(cx + stroke.x * sc, cy + stroke.y * sc, stroke.r * sc, 0, Math.PI * 2 * prog);
             ctx.stroke();
+
         } else if (stroke.type === 'atom') {
             const ax = cx + stroke.x * sc;
             const ay = cy + stroke.y * sc;
             ctx.globalAlpha = Math.min(1, prog * 1.2);
-            const fSize = stroke.small ? 10.5 : 13.5;
-            ctx.font = `600 ${Math.round(fSize * sc)}px 'Space Grotesk', sans-serif`;
+            const fSize = stroke.small ? 9.8 : 13;
+            ctx.font = `700 ${Math.round(fSize * sc)}px 'Space Grotesk', sans-serif`;
             ctx.textAlign = "center";
             ctx.textBaseline = "middle";
             ctx.fillText(stroke.text, ax, ay);
-        } else if (stroke.type === 'dots') {
-            ctx.globalAlpha = Math.min(1, prog * 1.2);
-            ctx.beginPath();
-            ctx.arc(cx + stroke.x1 * sc, cy + stroke.y1 * sc, 1.9 * sc, 0, Math.PI * 2);
-            ctx.arc(cx + stroke.x2 * sc, cy + stroke.y2 * sc, 1.9 * sc, 0, Math.PI * 2);
-            ctx.fill();
         }
         ctx.restore();
     }
@@ -1801,24 +2170,22 @@ function resizeIframe(obj) {
             const st = comp.strokes[slot.drawnStrokes];
             if (!st) return { x: slot.x, y: slot.y };
             const p = slot.currentStrokeProg;
-            if (st.type === 'line' || st.type === 'wedge') {
+            if (st.type === 'line' || st.type === 'doubleLine' || st.type === 'wedge' || st.type === 'hash') {
                 return {
                     x: slot.x + (st.x1 + (st.x2 - st.x1) * p) * sc,
                     y: slot.y + (st.y1 + (st.y2 - st.y1) * p) * sc
                 };
-            } else if (st.type === 'circle') {
+            } else if (st.type === 'circle' || st.type === 'arc') {
                 const ang = p * Math.PI * 2;
                 return {
                     x: slot.x + (st.x + Math.cos(ang) * st.r) * sc,
                     y: slot.y + (st.y + Math.sin(ang) * st.r) * sc
                 };
-            } else if (st.type === 'atom') {
+            } else if (st.type === 'atom' || st.type === 'orbital') {
                 return {
-                    x: slot.x + st.x * sc + Math.sin(p * Math.PI * 4) * 4 * sc,
-                    y: slot.y + st.y * sc + Math.cos(p * Math.PI * 4) * 3 * sc
+                    x: slot.x + st.x * sc + Math.sin(p * Math.PI * 4) * 3.5 * sc,
+                    y: slot.y + st.y * sc + Math.cos(p * Math.PI * 4) * 2.5 * sc
                 };
-            } else {
-                return { x: slot.x + st.x1 * sc, y: slot.y + st.y1 * sc };
             }
         } else if (phase === 'WRITING_NAME') {
             const labelW = 90 * sc;
@@ -1829,7 +2196,6 @@ function resizeIframe(obj) {
         return { x: slot.x, y: slot.y };
     }
 
-    // --- Ultra-Advanced Multi-Jointed Chemistry Professor Character ---
     const professor = {
         x: 90,
         y: floorY,
@@ -1847,13 +2213,13 @@ function resizeIframe(obj) {
         update(dt) {
             this.y = floorY;
             const dx = this.targetX - this.x;
-            const speed = (phase === 'ERASING' ? 5.2 : 2.35) * Math.max(0.75, scale) * dt;
+            const speed = (phase === 'ERASING' ? 5.4 : 2.5) * Math.max(0.75, scale) * dt;
 
             if (Math.abs(dx) > 3) {
                 this.isWalking = true;
                 this.facing = dx > 0 ? 1 : -1;
                 this.x += Math.sign(dx) * Math.min(Math.abs(dx), speed);
-                this.walkCycle += 0.125 * dt;
+                this.walkCycle += 0.13 * dt;
             } else {
                 this.isWalking = false;
                 this.walkCycle += 0.04 * dt;
@@ -1869,13 +2235,13 @@ function resizeIframe(obj) {
 
             ctx.save();
 
-            // 1. Floor Shadow
-            ctx.fillStyle = "rgba(0, 0, 0, 0.48)";
+            // Floor shadow
+            ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
             ctx.beginPath();
             ctx.ellipse(baseX, this.y - 2, 28 * sc, 5.5 * sc, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // 2-Bone Articulated Legs (Thigh + Knee + Calf + Oxford Shoe)
+            // 2-Bone Articulated Legs
             const drawArticulatedLeg = (offsetX, phaseShift, trouserCol) => {
                 const hipAngle = this.isWalking ? Math.sin(t + phaseShift) * 0.42 : 0;
                 const kneeBend = this.isWalking ? Math.max(0, Math.sin(t + phaseShift - 0.7)) * 0.55 : 0;
@@ -1884,20 +2250,17 @@ function resizeIframe(obj) {
                 ctx.translate(baseX + offsetX * sc, baseY - 38 * sc);
                 ctx.rotate(hipAngle * this.facing);
 
-                // Thigh
                 ctx.fillStyle = trouserCol;
                 ctx.beginPath();
                 ctx.roundRect(-5 * sc, 0, 10 * sc, 18 * sc, 4 * sc);
                 ctx.fill();
 
-                // Knee & Lower Calf
                 ctx.translate(0, 16 * sc);
                 ctx.rotate(kneeBend * this.facing);
                 ctx.beginPath();
                 ctx.roundRect(-4.5 * sc, 0, 9 * sc, 18 * sc, 3 * sc);
                 ctx.fill();
 
-                // Leather Oxford Shoe with sole highlight
                 ctx.fillStyle = "#1c1917";
                 ctx.beginPath();
                 ctx.roundRect(this.facing > 0 ? -4 * sc : -11 * sc, 15 * sc, 15 * sc, 6.5 * sc, 3 * sc);
@@ -1908,7 +2271,7 @@ function resizeIframe(obj) {
             drawArticulatedLeg(-3 * this.facing, 0, "#1e293b");
             drawArticulatedLeg(3 * this.facing, Math.PI, "#334155");
 
-            // 2. Left Arm (Holds Bubbling Erlenmeyer Flask / Organic Chemistry Book)
+            // Left Arm holding Red Organic Chemistry Reference Book
             ctx.save();
             ctx.translate(baseX - 7 * this.facing * sc, baseY - 78 * sc);
             ctx.rotate((this.isWalking ? Math.sin(t + Math.PI) * 0.24 : 0.22) * this.facing);
@@ -1917,7 +2280,6 @@ function resizeIframe(obj) {
             ctx.roundRect(-4 * sc, 0, 8 * sc, 26 * sc, 4 * sc);
             ctx.fill();
 
-            // Red Hardcover Organic Chemistry Book in left hand
             ctx.fillStyle = "#7f1d1d";
             ctx.strokeStyle = "#fbbf24";
             ctx.lineWidth = 1.2 * sc;
@@ -1927,7 +2289,7 @@ function resizeIframe(obj) {
             ctx.stroke();
             ctx.restore();
 
-            // 3. Professor's Tailored White Lab Coat with Dynamic Walking Sway
+            // Tailored White Professor Lab Coat
             const coatSway = this.isWalking ? Math.sin(t) * 3.5 * sc : 0;
             const coatGrad = ctx.createLinearGradient(baseX - 15 * sc, baseY - 84 * sc, baseX + 15 * sc, baseY - 24 * sc);
             coatGrad.addColorStop(0, "#ffffff");
@@ -1942,11 +2304,9 @@ function resizeIframe(obj) {
             ctx.closePath();
             ctx.fill();
 
-            // Tweed Waistcoat, Gold Pocket Watch Chain & Silk Tie
             ctx.fillStyle = "#334155";
             ctx.fillRect(baseX - 4.5 * sc, baseY - 82 * sc, 9 * sc, 36 * sc);
 
-            // Gold Pocket Watch Chain
             ctx.strokeStyle = "#fbbf24";
             ctx.lineWidth = 1.1 * sc;
             ctx.beginPath();
@@ -1954,7 +2314,6 @@ function resizeIframe(obj) {
             ctx.quadraticCurveTo(baseX, baseY - 49 * sc, baseX + 4 * sc, baseY - 54 * sc);
             ctx.stroke();
 
-            // Crimson Academic Tie
             ctx.fillStyle = "#dc2626";
             ctx.beginPath();
             ctx.moveTo(baseX - 2.2 * sc, baseY - 82 * sc);
@@ -1965,7 +2324,6 @@ function resizeIframe(obj) {
             ctx.closePath();
             ctx.fill();
 
-            // Breast Pocket with Pens
             ctx.fillStyle = "#e2e8f0";
             ctx.strokeStyle = "#94a3b8";
             ctx.lineWidth = 1 * sc;
@@ -1976,7 +2334,7 @@ function resizeIframe(obj) {
             ctx.fillStyle = "#3b82f6";
             ctx.fillRect(baseX + 8.5 * sc, baseY - 73 * sc, 1.5 * sc, 3 * sc);
 
-            // 4. Professor's Head, Wavy Silver Einstein Hair, Beard & Glinting Gold Spectacles
+            // Professor Head
             ctx.save();
             ctx.translate(baseX, baseY - 97 * sc);
             if (this.usingChalk || this.usingEraser || this.usingPointer) {
@@ -1987,26 +2345,22 @@ function resizeIframe(obj) {
                 ctx.rotate(0.08 * this.facing);
             }
 
-            // Back Silver Hair Tufts
             ctx.fillStyle = "#f1f5f9";
             ctx.beginPath();
             ctx.arc(-9 * this.facing * sc, -4 * sc, 7 * sc, 0, Math.PI * 2);
             ctx.arc(-11 * this.facing * sc, 2 * sc, 6 * sc, 0, Math.PI * 2);
             ctx.fill();
 
-            // Face
             ctx.fillStyle = "#fed7aa";
             ctx.beginPath();
             ctx.arc(0, 0, 12.8 * sc, 0, Math.PI * 2);
             ctx.fill();
 
-            // Distinguished Silver-White Professor Hair Dome
             ctx.fillStyle = "#f8fafc";
             ctx.beginPath();
             ctx.arc(-3 * this.facing * sc, -3 * sc, 13.2 * sc, Math.PI * 0.72, Math.PI * 1.98);
             ctx.fill();
 
-            // Expressive Eyebrow
             ctx.strokeStyle = "#cbd5e1";
             ctx.lineWidth = 2 * sc;
             ctx.beginPath();
@@ -2015,13 +2369,11 @@ function resizeIframe(obj) {
             ctx.lineTo(9 * this.facing * sc, -5.5 * sc + browLift);
             ctx.stroke();
 
-            // Full Neat Beard & Mustache
             ctx.fillStyle = "#e2e8f0";
             ctx.beginPath();
             ctx.arc(4 * this.facing * sc, 5.5 * sc, 7.5 * sc, 0, Math.PI);
             ctx.fill();
 
-            // Gold-Rimmed Professor Glasses with Lens Glint
             ctx.strokeStyle = "#fbbf24";
             ctx.lineWidth = 1.6 * sc;
             ctx.fillStyle = "rgba(255, 255, 255, 0.28)";
@@ -2034,7 +2386,6 @@ function resizeIframe(obj) {
             ctx.lineTo(-4 * this.facing * sc, -2 * sc);
             ctx.stroke();
 
-            // Blinking Pupil inside Glasses
             const isBlinking = (Math.floor(now / 180) % 22 === 0);
             ctx.fillStyle = "#0f172a";
             if (!isBlinking) {
@@ -2044,7 +2395,7 @@ function resizeIframe(obj) {
             }
             ctx.restore();
 
-            // 5. Right Arm (2-Bone Inverse Kinematics for Chalk, Beard-Stroking, Pointer Stick or Eraser)
+            // Right Arm Inverse Kinematics
             const shoulderX = baseX + 5 * this.facing * sc;
             const shoulderY = baseY - 78 * sc;
 
@@ -2052,14 +2403,12 @@ function resizeIframe(obj) {
             let wristY = shoulderY + 24 * sc;
 
             if (this.isThinking) {
-                // Stroking his beard thoughtfully!
                 wristX = baseX + 8 * this.facing * sc;
-                wristY = baseY - 88 * sc + Math.sin(now * 0.015) * 2.5 * sc;
+                wristY = baseY - 94 * sc + Math.sin(now * 0.018) * 2 * sc; // Adjusting glasses / stroking beard
             } else if (this.usingChalk || this.usingEraser) {
                 wristX = this.handTarget.x;
                 wristY = this.handTarget.y;
             } else if (this.usingPointer) {
-                // Hold the wooden pointer stick aimed toward the target molecule
                 const angleToTarget = Math.atan2(this.handTarget.y - shoulderY, this.handTarget.x - shoulderX);
                 wristX = shoulderX + Math.cos(angleToTarget) * 28 * sc;
                 wristY = shoulderY + Math.sin(angleToTarget) * 28 * sc;
@@ -2090,13 +2439,11 @@ function resizeIframe(obj) {
             ctx.lineTo(wristX, wristY);
             ctx.stroke();
 
-            // Hand
             ctx.fillStyle = "#fed7aa";
             ctx.beginPath();
             ctx.arc(wristX, wristY, 4.3 * sc, 0, Math.PI * 2);
             ctx.fill();
 
-            // Tool in Right Hand: Colored Chalk, Wooden Lecture Pointer, or Felt Eraser
             if (this.usingChalk) {
                 ctx.save();
                 ctx.translate(wristX, wristY);
@@ -2112,10 +2459,9 @@ function resizeIframe(obj) {
                 ctx.moveTo(wristX, wristY);
                 ctx.lineTo(this.handTarget.x, this.handTarget.y);
                 ctx.stroke();
-                // Red rubber pointer tip
                 ctx.fillStyle = "#ef4444";
                 ctx.beginPath();
-                ctx.arc(this.handTarget.x, this.handTarget.y, 2.8 * sc, 0, Math.PI * 2);
+                ctx.arc(this.handTarget.x, this.handTarget.y, 3 * sc, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.restore();
             } else if (this.usingEraser) {
@@ -2136,7 +2482,7 @@ function resizeIframe(obj) {
 
     function animateChalkboard(now) {
         requestAnimationFrame(animateChalkboard);
-        if (!isVisible || document.hidden) {
+        if (!isVisible || document.hidden || userInteractingWithIframe) {
             lastTime = now;
             return;
         }
@@ -2144,17 +2490,14 @@ function resizeIframe(obj) {
         const dt = Math.min((now - lastTime) / 16.667, 2.5);
         lastTime = now;
 
-        // 1. Draw Slate Blackboard
         if (boardBuffer) {
             ctx.drawImage(boardBuffer, 0, 0, cw, ch);
         }
 
-        // 2. Draw Live Lab Bench Apparatus (Bunsen Burner + Test Tubes)
         drawLabBenchApparatus(ctx, now);
 
         const activeSlot = boardSlots[slotInBatch];
 
-        // 3. Professor Lecture State Machine
         if (phase === 'WALKING' && activeSlot) {
             professor.usingChalk = false;
             professor.usingEraser = false;
@@ -2170,10 +2513,9 @@ function resizeIframe(obj) {
             }
 
         } else if (phase === 'THINKING' && activeSlot) {
-            // Brief beard-stroking contemplation before drawing the molecule
             professor.isThinking = true;
             pauseTimer += dt;
-            if (pauseTimer > 20) {
+            if (pauseTimer > 18) {
                 professor.isThinking = false;
                 phase = 'DRAWING_MOL';
                 activeSlot.drawnStrokes = 0;
@@ -2187,7 +2529,7 @@ function resizeIframe(obj) {
 
             if (st) {
                 professor.activeChalkColor = st.color || comp.chalkColor;
-                const speed = (st.type === 'line' || st.type === 'circle') ? 0.052 : 0.072;
+                const speed = (st.type === 'line' || st.type === 'doubleLine' || st.type === 'circle') ? 0.056 : 0.078;
                 activeSlot.currentStrokeProg += speed * dt;
 
                 const tip = getActiveChalkTarget(activeSlot, scale);
@@ -2210,7 +2552,7 @@ function resizeIframe(obj) {
         } else if (phase === 'WRITING_NAME' && activeSlot) {
             professor.usingChalk = true;
             professor.activeChalkColor = "#ffffff";
-            activeSlot.labelProg = Math.min(1, activeSlot.labelProg + 0.024 * dt);
+            activeSlot.labelProg = Math.min(1, activeSlot.labelProg + 0.026 * dt);
 
             const tip = getActiveChalkTarget(activeSlot, scale);
             professor.handTarget = tip;
@@ -2228,7 +2570,7 @@ function resizeIframe(obj) {
 
         } else if (phase === 'NEXT_PAUSE') {
             pauseTimer += dt;
-            if (pauseTimer > 22) {
+            if (pauseTimer > 18) {
                 slotInBatch++;
                 if (slotInBatch >= PER_BATCH) {
                     phase = 'LECTURING';
@@ -2240,7 +2582,6 @@ function resizeIframe(obj) {
             }
 
         } else if (phase === 'LECTURING') {
-            // Professor uses his wooden lecture pointer to point out key features on the completed board!
             professor.usingChalk = false;
             professor.usingEraser = false;
             professor.usingPointer = true;
@@ -2256,7 +2597,7 @@ function resizeIframe(obj) {
             if (pauseTimer > 95 && lectureIdx > 1) {
                 lectureIdx -= 2;
                 pauseTimer = 0;
-            } else if (pauseTimer > 130) {
+            } else if (pauseTimer > 135) {
                 professor.usingPointer = false;
                 phase = 'ERASING';
                 eraseSweepX = cw;
@@ -2290,28 +2631,27 @@ function resizeIframe(obj) {
             }
         }
 
-        // 4. Render All Drawn Chalk Molecules, Hybridization Notes & Hover Highlights
+        // Draw All Chalkboard Molecules & Labels
         boardSlots.forEach((s, idx) => {
             if (s.erased) return;
             const comp = s.compound;
 
-            // Interactive Hover Halo when user hovers over a drawn molecule
-            if (hoveredSlot === s) {
+            if (hoveredSlot === s || (phase === 'LECTURING' && boardSlots[lectureIdx] === s)) {
                 ctx.save();
-                ctx.strokeStyle = "rgba(0, 255, 204, 0.55)";
-                ctx.fillStyle = "rgba(0, 255, 204, 0.08)";
+                ctx.strokeStyle = hoveredSlot === s ? "rgba(0, 255, 204, 0.65)" : "rgba(251, 191, 36, 0.45)";
+                ctx.fillStyle = hoveredSlot === s ? "rgba(0, 255, 204, 0.08)" : "rgba(251, 191, 36, 0.05)";
                 ctx.lineWidth = 1.5 * scale;
                 ctx.setLineDash([4 * scale, 4 * scale]);
                 ctx.beginPath();
-                ctx.arc(s.x, s.y, 48 * scale, 0, Math.PI * 2);
+                ctx.arc(s.x, s.y, 50 * scale, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.stroke();
 
                 ctx.setLineDash([]);
-                ctx.font = `600 ${Math.round(10 * scale)}px 'Space Grotesk', sans-serif`;
-                ctx.fillStyle = "#00ffcc";
+                ctx.font = `600 ${Math.round(9.5 * scale)}px 'Space Grotesk', sans-serif`;
+                ctx.fillStyle = hoveredSlot === s ? "#00ffcc" : "#fde047";
                 ctx.textAlign = "center";
-                ctx.fillText("🔍 Click for PubChem 2D", s.x, s.y - 54 * scale);
+                ctx.fillText(hoveredSlot === s ? "🔍 Click for PubChem 2D" : `🎓 ${comp.lectureTip.slice(0, 42)}...`, s.x, s.y - 54 * scale);
                 ctx.restore();
             }
 
@@ -2325,42 +2665,40 @@ function resizeIframe(obj) {
 
             if (s.labelProg > 0) {
                 ctx.save();
-                const clipW = 145 * scale * s.labelProg;
+                const clipW = 150 * scale * s.labelProg;
                 ctx.beginPath();
-                ctx.rect(s.x - 72.5 * scale, s.y + 40 * scale, clipW, 56 * scale);
+                ctx.rect(s.x - 75 * scale, s.y + 42 * scale, clipW, 56 * scale);
                 ctx.clip();
 
                 ctx.strokeStyle = "rgba(255, 255, 255, 0.35)";
                 ctx.lineWidth = 1.2 * scale;
                 ctx.beginPath();
-                ctx.moveTo(s.x - 42 * scale, s.y + 45 * scale);
-                ctx.lineTo(s.x + 42 * scale, s.y + 45 * scale);
+                ctx.moveTo(s.x - 42 * scale, s.y + 47 * scale);
+                ctx.lineTo(s.x + 42 * scale, s.y + 47 * scale);
                 ctx.stroke();
 
                 ctx.font = `700 ${Math.round(12.5 * scale)}px 'Space Grotesk', sans-serif`;
                 ctx.fillStyle = "#ffffff";
                 ctx.textAlign = "center";
-                ctx.fillText(comp.name, s.x, s.y + 60 * scale);
+                ctx.fillText(comp.name, s.x, s.y + 61 * scale);
 
-                ctx.font = `600 ${Math.round(11 * scale)}px 'Space Grotesk', sans-serif`;
+                ctx.font = `600 ${Math.round(10.8 * scale)}px 'Space Grotesk', sans-serif`;
                 ctx.fillStyle = comp.chalkColor;
-                ctx.fillText(`(${comp.formula})`, s.x, s.y + 74 * scale);
+                ctx.fillText(`(${comp.formula})`, s.x, s.y + 75 * scale);
 
                 if (comp.note) {
-                    ctx.font = `500 ${Math.round(9.5 * scale)}px 'JetBrains Mono', monospace`;
-                    ctx.fillStyle = "rgba(253, 224, 71, 0.85)";
-                    ctx.fillText(comp.note, s.x, s.y + 87 * scale);
+                    ctx.font = `500 ${Math.round(9.2 * scale)}px 'JetBrains Mono', monospace`;
+                    ctx.fillStyle = "rgba(253, 224, 71, 0.88)";
+                    ctx.fillText(comp.note, s.x, s.y + 88 * scale);
                 }
 
                 ctx.restore();
             }
         });
 
-        // 5. Update & Draw the Chemistry Professor
         professor.update(dt);
         professor.draw(ctx, now);
 
-        // 6. Update & Draw Falling Chalk Dust Particles
         for (let i = chalkDust.length - 1; i >= 0; i--) {
             const p = chalkDust[i];
             p.x += p.vx * dt;
@@ -2408,18 +2746,25 @@ function showProactiveBubble(htmlText, duration = 4200) {
     hudTimeout = setTimeout(() => bubble.classList.remove('show'), duration);
 }
 
+let scrollTicking = false;
 window.addEventListener('scroll', () => {
-    let cur = '';
-    document.querySelectorAll('#aboutme,#chemArenaSection,#Projects,#education,#gallery,#more,#contact').forEach(s => {
-        if (pageYOffset >= s.offsetTop - 280) cur = s.id;
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(() => {
+        let cur = '';
+        const sy = window.pageYOffset;
+        document.querySelectorAll('#aboutme,#chemArenaSection,#Projects,#education,#gallery,#more,#contact').forEach(s => {
+            if (sy >= s.offsetTop - 280) cur = s.id;
+        });
+        document.querySelectorAll('.top-nav a').forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href').includes(cur) && !!cur);
+        });
+        if (cur && cur !== lastHudSection && SECTION_HUD_TIPS[cur]) {
+            lastHudSection = cur;
+            showProactiveBubble(SECTION_HUD_TIPS[cur], 3800);
+        }
+        scrollTicking = false;
     });
-    document.querySelectorAll('.top-nav a').forEach(a => {
-        a.classList.toggle('active', a.getAttribute('href').includes(cur) && !!cur);
-    });
-    if (cur && cur !== lastHudSection && SECTION_HUD_TIPS[cur]) {
-        lastHudSection = cur;
-        showProactiveBubble(SECTION_HUD_TIPS[cur], 3800);
-    }
 }, { passive: true });
 
 setTimeout(() => {
@@ -3148,7 +3493,7 @@ async function fetchPubChemCompound(userText) {
         setBotMood('mood-cyber', 2600);
         return `<span class="t-wiki-badge t-chem-badge">🔬 NIH PubChem CID #${prop.CID} · 2D Structure</span><br>` +
                `**${esc(query.toUpperCase())}** (${prettyFormula})` +
-               `<div class="t-pubchem-img-wrap"><img class="t-pubchem-img" src="${imgUrl}" alt="2D Chemical Structure of ${esc(query)}" loading="lazy" /></div>` +
+               `<div class="t-pubchem-img-wrap"><img class="t-pubchem-img" src="${imgUrl}" alt="2D Chemical Structure of ${esc(query)}" loading="eager" /></div>` +
                `<div class="t-mini-card">` +
                `<div class="t-mini-card-title">Molecular Weight: ${prop.MolecularWeight} g/mol</div>` +
                `<div class="t-mini-card-sub">• **Molecular Formula:** ${prettyFormula}<br>` +
@@ -3539,20 +3884,23 @@ function esc(t) {
     return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
 }
 
-// =========================================================
-// 5. SMOOTH HARDWARE-ACCELERATED MOUSE TRACKING FOR PROF. TORA
-// =========================================================
+// =========================================================================
+// 5. SMOOTH HARDWARE-ACCELERATED MOUSE & TOUCH TRACKING FOR PROF. TORA
+// =========================================================================
 const chutiHead = document.getElementById('chuti-head');
 const chutiEyes = document.getElementById('chuti-eyes');
-let cx=0, cy=0, tx=0, ty=0, rx=window.innerWidth/2, ry=window.innerHeight/2;
+let cx = 0, cy = 0, tx = 0, ty = 0, rx = window.innerWidth / 2, ry = window.innerHeight / 2;
 
-function updateMouse(x, y) {
+function updatePointer(x, y) {
     rx = x; ry = y;
     tx = ((x / window.innerWidth)  - 0.5) * 2;
     ty = ((y / window.innerHeight) - 0.5) * 2;
 }
 
-document.addEventListener('mousemove', e => updateMouse(e.clientX, e.clientY), { passive: true });
+document.addEventListener('mousemove', e => updatePointer(e.clientX, e.clientY), { passive: true });
+document.addEventListener('touchstart', e => {
+    if (e.touches && e.touches[0]) updatePointer(e.touches[0].clientX, e.touches[0].clientY);
+}, { passive: true });
 
 document.querySelectorAll('.Projects-iframe').forEach(f => {
     f.addEventListener('load', () => {
@@ -3560,23 +3908,28 @@ document.querySelectorAll('.Projects-iframe').forEach(f => {
         try {
             f.contentWindow.document.addEventListener('mousemove', e => {
                 const r = f.getBoundingClientRect();
-                updateMouse(e.clientX + r.left, e.clientY + r.top);
+                updatePointer(e.clientX + r.left, e.clientY + r.top);
             }, { passive: true });
         } catch(_) {}
     });
 });
 
 function animateChuti() {
-    if (!document.hidden) {
-        const r    = chutiBot.getBoundingClientRect();
-        const dist = Math.hypot(rx - (r.left + r.width/2), ry - (r.top + r.height/2));
-        chutiBot.classList.toggle('tora-active', dist < 170);
+    if (!document.hidden && !userInteractingWithIframe) {
+        const ddx = tx - cx;
+        const ddy = ty - cy;
+        if (Math.abs(ddx) > 0.001 || Math.abs(ddy) > 0.001) {
+            cx += ddx * 0.12;
+            cy += ddy * 0.12;
 
-        cx += (tx - cx) * 0.1;
-        cy += (ty - cy) * 0.1;
+            const r = chutiBot.getBoundingClientRect();
+            const dist = Math.hypot(rx - (r.left + r.width / 2), ry - (r.top + r.height / 2));
+            chutiBot.classList.toggle('tora-active', dist < 175);
 
-        chutiHead.style.transform = `translate3d(${cx*8.5}px,${cy*5.5}px,0) rotate(${cx*14}deg)`;
-        chutiEyes.style.transform = `translate3d(${cx*9.5}px,${cy*4.5}px,0)`;
+            // Subtle, cohesive head tilt so the head always stays connected to the chubby body
+            chutiHead.style.transform = `translate3d(${(cx * 4.5).toFixed(2)}px, ${(cy * 2.5).toFixed(2)}px, 0) rotate(${(cx * 8).toFixed(2)}deg)`;
+            chutiEyes.style.transform = `translate3d(${(cx * 7.5).toFixed(2)}px, ${(cy * 3.8).toFixed(2)}px, 0)`;
+        }
     }
     requestAnimationFrame(animateChuti);
 }
